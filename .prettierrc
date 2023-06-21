@@ -1,10 +1,10 @@
 {
-  "printWidth": 180, // 프린터가 래핑할 줄 길이를 지정
-  "tabWidth": 2, // 들여쓰기 수준당 공백 수를 지정
-  "useTabs": false, // 공백 대신 탭으로 줄을 들여쓰기
-  "semi": true, // 문의 끝에 세미콜론을 추가
-  "singleQuote": true, // 작은따옴표 사용
-  "trailingComma": "all", // 모든 곳에 후행 쉼표
-  "bracketSpacing": true, // 객체 리터럴에서 대괄호 사이에 공백 넣기
-  "arrowParens": "always" // 화살표 함수 매개변수 주위에 항상 괄호 포함
+  "printWidth": 180,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "arrowParens": "always"
 }

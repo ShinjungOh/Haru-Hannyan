@@ -1,0 +1,98 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-refresh",
+    "react-hooks",
+    "@typescript-eslint",
+    "unused-imports"
+  ],
+  "rules": {
+    "import/extensions": [ // 파일 확장자 생략 가능
+      "off"
+    ],
+    "import/prefer-default-export": "off", // 기본 내보내기 선호
+    "no-plusplus": "off", // 단항 연산자 ++ 및 --
+    "semi": [
+      "error",
+      "always"
+    ],
+    "react/jsx-filename-extension": [ // JSX를 포함할 수 있는 파일 확장자 제한
+      "error",
+      {
+        "extensions": [
+          ".tsx",
+          ".jsx"
+        ]
+      }
+    ],
+    "import/no-extraneous-dependencies": [ // 외부 패키지 사용 금지
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/order": [ // import 순서로 규칙을 적용
+      "error",
+      {
+        "groups": [
+          "internal",
+          "external"
+        ]
+      }
+    ],
+    "@typescript-eslint/type-annotation-spacing": [ // type annotation 주위에 일관된 간격이 필요
+      "error"
+    ],
+    "@typescript-eslint/method-signature-style": [ // 특정 메서드 syntax 사용해서 시행
+      "error"
+    ],
+    "unused-imports/no-unused-imports": [ // 사용하지 않는 es6 모듈 import를 찾아 제거
+      "error"
+    ],
+    "react/jsx-indent-props": [ // JSX에서 props 들여쓰기 유효성 검사
+      "error",
+      "first"
+    ],
+    "react/jsx-curly-newline": "off", // jsx curly 내에서 일관된 줄 바꿈 적용
+    "react/jsx-one-expression-per-line": "off", // JSX에서 한 줄에 하나의 표현식으로 제한
+    "react/jsx-props-no-spreading": "off", // JSX props 확산 방지
+    "react/jsx-wrap-multilines": "off", // 여러 줄 JSX 주변의 누락된 괄호 방지
+    "no-unused-vars": "off", // 사용하지 않는 변수를 허용하지 않음
+    "no-proto": "off", // `__proto__` 속성 사용 금지
+    "camelcase": "off", // 카멜 케이스 적용
+    "class-methods-use-this": "off", // 클래스가 this를 사용하도록 강제
+    "jsx-a11y/label-has-associated-control": "off",
+    "max-classes-per-file": "off", // 파일당 최대 클래스 수 적용
+    "max-len": "off", // 최대 줄 길이 적용
+    "no-param-reassign": "off", // 매개변수 재할당 금지
+    "no-shadow": "off", // 외부 범위에서 선언된 변수를 가리는 변수 선언을 허용하지 않음
+    "no-undef": "off", // `/*global */` 주석에 언급되지 않는 한, 선언되지 않은 변수의 사용을 허용하지 않음
+    "no-underscore-dangle": "off", // 식별자에 밑줄을 허용하지 않음
+    "no-use-before-define": "off", // 변수가 정의되기 전에 사용 금지
+    "no-useless-escape": "off", // 불필요 escape 문자 금지
+    "react/no-array-index-key": "off", // 키에서 배열 인덱스 사용 방지
+    "react/no-unused-prop-types": "off", // 사용하지 않는 props 타입 정의 방지
+    "react/require-default-props": "off", // 필수가 아닌 모든 props에 defaultProps 정의를 적용
+    "react/function-component-definition": "off", // 함수 컴포넌트의 정의 방식 표준화
+    "react/react-in-jsx-scope": "off", // JSX 사용 시 React 누락 방지
+    "no-console": "off", // 콘솔 사용 금지
+    "no-alert": "off", // alert, confirm, prompt 사용 금지
+    "import/no-unresolved": "off", //  import로 가져온 파일/모듈이 로컬 파일 시스템의 모듈로 확인할 수 있는지 확인
+    "jsx-a11y/click-events-have-key-events": "off", // onClick에는 onKeyUp, onKeyDown, onKeyPress 중 하나 이상이 수반됨
+    "jsx-a11y/no-noninteractive-element-interactions": "off" // 비대화형 요소에 대한 상호작용 경고
+  }
+}

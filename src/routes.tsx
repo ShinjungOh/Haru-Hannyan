@@ -1,3 +1,4 @@
+import { PATH } from './lib/const/path';
 import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
@@ -8,9 +9,9 @@ const routes = [
   {
     element: <Layout />,
     children: [
-      { path: '/', element: <HomePage /> },
-      { path: '/signin', element: <SigninPage /> },
-      { path: '/signup', element: <SignupPage /> },
+      { path: PATH.HOME, element: <HomePage /> },
+      { path: PATH.SIGN_IN, element: <SigninPage /> },
+      { path: PATH.SIGN_UP, element: <SignupPage /> },
     ],
   },
 ];

@@ -2,6 +2,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 
 import routes from './routes';
+import { PATH } from './lib/const/path';
 
 const context = describe;
 
@@ -13,7 +14,7 @@ describe('App', () => {
 
   context('When the current page is "/"', () => {
     it('renders the home page', () => {
-      renderRouter('/');
+      renderRouter(PATH.HOME);
 
       screen.getByText(/home/);
     });

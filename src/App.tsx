@@ -5,8 +5,6 @@ import './App.css';
 
 const router = createBrowserRouter(routes);
 
-function App() {
+export default function App() {
   return <RouterProvider router={router} />;
 }
-
-export default App;

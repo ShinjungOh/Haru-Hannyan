@@ -1,10 +1,24 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import routes from './routes';
 import './App.css';
+import routes from './routes';
+import { useStore } from './lib/store/store';
 
 const router = createBrowserRouter(routes);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  const { count, increase, decrease } = useStore;
+
+  return (
+    <>
+      <RouterProvider router={router} />
+      <button type="button" onClick={increase}>
+        +
+      </button>
+      <div>count : {count}</div>
+      <button type="button" onClick={decrease}>
+        -
+      </button>
+    </>
+  );
 }

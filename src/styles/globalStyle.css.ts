@@ -1,7 +1,6 @@
-import { Global } from '@emotion/react';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
-const style = styled(`css`)`
+const globalStyle = css`
   html {
     box-sizing: border-box;
   }
@@ -158,8 +157,4 @@ const style = styled(`css`)`
   }
 `;
 
-const GlobalStyle = () => {
-  <Global styles={style} />;
-};
-
-export default GlobalStyle;
+export default globalStyle;

@@ -1,3 +1,9 @@
+import Menu from '../ui/components/layout/Menu';
+
 export default function HomePage() {
-  return <div>home page</div>;
+  return (
+    <div>
+      <Menu />
+    </div>
+  );
 }

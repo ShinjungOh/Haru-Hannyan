@@ -43,12 +43,7 @@
         ]
       }
     ],
-    "import/no-extraneous-dependencies": [ // 외부 패키지 사용 금지
-      "error",
-      {
-        "devDependencies": true
-      }
-    ],
+    "import/no-extraneous-dependencies": "off",
     "import/order": [ // import 순서로 규칙을 적용
       "error",
       {

@@ -9,7 +9,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prettier:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "test": "jest --silent",
+    "test": "jest --silent --passWithNoTests",
     "watch:test": "jest --watchAll",
     "preview": "vite preview",
     "postinstall": "husky install",

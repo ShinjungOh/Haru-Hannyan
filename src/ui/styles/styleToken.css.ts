@@ -16,9 +16,11 @@ const COLOR_PROPERTIES = {
 };
 
 const headerHeight = 80;
+const menuHeight = 80;
 const SIZE_PROPERTIES = {
   headerHeight: `${headerHeight}px`,
-  bodyHeight: `calc(100vh - ${headerHeight}px)`,
+  bodyHeight: `calc(100vh - ${headerHeight + menuHeight}px)`,
+  menuHeight: `${menuHeight}px`,
 };
 
 const styleToken = {

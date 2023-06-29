@@ -10,13 +10,15 @@ export default function Layout({ children }: Props) {
 }
 
 const Container = styled.div`
-  width: 100vw;
-  max-width: 440px;
-  height: 100vh;
-  max-height: 920px;
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  max-height: 920px;
   background-color: #ffffff;
 `;

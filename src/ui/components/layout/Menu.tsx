@@ -1,32 +1,37 @@
 import styled from '@emotion/styled';
-
-import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import styleToken from '../../styles/styleToken.css';
 import { PATH } from '../../../lib/const/path';
 
-function MenuItem({ imageSrc, path }: { imageSrc: string; path: string }) {
-  const navigate = useNavigate();
+import MenuItem from './MenuItem';
 
-  const handleChangePage = () => {
-    navigate(path);
+const menuIcon = {
+  [PATH.CALENDAR]: { active: '/images/icon/menu/calendar-active.svg', inactive: '/images/icon/menu/calendar.svg' },
+  [PATH.TIMELINE]: { active: '/images/icon/menu/timeline-active.svg', inactive: '/images/icon/menu/timeline.svg' },
+  [PATH.REPORT]: { active: '/images/icon/menu/report-active.svg', inactive: '/images/icon/menu/report.svg' },
+  [PATH.SETTING]: { active: '/images/icon/menu/setting-active.svg', inactive: '/images/icon/menu/setting.svg' },
+  feelCat: '/images/icon/menu/feel-cat.svg',
+};
+
+export default function Menu() {
+  const location = useLocation();
+
+  const getMenuIcon = (path: 'calendar' | 'timeline' | 'report' | 'setting') => {
+    const pathUpper = path.toUpperCase();
+    if (location.pathname === `/${path}`) {
+      return menuIcon[PATH[pathUpper]].active;
+    }
+    return menuIcon[PATH[pathUpper]].inactive;
   };
 
   return (
-    <Icon onClick={handleChangePage}>
-      <img src={imageSrc} alt={path} style={{ width: 32 }} />
-    </Icon>
-  );
-}
-
-export default function Menu() {
-  return (
     <Container>
-      <MenuItem imageSrc={window.location.pathname === '/calendar' ? '/images/icon/menu/calendar-active.svg' : '/images/icon/menu/calendar.svg'} path={PATH.CALENDAR} />
-      <MenuItem imageSrc={window.location.pathname === '/timeline' ? '/images/icon/menu/timeline-active.svg' : '/images/icon/menu/timeline.svg'} path={PATH.TIMELINE} />
-      <MenuItem imageSrc={window.location.pathname === '/report' ? '/images/icon/menu/report-active.svg' : '/images/icon/menu/report.svg'} path={PATH.REPORT} />
-      <MenuItem imageSrc={window.location.pathname === '/setting' ? '/images/icon/menu/setting-active.svg' : '/images/icon/menu/setting.svg'} path={PATH.SETTING} />
+      <MenuItem imageSrc={getMenuIcon('calendar')} path={PATH.CALENDAR} />
+      <MenuItem imageSrc={getMenuIcon('timeline')} path={PATH.TIMELINE} />
+      <MenuItem imageSrc={getMenuIcon('report')} path={PATH.REPORT} />
+      <MenuItem imageSrc={getMenuIcon('setting')} path={PATH.SETTING} />
       <FeelCatIcon>
-        <img src="/images/icon/menu/feel-cat.svg" alt="cat-icon" style={{ width: 58 }} />
+        <img src={menuIcon.feelCat} alt="cat-icon" style={{ width: 58 }} />
       </FeelCatIcon>
     </Container>
   );
@@ -39,19 +44,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   border-top: 1px solid ${styleToken.color.gray4};
-  background-color: ${styleToken.color.background};
+  background-color: ${styleToken.color.white};
   position: relative;
   top: 825px;
-`;
-
-const Icon = styled.div`
-  height: ${styleToken.size.headerHeight};
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  cursor: pointer;
 `;
 
 const FeelCatIcon = styled.div`
@@ -63,7 +58,7 @@ const FeelCatIcon = styled.div`
   justify-content: space-around;
   align-items: center;
   position: absolute;
-  bottom: 50px;
+  bottom: 53px;
   cursor: pointer;
   z-index: 1;
 `;

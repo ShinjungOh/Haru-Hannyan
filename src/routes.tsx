@@ -1,5 +1,5 @@
 import { PATH } from './lib/const/path';
-import Layout from './ui/components/Layout';
+import RouterLayout from './ui/components/RouterLayout';
 
 import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
@@ -11,7 +11,7 @@ import TimelinePage from './pages/TimelinePage';
 
 const routes = [
   {
-    element: <Layout />,
+    element: <RouterLayout />,
     children: [
       { path: PATH.HOME, element: <HomePage /> },
       { path: PATH.SIGN_IN, element: <SigninPage /> },

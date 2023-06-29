@@ -10,17 +10,17 @@ const menuIcon = {
   [PATH.TIMELINE]: { active: '/images/icon/menu/timeline-active.svg', inactive: '/images/icon/menu/timeline.svg' },
   [PATH.REPORT]: { active: '/images/icon/menu/report-active.svg', inactive: '/images/icon/menu/report.svg' },
   [PATH.SETTING]: { active: '/images/icon/menu/setting-active.svg', inactive: '/images/icon/menu/setting.svg' },
-  feelCat: '/images/icon/menu/feel-cat.svg',
 };
+
+const feelCatIcon = '/images/icon/menu/feel-cat.svg';
 
 export default function Menu() {
   const location = useLocation();
 
-  const getMenuIcon = (path: 'calendar' | 'timeline' | 'report' | 'setting') => {
-    const pathUpper = path.toUpperCase();
-    const menuIconKey = PATH[pathUpper];
+  const getMenuIcon = (iconKey: 'CALENDAR' | 'TIMELINE' | 'REPORT' | 'SETTING') => {
+    const menuIconKey = PATH[iconKey];
 
-    if (location.pathname === `/${path}`) {
+    if (location.pathname === `/${iconKey}`) {
       return menuIcon[menuIconKey].active;
     }
     return menuIcon[menuIconKey].inactive;
@@ -28,12 +28,12 @@ export default function Menu() {
 
   return (
     <Container>
-      <MenuItem imageSrc={getMenuIcon('calendar')} path={PATH.CALENDAR} />
-      <MenuItem imageSrc={getMenuIcon('timeline')} path={PATH.TIMELINE} />
-      <MenuItem imageSrc={getMenuIcon('report')} path={PATH.REPORT} />
-      <MenuItem imageSrc={getMenuIcon('setting')} path={PATH.SETTING} />
+      <MenuItem imageSrc={getMenuIcon('CALENDAR')} path={PATH.CALENDAR} />
+      <MenuItem imageSrc={getMenuIcon('TIMELINE')} path={PATH.TIMELINE} />
+      <MenuItem imageSrc={getMenuIcon('REPORT')} path={PATH.REPORT} />
+      <MenuItem imageSrc={getMenuIcon('SETTING')} path={PATH.SETTING} />
       <FeelCatIcon>
-        <img src={menuIcon.feelCat} alt="cat-icon" style={{ width: 58 }} />
+        <img src={feelCatIcon} alt="cat-icon" style={{ width: 58 }} />
       </FeelCatIcon>
     </Container>
   );

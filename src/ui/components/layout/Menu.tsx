@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
+import { PATH } from '@lib/const/path';
 import styleToken from '../../styles/styleToken.css';
-import { PATH } from '../../../lib/const/path';
 
 import MenuItem from './MenuItem';
 

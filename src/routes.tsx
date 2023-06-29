@@ -1,13 +1,13 @@
 import { PATH } from './lib/const/path';
 import RouterLayout from './ui/components/RouterLayout';
 
-import HomePage from './pages/HomePage';
-import SigninPage from './pages/SigninPage';
-import SignupPage from './pages/SignupPage';
-import CalendarPage from './pages/CalendarPage';
-import SettingPage from './pages/SettingPage';
-import ReportPage from './pages/ReportPage';
-import TimelinePage from './pages/TimelinePage';
+import HomePage from '@/pages/HomePage';
+import SigninPage from '@/pages/SigninPage';
+import SignupPage from '@/pages/SignupPage';
+import CalendarPage from '@/pages/CalendarPage';
+import TimelinePage from '@/pages/TimelinePage';
+import ReportPage from '@/pages/ReportPage';
+import SettingPage from '@/pages/SettingPage';
 
 const routes = [
   {

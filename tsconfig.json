@@ -25,6 +25,13 @@
     "noUnusedLocals": true, // 사용하지 않는 지역 변수 경고
     "noUnusedParameters": true, // 함수에서 사용하지 않는 매개변수 경고
     "noFallthroughCasesInSwitch": true, // switch문 break문 사용하지 않으면 경고
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@ui/*": ["./src/ui/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["**/node_modules"],

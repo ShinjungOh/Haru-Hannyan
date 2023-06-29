@@ -18,10 +18,12 @@ export default function Menu() {
 
   const getMenuIcon = (path: 'calendar' | 'timeline' | 'report' | 'setting') => {
     const pathUpper = path.toUpperCase();
+    const menuIconKey = PATH[pathUpper];
+
     if (location.pathname === `/${path}`) {
-      return menuIcon[PATH[pathUpper]].active;
+      return menuIcon[menuIconKey].active;
     }
-    return menuIcon[PATH[pathUpper]].inactive;
+    return menuIcon[menuIconKey].inactive;
   };
 
   return (
@@ -38,27 +40,28 @@ export default function Menu() {
 }
 
 const Container = styled.div`
-  height: ${styleToken.size.headerHeight};
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: ${styleToken.size.menuHeight};
   border-top: 1px solid ${styleToken.color.gray4};
   background-color: ${styleToken.color.white};
-  position: relative;
-  top: 825px;
 `;
 
 const FeelCatIcon = styled.div`
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 60px;
   height: 60px;
   padding: 5px 35px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  position: absolute;
-  bottom: 53px;
   cursor: pointer;
   z-index: 1;
 `;

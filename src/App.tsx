@@ -1,24 +1,17 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Global } from '@emotion/react';
 
-import './App.css';
+import globalStyle from '@ui/styles/globalStyle.css';
+import { Page } from '@ui/components/Layout/index';
 import routes from './routes';
-import { counterStore } from './lib/store/counterStore';
 
 const router = createBrowserRouter(routes);
 
 export default function App() {
-  const [count, increase, decrease] = counterStore((state) => [state.count, state.increase, state.decrease]);
-
   return (
-    <>
+    <Page>
       <RouterProvider router={router} />
-      <button type="button" onClick={increase}>
-        +
-      </button>
-      <div>count : {count}</div>
-      <button type="button" onClick={decrease}>
-        -
-      </button>
-    </>
+      <Global styles={globalStyle} />
+    </Page>
   );
 }

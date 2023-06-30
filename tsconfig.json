@@ -7,7 +7,7 @@
     "skipLibCheck": true, // d.ts 파일의 타입 검사 생략
     "useUnknownInCatchVariables": true, // try catch절에서 unknown 변수 유형 사용 가능
     "allowJs": true, // .js, .jsx 확장자 허용
-    "forceConsistentCasingInFileNames": true, // jsxImportSource 동일한 파일에 대해 일관되지 않은 참조 허용
+    "forceConsistentCasingInFileNames": false, // jsxImportSource 동일한 파일에 대해 일관되지 않은 참조 허용
     "esModuleInterop": true, // es module이 아니어도 import, export 쓸 수 있게 함
     "incremental": true, // 컴파일 결과물과 동일한 폴더에 .tsbuildinfo 파일이 생성
     "newLine": "lf", // 파일을 내보낼 때 줄바꿈의 끝을 unix로 지정
@@ -25,6 +25,12 @@
     "noUnusedLocals": true, // 사용하지 않는 지역 변수 경고
     "noUnusedParameters": true, // 함수에서 사용하지 않는 매개변수 경고
     "noFallthroughCasesInSwitch": true, // switch문 break문 사용하지 않으면 경고
+
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": ["./src/lib/*"],
+      "@ui/*": ["./src/ui/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["**/node_modules"],

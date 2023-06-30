@@ -2,7 +2,12 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import styleToken from '../../styles/styleToken.css';
 
-export default function MenuItem({ imageSrc, path }: { imageSrc: string; path: string }) {
+type MenuItemProps = {
+  imageSrc: string;
+  path: string;
+};
+
+export default function MenuItem({ imageSrc, path }: MenuItemProps) {
   const navigate = useNavigate();
 
   const handleChangePage = () => {

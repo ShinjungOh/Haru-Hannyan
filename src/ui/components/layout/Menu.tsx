@@ -33,7 +33,7 @@ export default function Menu() {
       <MenuItem imageSrc={getMenuIcon('REPORT')} path={PATH.REPORT} />
       <MenuItem imageSrc={getMenuIcon('SETTING')} path={PATH.SETTING} />
       <FeelCatIcon>
-        <img src={feelCatIcon} alt="cat-icon" style={{ width: 58 }} />
+        <img src={feelCatIcon} alt="cat-icon" />
       </FeelCatIcon>
     </Container>
   );
@@ -64,4 +64,8 @@ const FeelCatIcon = styled.div`
   padding: 5px 35px;
   cursor: pointer;
   z-index: 1;
+
+  & img {
+    width: 58px;
+  }
 `;

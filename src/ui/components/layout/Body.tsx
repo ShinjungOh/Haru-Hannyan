@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 import styleToken from '../../styles/styleToken.css';
 
-export default function Body({ children }: { children: React.ReactNode }) {
+export default function Body({ children }: PropsWithChildren) {
   return <Container>{children}</Container>;
 }
 

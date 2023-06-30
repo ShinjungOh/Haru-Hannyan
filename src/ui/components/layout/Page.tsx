@@ -1,12 +1,8 @@
 import styled from '@emotion/styled';
 
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export default function Page({ children }: Props) {
+export default function Page({ children }: PropsWithChildren) {
   return <Container>{children}</Container>;
 }
 

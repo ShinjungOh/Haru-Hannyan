@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 
 export default function Page({ children }: PropsWithChildren) {
   return <Container>{children}</Container>;

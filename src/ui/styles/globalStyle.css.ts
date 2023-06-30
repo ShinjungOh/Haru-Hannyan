@@ -144,8 +144,6 @@ const globalStyle = css`
   body {
     font-size: 1.6rem;
     line-height: 1;
-    background: ${(props) => props.theme.colors.background};
-    color: ${(props) => props.theme.colors.text};
   }
 
   :lang(ko) {

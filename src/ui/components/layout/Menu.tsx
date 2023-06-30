@@ -19,8 +19,9 @@ export default function Menu() {
 
   const getMenuIcon = (iconKey: 'CALENDAR' | 'TIMELINE' | 'REPORT' | 'SETTING') => {
     const menuIconKey = PATH[iconKey];
+    const pathName = location.pathname.toUpperCase();
 
-    if (location.pathname === `/${iconKey}`) {
+    if (pathName === `/${iconKey}`) {
       return menuIcon[menuIconKey].active;
     }
     return menuIcon[menuIconKey].inactive;

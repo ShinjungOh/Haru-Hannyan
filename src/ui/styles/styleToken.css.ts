@@ -1,11 +1,12 @@
 const COLOR_PROPERTIES = {
   background: '#FFFCF5',
-  border: '#cdd5df',
+  border: '#CDD5DF',
   primary: '#FAC94D',
   sub: '#C8E1FF',
   subActive: '#95C2F8',
   alert1: '#9EACF6',
   alert2: '#FF8282',
+  kakao: '#FEE500AB',
   black: '#000000',
   gray1: '#131313',
   gray2: '#707070',

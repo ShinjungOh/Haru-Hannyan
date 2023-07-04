@@ -1,15 +1,25 @@
 import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
+import { useNavigate } from 'react-router';
+import { PATH } from '@lib/const/path';
 
 export default function HomePage() {
+  const navigate = useNavigate();
+
+  const handlePageSignin = () => {
+    navigate(PATH.SIGN_IN);
+  };
+
   return (
     <Body>
       <Container>
         <img src="../../public/images/icon/menu/feel-cat.svg" alt="하루한냥" />
         <Title>하루한냥</Title>
         <Description>나만의 고양이를 모아보세요</Description>
-        <Button style={{ backgroundColor: styleTokenCss.color.sub }}>이메일로 로그인</Button>
+        <Button onClick={handlePageSignin} style={{ backgroundColor: styleTokenCss.color.sub }}>
+          이메일로 로그인
+        </Button>
         <Button style={{ backgroundColor: styleTokenCss.color.kakao }}>카카오로 로그인</Button>
       </Container>
     </Body>

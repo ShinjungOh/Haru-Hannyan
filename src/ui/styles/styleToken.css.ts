@@ -6,7 +6,7 @@ const COLOR_PROPERTIES = {
   subActive: '#95C2F8',
   alert1: '#9EACF6',
   alert2: '#FF8282',
-  kakao: '#FEE500AB',
+  kakao: '#FEE500',
   black: '#000000',
   gray1: '#131313',
   gray2: '#707070',

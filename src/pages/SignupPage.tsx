@@ -1,38 +1,147 @@
 import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
+import { ChangeEvent, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { PATH } from '@lib/const/path';
+import { User, UserValidation } from '@lib/types/user';
+import HomeHeader from '@ui/components/HomeHeader';
 
 export default function SignupPage() {
+  const [user, setUser] = useState<User>({
+    email: '',
+    password: '',
+    passwordCheck: '',
+    name: '',
+  });
+  const [userValidation, setUserValidation] = useState<UserValidation>({
+    email: false,
+    password: false,
+    passwordCheck: false,
+    name: false,
+  });
+  const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
+
+  const handlePageSignUp = () => {
+    alert('회원가입에 성공했습니다!');
+    navigate(PATH.CALENDAR);
+  };
+
+  const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    const getValidateUser = (name: 'email' | 'password' | 'passwordCheck' | 'name', value: string) => {
+      if (name === 'passwordCheck' && user.password === value) {
+        return true;
+      }
+
+      if (name === 'email' || name === 'password' || name === 'name') {
+        const regexp = {
+          email: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+          password: /^.{8,}$/,
+          name: /^.{2,}$/,
+        };
+
+        return regexp[name].test(value);
+      }
+
+      return false;
+    };
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+
+    setUserValidation({
+      ...userValidation,
+      [name]: getValidateUser(name as 'email' | 'password' | 'passwordCheck' | 'name', value),
+    });
+  };
+
+  const handleChangeCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
+    // alert(`e.target.checked>>${JSON.stringify(e.target.checked)}`);
+    console.log('e.target.checked', e.target.checked);
+    console.log('>>>>>>console.log');
+    setIsChecked(e.target.checked);
+  };
+
+  const isDisabledSubmit = useMemo(
+    () =>
+      !(
+        userValidation.email &&
+        userValidation.password &&
+        userValidation.passwordCheck &&
+        userValidation.name &&
+        isChecked
+      ),
+    [userValidation.email, userValidation.password, userValidation.passwordCheck, userValidation.name, isChecked],
+  );
+
   return (
     <Body>
       <Container>
-        <img src="/images/icon/back.png" alt="back" />
+        <HomeHeader />
         <Title>회원가입</Title>
         <InputContainer>
           <label htmlFor="email">이메일</label>
-          <Input type="email" id="email" name="email" placeholder="이메일을 입력해 주세요." />
-          <ErrorMessage>이메일 형식이 올바르지 않습니다.</ErrorMessage>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="이메일을 입력해 주세요."
+            onChange={handleChangeUser}
+          />
+          <ErrorMessage>
+            {user.email.length > 0 && !userValidation.email && '이메일 형식이 올바르지 않습니다.'}
+          </ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
-          <Input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요." />
-          <ErrorMessage>비밀번호 형식이 올바르지 않습니다.</ErrorMessage>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="비밀번호를 입력해 주세요."
+            onChange={handleChangeUser}
+          />
+          <ErrorMessage>
+            {user.password.length < 9 && !userValidation.password && '8글자 이상 입력해 주세요.'}
+          </ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="passwordCheck">비밀번호 확인</label>
-          <Input type="password" id="passwordCheck" name="password" placeholder="비밀번호를 다시 입력해 주세요." />
-          <ErrorMessage>{'  '}비밀번호가 일치하지 않습니다.</ErrorMessage>
+          <Input
+            type="password"
+            id="passwordCheck"
+            name="passwordCheck"
+            placeholder="비밀번호를 다시 입력해 주세요."
+            onChange={handleChangeUser}
+          />
+          <ErrorMessage>
+            {user.password.length < 9 && !userValidation.passwordCheck && '비밀번호가 일치하지 않습니다.'}
+          </ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="name">닉네임</label>
-          <Input type="text" id="name" name="name" placeholder="닉네임을 입력해 주세요." />
-          <ErrorMessage>{'  '}닉네임 형식이 올바르지 않습니다.</ErrorMessage>
+          <Input type="text" id="name" name="name" placeholder="닉네임을 입력해 주세요." onChange={handleChangeUser} />
+          <ErrorMessage>{user.name.length < 2 && '닉네임 형식이 올바르지 않습니다.'}</ErrorMessage>
         </InputContainer>
         <CheckBoxContainer>
-          <input type="checkbox" />
-          <CheckBox>[필수] 개인정보 수집 및 이용 동의</CheckBox>
+          <input
+            type="checkbox"
+            id="checkbox"
+            name="checkbox"
+            value="terms"
+            checked={isChecked}
+            onChange={handleChangeCheckBox}
+          />
+          <CheckBox htmlFor="checkbox">[필수] 개인정보 수집 및 이용 동의</CheckBox>
         </CheckBoxContainer>
-        <Button type="button">회원가입</Button>
+        <Button type="button" disabled={isDisabledSubmit} onClick={handlePageSignUp}>
+          회원가입
+        </Button>
       </Container>
     </Body>
   );
@@ -46,17 +155,9 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
-
-  img {
-    position: absolute;
-    top: 21px;
-    left: 21px;
-  }
 `;
 
 const Title = styled.h2`
-  position: relative;
-  top: 8%;
   width: 100%;
   height: 5%;
   display: flex;
@@ -70,8 +171,6 @@ const Title = styled.h2`
 `;
 
 const InputContainer = styled.div`
-  position: relative;
-  top: 8%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,14 +217,12 @@ const Input = styled.input`
 `;
 
 const CheckBoxContainer = styled.div`
-  position: relative;
-  top: 3%;
   width: 83%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 30px;
+  margin-bottom: 20px;
 
   input {
     width: 22px;
@@ -134,19 +231,16 @@ const CheckBoxContainer = styled.div`
   }
 `;
 
-const CheckBox = styled.h5`
+const CheckBox = styled.label`
   color: ${styleTokenCss.color.gray3};
   font-size: 15px;
-  font-weight: 600;
 `;
 
 const Button = styled.button`
-  position: relative;
-  top: 7%;
   width: 83%;
   height: 8%;
-  padding: 22px;
-  margin-bottom: 40px;
+  min-height: 65px;
+  margin-bottom: 60px;
   border-radius: 15px;
   border: none;
   background-color: ${styleTokenCss.color.subActive};
@@ -158,5 +252,6 @@ const Button = styled.button`
   &:disabled {
     background-color: ${styleTokenCss.color.gray5};
     color: ${styleTokenCss.color.white};
+    cursor: not-allowed;
   }
 `;

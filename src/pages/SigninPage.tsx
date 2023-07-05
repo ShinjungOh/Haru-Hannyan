@@ -1,26 +1,18 @@
 import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { ChangeEvent, useMemo, useState } from 'react';
-
-type User = {
-  email: string;
-  password: string;
-};
-
-type UserValidation = {
-  email: boolean;
-  password: boolean;
-};
+import { User, UserValidation } from '@lib/types/user';
+import HomeHeader from '@ui/components/HomeHeader';
 
 export default function SigninPage() {
-  const [user, setUSer] = useState<User>({
+  const [user, setUser] = useState<Pick<User, 'email' | 'password'>>({
     email: '',
     password: '',
   });
-  const [userValidation, setUserValidation] = useState<UserValidation>({
+  const [userValidation, setUserValidation] = useState<Pick<UserValidation, 'email' | 'password'>>({
     email: false,
     password: false,
   });
@@ -28,10 +20,6 @@ export default function SigninPage() {
 
   const handlePageSignup = () => {
     navigate(PATH.SIGN_UP);
-  };
-
-  const handlePageBack = () => {
-    navigate(-1);
   };
 
   const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +34,7 @@ export default function SigninPage() {
       return regexp[name].test(value);
     };
 
-    setUSer({
+    setUser({
       ...user,
       [name]: value,
     });
@@ -57,7 +45,10 @@ export default function SigninPage() {
     });
   };
 
-  const isValidate = useMemo(() => !(userValidation.email && userValidation.password), [userValidation.email, userValidation.password]);
+  const isValidate = useMemo(
+    () => !(userValidation.email && userValidation.password),
+    [userValidation.email, userValidation.password],
+  );
 
   const handleClickSignin = () => {
     if (!isValidate) {
@@ -71,15 +62,27 @@ export default function SigninPage() {
   return (
     <Body>
       <Container>
-        <img onClick={handlePageBack} src="/images/icon/back.png" alt="back" />
+        <HomeHeader />
         <Title>로그인</Title>
         <InputContainer>
           <label htmlFor="email">이메일</label>
-          <Input type="email" id="email" name="email" placeholder="이메일을 입력해 주세요." onChange={handleChangeUser} />
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="이메일을 입력해 주세요."
+            onChange={handleChangeUser}
+          />
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
-          <Input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요." onChange={handleChangeUser} />
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="비밀번호를 입력해 주세요."
+            onChange={handleChangeUser}
+          />
         </InputContainer>
         <Button type="button" onClick={handleClickSignin} disabled={isValidate}>
           로그인
@@ -97,20 +100,14 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  position: relative;
-
-  img {
-    position: absolute;
-    top: 21px;
-    left: 21px;
-  }
+  overflow-y: auto;
 `;
 
 const Title = styled.h2`
-  position: absolute;
-  top: 12%;
+  margin-top: 30px;
+  margin-bottom: 60px;
   color: ${styleTokenCss.color.gray2};
   font-size: 32px;
   font-weight: 600;
@@ -121,9 +118,9 @@ const InputContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 39px;
   width: 83%;
   height: 10.9%;
-  margin-bottom: 39px;
 
   label {
     width: 100%;
@@ -154,9 +151,9 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  position: relative;
   width: 83%;
   height: 8%;
+  min-height: 65px;
   border-radius: 15px;
   border: none;
   background-color: ${styleTokenCss.color.subActive};
@@ -168,11 +165,11 @@ const Button = styled.button`
   &:disabled {
     background-color: ${styleTokenCss.color.gray5};
     color: ${styleTokenCss.color.white};
+    cursor: not-allowed;
   }
 `;
 
 const Description = styled.h5`
-  position: relative;
   margin-top: 10%;
   color: ${styleTokenCss.color.gray3};
   font-size: 14px;

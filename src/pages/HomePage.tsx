@@ -15,7 +15,7 @@ export default function HomePage() {
     <Body>
       <Container>
         <TitleContainer>
-          <img src="../../public/images/icon/menu/feel-cat.svg" alt="하루한냥" />
+          <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
           <Title>하루한냥</Title>
           <Description>나만의 고양이를 모아보세요</Description>
         </TitleContainer>
@@ -23,7 +23,7 @@ export default function HomePage() {
           이메일로 로그인
         </Button>
         <Button style={{ backgroundColor: styleTokenCss.color.kakao }}>
-          <img src="../../public/images/icon/kakao.svg" alt="카카오 로그인" />
+          <img src="/images/icon/kakao.svg" alt="카카오 로그인" />
           카카오로 로그인
         </Button>
       </Container>
@@ -45,7 +45,7 @@ const Container = styled.div`
   }
 `;
 
-const TitleContainer = styled.h1`
+const TitleContainer = styled.div`
   position: relative;
   bottom: 10%;
   display: flex;

@@ -138,7 +138,6 @@ const InputContainer = styled.div`
 `;
 
 const Input = styled.input`
-  position: relative;
   width: 100%;
   height: 100%;
   padding: 22px;

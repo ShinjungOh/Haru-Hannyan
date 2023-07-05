@@ -28,11 +28,11 @@ describe('App', () => {
     });
   });
 
-  // context('When the current page is "/signup"', () => {
-  //   it('renders the signup page', () => {
-  //     renderRouter(PATH.SIGN_UP);
-  //
-  //     screen.getByText(/회원가입/);
-  //   });
-  // });
+  context('When the current page is "/signup"', () => {
+    it('renders the signup page', () => {
+      renderRouter(PATH.SIGN_UP);
+
+      screen.getAllByText(/회원가입/);
+    });
+  });
 });

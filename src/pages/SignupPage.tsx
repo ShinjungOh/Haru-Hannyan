@@ -61,9 +61,6 @@ export default function SignupPage() {
   };
 
   const handleChangeCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-    // alert(`e.target.checked>>${JSON.stringify(e.target.checked)}`);
-    console.log('e.target.checked', e.target.checked);
-    console.log('>>>>>>console.log');
     setIsChecked(e.target.checked);
   };
 
@@ -107,7 +104,10 @@ export default function SignupPage() {
             onChange={handleChangeUser}
           />
           <ErrorMessage>
-            {user.password.length < 9 && !userValidation.password && '8글자 이상 입력해 주세요.'}
+            {user.password.length > 0 &&
+              user.password.length < 9 &&
+              !userValidation.password &&
+              '8글자 이상 입력해 주세요.'}
           </ErrorMessage>
         </InputContainer>
         <InputContainer>
@@ -120,13 +120,18 @@ export default function SignupPage() {
             onChange={handleChangeUser}
           />
           <ErrorMessage>
-            {user.password.length < 9 && !userValidation.passwordCheck && '비밀번호가 일치하지 않습니다.'}
+            {user.passwordCheck.length > 0 &&
+              user.passwordCheck.length < 9 &&
+              !userValidation.passwordCheck &&
+              '비밀번호가 일치하지 않습니다.'}
           </ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="name">닉네임</label>
           <Input type="text" id="name" name="name" placeholder="닉네임을 입력해 주세요." onChange={handleChangeUser} />
-          <ErrorMessage>{user.name.length < 2 && '닉네임 형식이 올바르지 않습니다.'}</ErrorMessage>
+          <ErrorMessage>
+            {user.name.length > 0 && user.name.length < 2 && '닉네임 형식이 올바르지 않습니다.'}
+          </ErrorMessage>
         </InputContainer>
         <CheckBoxContainer>
           <input
@@ -173,31 +178,25 @@ const Title = styled.h2`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 83%;
   height: 100px;
   margin-bottom: 39px;
+  //border: 1px solid salmon;
 
   label {
     width: 100%;
     height: 15px;
-    padding: 3px;
-    margin-bottom: 10px;
+    padding-left: 3px;
+    margin-bottom: 8px;
     color: ${styleTokenCss.color.gray3};
+    font-size: 15px;
   }
 
   & + & {
     margin-bottom: 42px;
   }
-`;
-
-const ErrorMessage = styled.p`
-  color: ${styleTokenCss.color.alert2};
-  width: 100%;
-  padding-left: 10px;
-  margin-top: 7px;
-  font-size: 14px;
 `;
 
 const Input = styled.input`
@@ -216,6 +215,15 @@ const Input = styled.input`
   }
 `;
 
+const ErrorMessage = styled.p`
+  color: ${styleTokenCss.color.alert2};
+  width: 100%;
+  height: 15px;
+  padding-left: 10px;
+  margin-top: 7px;
+  font-size: 14px;
+`;
+
 const CheckBoxContainer = styled.div`
   width: 83%;
   display: flex;
@@ -223,11 +231,13 @@ const CheckBoxContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: -10px;
 
   input {
     width: 22px;
     height: 22px;
     margin-right: 10px;
+    accent-color: ${styleTokenCss.color.sub};
   }
 `;
 

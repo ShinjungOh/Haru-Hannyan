@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
 import HomeHeader from '@ui/components/HomeHeader';
+import getValidationUser from '@lib/utils/getValidationUser';
 
 export default function SignupPage() {
   const [user, setUser] = useState<User>({
@@ -23,31 +24,13 @@ export default function SignupPage() {
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
 
-  const handlePageSignUp = () => {
-    alert('회원가입에 성공했습니다!');
-    navigate(PATH.CALENDAR);
-  };
-
   const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    let test = getValidationUser(name as 'email' | 'password' | 'name', value);
 
-    const getValidateUser = (name: 'email' | 'password' | 'passwordCheck' | 'name', value: string) => {
-      if (name === 'passwordCheck' && user.password === value) {
-        return true;
-      }
-
-      if (name === 'email' || name === 'password' || name === 'name') {
-        const regexp = {
-          email: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-          password: /^.{8,}$/,
-          name: /^.{2,}$/,
-        };
-
-        return regexp[name].test(value);
-      }
-
-      return false;
-    };
+    if (name === 'passwordCheck' && user.password === value) {
+      test = true;
+    }
 
     setUser({
       ...user,
@@ -56,7 +39,7 @@ export default function SignupPage() {
 
     setUserValidation({
       ...userValidation,
-      [name]: getValidateUser(name as 'email' | 'password' | 'passwordCheck' | 'name', value),
+      [name]: test,
     });
   };
 
@@ -75,6 +58,11 @@ export default function SignupPage() {
       ),
     [userValidation.email, userValidation.password, userValidation.passwordCheck, userValidation.name, isChecked],
   );
+
+  const handlePageSignUp = () => {
+    alert('회원가입에 성공했습니다!');
+    navigate(PATH.CALENDAR);
+  };
 
   return (
     <Body>
@@ -120,10 +108,7 @@ export default function SignupPage() {
             onChange={handleChangeUser}
           />
           <ErrorMessage>
-            {user.passwordCheck.length > 0 &&
-              user.passwordCheck.length < 9 &&
-              !userValidation.passwordCheck &&
-              '비밀번호가 일치하지 않습니다.'}
+            {user.passwordCheck.length > 0 && !userValidation.passwordCheck && '비밀번호가 일치하지 않습니다.'}
           </ErrorMessage>
         </InputContainer>
         <InputContainer>

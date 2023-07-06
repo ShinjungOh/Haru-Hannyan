@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
 import HomeHeader from '@ui/components/HomeHeader';
+import getValidationUser from '@lib/utils/getValidationUser';
 
 export default function SigninPage() {
   const [user, setUser] = useState<Pick<User, 'email' | 'password'>>({
@@ -18,21 +19,9 @@ export default function SigninPage() {
   });
   const navigate = useNavigate();
 
-  const handlePageSignup = () => {
-    navigate(PATH.SIGN_UP);
-  };
-
   const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const getValidateUser = (name: 'email' | 'password', value: string) => {
-      const regexp = {
-        email: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-        password: /^.{8,}$/,
-      };
-
-      return regexp[name].test(value);
-    };
+    const test = getValidationUser(name as 'email' | 'password', value);
 
     setUser({
       ...user,
@@ -41,17 +30,21 @@ export default function SigninPage() {
 
     setUserValidation({
       ...userValidation,
-      [name]: getValidateUser(name as 'email' | 'password', value),
+      [name]: test,
     });
   };
 
-  const isValidate = useMemo(
+  const isDisabledSubmit = useMemo(
     () => !(userValidation.email && userValidation.password),
     [userValidation.email, userValidation.password],
   );
 
+  const handlePageSignup = () => {
+    navigate(PATH.SIGN_UP);
+  };
+
   const handleClickSignin = () => {
-    if (!isValidate) {
+    if (!isDisabledSubmit) {
       alert('로그인에 성공했습니다.');
       navigate(PATH.CALENDAR);
     } else {
@@ -84,7 +77,7 @@ export default function SigninPage() {
             onChange={handleChangeUser}
           />
         </InputContainer>
-        <Button type="button" onClick={handleClickSignin} disabled={isValidate}>
+        <Button type="button" onClick={handleClickSignin} disabled={isDisabledSubmit}>
           로그인
         </Button>
         <Description>

@@ -93,6 +93,7 @@
     "import/no-unresolved": "off", //  import로 가져온 파일/모듈이 로컬 파일 시스템의 모듈로 확인할 수 있는지 확인
     "jsx-a11y/click-events-have-key-events": "off", // onClick에는 onKeyUp, onKeyDown, onKeyPress 중 하나 이상이 수반됨
     "jsx-a11y/no-noninteractive-element-interactions": "off", // 비대화형 요소에 대한 상호작용 경고
+    "jsx-a11y/anchor-is-valid": "off",
     "react-refresh/only-export-components": "warn"
   }
 }

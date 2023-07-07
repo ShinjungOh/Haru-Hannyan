@@ -1,11 +1,12 @@
 const COLOR_PROPERTIES = {
   background: '#FFFCF5',
-  border: '#cdd5df',
+  border: '#CDD5DF',
   primary: '#FAC94D',
-  sub: '#C8E1FF',
-  subActive: '#95C2F8',
+  secondary: '#C8E1FF',
+  secondaryActive: '#95C2F8',
   alert1: '#9EACF6',
   alert2: '#FF8282',
+  kakao: '#FEE500',
   black: '#000000',
   gray1: '#131313',
   gray2: '#707070',
@@ -19,7 +20,6 @@ const headerHeight = 80;
 const menuHeight = 80;
 const SIZE_PROPERTIES = {
   headerHeight: `${headerHeight}px`,
-  bodyHeight: `calc(100vh - ${headerHeight + menuHeight}px)`,
   menuHeight: `${menuHeight}px`,
 };
 

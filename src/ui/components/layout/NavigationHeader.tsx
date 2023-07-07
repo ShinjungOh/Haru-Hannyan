@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router';
 import styled from '@emotion/styled';
+import styleToken from '@ui/styles/styleToken.css';
 
-export default function HomeHeader() {
+export default function NavigationHeader() {
   const navigate = useNavigate();
 
   const handlePageBack = () => {
@@ -15,13 +16,13 @@ export default function HomeHeader() {
   );
 }
 
-const Container = styled.div`
-  position: relative;
+const Container = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  background-color: ${styleToken.color.background};
 `;
 
 const BackArrow = styled.img`

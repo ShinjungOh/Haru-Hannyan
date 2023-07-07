@@ -5,7 +5,7 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
-import HomeHeader from '@ui/components/HomeHeader';
+import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 
 export default function SignupPage() {
@@ -65,9 +65,9 @@ export default function SignupPage() {
   };
 
   return (
-    <Body>
+    <>
+      <NavigationHeader />
       <Container>
-        <HomeHeader />
         <Title>회원가입</Title>
         <InputContainer>
           <label htmlFor="email">이메일</label>
@@ -133,15 +133,12 @@ export default function SignupPage() {
           회원가입
         </Button>
       </Container>
-    </Body>
+    </>
   );
 }
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+const Container = styled(Body)`
+  padding: 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
@@ -149,7 +146,6 @@ const Container = styled.div`
 
 const Title = styled.h2`
   width: 100%;
-  height: 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -165,10 +161,10 @@ const InputContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 83%;
+  width: 100%;
   height: 100px;
+  min-height: 85px;
   margin-bottom: 39px;
-  //border: 1px solid salmon;
 
   label {
     width: 100%;
@@ -210,13 +206,12 @@ const ErrorMessage = styled.p`
 `;
 
 const CheckBoxContainer = styled.div`
-  width: 83%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
-  margin-top: -10px;
 
   input {
     width: 22px;
@@ -232,8 +227,8 @@ const CheckBox = styled.label`
 `;
 
 const Button = styled.button`
-  width: 83%;
-  height: 8%;
+  width: 100%;
+  height: 71px;
   min-height: 65px;
   margin-bottom: 60px;
   border-radius: 15px;

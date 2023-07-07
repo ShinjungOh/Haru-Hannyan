@@ -5,7 +5,7 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
-import HomeHeader from '@ui/components/HomeHeader';
+import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 
 export default function SigninPage() {
@@ -53,9 +53,9 @@ export default function SigninPage() {
   };
 
   return (
-    <Body>
+    <>
+      <NavigationHeader />
       <Container>
-        <HomeHeader />
         <Title>로그인</Title>
         <InputContainer>
           <label htmlFor="email">이메일</label>
@@ -81,26 +81,27 @@ export default function SigninPage() {
           로그인
         </Button>
         <Description>
-          회원이 아니신가요? <p onClick={handlePageSignup}> 회원가입</p>
+          회원이 아니신가요? {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a href="#" onClick={handlePageSignup}>
+            {' '}
+            회원가입
+          </a>
         </Description>
       </Container>
-    </Body>
+    </>
   );
 }
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+const Container = styled(Body)`
+  padding: 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 `;
 
 const Title = styled.h2`
-  margin-top: 30px;
-  margin-bottom: 60px;
+  margin-top: 20px;
+  margin-bottom: 50px;
   color: ${styleTokenCss.color.gray2};
   font-size: 32px;
   font-weight: 600;
@@ -112,8 +113,9 @@ const InputContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 39px;
-  width: 83%;
-  height: 10.9%;
+  width: 100%;
+  height: 100px;
+  min-height: 85px;
 
   label {
     width: 100%;
@@ -144,8 +146,8 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 83%;
-  height: 8%;
+  width: 100%;
+  height: 71px;
   min-height: 65px;
   border-radius: 15px;
   border: none;
@@ -163,13 +165,13 @@ const Button = styled.button`
 `;
 
 const Description = styled.h5`
-  margin-top: 10%;
+  margin-top: 40px;
+  margin-bottom: 40px;
   color: ${styleTokenCss.color.gray3};
   font-size: 14px;
   font-weight: 600;
 
-  p {
-    display: inline-block;
+  a {
     cursor: pointer;
     text-decoration: underline;
     color: ${styleTokenCss.color.alert1};

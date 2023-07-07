@@ -12,13 +12,13 @@ export default function HomePage() {
   };
 
   return (
-    <Body>
-      <Container>
-        <TitleContainer>
-          <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
-          <Title>하루한냥</Title>
-          <Description>나만의 고양이를 모아보세요</Description>
-        </TitleContainer>
+    <Container>
+      <TitleContainer>
+        <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
+        <Title>하루한냥</Title>
+        <Description>나만의 고양이를 모아보세요</Description>
+      </TitleContainer>
+      <ButtonContainer>
         <Button onClick={handlePageSignin} style={{ backgroundColor: styleTokenCss.color.sub }}>
           이메일로 로그인
         </Button>
@@ -26,34 +26,28 @@ export default function HomePage() {
           <img src="/images/icon/kakao.svg" alt="카카오 로그인" />
           카카오로 로그인
         </Button>
-      </Container>
-    </Body>
+      </ButtonContainer>
+    </Container>
   );
 }
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
+const Container = styled(Body)`
+  padding: 100px 35px;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 
   img {
     width: 100px;
     height: 100px;
   }
-`;
-
-const TitleContainer = styled.div`
-  position: relative;
-  bottom: 10%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 40%;
 `;
 
 const Title = styled.h1`
@@ -70,11 +64,14 @@ const Description = styled.h5`
   font-weight: 600;
 `;
 
+const ButtonContainer = styled.div`
+  margin-top: 100px;
+  width: 100%;
+`;
 const Button = styled.button`
-  position: relative;
-  top: 10%;
-  width: 83%;
-  height: 8%;
+  width: 100%;
+  height: 71px;
+  min-height: 65px;
   display: flex;
   flex-direction: row;
   justify-content: center;

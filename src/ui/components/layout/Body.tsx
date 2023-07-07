@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import styleToken from '../../styles/styleToken.css';
 
 type BodyProps = {
-  [K: string]: never;
+  [K: string]: unknown;
 };
 
 export default function Body({ children, ...props }: PropsWithChildren & BodyProps) {

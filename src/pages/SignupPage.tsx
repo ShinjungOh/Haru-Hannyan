@@ -7,6 +7,8 @@ import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
 import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
+import SignButton from '@ui/components/SignButton';
+import InputBox from '@ui/components/InputBox';
 
 export default function SignupPage() {
   const [user, setUser] = useState<User>({
@@ -71,7 +73,7 @@ export default function SignupPage() {
         <Title>회원가입</Title>
         <InputContainer>
           <label htmlFor="email">이메일</label>
-          <Input
+          <InputBox
             type="email"
             id="email"
             name="email"
@@ -84,7 +86,7 @@ export default function SignupPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
-          <Input
+          <InputBox
             type="password"
             id="password"
             name="password"
@@ -100,7 +102,7 @@ export default function SignupPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="passwordCheck">비밀번호 확인</label>
-          <Input
+          <InputBox
             type="password"
             id="passwordCheck"
             name="passwordCheck"
@@ -113,7 +115,13 @@ export default function SignupPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="name">닉네임</label>
-          <Input type="text" id="name" name="name" placeholder="닉네임을 입력해 주세요." onChange={handleChangeUser} />
+          <InputBox
+            type="text"
+            id="name"
+            name="name"
+            placeholder="닉네임을 입력해 주세요."
+            onChange={handleChangeUser}
+          />
           <ErrorMessage>
             {user.name.length > 0 && user.name.length < 2 && '닉네임 형식이 올바르지 않습니다.'}
           </ErrorMessage>
@@ -129,9 +137,7 @@ export default function SignupPage() {
           />
           <CheckBox htmlFor="checkbox">[필수] 개인정보 수집 및 이용 동의</CheckBox>
         </CheckBoxContainer>
-        <Button type="button" disabled={isDisabledSubmit} onClick={handlePageSignUp}>
-          회원가입
-        </Button>
+        <SignButton text="회원가입" disabled={isDisabledSubmit} onClick={handlePageSignUp} />
       </Container>
     </>
   );
@@ -180,22 +186,6 @@ const InputContainer = styled.div`
   }
 `;
 
-const Input = styled.input`
-  width: 100%;
-  height: 100%;
-  padding: 22px;
-  border-radius: 15px;
-  border: 1px solid ${styleTokenCss.color.gray4};
-  color: ${styleTokenCss.color.gray2};
-  font-size: 17px;
-  outline: none;
-  cursor: pointer;
-
-  ::placeholder {
-    color: ${styleTokenCss.color.gray4};
-  }
-`;
-
 const ErrorMessage = styled.p`
   color: ${styleTokenCss.color.alert2};
   width: 100%;
@@ -224,24 +214,4 @@ const CheckBoxContainer = styled.div`
 const CheckBox = styled.label`
   color: ${styleTokenCss.color.gray3};
   font-size: 15px;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 71px;
-  min-height: 65px;
-  margin-bottom: 60px;
-  border-radius: 15px;
-  border: none;
-  background-color: ${styleTokenCss.color.subActive};
-  color: ${styleTokenCss.color.white};
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:disabled {
-    background-color: ${styleTokenCss.color.gray5};
-    color: ${styleTokenCss.color.white};
-    cursor: not-allowed;
-  }
 `;

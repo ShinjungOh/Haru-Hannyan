@@ -7,6 +7,8 @@ import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
 import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
+import SignButton from '@ui/components/SignButton';
+import InputBox from '@ui/components/InputBox';
 
 export default function SigninPage() {
   const [user, setUser] = useState<Pick<User, 'email' | 'password'>>({
@@ -59,7 +61,7 @@ export default function SigninPage() {
         <Title>로그인</Title>
         <InputContainer>
           <label htmlFor="email">이메일</label>
-          <Input
+          <InputBox
             type="email"
             id="email"
             name="email"
@@ -69,7 +71,7 @@ export default function SigninPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
-          <Input
+          <InputBox
             type="password"
             id="password"
             name="password"
@@ -77,9 +79,7 @@ export default function SigninPage() {
             onChange={handleChangeUser}
           />
         </InputContainer>
-        <Button type="button" onClick={handleClickSignin} disabled={isDisabledSubmit}>
-          로그인
-        </Button>
+        <SignButton text="로그인" onClick={handleClickSignin} disabled={isDisabledSubmit} />
         <Description>
           회원이 아니신가요? {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#" onClick={handlePageSignup}>
@@ -119,48 +119,15 @@ const InputContainer = styled.div`
 
   label {
     width: 100%;
-    padding: 3px;
-    margin-bottom: 5px;
+    height: 15px;
+    padding-left: 3px;
+    margin-bottom: 8px;
     color: ${styleTokenCss.color.gray3};
+    font-size: 15px;
   }
 
   & + & {
     margin-bottom: 50px;
-  }
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 100%;
-  padding: 22px;
-  border-radius: 15px;
-  border: 1px solid ${styleTokenCss.color.gray4};
-  color: ${styleTokenCss.color.gray2};
-  font-size: 17px;
-  outline: none;
-  cursor: pointer;
-
-  ::placeholder {
-    color: ${styleTokenCss.color.gray4};
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 71px;
-  min-height: 65px;
-  border-radius: 15px;
-  border: none;
-  background-color: ${styleTokenCss.color.subActive};
-  color: ${styleTokenCss.color.white};
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:disabled {
-    background-color: ${styleTokenCss.color.gray5};
-    color: ${styleTokenCss.color.white};
-    cursor: not-allowed;
   }
 `;
 

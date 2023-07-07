@@ -23,7 +23,7 @@ export default function HomePage() {
         <SignButton
           text="이메일로 로그인"
           onClick={handlePageSignin}
-          backgroundColor={styleTokenCss.color.sub}
+          backgroundColor={styleTokenCss.color.secondary}
           color={styleTokenCss.color.gray2}
         />
         <SignButton

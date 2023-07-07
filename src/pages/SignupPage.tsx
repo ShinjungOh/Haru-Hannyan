@@ -140,7 +140,7 @@ export default function SignupPage() {
           text="회원가입"
           disabled={isDisabledSubmit}
           onClick={handlePageSignUp}
-          backgroundColor={styleTokenCss.color.subActive}
+          backgroundColor={styleTokenCss.color.secondaryActive}
           color={styleTokenCss.color.white}
         />
       </Container>
@@ -212,7 +212,7 @@ const CheckBoxContainer = styled.div`
     width: 22px;
     height: 22px;
     margin-right: 10px;
-    accent-color: ${styleTokenCss.color.sub};
+    accent-color: ${styleTokenCss.color.secondary};
   }
 `;
 

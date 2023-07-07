@@ -1,7 +1,7 @@
 import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
@@ -41,7 +41,8 @@ export default function SigninPage() {
     [userValidation.email, userValidation.password],
   );
 
-  const handlePageSignup = () => {
+  const handlePageSignup = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     navigate(PATH.SIGN_UP);
   };
 
@@ -83,7 +84,7 @@ export default function SigninPage() {
           text="로그인"
           onClick={handleClickSignin}
           disabled={isDisabledSubmit}
-          backgroundColor={styleTokenCss.color.subActive}
+          backgroundColor={styleTokenCss.color.secondaryActive}
           color={styleTokenCss.color.white}
         />
         <Description>

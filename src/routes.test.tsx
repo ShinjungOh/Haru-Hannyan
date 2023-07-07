@@ -16,7 +16,7 @@ describe('App', () => {
     it('renders the home page', () => {
       renderRouter(PATH.HOME);
 
-      screen.getByText(/하루한냥/);
+      screen.getAllByText(/하루한냥/);
     });
   });
 
@@ -28,13 +28,13 @@ describe('App', () => {
     });
   });
 
-  // context('When the current page is "/signup"', () => {
-  //   it('renders the signup page', () => {
-  //     renderRouter(PATH.SIGN_UP);
-  //
-  //     screen.getAllByText(/회원가입/);
-  //   });
-  // });
+  context('When the current page is "/signup"', () => {
+    it('renders the signup page', () => {
+      renderRouter(PATH.SIGN_UP);
+
+      screen.getAllByText(/회원가입/);
+    });
+  });
 
   context('When the current page is "/calendar"', () => {
     it('renders the calendar page', () => {

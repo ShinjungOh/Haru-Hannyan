@@ -11,6 +11,7 @@ import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
 
 export default function SigninPage() {
+  const navigate = useNavigate();
   const [user, setUser] = useState<Pick<User, 'email' | 'password'>>({
     email: '',
     password: '',
@@ -19,7 +20,6 @@ export default function SigninPage() {
     email: false,
     password: false,
   });
-  const navigate = useNavigate();
 
   const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -79,11 +79,16 @@ export default function SigninPage() {
             onChange={handleChangeUser}
           />
         </InputContainer>
-        <SignButton text="로그인" onClick={handleClickSignin} disabled={isDisabledSubmit} />
+        <SignButton
+          text="로그인"
+          onClick={handleClickSignin}
+          disabled={isDisabledSubmit}
+          backgroundColor={styleTokenCss.color.subActive}
+          color={styleTokenCss.color.white}
+        />
         <Description>
-          회원이 아니신가요? {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          회원이 아니신가요?{' '}
           <a href="#" onClick={handlePageSignup}>
-            {' '}
             회원가입
           </a>
         </Description>

@@ -11,6 +11,7 @@ import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
 
 export default function SignupPage() {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User>({
     email: '',
     password: '',
@@ -24,14 +25,16 @@ export default function SignupPage() {
     name: false,
   });
   const [isChecked, setIsChecked] = useState(false);
-  const navigate = useNavigate();
 
   const handleChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    let test = getValidationUser(name as 'email' | 'password' | 'name', value);
 
-    if (name === 'passwordCheck' && user.password === value) {
-      test = true;
+    let test = false;
+
+    if (name === 'passwordCheck') {
+      test = user.password === value;
+    } else {
+      test = getValidationUser(name as 'email' | 'password' | 'name', value);
     }
 
     setUser({
@@ -66,6 +69,13 @@ export default function SignupPage() {
     navigate(PATH.CALENDAR);
   };
 
+  const isError = {
+    email: user.email.length > 0 && !userValidation.email,
+    password: user.password.length > 0 && user.password.length < 9 && !userValidation.password,
+    passwordCheck: user.passwordCheck.length > 0 && !userValidation.passwordCheck,
+    name: user.name.length > 0 && user.name.length < 2,
+  };
+
   return (
     <>
       <NavigationHeader />
@@ -80,9 +90,7 @@ export default function SignupPage() {
             placeholder="이메일을 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>
-            {user.email.length > 0 && !userValidation.email && '이메일 형식이 올바르지 않습니다.'}
-          </ErrorMessage>
+          <ErrorMessage>{isError.email && '이메일 형식이 올바르지 않습니다.'}</ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
@@ -93,12 +101,7 @@ export default function SignupPage() {
             placeholder="비밀번호를 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>
-            {user.password.length > 0 &&
-              user.password.length < 9 &&
-              !userValidation.password &&
-              '8글자 이상 입력해 주세요.'}
-          </ErrorMessage>
+          <ErrorMessage>{isError.password && '8글자 이상 입력해 주세요.'}</ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="passwordCheck">비밀번호 확인</label>
@@ -109,9 +112,7 @@ export default function SignupPage() {
             placeholder="비밀번호를 다시 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>
-            {user.passwordCheck.length > 0 && !userValidation.passwordCheck && '비밀번호가 일치하지 않습니다.'}
-          </ErrorMessage>
+          <ErrorMessage>{isError.passwordCheck && '비밀번호가 일치하지 않습니다.'}</ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="name">닉네임</label>
@@ -122,9 +123,7 @@ export default function SignupPage() {
             placeholder="닉네임을 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>
-            {user.name.length > 0 && user.name.length < 2 && '닉네임 형식이 올바르지 않습니다.'}
-          </ErrorMessage>
+          <ErrorMessage>{isError.name && '닉네임 형식이 올바르지 않습니다.'}</ErrorMessage>
         </InputContainer>
         <CheckBoxContainer>
           <input
@@ -137,7 +136,13 @@ export default function SignupPage() {
           />
           <CheckBox htmlFor="checkbox">[필수] 개인정보 수집 및 이용 동의</CheckBox>
         </CheckBoxContainer>
-        <SignButton text="회원가입" disabled={isDisabledSubmit} onClick={handlePageSignUp} />
+        <SignButton
+          text="회원가입"
+          disabled={isDisabledSubmit}
+          onClick={handlePageSignUp}
+          backgroundColor={styleTokenCss.color.subActive}
+          color={styleTokenCss.color.white}
+        />
       </Container>
     </>
   );
@@ -191,7 +196,7 @@ const ErrorMessage = styled.p`
   width: 100%;
   height: 15px;
   padding-left: 10px;
-  margin-top: 7px;
+  margin-top: 10px;
   font-size: 14px;
 `;
 

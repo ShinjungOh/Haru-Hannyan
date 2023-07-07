@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
+import SignButton from '@ui/components/SignButton';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -19,13 +20,18 @@ export default function HomePage() {
         <Description>나만의 고양이를 모아보세요</Description>
       </TitleContainer>
       <ButtonContainer>
-        <Button onClick={handlePageSignin} style={{ backgroundColor: styleTokenCss.color.sub }}>
-          이메일로 로그인
-        </Button>
-        <Button style={{ backgroundColor: styleTokenCss.color.kakao }}>
-          <img src="/images/icon/kakao.svg" alt="카카오 로그인" />
-          카카오로 로그인
-        </Button>
+        <SignButton
+          text="이메일로 로그인"
+          onClick={handlePageSignin}
+          backgroundColor={styleTokenCss.color.sub}
+          color={styleTokenCss.color.gray2}
+        />
+        <SignButton
+          text="카카오로 로그인"
+          imgSrc="/images/icon/kakao.svg"
+          backgroundColor={styleTokenCss.color.kakao}
+          color={styleTokenCss.color.gray2}
+        />
       </ButtonContainer>
     </Container>
   );
@@ -67,31 +73,8 @@ const Description = styled.h5`
 const ButtonContainer = styled.div`
   margin-top: 100px;
   width: 100%;
-`;
-const Button = styled.button`
-  width: 100%;
-  height: 71px;
-  min-height: 65px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-  border: none;
-  color: ${styleTokenCss.color.gray2};
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 10px;
 
-  & + & {
+  Button + Button {
     margin-top: 20px;
-  }
-
-  img {
-    width: 22px;
-    height: 22px;
-    margin-top: 0;
-    margin-right: 5px;
   }
 `;

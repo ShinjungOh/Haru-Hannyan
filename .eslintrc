@@ -59,6 +59,7 @@
     "@typescript-eslint/method-signature-style": [ // 특정 메서드 syntax 사용해서 시행
       "error"
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "unused-imports/no-unused-imports": [ // 사용하지 않는 es6 모듈 import를 찾아 제거
       "error"
     ],

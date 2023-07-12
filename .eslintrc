@@ -67,6 +67,7 @@
       "error",
       "first"
     ],
+    "no-restricted-globals": "off",
     "react/jsx-curly-newline": "off", // jsx curly 내에서 일관된 줄 바꿈 적용
     "react/jsx-one-expression-per-line": "off", // JSX에서 한 줄에 하나의 표현식으로 제한
     "react/jsx-props-no-spreading": "off", // JSX props 확산 방지

@@ -8,10 +8,12 @@ export const postSignin = async (user: Pick<User, 'email' | 'password'>) => {
     password: user.password,
   };
 
-  await requestPost({ url, data });
+  const result = await requestPost({ url, data });
+  const ACCESS_TOKEN = result.data.data.user.user_token;
+  return { result, ACCESS_TOKEN };
 };
 
-export const postSignup = async (user: User) => {
+export const postSignup = async (user: Pick<User, 'email' | 'password' | 'name'>) => {
   const url = '/user/signup';
   const data = {
     email: user.email,
@@ -19,5 +21,7 @@ export const postSignup = async (user: User) => {
     name: user.name,
   };
 
-  await requestPost({ url, data });
+  const result = await requestPost({ url, data });
+  const ACCESS_TOKEN = result.data.data.user.user_token;
+  return { result, ACCESS_TOKEN };
 };

@@ -1,7 +1,7 @@
 import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
@@ -42,10 +42,11 @@ export default function SigninPage() {
     [userValidation.email, userValidation.password],
   );
 
-  const handleClickSignin = async () => {
+  const handleClickSignIn = async () => {
     if (!isDisabledSubmit) {
       try {
-        await postSignin(user);
+        const response = await postSignin(user);
+        localStorage.setItem('ACCESS_TOKEN', JSON.stringify(response.ACCESS_TOKEN));
         alert('로그인에 성공했습니다!');
         navigate(PATH.CALENDAR);
       } catch (e) {
@@ -59,6 +60,13 @@ export default function SigninPage() {
     e.preventDefault();
     navigate(PATH.SIGN_UP);
   };
+
+  useEffect(() => {
+    const isAccessToken = localStorage.getItem('ACCESS_TOKEN');
+    if (isAccessToken) {
+      navigate(PATH.CALENDAR);
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -87,7 +95,7 @@ export default function SigninPage() {
         </InputContainer>
         <SignButton
           text="로그인"
-          onClick={handleClickSignin}
+          onClick={handleClickSignIn}
           disabled={isDisabledSubmit}
           backgroundColor={styleTokenCss.color.secondaryActive}
           color={styleTokenCss.color.white}

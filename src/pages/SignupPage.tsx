@@ -1,7 +1,7 @@
 import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { User, UserValidation } from '@lib/types/user';
@@ -67,7 +67,8 @@ export default function SignupPage() {
 
   const handleClickSignUp = async () => {
     try {
-      await postSignup(user);
+      const response = await postSignup(user);
+      localStorage.setItem('ACCESS_TOKEN', JSON.stringify(response.ACCESS_TOKEN));
       alert('회원가입에 성공했습니다!');
       navigate(PATH.CALENDAR);
     } catch (e) {
@@ -82,6 +83,13 @@ export default function SignupPage() {
     passwordCheck: user.passwordCheck.length > 0 && !userValidation.passwordCheck,
     name: user.name.length > 0 && user.name.length < 2,
   };
+
+  useEffect(() => {
+    const isAccessToken = localStorage.getItem('ACCESS_TOKEN');
+    if (isAccessToken) {
+      navigate(PATH.CALENDAR);
+    }
+  }, [navigate]);
 
   return (
     <>

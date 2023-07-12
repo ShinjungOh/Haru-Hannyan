@@ -9,6 +9,7 @@ import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
+import { postSignup } from '../api/auth';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -64,9 +65,15 @@ export default function SignupPage() {
     [userValidation.email, userValidation.password, userValidation.passwordCheck, userValidation.name, isChecked],
   );
 
-  const handlePageSignUp = () => {
-    alert('회원가입에 성공했습니다!');
-    navigate(PATH.CALENDAR);
+  const handleClickSignUp = async () => {
+    try {
+      await postSignup(user);
+      alert('회원가입에 성공했습니다!');
+      navigate(PATH.CALENDAR);
+    } catch (e) {
+      console.error(e);
+      alert('회원가입에 실패했습니다.');
+    }
   };
 
   const isError = {
@@ -139,7 +146,7 @@ export default function SignupPage() {
         <SignButton
           text="회원가입"
           disabled={isDisabledSubmit}
-          onClick={handlePageSignUp}
+          onClick={handleClickSignUp}
           backgroundColor={styleTokenCss.color.secondaryActive}
           color={styleTokenCss.color.white}
         />

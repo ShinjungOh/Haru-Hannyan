@@ -1,8 +1,8 @@
 import { User } from '@lib/types/user';
 import { requestPost } from './client';
 
-const postSignin = async (user: User) => {
-  const url = '/signin';
+export const postSignin = async (user: Pick<User, 'email' | 'password'>) => {
+  const url = '/user/signin';
   const data = {
     email: user.email,
     password: user.password,
@@ -11,16 +11,13 @@ const postSignin = async (user: User) => {
   await requestPost({ url, data });
 };
 
-const postSignup = async (user: User) => {
-  const url = '/signup';
+export const postSignup = async (user: User) => {
+  const url = '/user/signup';
   const data = {
     email: user.email,
     password: user.password,
-    passwordCheck: user.passwordCheck,
     name: user.name,
   };
 
   await requestPost({ url, data });
 };
-
-export default { postSignin, postSignup };

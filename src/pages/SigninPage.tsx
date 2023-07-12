@@ -9,6 +9,7 @@ import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
+import { postSignin } from '../api/auth';
 
 export default function SigninPage() {
   const navigate = useNavigate();
@@ -41,18 +42,22 @@ export default function SigninPage() {
     [userValidation.email, userValidation.password],
   );
 
+  const handleClickSignin = async () => {
+    if (!isDisabledSubmit) {
+      try {
+        await postSignin(user);
+        alert('로그인에 성공했습니다!');
+        navigate(PATH.CALENDAR);
+      } catch (e) {
+        console.error(e);
+        alert('이메일, 비밀번호를 확인해 주세요.');
+      }
+    }
+  };
+
   const handlePageSignup = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     navigate(PATH.SIGN_UP);
-  };
-
-  const handleClickSignin = () => {
-    if (!isDisabledSubmit) {
-      alert('로그인에 성공했습니다.');
-      navigate(PATH.CALENDAR);
-    } else {
-      alert('이메일, 비밀번호를 확인해 주세요.');
-    }
   };
 
   return (

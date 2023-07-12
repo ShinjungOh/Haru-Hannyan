@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const client = axios.create({
-  baseURL: 'http://133.186.144.153:3001/api/user',
+  baseURL: 'http://133.186.144.153:3001/api',
   timeout: 3000,
 });
 

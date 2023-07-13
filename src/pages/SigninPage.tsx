@@ -9,7 +9,7 @@ import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
-import { postSignin } from '../api/auth';
+import { handleAxiosError, http } from '../api/client';
 
 export default function SigninPage() {
   const navigate = useNavigate();
@@ -45,13 +45,16 @@ export default function SigninPage() {
   const handleClickSignIn = async () => {
     if (!isDisabledSubmit) {
       try {
-        const response = await postSignin(user);
-        localStorage.setItem('ACCESS_TOKEN', JSON.stringify(response.ACCESS_TOKEN));
-        alert('로그인에 성공했습니다!');
+        const response = await http.post('/user/signin', {
+          email: user.email,
+          password: user.password,
+        });
+        const accessToken = response.data.user.user_token;
+        localStorage.setItem('ACCESS_TOKEN', JSON.stringify(accessToken));
         navigate(PATH.CALENDAR);
       } catch (e) {
-        console.error(e);
-        alert('이메일, 비밀번호를 확인해 주세요.');
+        const error = handleAxiosError(e);
+        alert(error.msg);
       }
     }
   };

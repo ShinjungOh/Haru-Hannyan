@@ -9,7 +9,7 @@ import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
-import { postSignup } from '../api/auth';
+import { handleAxiosError, http } from '../api/client';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -67,13 +67,17 @@ export default function SignupPage() {
 
   const handleClickSignUp = async () => {
     try {
-      const response = await postSignup(user);
-      localStorage.setItem('ACCESS_TOKEN', JSON.stringify(response.ACCESS_TOKEN));
-      alert('회원가입에 성공했습니다!');
+      const response = await http.post('/user/signup', {
+        email: user.email,
+        password: user.password,
+        name: user.name,
+      });
+      const accessToken = response.data.user.user_token;
+      localStorage.setItem('ACCESS_TOKEN', JSON.stringify(accessToken));
       navigate(PATH.CALENDAR);
     } catch (e) {
-      console.error(e);
-      alert('회원가입에 실패했습니다.');
+      const error = handleAxiosError(e);
+      alert(error.msg);
     }
   };
 

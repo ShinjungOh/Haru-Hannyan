@@ -12,7 +12,7 @@ export default function SettingPage() {
   const handleClickLogout = () => {
     const isLogout = confirm('로그아웃 하시겠습니까?');
     if (isLogout) {
-      localStorage.removeItem('ACCESS_TOKEN');
+      localStorage.clear();
       navigate(PATH.HOME);
     }
   };

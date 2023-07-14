@@ -4,16 +4,17 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { User, UserValidation } from '@lib/types/user';
+import { UserType, UserValidation } from '@lib/types/user.type';
 import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
-import { handleAxiosError, http } from '../api/client';
+import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import { handleAxiosError, http } from '../api/http';
 
 export default function SignupPage() {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<UserType>({
     email: '',
     password: '',
     passwordCheck: '',
@@ -67,14 +68,20 @@ export default function SignupPage() {
 
   const handleClickSignUp = async () => {
     try {
-      const response = await http.post('/user/signup', {
+      const responseSignUp = await http.post<{ user: { user_token: string; name: string } }>('/user/signup', {
         email: user.email,
         password: user.password,
         name: user.name,
       });
-      const accessToken = response.data.user.user_token;
-      localStorage.setItem('ACCESS_TOKEN', JSON.stringify(accessToken));
-      navigate(PATH.CALENDAR);
+      if (responseSignUp.data) {
+        const accessToken = responseSignUp.data.user.user_token;
+        const userProfile = {
+          name: responseSignUp.data.user.name,
+        };
+        localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+        localStorage.setItem(USER, JSON.stringify(userProfile));
+        navigate(PATH.CALENDAR);
+      }
     } catch (e) {
       const error = handleAxiosError(e);
       alert(error.msg);
@@ -82,10 +89,22 @@ export default function SignupPage() {
   };
 
   const isError = {
-    email: user.email.length > 0 && !userValidation.email,
-    password: user.password.length > 0 && user.password.length < 9 && !userValidation.password,
-    passwordCheck: user.passwordCheck.length > 0 && !userValidation.passwordCheck,
-    name: user.name.length > 0 && user.name.length < 2,
+    email: {
+      error: user.email.length > 0 && !userValidation.email,
+      message: '이메일 형식이 올바르지 않습니다.',
+    },
+    password: {
+      error: user.password.length > 0 && user.password.length < 9 && !userValidation.password,
+      message: '8글자 이상 입력해 주세요.',
+    },
+    passwordCheck: {
+      error: user.passwordCheck.length > 0 && !userValidation.passwordCheck,
+      message: '비밀번호가 일치하지 않습니다.',
+    },
+    name: {
+      error: user.name.length > 0 && user.name.length < 2,
+      message: '닉네임 형식이 올바르지 않습니다.',
+    },
   };
 
   useEffect(() => {
@@ -109,7 +128,7 @@ export default function SignupPage() {
             placeholder="이메일을 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>{isError.email && '이메일 형식이 올바르지 않습니다.'}</ErrorMessage>
+          <ErrorMessage>{isError.email.error && isError.email.message}</ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
@@ -120,7 +139,7 @@ export default function SignupPage() {
             placeholder="비밀번호를 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>{isError.password && '8글자 이상 입력해 주세요.'}</ErrorMessage>
+          <ErrorMessage>{isError.password.error && isError.password.message}</ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="passwordCheck">비밀번호 확인</label>
@@ -131,7 +150,7 @@ export default function SignupPage() {
             placeholder="비밀번호를 다시 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>{isError.passwordCheck && '비밀번호가 일치하지 않습니다.'}</ErrorMessage>
+          <ErrorMessage>{isError.passwordCheck.error && isError.passwordCheck.message}</ErrorMessage>
         </InputContainer>
         <InputContainer>
           <label htmlFor="name">닉네임</label>
@@ -142,7 +161,7 @@ export default function SignupPage() {
             placeholder="닉네임을 입력해 주세요."
             onChange={handleChangeUser}
           />
-          <ErrorMessage>{isError.name && '닉네임 형식이 올바르지 않습니다.'}</ErrorMessage>
+          <ErrorMessage>{isError.name.error && isError.name.message}</ErrorMessage>
         </InputContainer>
         <CheckBoxContainer>
           <input

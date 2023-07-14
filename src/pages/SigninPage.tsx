@@ -4,16 +4,17 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { User, UserValidation } from '@lib/types/user';
+import { UserType, UserValidation } from '@lib/types/user.type';
 import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
-import { handleAxiosError, http } from '../api/client';
+import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import { handleAxiosError, http } from '../api/http';
 
 export default function SigninPage() {
   const navigate = useNavigate();
-  const [user, setUser] = useState<Pick<User, 'email' | 'password'>>({
+  const [user, setUser] = useState<Pick<UserType, 'email' | 'password'>>({
     email: '',
     password: '',
   });
@@ -45,13 +46,19 @@ export default function SigninPage() {
   const handleClickSignIn = async () => {
     if (!isDisabledSubmit) {
       try {
-        const response = await http.post('/user/signin', {
+        const responseSignIn = await http.post<{ user: { user_token: string; name: string } }>('/user/signin', {
           email: user.email,
           password: user.password,
         });
-        const accessToken = response.data.user.user_token;
-        localStorage.setItem('ACCESS_TOKEN', JSON.stringify(accessToken));
-        navigate(PATH.CALENDAR);
+        if (responseSignIn.data) {
+          const accessToken = responseSignIn.data.user.user_token;
+          const userProfile = {
+            name: responseSignIn.data.user.name,
+          };
+          localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+          localStorage.setItem(USER, JSON.stringify(userProfile));
+          navigate(PATH.CALENDAR);
+        }
       } catch (e) {
         const error = handleAxiosError(e);
         alert(error.msg);

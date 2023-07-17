@@ -10,23 +10,20 @@ export default function AuthKakaoPage() {
   const [params] = useSearchParams();
   const code = params.get('code');
 
-  const handleSigninKakao = useCallback(
-    () => async () => {
-      const responseSignIn = await http.post<{ token: string; user: { name: string } }>('/user/oauth/kakao', { code });
-      const isSuccess = responseSignIn.success;
+  const handleSigninKakao = useCallback(async () => {
+    const responseSignIn = await http.post<{ token: string; user: { name: string } }>('/user/oauth/kakao', { code });
+    const isSuccess = responseSignIn.success;
 
-      if (isSuccess && responseSignIn.data) {
-        const accessToken = responseSignIn.data.token;
-        const userProfile = {
-          name: responseSignIn.data.user.name,
-        };
-        localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
-        localStorage.setItem(USER, JSON.stringify(userProfile));
-        navigate(PATH.CALENDAR);
-      }
-    },
-    [code, navigate],
-  );
+    if (isSuccess && responseSignIn.data) {
+      const accessToken = responseSignIn.data.token;
+      const userProfile = {
+        name: responseSignIn.data.user.name,
+      };
+      localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+      localStorage.setItem(USER, JSON.stringify(userProfile));
+      navigate(PATH.CALENDAR);
+    }
+  }, [code, navigate]);
 
   useEffect(() => {
     if (code) {

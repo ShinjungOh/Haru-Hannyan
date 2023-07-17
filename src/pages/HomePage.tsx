@@ -4,12 +4,17 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import SignButton from '@ui/components/SignButton';
+import { KAKAO_AUTH_URL } from '@lib/const/config';
 
 export default function HomePage() {
   const navigate = useNavigate();
 
   const handlePageSignin = () => {
     navigate(PATH.SIGN_IN);
+  };
+
+  const handlePageAuthKakao = () => {
+    location.href = KAKAO_AUTH_URL;
   };
 
   return (
@@ -22,15 +27,16 @@ export default function HomePage() {
       <ButtonContainer>
         <SignButton
           text="이메일로 로그인"
-          onClick={handlePageSignin}
           backgroundColor={styleTokenCss.color.secondary}
           color={styleTokenCss.color.gray2}
+          onClick={handlePageSignin}
         />
         <SignButton
           text="카카오로 로그인"
           imgSrc="/images/icon/kakao.svg"
           backgroundColor={styleTokenCss.color.kakao}
           color={styleTokenCss.color.gray2}
+          onClick={handlePageAuthKakao}
         />
       </ButtonContainer>
     </Container>

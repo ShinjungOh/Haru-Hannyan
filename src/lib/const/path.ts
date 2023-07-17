@@ -6,4 +6,5 @@ export const PATH = {
   TIMELINE: '/timeline',
   REPORT: '/report',
   SETTING: '/setting',
+  OAUTH_KAKAO: '/oauth/kakao',
 };

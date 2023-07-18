@@ -44,25 +44,27 @@ export default function SigninPage() {
   );
 
   const handleClickSignIn = async () => {
-    if (!isDisabledSubmit) {
-      try {
-        const responseSignIn = await http.post<{ user: { user_token: string; name: string } }>('/user/signin', {
-          email: user.email,
-          password: user.password,
-        });
-        if (responseSignIn.data) {
-          const accessToken = responseSignIn.data.user.user_token;
-          const userProfile = {
-            name: responseSignIn.data.user.name,
-          };
-          localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
-          localStorage.setItem(USER, JSON.stringify(userProfile));
-          navigate(PATH.CALENDAR);
-        }
-      } catch (e) {
-        const error = handleAxiosError(e);
-        alert(error.msg);
+    if (isDisabledSubmit) {
+      return;
+    }
+
+    try {
+      const responseSignIn = await http.post<{ user: { user_token: string; name: string } }>('/user/signin', {
+        email: user.email,
+        password: user.password,
+      });
+      if (responseSignIn.data) {
+        const accessToken = responseSignIn.data.user.user_token;
+        const userProfile = {
+          name: responseSignIn.data.user.name,
+        };
+        localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+        localStorage.setItem(USER, JSON.stringify(userProfile));
+        navigate(PATH.CALENDAR);
       }
+    } catch (e) {
+      const error = handleAxiosError(e);
+      alert(error.msg);
     }
   };
 

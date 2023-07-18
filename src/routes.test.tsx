@@ -40,7 +40,9 @@ describe('App', () => {
     it('renders the calendar page', () => {
       renderRouter(PATH.CALENDAR);
 
-      screen.getAllByText(/calendar/);
+      screen.getAllByText('월');
+      screen.getAllByText('수');
+      screen.getAllByText('금');
     });
   });
 });

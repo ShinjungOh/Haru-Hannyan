@@ -7,6 +7,7 @@ import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import ReportPage from './pages/ReportPage';
 import SettingPage from './pages/SettingPage';
+import AuthKakaoPage from './pages/AuthKakaoPage';
 
 const routes = [
   {
@@ -19,6 +20,7 @@ const routes = [
       { path: PATH.TIMELINE, element: <TimelinePage /> },
       { path: PATH.REPORT, element: <ReportPage /> },
       { path: PATH.SETTING, element: <SettingPage /> },
+      { path: PATH.OAUTH_KAKAO, element: <AuthKakaoPage /> },
     ],
   },
 ];

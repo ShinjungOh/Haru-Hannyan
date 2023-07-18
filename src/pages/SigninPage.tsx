@@ -1,18 +1,20 @@
 import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { User, UserValidation } from '@lib/types/user';
+import { UserType, UserValidation } from '@lib/types/user.type';
 import NavigationHeader from '@ui/components/layout/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/SignButton';
 import InputBox from '@ui/components/InputBox';
+import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import { handleAxiosError, http } from '../api/http';
 
 export default function SigninPage() {
   const navigate = useNavigate();
-  const [user, setUser] = useState<Pick<User, 'email' | 'password'>>({
+  const [user, setUser] = useState<Pick<UserType, 'email' | 'password'>>({
     email: '',
     password: '',
   });
@@ -41,19 +43,42 @@ export default function SigninPage() {
     [userValidation.email, userValidation.password],
   );
 
+  const handleClickSignIn = async () => {
+    if (isDisabledSubmit) {
+      return;
+    }
+
+    try {
+      const responseSignIn = await http.post<{ user: { user_token: string; name: string } }>('/user/signin', {
+        email: user.email,
+        password: user.password,
+      });
+      if (responseSignIn.data) {
+        const accessToken = responseSignIn.data.user.user_token;
+        const userProfile = {
+          name: responseSignIn.data.user.name,
+        };
+        localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+        localStorage.setItem(USER, JSON.stringify(userProfile));
+        navigate(PATH.CALENDAR);
+      }
+    } catch (e) {
+      const error = handleAxiosError(e);
+      alert(error.msg);
+    }
+  };
+
   const handlePageSignup = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     navigate(PATH.SIGN_UP);
   };
 
-  const handleClickSignin = () => {
-    if (!isDisabledSubmit) {
-      alert('로그인에 성공했습니다.');
+  useEffect(() => {
+    const isAccessToken = localStorage.getItem('ACCESS_TOKEN');
+    if (isAccessToken) {
       navigate(PATH.CALENDAR);
-    } else {
-      alert('이메일, 비밀번호를 확인해 주세요.');
     }
-  };
+  }, [navigate]);
 
   return (
     <>
@@ -82,7 +107,7 @@ export default function SigninPage() {
         </InputContainer>
         <SignButton
           text="로그인"
-          onClick={handleClickSignin}
+          onClick={handleClickSignIn}
           disabled={isDisabledSubmit}
           backgroundColor={styleTokenCss.color.secondaryActive}
           color={styleTokenCss.color.white}

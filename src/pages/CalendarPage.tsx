@@ -7,35 +7,43 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 
 const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
+const range = (end) =>
+  Array(end)
+    .fill(0)
+    .map((_, index) => index + 1);
+
 export default function CalendarPage() {
-  const rangeFunction = Array(31).fill(0);
+  const daysInMonth = 31;
 
   return (
     <>
       <Header />
       <Container>
         <WeekRow>
-          {dayName.map((day) => (
-            <span>{day}</span>
-          ))}
+          <>
+            {dayName.map((day) => (
+              <span key={day}>{day}</span>
+            ))}
+          </>
         </WeekRow>
         <WeekRow>
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          {rangeFunction.map((_, index) => (
-            <DateColumn date={index + 1} type="available" />
-          ))}
-          <DateColumn date={1} type="great" />
-          <DateColumn date={2} type="good" />
-          <DateColumn date={3} type="normal" />
-          <DateColumn date={4} type="bad" />
-          <DateColumn date={5} type="angry" />
-          <DateColumn date={6} type="today" />
-          <DateColumn date={7} type="disabled" />
+          <>
+            {Array(6)
+              .fill(0)
+              .map((_, index) => (
+                <div key={index} />
+              ))}
+            {range(daysInMonth).map((date) => (
+              <DateColumn key={date} date={date} type="available" />
+            ))}
+            <DateColumn date={1} type="great" />
+            <DateColumn date={2} type="good" />
+            <DateColumn date={3} type="normal" />
+            <DateColumn date={4} type="bad" />
+            <DateColumn date={5} type="angry" />
+            <DateColumn date={6} type="today" />
+            <DateColumn date={7} type="disabled" />
+          </>
         </WeekRow>
       </Container>
       <Menu />

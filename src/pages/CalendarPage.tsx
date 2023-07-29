@@ -10,7 +10,7 @@ export default function CalendarPage() {
     <>
       <Header />
       <Container>
-        <Week>
+        <WeekRow>
           <span>월</span>
           <span>화</span>
           <span>수</span>
@@ -18,9 +18,22 @@ export default function CalendarPage() {
           <span>금</span>
           <span>토</span>
           <span>일</span>
-        </Week>
-        <DayBox date={1} disabled={false} />
-        <DayBox date={2} disabled />
+        </WeekRow>
+        <WeekRow>
+          {Array(31)
+            .fill(0)
+            .map((_, index) => (
+              <DayBox date={index + 1} calendarType="available" />
+            ))}
+          <DayBox date={1} calendarType="available" />
+          <DayBox date={2} calendarType="good" />
+          <DayBox date={3} calendarType="great" />
+          <DayBox date={4} calendarType="angry" />
+          <DayBox date={5} calendarType="bad" />
+          <DayBox date={6} calendarType="normal" />
+          <DayBox date={7} calendarType="today" />
+          <DayBox date={8} calendarType="disabled" />
+        </WeekRow>
       </Container>
       <Menu />
     </>
@@ -28,16 +41,26 @@ export default function CalendarPage() {
 }
 
 const Container = styled(Body)`
-  padding: 15px 35px;
+  padding: 15px 6px;
 `;
 
-const Week = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+const WeekRow = styled.div`
+  //border: 1px solid salmon;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 20px 0;
+  justify-items: center;
   align-items: center;
-  height: 30px;
   color: ${styleTokenCss.color.gray3};
   font-weight: 600;
   font-size: 13px;
+
+  span {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+  }
 `;

@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <Container>
       <ArrowLeft>﹤</ArrowLeft>
-      <SelectData>2023년 6월</SelectData>
+      <SelectDate>2023년 7월</SelectDate>
       <ArrowRight>﹥</ArrowRight>
     </Container>
   );
@@ -24,9 +24,10 @@ const Container = styled.header`
 const ArrowLeft = styled.div`
   padding: 0 12px;
   color: ${styleToken.color.primary};
+  cursor: pointer;
 `;
 
-const SelectData = styled.div`
+const SelectDate = styled.div`
   font-size: 20px;
   color: ${styleToken.color.gray2};
 `;
@@ -34,4 +35,5 @@ const SelectData = styled.div`
 const ArrowRight = styled.div`
   padding: 0 12px;
   color: ${styleToken.color.gray4};
+  cursor: pointer;
 `;

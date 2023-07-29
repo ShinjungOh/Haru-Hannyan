@@ -5,7 +5,7 @@ const calendarImageTypeSrc = {
   today: 'images/icon/calendar/today.svg',
   available: 'images/icon/calendar/available.svg',
   disabled: 'images/icon/calendar/disabled.svg',
-  great: 'images/icon/calendar/feeling-cat-angry.svg',
+  great: 'images/icon/calendar/feeling-cat-great.svg',
   good: 'images/icon/calendar/feeling-cat-good.svg',
   normal: 'images/icon/calendar/feeling-cat-normal.svg',
   bad: 'images/icon/calendar/feeling-cat-bad.svg',
@@ -14,15 +14,15 @@ const calendarImageTypeSrc = {
 
 type DayBoxProps = {
   date: number;
-  calendarType: 'today' | 'available' | 'disabled' | 'great' | 'good' | 'normal' | 'bad' | 'angry';
+  type: 'today' | 'available' | 'disabled' | 'great' | 'good' | 'normal' | 'bad' | 'angry';
   onClick?: () => void;
 };
 
-export default function DayBox({ date, calendarType, onClick }: DayBoxProps) {
-  const imgSrc = calendarImageTypeSrc[calendarType];
+export default function DateColumn({ date, type, onClick }: DayBoxProps) {
+  const imgSrc = calendarImageTypeSrc[type];
 
   return (
-    <Day onClick={onClick} type={calendarType}>
+    <Day onClick={onClick}>
       <DateNumber>{date}</DateNumber>
       <img src={imgSrc} alt="달력 아이콘" />
     </Day>
@@ -30,7 +30,6 @@ export default function DayBox({ date, calendarType, onClick }: DayBoxProps) {
 }
 
 const Day = styled.div`
-  //border: 1px solid violet;
   width: 37px;
   height: 57px;
   display: flex;

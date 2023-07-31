@@ -7,13 +7,28 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 
 const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
-const range = (end) =>
+const range = (end: number) =>
   Array(end)
     .fill(0)
     .map((_, index) => index + 1);
 
 export default function CalendarPage() {
-  const daysInMonth = 31;
+  const getCurrentMonthFirstDay = () => {
+    const currentDate = new Date();
+    return new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  };
+
+  const getCurrentMonthLastDay = () => {
+    const currentDate = new Date();
+    const currentMonth = new Date(currentDate);
+    currentMonth.setMonth(currentMonth.getMonth() + 1);
+    const nextMonth = new Date(currentMonth.getTime() - 1);
+    return nextMonth.getDate();
+  };
+
+  const firstDayOfMonth = getCurrentMonthFirstDay().getDay();
+
+  const daysInMonth = getCurrentMonthLastDay();
 
   return (
     <>
@@ -28,7 +43,7 @@ export default function CalendarPage() {
         </WeekRow>
         <WeekRow>
           <>
-            {Array(6)
+            {Array(firstDayOfMonth)
               .fill(0)
               .map((_, index) => (
                 <div key={index} />
@@ -53,6 +68,7 @@ export default function CalendarPage() {
 
 const Container = styled(Body)`
   padding: 15px 6px;
+  overflow-y: auto;
 `;
 
 const WeekRow = styled.div`

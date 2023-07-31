@@ -1,5 +1,7 @@
 import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router';
+import { PATH } from '@lib/const/path';
 
 const calendarImageTypeSrc = {
   today: 'images/icon/calendar/today.svg',
@@ -15,21 +17,29 @@ const calendarImageTypeSrc = {
 type DayBoxProps = {
   date: number;
   type: 'today' | 'available' | 'disabled' | 'great' | 'good' | 'normal' | 'bad' | 'angry';
-  onClick?: () => void;
 };
 
-export default function DateColumn({ date, type, onClick }: DayBoxProps) {
+export default function DateColumn({ date, type }: DayBoxProps) {
+  const navigate = useNavigate();
   const imgSrc = calendarImageTypeSrc[type];
 
+  const handleClickPage = (
+    type: 'today' | 'available' | 'disabled' | 'great' | 'good' | 'normal' | 'bad' | 'angry',
+  ) => {
+    if (type !== 'disabled') {
+      navigate(PATH.WRITE);
+    }
+  };
+
   return (
-    <Day onClick={onClick}>
+    <Day onClick={() => handleClickPage(type)} type={type}>
       <DateNumber>{date}</DateNumber>
       <img src={imgSrc} alt="달력 아이콘" />
     </Day>
   );
 }
 
-const Day = styled.div`
+const Day = styled.div<{ type: 'today' | 'available' | 'disabled' | 'great' | 'good' | 'normal' | 'bad' | 'angry' }>`
   width: 37px;
   height: 57px;
   display: flex;
@@ -37,7 +47,7 @@ const Day = styled.div`
   justify-content: center;
   align-items: center;
   color: ${styleTokenCss.color.gray3};
-  cursor: pointer;
+  cursor: ${(props) => (props.type === 'disabled' ? 'not-allowed' : 'pointer')};
 
   img {
     width: 100%;

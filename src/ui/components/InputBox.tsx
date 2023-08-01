@@ -11,7 +11,7 @@ type InputBoxProps = {
 };
 
 export default function InputBox({ type, id, name, placeholder, onChange }: InputBoxProps) {
-  return <Input type={type} id={id} name={name} placeholder={placeholder} onChange={onChange} />;
+  return <Input type={type} id={id} name={name} placeholder={placeholder} onChange={onChange} autoFocus />;
 }
 
 const Input = styled.input`

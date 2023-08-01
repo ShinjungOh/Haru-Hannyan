@@ -1,29 +1,49 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import styleToken from '../../styles/styleToken.css';
 
+const currentDate = new Date();
+
 export default function Header() {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [targetDate, setTargetDate] = useState(new Date());
 
   const handleChangeDateToPrev = () => {
-    const prevDate = new Date(currentDate);
+    const prevDate = new Date(targetDate);
     prevDate.setMonth(prevDate.getMonth() - 1);
-    setCurrentDate(prevDate);
+    setTargetDate(prevDate);
   };
 
+  const isActiveNext = useMemo(() => {
+    const targetMonth = `${targetDate.getFullYear()}${targetDate.getMonth()}`;
+    const currentMonth = `${currentDate.getFullYear()}${currentDate.getMonth()}`;
+    return targetMonth < currentMonth;
+  }, [targetDate]);
+
   const handleChangeDateToNext = () => {
-    const nextDate = new Date(currentDate);
-    nextDate.setMonth(nextDate.getMonth() + 1);
-    setCurrentDate(nextDate);
+    if (isActiveNext) {
+      const nextDate = new Date(targetDate);
+      nextDate.setMonth(nextDate.getMonth() + 1);
+      setTargetDate(nextDate);
+    }
   };
 
   return (
     <Container>
-      <ArrowLeft onClick={handleChangeDateToPrev}>﹤</ArrowLeft>
+      <Arrow onClick={handleChangeDateToPrev}>
+        <img src="images/icon/arrow-left.svg" alt="arrow-left" />
+      </Arrow>
       <SelectDate>
-        {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
+        {targetDate.getFullYear()}년 {targetDate.getMonth() + 1}월
       </SelectDate>
-      <ArrowRight onClick={handleChangeDateToNext}>﹥</ArrowRight>
+      <Arrow onClick={handleChangeDateToNext}>
+        <>
+          {isActiveNext ? (
+            <img src="images/icon/arrow-right-active.svg" alt="arrow-left" />
+          ) : (
+            <img src="images/icon/arrow-right.svg" alt="arrow-left" />
+          )}
+        </>
+      </Arrow>
     </Container>
   );
 }
@@ -38,11 +58,17 @@ const Container = styled.header`
   font-weight: 600;
 `;
 
-const ArrowLeft = styled.div`
+const Arrow = styled.button`
   padding: 0 12px;
   color: ${styleToken.color.primary};
-  cursor: pointer;
   border: none;
+  background-color: unset;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 const SelectDate = styled.div`
@@ -53,10 +79,4 @@ const SelectDate = styled.div`
   align-items: center;
   font-size: 20px;
   color: ${styleToken.color.gray2};
-`;
-
-const ArrowRight = styled.div`
-  padding: 0 12px;
-  color: ${styleToken.color.gray4};
-  cursor: pointer;
 `;

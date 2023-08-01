@@ -19,11 +19,10 @@ export default function CalendarPage() {
   };
 
   const getCurrentMonthLastDay = () => {
-    const currentDate = new Date();
-    const currentMonth = new Date(currentDate);
-    currentMonth.setMonth(currentMonth.getMonth() + 1);
-    const nextMonth = new Date(currentMonth.getTime() - 1);
-    return nextMonth.getDate();
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    const lastDateInCurrentMonth = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), 0);
+    return lastDateInCurrentMonth.getDate();
   };
 
   const firstDayOfMonth = getCurrentMonthFirstDay().getDay();

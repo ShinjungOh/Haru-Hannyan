@@ -4,13 +4,9 @@ import DateColumn from '@ui/components/DateColumn';
 import Menu from '@ui/components/layout/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
+import { range } from '@lib/utils/range';
 
 const dayName = ['일', '월', '화', '수', '목', '금', '토'];
-
-const range = (end: number) =>
-  Array(end)
-    .fill(0)
-    .map((_, index) => index + 1);
 
 export default function CalendarPage() {
   const getCurrentMonthFirstDay = () => {
@@ -42,11 +38,9 @@ export default function CalendarPage() {
         </WeekRow>
         <WeekRow>
           <>
-            {Array(firstDayOfMonth)
-              .fill(0)
-              .map((_, index) => (
-                <div key={index} />
-              ))}
+            {range(firstDayOfMonth).map((day) => (
+              <div key={day} />
+            ))}
             {range(daysInMonth).map((date) => (
               <DateColumn key={date} date={date} type="available" />
             ))}

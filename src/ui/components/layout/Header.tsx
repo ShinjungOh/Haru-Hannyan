@@ -1,29 +1,29 @@
 import styled from '@emotion/styled';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import useDateStore from '@lib/store/useDateStore';
 import styleToken from '../../styles/styleToken.css';
 
-const currentDate = new Date();
-
 export default function Header() {
-  const [targetDate, setTargetDate] = useState(new Date());
+  const [currentDate, targetDate, prevDate, nextDate] = useDateStore((state) => [
+    state.currentDate,
+    state.targetDate,
+    state.prevDate,
+    state.nextDate,
+  ]);
 
   const handleChangeDateToPrev = () => {
-    const prevDate = new Date(targetDate);
-    prevDate.setMonth(prevDate.getMonth() - 1);
-    setTargetDate(prevDate);
+    prevDate();
   };
 
   const isActiveNext = useMemo(() => {
     const targetMonth = `${targetDate.getFullYear()}${targetDate.getMonth()}`;
     const currentMonth = `${currentDate.getFullYear()}${currentDate.getMonth()}`;
     return targetMonth < currentMonth;
-  }, [targetDate]);
+  }, [currentDate, targetDate]);
 
   const handleChangeDateToNext = () => {
     if (isActiveNext) {
-      const nextDate = new Date(targetDate);
-      nextDate.setMonth(nextDate.getMonth() + 1);
-      setTargetDate(nextDate);
+      nextDate();
     }
   };
 

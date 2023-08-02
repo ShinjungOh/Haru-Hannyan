@@ -4,7 +4,7 @@ import DateColumn from '@ui/components/DateColumn';
 import Menu from '@ui/components/layout/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import { range } from '@lib/utils/range';
+import range from '@lib/utils/range';
 import useDateStore from '@lib/store/useDateStore';
 
 const dayName = ['일', '월', '화', '수', '목', '금', '토'];

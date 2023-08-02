@@ -5,25 +5,21 @@ import Menu from '@ui/components/layout/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { range } from '@lib/utils/range';
+import useDateStore from '@lib/store/useDateStore';
 
 const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function CalendarPage() {
-  const getCurrentMonthFirstDay = () => {
-    const currentDate = new Date();
-    return new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const [targetDate, targetMonthFirstDay] = useDateStore((state) => [state.targetDate, state.targetMonthFirstDay]);
+
+  const getTargetMonthLastDay = () => {
+    const lastDateInTargetMonth = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
+    return lastDateInTargetMonth.getDate();
   };
 
-  const getCurrentMonthLastDay = () => {
-    const nextMonth = new Date();
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    const lastDateInCurrentMonth = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), 0);
-    return lastDateInCurrentMonth.getDate();
-  };
+  const firstDayOfMonth = targetMonthFirstDay.getDay();
 
-  const firstDayOfMonth = getCurrentMonthFirstDay().getDay();
-
-  const daysInMonth = getCurrentMonthLastDay();
+  const daysInMonth = getTargetMonthLastDay();
 
   return (
     <>

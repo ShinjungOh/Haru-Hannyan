@@ -1,10 +1,10 @@
-import Header from '@ui/components/layout/Header';
 import Body from '@ui/components/layout/Body';
+import WritePostHeader from '@ui/components/layout/WritePostHeader';
 
 export default function WritePostPage() {
   return (
     <>
-      <Header />
+      <WritePostHeader />
       <Body>WritePostPage page</Body>
     </>
   );

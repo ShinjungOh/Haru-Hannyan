@@ -1,18 +1,36 @@
 import styled from '@emotion/styled';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import useDateStore from '@lib/store/useDateStore';
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import styleToken from '../../styles/styleToken.css';
 
 export default function Header() {
-  const [currentDate, targetDate, prevDate, nextDate] = useDateStore((state) => [
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const paramYear = searchParams.get('year');
+  const paramMonth = searchParams.get('month');
+
+  const parseYear = paramYear ? parseInt(paramYear, 10) : null;
+  const parseMonth = paramMonth ? parseInt(paramMonth, 10) : null;
+
+  const [currentDate, targetDate, setTargetDate] = useDateStore((state) => [
     state.currentDate,
     state.targetDate,
-    state.prevDate,
-    state.nextDate,
+    state.setTargetDate,
   ]);
 
+  const handleChangeTargetDate = (type: 'prev' | 'next') => {
+    const mappedTypeNumber = type === 'prev' ? -1 : +1;
+    targetDate.setMonth(targetDate.getMonth() + mappedTypeNumber);
+    const year = targetDate.getFullYear();
+    const month = targetDate.getMonth() + 1;
+    navigate(`/calendar?year=${year}&month=${month}`);
+  };
+
   const handleChangeDateToPrev = () => {
-    prevDate();
+    handleChangeTargetDate('prev');
   };
 
   const isActiveNext = useMemo(() => {
@@ -23,9 +41,15 @@ export default function Header() {
 
   const handleChangeDateToNext = () => {
     if (isActiveNext) {
-      nextDate();
+      handleChangeTargetDate('next');
     }
   };
+
+  useEffect(() => {
+    if (parseYear && parseMonth) {
+      setTargetDate(parseYear, parseMonth);
+    }
+  }, [parseYear, parseMonth, setTargetDate]);
 
   return (
     <Container>

@@ -7,26 +7,21 @@ type State = {
 };
 
 type Action = {
-  prevDate: () => void;
-  nextDate: () => void;
+  setTargetDate: (year: number, month: number) => void;
 };
 
 type DateStore = State & Action;
 
+const INITIAL_DATE = new Date();
+
 const useDateStore = create<DateStore>((set) => ({
-  currentDate: new Date(),
-  targetDate: new Date(),
-  targetMonthFirstDay: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-  prevDate: () =>
-    set(({ targetDate }) => ({
-      targetDate: new Date(targetDate.getFullYear(), targetDate.getMonth() - 1),
-      targetMonthFirstDay: new Date(targetDate.getFullYear(), targetDate.getMonth() - 1, 1),
-    })),
-  nextDate: () =>
-    set(({ targetDate }) => ({
-      targetDate: new Date(targetDate.getFullYear(), targetDate.getMonth() + 1),
-      targetMonthFirstDay: new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 1),
-    })),
+  currentDate: INITIAL_DATE,
+  targetDate: INITIAL_DATE,
+  targetMonthFirstDay: new Date(INITIAL_DATE.getFullYear(), INITIAL_DATE.getMonth(), 1),
+  setTargetDate: (year: number, month: number) =>
+    set({
+      targetDate: new Date(year, month - 1),
+    }),
 }));
 
 export default useDateStore;

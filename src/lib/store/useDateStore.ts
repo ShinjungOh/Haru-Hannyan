@@ -3,10 +3,10 @@ import { create } from 'zustand';
 type State = {
   currentDate: Date;
   targetDate: Date;
-  targetMonthFirstDay: Date;
 };
 
 type Action = {
+  getFirstDayOfMonth: (date: Date) => Date;
   setTargetDate: (year: number, month: number) => void;
 };
 
@@ -17,7 +17,7 @@ const INITIAL_DATE = new Date();
 const useDateStore = create<DateStore>((set) => ({
   currentDate: INITIAL_DATE,
   targetDate: INITIAL_DATE,
-  targetMonthFirstDay: new Date(INITIAL_DATE.getFullYear(), INITIAL_DATE.getMonth(), 1),
+  getFirstDayOfMonth: (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1),
   setTargetDate: (year: number, month: number) =>
     set({
       targetDate: new Date(year, month - 1),

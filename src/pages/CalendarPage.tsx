@@ -8,16 +8,34 @@ import range from '@lib/utils/range';
 import useDateStore from '@lib/store/useDateStore';
 
 const dayName = ['일', '월', '화', '수', '목', '금', '토'];
+const serverData = [
+  {
+    year: 2023,
+    month: 8,
+    date: 1,
+    feel: 'great',
+  },
+  {
+    year: 2023,
+    month: 8,
+    date: 3,
+    feel: 'good',
+  },
+] as const;
 
 export default function CalendarPage() {
-  const [targetDate, targetMonthFirstDay] = useDateStore((state) => [state.targetDate, state.targetMonthFirstDay]);
+  const [currentDate, targetDate, getFirstDayOfMonth] = useDateStore((state) => [
+    state.currentDate,
+    state.targetDate,
+    state.getFirstDayOfMonth,
+  ]);
 
   const getTargetMonthLastDay = () => {
     const lastDateInTargetMonth = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
     return lastDateInTargetMonth.getDate();
   };
 
-  const firstDayOfMonth = targetMonthFirstDay.getDay();
+  const firstDayOfMonth = new Date(getFirstDayOfMonth(targetDate)).getDay();
 
   const daysInMonth = getTargetMonthLastDay();
 
@@ -37,16 +55,21 @@ export default function CalendarPage() {
             {range(firstDayOfMonth).map((day) => (
               <div key={day} />
             ))}
-            {range(daysInMonth).map((date) => (
-              <DateColumn key={date} date={date} type="available" />
-            ))}
-            <DateColumn date={1} type="great" />
-            <DateColumn date={2} type="good" />
-            <DateColumn date={3} type="normal" />
-            <DateColumn date={4} type="bad" />
-            <DateColumn date={5} type="angry" />
-            <DateColumn date={6} type="today" />
-            <DateColumn date={7} type="disabled" />
+            {range(daysInMonth, 1).map((date) => {
+              const findElement = serverData.find((el) => el.date === date);
+              const isToday = date === currentDate.getDate();
+              const isDisabled = date > currentDate.getDate();
+              if (findElement) {
+                return <DateColumn key={date} date={date} type={findElement.feel} />;
+              }
+              if (isToday) {
+                return <DateColumn key={date} date={date} type="today" />;
+              }
+              if (isDisabled) {
+                return <DateColumn key={date} date={date} type="disabled" />;
+              }
+              return <DateColumn key={date} date={date} type="available" />;
+            })}
           </>
         </WeekRow>
       </Container>

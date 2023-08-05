@@ -8,6 +8,7 @@ import TimelinePage from './pages/TimelinePage';
 import ReportPage from './pages/ReportPage';
 import SettingPage from './pages/SettingPage';
 import AuthKakaoPage from './pages/AuthKakaoPage';
+import WritePostPage from './pages/WritePostPage';
 
 const routes = [
   {
@@ -16,11 +17,12 @@ const routes = [
       { path: PATH.HOME, element: <HomePage /> },
       { path: PATH.SIGN_IN, element: <SigninPage /> },
       { path: PATH.SIGN_UP, element: <SignupPage /> },
+      { path: PATH.OAUTH_KAKAO, element: <AuthKakaoPage /> },
       { path: PATH.CALENDAR, element: <CalendarPage /> },
       { path: PATH.TIMELINE, element: <TimelinePage /> },
       { path: PATH.REPORT, element: <ReportPage /> },
       { path: PATH.SETTING, element: <SettingPage /> },
-      { path: PATH.OAUTH_KAKAO, element: <AuthKakaoPage /> },
+      { path: PATH.WRITE, element: <WritePostPage /> },
     ],
   },
 ];

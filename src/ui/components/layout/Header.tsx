@@ -1,12 +1,73 @@
 import styled from '@emotion/styled';
+import { useEffect, useMemo } from 'react';
+import useDateStore from '@lib/store/useDateStore';
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import styleToken from '../../styles/styleToken.css';
 
 export default function Header() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const paramYear = searchParams.get('year');
+  const paramMonth = searchParams.get('month');
+
+  const parseYear = paramYear ? parseInt(paramYear, 10) : null;
+  const parseMonth = paramMonth ? parseInt(paramMonth, 10) : null;
+
+  const [currentDate, targetDate, setTargetDate] = useDateStore((state) => [
+    state.currentDate,
+    state.targetDate,
+    state.setTargetDate,
+  ]);
+
+  const handleChangeTargetDate = (type: 'prev' | 'next') => {
+    const mappedTypeNumber = type === 'prev' ? -1 : +1;
+    targetDate.setMonth(targetDate.getMonth() + mappedTypeNumber);
+    const year = targetDate.getFullYear();
+    const month = targetDate.getMonth() + 1;
+    navigate(`/calendar?year=${year}&month=${month}`);
+  };
+
+  const handleChangeDateToPrev = () => {
+    handleChangeTargetDate('prev');
+  };
+
+  const isActiveNext = useMemo(() => {
+    const targetMonth = `${targetDate.getFullYear()}${targetDate.getMonth()}`;
+    const currentMonth = `${currentDate.getFullYear()}${currentDate.getMonth()}`;
+    return targetMonth < currentMonth;
+  }, [currentDate, targetDate]);
+
+  const handleChangeDateToNext = () => {
+    if (isActiveNext) {
+      handleChangeTargetDate('next');
+    }
+  };
+
+  useEffect(() => {
+    if (parseYear && parseMonth) {
+      setTargetDate(parseYear, parseMonth);
+    }
+  }, [parseYear, parseMonth, setTargetDate]);
+
   return (
     <Container>
-      <ArrowLeft>﹤</ArrowLeft>
-      <SelectData>2023년 6월</SelectData>
-      <ArrowRight>﹥</ArrowRight>
+      <Arrow onClick={handleChangeDateToPrev}>
+        <img src="images/icon/arrow-left.svg" alt="arrow-left" />
+      </Arrow>
+      <SelectDate>
+        {targetDate.getFullYear()}년 {targetDate.getMonth() + 1}월
+      </SelectDate>
+      <Arrow onClick={handleChangeDateToNext}>
+        <>
+          {isActiveNext ? (
+            <img src="images/icon/arrow-right-active.svg" alt="arrow-left" />
+          ) : (
+            <img src="images/icon/arrow-right.svg" alt="arrow-left" />
+          )}
+        </>
+      </Arrow>
     </Container>
   );
 }
@@ -21,17 +82,25 @@ const Container = styled.header`
   font-weight: 600;
 `;
 
-const ArrowLeft = styled.div`
+const Arrow = styled.button`
   padding: 0 12px;
   color: ${styleToken.color.primary};
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
-const SelectData = styled.div`
+const SelectDate = styled.div`
+  width: 112px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   font-size: 20px;
   color: ${styleToken.color.gray2};
-`;
-
-const ArrowRight = styled.div`
-  padding: 0 12px;
-  color: ${styleToken.color.gray4};
 `;

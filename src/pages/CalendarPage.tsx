@@ -35,7 +35,7 @@ export default function CalendarPage() {
     return lastDateInTargetMonth.getDate();
   };
 
-  const firstDayOfMonth = new Date(getFirstDayOfMonth(targetDate)).getDay();
+  const firstDayOfMonth = getFirstDayOfMonth(targetDate).getDay();
 
   const daysInMonth = getTargetMonthLastDay();
 

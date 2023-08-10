@@ -15,9 +15,10 @@ const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function CalendarPage() {
   const navigate = useNavigate();
-  const [currentDate, targetDate, getFirstDayOfMonth] = useDateStore((state) => [
+  const [currentDate, targetDate, setTargetDate, getFirstDayOfMonth] = useDateStore((state) => [
     state.currentDate,
     state.targetDate,
+    state.setTargetDate,
     state.getFirstDayOfMonth,
   ]);
 
@@ -72,18 +73,18 @@ export default function CalendarPage() {
       }
     };
 
-    const getCurrentDate = () => {
+    const setCurrentDateToTargetDate = () => {
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1;
-      navigate(`/calendar?year=${year}&month=${month}`);
+      setTargetDate(year, month);
     };
 
     if (targetDate !== null) {
       getMonthlyDiary();
     } else {
-      getCurrentDate();
+      setCurrentDateToTargetDate();
     }
-  }, [currentDate, navigate, targetDate]);
+  }, [currentDate, navigate, setTargetDate, targetDate]);
 
   console.log(monthlyDiary);
 

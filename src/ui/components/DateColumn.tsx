@@ -1,8 +1,6 @@
 import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router';
-import { PATH } from '@lib/const/path';
-import { Feeling } from '@lib/types/diary.type';
+import { DateType, Feeling } from '@lib/types/diary.type';
 
 const calendarImageTypeSrc = {
   today: 'images/icon/calendar/today.svg',
@@ -15,32 +13,24 @@ const calendarImageTypeSrc = {
   [Feeling.화남]: 'images/icon/calendar/feeling-cat-angry.svg',
 };
 
-type DayBoxType = 'today' | 'available' | 'disabled' | Feeling;
-
-type DayBoxProps = {
+type DateColumnProps = {
   date: number;
-  type: DayBoxType;
+  type: DateType;
+  onClick: () => void;
 };
 
-export default function DateColumn({ date, type }: DayBoxProps) {
-  const navigate = useNavigate();
+export default function DateColumn({ date, type, onClick }: DateColumnProps) {
   const imgSrc = calendarImageTypeSrc[type];
 
-  const handleClickPage = (type: DayBoxType) => {
-    if (type !== 'disabled') {
-      navigate(PATH.WRITE);
-    }
-  };
-
   return (
-    <Day onClick={() => handleClickPage(type)} type={type}>
+    <Day type={type} onClick={onClick}>
       <DateNumber>{date}</DateNumber>
       <img src={imgSrc} alt="달력 아이콘" />
     </Day>
   );
 }
 
-const Day = styled.div<{ type: DayBoxType }>`
+const Day = styled.div<{ type: DateType }>`
   width: 37px;
   height: 57px;
   display: flex;

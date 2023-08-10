@@ -23,6 +23,7 @@ const routes = [
       { path: PATH.REPORT, element: <ReportPage /> },
       { path: PATH.SETTING, element: <SettingPage /> },
       { path: PATH.WRITE, element: <WritePostPage /> },
+      { path: PATH.EDIT, element: <WritePostPage /> },
     ],
   },
 ];

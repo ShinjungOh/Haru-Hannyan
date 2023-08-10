@@ -7,7 +7,7 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 import range from '@lib/utils/range';
 import useDateStore from '@lib/store/useDateStore';
 import { useEffect, useState } from 'react';
-import { Diary } from '@lib/types/diary.type';
+import { DateType, Diary } from '@lib/types/diary.type';
 import { useNavigate } from 'react-router';
 import { handleAxiosError, http } from '../api/http';
 
@@ -53,6 +53,21 @@ export default function CalendarPage() {
       return year && month;
     }
     return false;
+  };
+
+  const handleClickDiaryPage = (type: DateType, date: number) => {
+    if (type !== 'disabled' && targetDate !== null) {
+      const year = targetDate.getFullYear();
+      const month = targetDate.getMonth() + 1;
+      const findDiary = monthlyDiary.find(
+        (el) => el.createDate.year === year && el.createDate.month === month && el.createDate.date === date,
+      );
+      if (!findDiary) {
+        navigate(`/calender/write?year=${year}&month=${month}&date=${date}`);
+      } else if (findDiary) {
+        navigate(`/calender/edit?diaryId=${findDiary.diaryId}`);
+      }
+    }
   };
 
   useEffect(() => {
@@ -109,15 +124,38 @@ export default function CalendarPage() {
               const isToday = isTodayWithoutDate() && date === currentDate.getDate();
               const isDisabled = isDisabledWithoutDate() && date > currentDate.getDate();
               if (findElement) {
-                return <DateColumn key={date} date={date} type={findElement.feel} />;
+                return (
+                  <DateColumn
+                    key={date}
+                    date={date}
+                    type={findElement.feel}
+                    onClick={() => handleClickDiaryPage(findElement.feel, date)}
+                  />
+                );
               }
               if (isToday) {
-                return <DateColumn key={date} date={date} type="today" />;
+                return (
+                  <DateColumn key={date} date={date} type="today" onClick={() => handleClickDiaryPage('today', date)} />
+                );
               }
               if (isDisabled) {
-                return <DateColumn key={date} date={date} type="disabled" />;
+                return (
+                  <DateColumn
+                    key={date}
+                    date={date}
+                    type="disabled"
+                    onClick={() => handleClickDiaryPage('disabled', date)}
+                  />
+                );
               }
-              return <DateColumn key={date} date={date} type="available" />;
+              return (
+                <DateColumn
+                  key={date}
+                  date={date}
+                  type="available"
+                  onClick={() => handleClickDiaryPage('available', date)}
+                />
+              );
             })}
           </>
         </WeekRow>

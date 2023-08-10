@@ -8,4 +8,5 @@ export const PATH = {
   REPORT: '/report',
   SETTING: '/setting',
   WRITE: '/calender/write',
+  EDIT: '/calender/edit',
 };

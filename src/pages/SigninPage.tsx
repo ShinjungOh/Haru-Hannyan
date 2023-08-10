@@ -58,7 +58,7 @@ export default function SigninPage() {
         const userProfile = {
           name: responseSignIn.data.user.name,
         };
-        localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+        localStorage.setItem(ACCESS_TOKEN, accessToken);
         localStorage.setItem(USER, JSON.stringify(userProfile));
         navigate(PATH.CALENDAR);
       }

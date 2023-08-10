@@ -78,7 +78,7 @@ export default function SignupPage() {
         const userProfile = {
           name: responseSignUp.data.user.name,
         };
-        localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+        localStorage.setItem(ACCESS_TOKEN, accessToken);
         localStorage.setItem(USER, JSON.stringify(userProfile));
         navigate(PATH.CALENDAR);
       }

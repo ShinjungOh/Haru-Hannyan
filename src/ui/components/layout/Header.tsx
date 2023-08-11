@@ -65,15 +65,15 @@ export default function Header() {
   return (
     <Container>
       <Arrow onClick={handleChangeDateToPrev}>
-        <img src="images/icon/arrow-left.svg" alt="arrow-left" />
+        <img src="images/icon/arrow-left-active.svg" alt="arrow-left-active" />
       </Arrow>
       <SelectDate>{calendarTargetDateString}</SelectDate>
       <Arrow onClick={handleChangeDateToNext}>
         <>
           {isActiveNext ? (
-            <img src="images/icon/arrow-right-active.svg" alt="arrow-left" />
+            <img src="images/icon/arrow-right-active.svg" alt="arrow-right-active" />
           ) : (
-            <img src="images/icon/arrow-right.svg" alt="arrow-left" />
+            <img src="images/icon/arrow-right-disabled.svg" alt="arrow-right-disabled" />
           )}
         </>
       </Arrow>

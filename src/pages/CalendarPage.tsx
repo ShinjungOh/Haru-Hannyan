@@ -64,9 +64,9 @@ export default function CalendarPage() {
         (el) => el.createDate.year === year && el.createDate.month === month && el.createDate.date === date,
       );
       if (!findDiary) {
-        navigate(`/calender/write?year=${year}&month=${month}&date=${date}`);
+        navigate(`/calendar/write?year=${year}&month=${month}&date=${date}`);
       } else if (findDiary) {
-        navigate(`/calender/edit?diaryId=${findDiary.diaryId}`);
+        navigate(`/calendar/edit?diaryId=${findDiary.diaryId}`);
       }
     }
   };

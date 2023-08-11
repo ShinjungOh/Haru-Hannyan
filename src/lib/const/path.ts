@@ -7,6 +7,6 @@ export const PATH = {
   TIMELINE: '/timeline',
   REPORT: '/report',
   SETTING: '/setting',
-  WRITE: '/calender/write',
-  EDIT: '/calender/edit',
+  WRITE: '/calendar/write',
+  EDIT: '/calendar/edit',
 };

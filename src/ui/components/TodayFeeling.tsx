@@ -4,19 +4,24 @@ import { Feeling } from '@lib/types/diary.type';
 
 const FeelingCatTypeSrc = [
   {
-    [Feeling.행복]: 'images/icon/calendar/feeling-cat-great.svg',
+    feeling: [Feeling.행복],
+    url: 'images/icon/calendar/feeling-cat-great.svg',
   },
   {
-    [Feeling.좋음]: 'images/icon/calendar/feeling-cat-good.svg',
+    feeling: [Feeling.좋음],
+    url: 'images/icon/calendar/feeling-cat-good.svg',
   },
   {
-    [Feeling.보통]: 'images/icon/calendar/feeling-cat-normal.svg',
+    feeling: [Feeling.보통],
+    url: 'images/icon/calendar/feeling-cat-normal.svg',
   },
   {
-    [Feeling.나쁨]: 'images/icon/calendar/feeling-cat-bad.svg',
+    feeling: [Feeling.나쁨],
+    url: 'images/icon/calendar/feeling-cat-bad.svg',
   },
   {
-    [Feeling.화남]: 'images/icon/calendar/feeling-cat-angry.svg',
+    feeling: [Feeling.화남],
+    url: 'images/icon/calendar/feeling-cat-angry.svg',
   },
 ];
 
@@ -26,9 +31,11 @@ export default function TodayFeeling() {
       <FeelingContainer>
         <div>오늘은 어떤 고양이인가요?</div>
         <FeelingCat>
-          {FeelingCatTypeSrc.map((el, index) => (
-            <img key={index} src={Object.values(el)[0]} alt="기분 아이콘" />
-          ))}
+          <>
+            {FeelingCatTypeSrc.map((el, index) => (
+              <img key={index} src={el.url} alt="기분 아이콘" />
+            ))}
+          </>
         </FeelingCat>
       </FeelingContainer>
       <Triangle />

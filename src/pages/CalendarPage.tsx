@@ -24,6 +24,7 @@ export default function CalendarPage() {
   ]);
 
   const [monthlyDiary, setMonthlyDiary] = useState<Diary[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const getTargetMonthLastDay = () => {
     if (targetDate !== null) {
@@ -71,6 +72,17 @@ export default function CalendarPage() {
     }
   };
 
+  const handleCreateTodayDiary = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
+  const handleClickTodayFeeling = (feeling: string) => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const date = currentDate.getDate();
+    navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
+  };
+
   useEffect(() => {
     const getMonthlyDiary = async () => {
       try {
@@ -101,8 +113,6 @@ export default function CalendarPage() {
       setCurrentDateToTargetDate();
     }
   }, [currentDate, navigate, setTargetDate, targetDate]);
-
-  console.log(monthlyDiary);
 
   return (
     <>
@@ -161,8 +171,8 @@ export default function CalendarPage() {
           </>
         </WeekRow>
       </Container>
-      <TodayFeeling />
-      <Menu />
+      {isOpen && <TodayFeeling onClick={handleClickTodayFeeling} />}
+      <Menu onClick={handleCreateTodayDiary} />
     </>
   );
 }

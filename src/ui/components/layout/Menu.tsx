@@ -14,7 +14,11 @@ const menuIcon = {
 
 const feelCatIcon = '/images/icon/menu/feel-cat.svg';
 
-export default function Menu() {
+type MenuProps = {
+  onClick?: () => void;
+};
+
+export default function Menu({ onClick }: MenuProps) {
   const location = useLocation();
 
   const getMenuIcon = (iconKey: 'CALENDAR' | 'TIMELINE' | 'REPORT' | 'SETTING') => {
@@ -33,7 +37,7 @@ export default function Menu() {
       <MenuItem imageSrc={getMenuIcon('TIMELINE')} path={PATH.TIMELINE} />
       <MenuItem imageSrc={getMenuIcon('REPORT')} path={PATH.REPORT} />
       <MenuItem imageSrc={getMenuIcon('SETTING')} path={PATH.SETTING} />
-      <FeelCatIcon>
+      <FeelCatIcon onClick={onClick}>
         <img src={feelCatIcon} alt="cat-icon" />
       </FeelCatIcon>
     </Container>

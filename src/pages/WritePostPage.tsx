@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { Emotion, Feeling } from '@lib/types/diary.type';
 import InputBox from '@ui/components/InputBox';
+import { useSearchParams } from 'react-router-dom';
 
 const FeelingCatTypeSrc = [
   {
@@ -96,9 +97,15 @@ const emotionImageSrc = [
 ];
 
 export default function WritePostPage() {
-  const handleChange = () => {
-    console.log('click');
+  const handleChangeInputDiary = () => {
+    console.log('change');
   };
+
+  const [params] = useSearchParams();
+
+  const todayFeeling = params.get('feeling');
+
+  console.log(todayFeeling);
 
   return (
     <>
@@ -129,8 +136,14 @@ export default function WritePostPage() {
             </Emotions>
           </EmotionContainer>
           <DiaryContainer>
-            <div>한줄일기</div>
-            <InputBox type="text" id="diary" name="diary" placeholder="내용을 입력해 주세요" onChange={handleChange} />
+            <label htmlFor="diary">한줄일기</label>
+            <InputBox
+              type="text"
+              id="diary"
+              name="diary"
+              placeholder="내용을 입력해 주세요"
+              onChange={handleChangeInputDiary}
+            />
           </DiaryContainer>
           <Button type="button">작성완료</Button>
         </Container>
@@ -157,9 +170,9 @@ const FeelingContainer = styled.div`
   border-radius: 15px;
   background-color: white;
   border: 1px solid ${styleTokenCss.color.gray5};
+  font-size: 14px;
 
   div {
-    font-size: 14px;
     font-weight: 600;
     color: ${styleTokenCss.color.gray3};
   }
@@ -177,7 +190,12 @@ const FeelingCat = styled.div`
   img {
     width: 100%;
     height: 100%;
-    margin: 10px;
+    margin: 13px;
+    opacity: 60%;
+
+    :hover {
+      opacity: 100%;
+    }
   }
 `;
 
@@ -193,10 +211,10 @@ const EmotionContainer = styled.div`
   border-radius: 15px;
   background-color: white;
   border: 1px solid ${styleTokenCss.color.gray5};
+  font-size: 14px;
 
   div {
     padding-bottom: 20px;
-    font-size: 14px;
     font-weight: 600;
     color: ${styleTokenCss.color.gray3};
   }
@@ -218,9 +236,15 @@ const EmotionItem = styled.div`
   height: 55px;
   border-radius: 50%;
   background-color: ${styleTokenCss.color.secondary};
+  cursor: pointer;
+  opacity: 60%;
+
+  :hover {
+    opacity: 100%;
+  }
 
   img {
-    width: 35px;
+    width: 33px;
   }
 `;
 
@@ -229,7 +253,7 @@ const EmotionName = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 18px;
   width: 55px;
   font-size: 12px;
   font-weight: 600;
@@ -248,10 +272,10 @@ const DiaryContainer = styled.div`
   border-radius: 15px;
   background-color: white;
   border: 1px solid ${styleTokenCss.color.gray5};
+  font-size: 14px;
 
-  div {
+  label {
     padding-bottom: 10px;
-    font-size: 14px;
     font-weight: 600;
     color: ${styleTokenCss.color.gray3};
   }

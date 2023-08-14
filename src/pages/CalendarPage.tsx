@@ -12,7 +12,7 @@ import { DateType, Diary } from '@lib/types/diary.type';
 import { useNavigate } from 'react-router';
 import { handleAxiosError, http } from '../api/http';
 
-const dayName = ['일', '월', '화', '수', '목', '금', '토'];
+export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function CalendarPage() {
   const navigate = useNavigate();

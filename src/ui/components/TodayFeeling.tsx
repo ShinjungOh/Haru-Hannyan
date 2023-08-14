@@ -1,29 +1,6 @@
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import { Feeling } from '@lib/types/diary.type';
-
-const FeelingCatTypeSrc = [
-  {
-    feeling: Feeling.행복,
-    url: 'images/icon/calendar/feeling-cat-great.svg',
-  },
-  {
-    feeling: Feeling.좋음,
-    url: 'images/icon/calendar/feeling-cat-good.svg',
-  },
-  {
-    feeling: Feeling.보통,
-    url: 'images/icon/calendar/feeling-cat-normal.svg',
-  },
-  {
-    feeling: Feeling.나쁨,
-    url: 'images/icon/calendar/feeling-cat-bad.svg',
-  },
-  {
-    feeling: Feeling.화남,
-    url: 'images/icon/calendar/feeling-cat-angry.svg',
-  },
-];
+import { FeelingCatTypeSrc } from '../../pages/WritePostPage';
 
 type TodayFeelingProps = {
   onClick: (feeling: string) => void;

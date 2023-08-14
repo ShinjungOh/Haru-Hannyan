@@ -5,107 +5,181 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 import { Emotion, Feeling } from '@lib/types/diary.type';
 import InputBox from '@ui/components/InputBox';
 import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { handleAxiosError, http } from '../api/http';
 
-const FeelingCatTypeSrc = [
+export const FeelingCatTypeSrc = [
   {
-    feeling: [Feeling.행복],
+    feeling: Feeling.행복,
     url: '/images/icon/calendar/feeling-cat-great.svg',
   },
   {
-    feeling: [Feeling.좋음],
+    feeling: Feeling.좋음,
     url: '/images/icon/calendar/feeling-cat-good.svg',
   },
   {
-    feeling: [Feeling.보통],
+    feeling: Feeling.보통,
     url: '/images/icon/calendar/feeling-cat-normal.svg',
   },
   {
-    feeling: [Feeling.나쁨],
+    feeling: Feeling.나쁨,
     url: '/images/icon/calendar/feeling-cat-bad.svg',
   },
   {
-    feeling: [Feeling.화남],
+    feeling: Feeling.화남,
     url: '/images/icon/calendar/feeling-cat-angry.svg',
   },
 ];
 
 const emotionImageSrc = [
   {
-    emotion: [Emotion.신나는],
+    emotion: Emotion.신나는,
     url: '/images/icon/emotion/신나는.svg',
   },
   {
-    emotion: [Emotion.편안한],
+    emotion: Emotion.편안한,
     url: '/images/icon/emotion/편안한.svg',
   },
   {
-    emotion: [Emotion.뿌듯한],
+    emotion: Emotion.뿌듯한,
     url: '/images/icon/emotion/뿌듯한.svg',
   },
   {
-    emotion: [Emotion.기대되는],
+    emotion: Emotion.기대되는,
     url: '/images/icon/emotion/기대되는.svg',
   },
   {
-    emotion: [Emotion.행복한],
+    emotion: Emotion.행복한,
     url: '/images/icon/emotion/행복한.svg',
   },
   {
-    emotion: [Emotion.의욕적인],
+    emotion: Emotion.의욕적인,
     url: '/images/icon/emotion/의욕적인.svg',
   },
   {
-    emotion: [Emotion.설레는],
+    emotion: Emotion.설레는,
     url: '/images/icon/emotion/설레는.svg',
   },
   {
-    emotion: [Emotion.상쾌한],
+    emotion: Emotion.상쾌한,
     url: '/images/icon/emotion/상쾌한.svg',
   },
   {
-    emotion: [Emotion.우울한],
+    emotion: Emotion.우울한,
     url: '/images/icon/emotion/우울한.svg',
   },
   {
-    emotion: [Emotion.외로운],
+    emotion: Emotion.외로운,
     url: '/images/icon/emotion/외로운.svg',
   },
   {
-    emotion: [Emotion.불안한],
+    emotion: Emotion.불안한,
     url: '/images/icon/emotion/불안한.svg',
   },
   {
-    emotion: [Emotion.슬픈],
+    emotion: Emotion.슬픈,
     url: '/images/icon/emotion/슬픈.svg',
   },
   {
-    emotion: [Emotion.화난],
+    emotion: Emotion.화난,
     url: '/images/icon/emotion/화난.svg',
   },
   {
-    emotion: [Emotion.부담되는],
+    emotion: Emotion.부담되는,
     url: '/images/icon/emotion/부담되는.svg',
   },
   {
-    emotion: [Emotion.짜증나는],
+    emotion: Emotion.짜증나는,
     url: '/images/icon/emotion/짜증나는.svg',
   },
   {
-    emotion: [Emotion.피곤한],
+    emotion: Emotion.피곤한,
     url: '/images/icon/emotion/피곤한.svg',
   },
 ];
 
-export default function WritePostPage() {
-  const handleChangeInputDiary = () => {
-    console.log('change');
+type newDiaryType = {
+  feel: string | null;
+  emotions: Emotion[];
+  text: string;
+  date: {
+    year: number;
+    month: number;
+    date: number;
   };
+};
 
+export default function WritePostPage() {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
 
   const todayFeeling = params.get('feeling');
+  const year = params.get('year');
+  const month = params.get('month');
+  const date = params.get('date');
 
-  console.log(todayFeeling);
+  const parseYear = year ? parseInt(year, 10) : 0;
+  const parseMonth = month ? parseInt(month, 10) : 0;
+  const parseDate = date ? parseInt(date, 10) : 0;
+
+  const [diary, setDiary] = useState<newDiaryType>({
+    feel: todayFeeling || null,
+    emotions: [],
+    text: '',
+    date: {
+      year: parseYear,
+      month: parseMonth,
+      date: parseDate,
+    },
+  });
+
+  const handleClickDiaryFeeling = (feeling: Feeling) => {
+    setDiary({
+      ...diary,
+      feel: feeling,
+    });
+  };
+
+  const handleClickDiaryEmotion = (emotion?: Emotion | undefined) => {
+    // TODO: 동일 emotion 중복 불가 처리
+    if (emotion) {
+      setDiary({
+        ...diary,
+        emotions: [...diary.emotions, emotion],
+      });
+    }
+  };
+
+  const handleChangeInputDiary = (e: any) => {
+    const { value } = e.target;
+    setDiary({
+      ...diary,
+      text: value,
+    });
+  };
+
+  console.log(diary);
+
+  const postNewDiary = async () => {
+    try {
+      const response = await http.post('/diary', diary);
+      console.log(response.msg);
+      alert(response.msg);
+      navigate(-1);
+    } catch (e) {
+      const error = handleAxiosError(e);
+      alert(error.msg);
+    }
+  };
+
+  const isDisabled = !!diary.feel;
+
+  const handlePostNewDiary = () => {
+    if (isDisabled) {
+      postNewDiary();
+    }
+  };
 
   return (
     <>
@@ -117,7 +191,7 @@ export default function WritePostPage() {
             <FeelingCat>
               <>
                 {FeelingCatTypeSrc.map((el, index) => (
-                  <img key={index} src={el.url} alt="기분 아이콘" />
+                  <img key={index} src={el.url} alt={el.feeling} onClick={() => handleClickDiaryFeeling(el.feeling)} />
                 ))}
               </>
             </FeelingCat>
@@ -127,8 +201,8 @@ export default function WritePostPage() {
             <Emotions>
               <>
                 {emotionImageSrc.map((el, index) => (
-                  <EmotionItem key={index}>
-                    <img src={el.url} alt="감정 아이콘" />
+                  <EmotionItem key={index} onClick={() => handleClickDiaryEmotion(el.emotion)}>
+                    <img src={el.url} alt={el.emotion} />
                     <EmotionName>{el.emotion}</EmotionName>
                   </EmotionItem>
                 ))}
@@ -145,7 +219,9 @@ export default function WritePostPage() {
               onChange={handleChangeInputDiary}
             />
           </DiaryContainer>
-          <Button type="button">작성완료</Button>
+          <Button type="button" onClick={handlePostNewDiary} disabled={!isDisabled}>
+            작성완료
+          </Button>
         </Container>
       </Body>
     </>
@@ -300,5 +376,16 @@ const Button = styled.button`
 
   :hover {
     background-color: ${styleTokenCss.color.secondaryActive};
+  }
+
+  &:disabled {
+    background-color: ${styleTokenCss.color.gray5};
+    color: ${styleTokenCss.color.white};
+    cursor: not-allowed;
+
+    :hover {
+      cursor: not-allowed;
+      background-color: ${styleTokenCss.color.gray5};
+    }
   }
 `;

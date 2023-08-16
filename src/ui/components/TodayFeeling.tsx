@@ -29,6 +29,13 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 920px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: ${styleTokenCss.color.gray3}80;
+  z-index: 1;
 `;
 
 const FeelingContainer = styled.div`

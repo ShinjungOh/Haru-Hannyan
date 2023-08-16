@@ -141,12 +141,18 @@ export default function WritePostPage() {
     });
   };
 
-  const handleClickDiaryEmotion = (emotion?: Emotion | undefined) => {
-    // TODO: 동일 emotion 중복 불가 처리
-    if (emotion) {
+  const handleClickDiaryEmotion = (emotion: Emotion) => {
+    const isDuplicate = diary.emotions.includes(emotion);
+
+    if (!isDuplicate) {
       setDiary({
         ...diary,
         emotions: [...diary.emotions, emotion],
+      });
+    } else if (isDuplicate) {
+      setDiary({
+        ...diary,
+        emotions: [...diary.emotions.filter((el) => el !== emotion)],
       });
     }
   };
@@ -187,27 +193,41 @@ export default function WritePostPage() {
       <Body>
         <Container>
           <FeelingContainer>
-            <div>오늘은 어떤 고양이인가요?</div>
-            <FeelingCat>
+            <h4>오늘은 어떤 고양이인가요?</h4>
+            <FeelingCatList>
               <>
-                {FeelingCatTypeSrc.map((el, index) => (
-                  <img key={index} src={el.url} alt={el.feeling} onClick={() => handleClickDiaryFeeling(el.feeling)} />
-                ))}
+                {FeelingCatTypeSrc.map((el, index) => {
+                  const isSelected = el.feeling === diary.feel;
+                  return (
+                    <FeelingCatImage
+                      key={index}
+                      src={el.url}
+                      alt={el.feeling}
+                      isSelected={isSelected}
+                      onClick={() => handleClickDiaryFeeling(el.feeling)}
+                    />
+                  );
+                })}
               </>
-            </FeelingCat>
+            </FeelingCatList>
           </FeelingContainer>
           <EmotionContainer>
-            <div>감정</div>
-            <Emotions>
+            <h4>감정</h4>
+            <EmotionList>
               <>
-                {emotionImageSrc.map((el, index) => (
-                  <EmotionItem key={index} onClick={() => handleClickDiaryEmotion(el.emotion)}>
-                    <img src={el.url} alt={el.emotion} />
-                    <EmotionName>{el.emotion}</EmotionName>
-                  </EmotionItem>
-                ))}
+                {emotionImageSrc.map((el, index) => {
+                  const isSelected = diary.emotions.includes(el.emotion);
+                  return (
+                    <EmotionItem key={index} onClick={() => handleClickDiaryEmotion(el.emotion)}>
+                      <EmotionHeader isSelected={isSelected}>
+                        <img src={el.url} alt={el.emotion} />
+                      </EmotionHeader>
+                      <EmotionBody>{el.emotion}</EmotionBody>
+                    </EmotionItem>
+                  );
+                })}
               </>
-            </Emotions>
+            </EmotionList>
           </EmotionContainer>
           <DiaryContainer>
             <label htmlFor="diary">한줄일기</label>
@@ -242,36 +262,36 @@ const FeelingContainer = styled.div`
   align-items: center;
   padding: 20px 15px 15px 15px;
   width: 100%;
-  height: 100px;
+  height: auto;
   border-radius: 15px;
   background-color: white;
   border: 1px solid ${styleTokenCss.color.gray5};
   font-size: 14px;
 
-  div {
+  h4 {
     font-weight: 600;
     color: ${styleTokenCss.color.gray3};
   }
 `;
 
-const FeelingCat = styled.div`
-  width: 40px;
+const FeelingCatList = styled.div`
+  margin-top: 13px;
+  width: 100%;
   height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
 
-  img {
-    width: 100%;
-    height: 100%;
-    margin: 13px;
-    opacity: 60%;
+const FeelingCatImage = styled.img<{ isSelected: boolean }>`
+  width: 100%;
+  height: 100%;
+  opacity: ${(props) => (props.isSelected ? '100%' : '45%')};
 
-    :hover {
-      opacity: 100%;
-    }
+  :hover {
+    opacity: 100%;
   }
 `;
 
@@ -283,23 +303,25 @@ const EmotionContainer = styled.div`
   padding: 20px 15px 15px 15px;
   margin-top: 20px;
   width: 100%;
-  height: 400px;
+  height: auto;
   border-radius: 15px;
   background-color: white;
   border: 1px solid ${styleTokenCss.color.gray5};
   font-size: 14px;
 
-  div {
-    padding-bottom: 20px;
+  h4 {
     font-weight: 600;
     color: ${styleTokenCss.color.gray3};
   }
 `;
 
-const Emotions = styled.div`
+const EmotionList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 30px;
+  grid-gap: 8px;
+  margin-top: 13px;
+  width: 100%;
+  justify-content: center;
 `;
 
 const EmotionItem = styled.div`
@@ -308,28 +330,37 @@ const EmotionItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  width: 100%;
+  height: auto;
+`;
+
+const EmotionHeader = styled.div<{ isSelected: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 55px;
   height: 55px;
   border-radius: 50%;
   background-color: ${styleTokenCss.color.secondary};
   cursor: pointer;
-  opacity: 60%;
-
-  :hover {
-    opacity: 100%;
-  }
+  opacity: ${(props) => (props.isSelected ? '100%' : '45%')};
 
   img {
     width: 33px;
   }
+
+  :hover {
+    opacity: 100%;
+  }
 `;
 
-const EmotionName = styled.div`
+const EmotionBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 18px;
+  margin-top: 7px;
   width: 55px;
   font-size: 12px;
   font-weight: 600;

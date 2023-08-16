@@ -1,7 +1,6 @@
 import Header from '@ui/components/layout/Header';
 import Body from '@ui/components/layout/Body';
 import DateColumn from '@ui/components/DateColumn';
-import TodayFeeling from '@ui/components/TodayFeeling';
 import Menu from '@ui/components/layout/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
@@ -24,7 +23,6 @@ export default function CalendarPage() {
   ]);
 
   const [monthlyDiary, setMonthlyDiary] = useState<Diary[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
 
   const getTargetMonthLastDay = () => {
     if (targetDate !== null) {
@@ -70,17 +68,6 @@ export default function CalendarPage() {
         navigate(`/calendar/edit?diaryId=${findDiary.diaryId}`);
       }
     }
-  };
-
-  const handleCreateTodayDiary = () => {
-    setIsOpen((prevState) => !prevState);
-  };
-
-  const handleClickTodayFeeling = (feeling: string) => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const date = currentDate.getDate();
-    navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
   };
 
   useEffect(() => {
@@ -171,8 +158,7 @@ export default function CalendarPage() {
           </>
         </WeekRow>
       </Container>
-      {isOpen && <TodayFeeling onClick={handleClickTodayFeeling} />}
-      <Menu onClick={handleCreateTodayDiary} />
+      <Menu />
     </>
   );
 }

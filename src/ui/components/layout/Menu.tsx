@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
 import { PATH } from '@lib/const/path';
+import { useNavigate } from 'react-router';
+import useDateStore from '@lib/store/useDateStore';
+import TodayFeeling from '@ui/components/TodayFeeling';
+import { useState } from 'react';
 import styleToken from '../../styles/styleToken.css';
-
 import MenuItem from './MenuItem';
 
 const menuIcon = {
@@ -14,12 +17,12 @@ const menuIcon = {
 
 const feelCatIcon = '/images/icon/menu/feel-cat.svg';
 
-type MenuProps = {
-  onClick?: () => void;
-};
-
-export default function Menu({ onClick }: MenuProps) {
+export default function Menu() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const [currentDate] = useDateStore((state) => [state.currentDate]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const getMenuIcon = (iconKey: 'CALENDAR' | 'TIMELINE' | 'REPORT' | 'SETTING') => {
     const menuIconKey = PATH[iconKey];
@@ -31,13 +34,25 @@ export default function Menu({ onClick }: MenuProps) {
     return menuIcon[menuIconKey].inactive;
   };
 
+  const handleCreateTodayDiary = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
+  const handleClickTodayFeeling = (feeling: string) => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const date = currentDate.getDate();
+    navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
+  };
+
   return (
     <Container>
       <MenuItem imageSrc={getMenuIcon('CALENDAR')} path={PATH.CALENDAR} />
       <MenuItem imageSrc={getMenuIcon('TIMELINE')} path={PATH.TIMELINE} />
       <MenuItem imageSrc={getMenuIcon('REPORT')} path={PATH.REPORT} />
       <MenuItem imageSrc={getMenuIcon('SETTING')} path={PATH.SETTING} />
-      <FeelCatIcon onClick={onClick}>
+      <>{isOpen && <TodayFeeling onClick={handleClickTodayFeeling} />}</>
+      <FeelCatIcon onClick={handleCreateTodayDiary}>
         <img src={feelCatIcon} alt="cat-icon" />
       </FeelCatIcon>
     </Container>
@@ -53,6 +68,7 @@ const Container = styled.div`
   height: ${styleToken.size.menuHeight};
   border-top: 1px solid ${styleToken.color.gray4};
   background-color: ${styleToken.color.white};
+  z-index: 2;
 `;
 
 const FeelCatIcon = styled.div`

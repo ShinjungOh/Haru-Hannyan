@@ -1,5 +1,16 @@
 import { Emotion, Feeling } from '@lib/types/diary.type';
 
+export const calendarImageTypeSrc = {
+  today: 'images/icon/calendar/today.svg',
+  available: 'images/icon/calendar/available.svg',
+  disabled: 'images/icon/calendar/disabled.svg',
+  [Feeling.행복]: 'images/icon/calendar/feeling-cat-great.svg',
+  [Feeling.좋음]: 'images/icon/calendar/feeling-cat-good.svg',
+  [Feeling.보통]: 'images/icon/calendar/feeling-cat-normal.svg',
+  [Feeling.나쁨]: 'images/icon/calendar/feeling-cat-bad.svg',
+  [Feeling.화남]: 'images/icon/calendar/feeling-cat-angry.svg',
+};
+
 export const FeelingCatTypeSrc = [
   {
     feeling: Feeling.행복,

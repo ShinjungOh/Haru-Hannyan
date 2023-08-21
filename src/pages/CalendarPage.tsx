@@ -1,6 +1,6 @@
 import Header from '@ui/components/layout/Header';
 import Body from '@ui/components/layout/Body';
-import DateColumn from '@ui/components/DateColumn';
+import DateColumn from '@ui/components/layout/calendar/DateColumn';
 import Menu from '@ui/components/layout/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';

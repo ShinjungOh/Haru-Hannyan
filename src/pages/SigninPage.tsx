@@ -5,10 +5,10 @@ import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { UserType, UserValidation } from '@lib/types/user.type';
-import NavigationHeader from '@ui/components/layout/NavigationHeader';
+import NavigationHeader from '@ui/components/layout/common/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
-import SignButton from '@ui/components/SignButton';
-import InputBox from '@ui/components/InputBox';
+import SignButton from '@ui/components/layout/common/SignButton';
+import InputBox from '@ui/components/layout/common/InputBox';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { handleAxiosError, http } from '../api/http';
 

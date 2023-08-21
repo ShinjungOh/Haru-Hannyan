@@ -1,12 +1,13 @@
 import Body from '@ui/components/layout/Body';
-import WritePostHeader from '@ui/components/layout/WritePostHeader';
+import WritePostHeader from '@ui/components/layout/diary/WritePostHeader';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { Diary, Emotion, Feeling } from '@lib/types/diary.type';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { emotionImageSrc, FeelingCatTypeSrc } from '@lib/const/ImageSrc';
+import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
+import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
 import { handleAxiosError, http } from '../api/http';
 
 export default function EditPostPage() {
@@ -94,43 +95,8 @@ export default function EditPostPage() {
       <WritePostHeader year={diary.createDate.year} month={diary.createDate.month} date={diary.createDate.date} />
       <Body>
         <Container>
-          <FeelingContainer>
-            <h4>오늘은 어떤 고양이인가요?</h4>
-            <FeelingCatList>
-              <>
-                {FeelingCatTypeSrc.map((el, index) => {
-                  const isSelected = el.feeling === diary.feel;
-                  return (
-                    <FeelingCatImage
-                      key={index}
-                      src={el.url}
-                      alt={el.feeling}
-                      isSelected={isSelected}
-                      onClick={() => handleClickDiaryFeeling(el.feeling)}
-                    />
-                  );
-                })}
-              </>
-            </FeelingCatList>
-          </FeelingContainer>
-          <EmotionContainer>
-            <h4>감정</h4>
-            <EmotionList>
-              <>
-                {emotionImageSrc.map((el, index) => {
-                  const isSelected = diary.emotions.includes(el.emotion);
-                  return (
-                    <EmotionItem key={index} onClick={() => handleClickDiaryEmotion(el.emotion)}>
-                      <EmotionHeader isSelected={isSelected}>
-                        <img src={el.url} alt={el.emotion} />
-                      </EmotionHeader>
-                      <EmotionBody>{el.emotion}</EmotionBody>
-                    </EmotionItem>
-                  );
-                })}
-              </>
-            </EmotionList>
-          </EmotionContainer>
+          <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
+          <EmotionContainer diary={diary} onClick={handleClickDiaryEmotion} />
           <DiaryContainer>
             <label htmlFor="diary">한줄일기</label>
             <InputText type="text" id="diary" name="diary" value={diary.text} onChange={handleChangeInputDiary} />
@@ -149,118 +115,6 @@ const Container = styled(Body)`
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
-`;
-
-const FeelingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 15px 15px 15px;
-  width: 100%;
-  height: auto;
-  border-radius: 15px;
-  background-color: white;
-  border: 1px solid ${styleTokenCss.color.gray5};
-  font-size: 14px;
-
-  h4 {
-    font-weight: 600;
-    color: ${styleTokenCss.color.gray3};
-  }
-`;
-
-const FeelingCatList = styled.div`
-  margin-top: 13px;
-  width: 100%;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`;
-
-const FeelingCatImage = styled.img<{ isSelected: boolean }>`
-  width: 100%;
-  height: 100%;
-  opacity: ${(props) => (props.isSelected ? '100%' : '45%')};
-
-  :hover {
-    opacity: 100%;
-  }
-`;
-
-const EmotionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 15px 15px 15px;
-  margin-top: 20px;
-  width: 100%;
-  height: auto;
-  border-radius: 15px;
-  background-color: white;
-  border: 1px solid ${styleTokenCss.color.gray5};
-  font-size: 14px;
-
-  h4 {
-    font-weight: 600;
-    color: ${styleTokenCss.color.gray3};
-  }
-`;
-
-const EmotionList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 8px;
-  margin-top: 13px;
-  width: 100%;
-  justify-content: center;
-`;
-
-const EmotionItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  width: 100%;
-  height: auto;
-`;
-
-const EmotionHeader = styled.div<{ isSelected: boolean }>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  background-color: ${styleTokenCss.color.secondary};
-  cursor: pointer;
-  opacity: ${(props) => (props.isSelected ? '100%' : '45%')};
-
-  img {
-    width: 33px;
-  }
-
-  :hover {
-    opacity: 100%;
-  }
-`;
-
-const EmotionBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 7px;
-  width: 55px;
-  font-size: 12px;
-  font-weight: 600;
-  color: ${styleTokenCss.color.gray3};
 `;
 
 const DiaryContainer = styled.div`

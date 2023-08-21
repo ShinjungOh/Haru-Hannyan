@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { PATH } from '@lib/const/path';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
-import TodayFeeling from '@ui/components/TodayFeeling';
+import TodayFeeling from '@ui/components/layout/calendar/TodayFeeling';
 import { useState } from 'react';
 import styleToken from '../../styles/styleToken.css';
 import MenuItem from './MenuItem';

@@ -3,13 +3,14 @@ import RouterLayout from './ui/components/RouterLayout';
 import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
+import ProtectedRoute from './pages/ProtectedRoute';
 import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import ReportPage from './pages/ReportPage';
 import SettingPage from './pages/SettingPage';
 import AuthKakaoPage from './pages/AuthKakaoPage';
 import WritePostPage from './pages/WritePostPage';
-import ProtectedRoute from './pages/ProtectedRoute';
+import EditPostPage from './pages/EditPostPage';
 
 const routes = [
   {
@@ -52,7 +53,7 @@ const routes = [
         ),
       },
       { path: PATH.WRITE, element: <WritePostPage /> },
-      { path: PATH.EDIT, element: <WritePostPage /> },
+      { path: PATH.EDIT, element: <EditPostPage /> },
     ],
   },
 ];

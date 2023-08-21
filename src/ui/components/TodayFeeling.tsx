@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import { FeelingCatTypeSrc } from '../../pages/WritePostPage';
+import { FeelingCatTypeSrc } from '@lib/const/ImageSrc';
 
 type TodayFeelingProps = {
   onClick: (feeling: string) => void;

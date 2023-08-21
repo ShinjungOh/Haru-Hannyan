@@ -1,26 +1,22 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
 import styleToken from '../../styles/styleToken.css';
 import { dayName } from '../../../pages/CalendarPage';
 
-export default function WritePostHeader() {
-  const [params] = useSearchParams();
+type WritePostHeaderProps = {
+  year: number;
+  month: number;
+  date: number;
+};
+
+export default function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
   const navigate = useNavigate();
 
   const handlePageBack = () => {
     navigate(-1);
   };
 
-  const year = params.get('year');
-  const month = params.get('month');
-  const date = params.get('date');
-
-  const parseYear = year ? parseInt(year, 10) : 0;
-  const parseMonth = month ? parseInt(month, 10) : 0;
-  const parseDate = date ? parseInt(date, 10) : 0;
-
-  const getDayOfTargetDate = new Date(parseYear, parseMonth - 1, parseDate).getDay();
+  const getDayOfTargetDate = new Date(year, month - 1, date).getDay();
 
   const dayOfWeek = dayName[getDayOfTargetDate];
 
@@ -29,7 +25,7 @@ export default function WritePostHeader() {
       <Container>
         <BackArrow onClick={handlePageBack} src="/images/icon/back.png" alt="back" />
         <SelectedDate>
-          {parseMonth}월 {parseDate}일 {dayOfWeek}요일
+          {month}월 {date}일 {dayOfWeek}요일
         </SelectedDate>
       </Container>
     </>

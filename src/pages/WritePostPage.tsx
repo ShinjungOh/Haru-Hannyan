@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
 import InputBox from '@ui/components/layout/common/InputBox';
+import Modal from '@ui/components/layout/common/modal';
 import { handleAxiosError, http } from '../api/http';
 
 type newDiaryType = {
@@ -103,6 +104,7 @@ export default function WritePostPage() {
     <>
       <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} />
       <Body>
+        <Modal />
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
           <EmotionContainer diary={diary} onClick={handleClickDiaryEmotion} />

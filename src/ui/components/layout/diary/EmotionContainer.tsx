@@ -47,7 +47,7 @@ const Container = styled.div`
 
   h4 {
     font-weight: 600;
-    color: ${styleTokenCss.color.gray3};
+    color: ${styleTokenCss.color.gray2};
   }
 `;
 

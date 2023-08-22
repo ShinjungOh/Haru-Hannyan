@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
+import Modal from '@ui/components/layout/common/modal';
 import { handleAxiosError, http } from '../api/http';
 
 export default function EditPostPage() {
@@ -15,6 +16,7 @@ export default function EditPostPage() {
   const navigate = useNavigate();
 
   const diaryId = params.get('diaryId');
+  const parseDiaryId = diaryId ? parseInt(diaryId, 10) : 0;
 
   const [diary, setDiary] = useState<Diary>({
     diaryId: 0,
@@ -27,6 +29,8 @@ export default function EditPostPage() {
       date: 0,
     },
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -51,12 +55,23 @@ export default function EditPostPage() {
     }
   };
 
-  const handleChangeInputDiary = (e: any) => {
+  const handleChangeDiaryText = (e: any) => {
     const { value } = e.target;
     setDiary({
       ...diary,
       text: value,
     });
+  };
+
+  const handleChangeModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleChangeModalClose = () => {
+    const isConfirm = confirm('작성한 내용이 저장되지 않았습니다. 정말 취소하시겠습니까?');
+    if (isConfirm) {
+      setIsModalOpen(false);
+    }
   };
 
   console.log(diary);
@@ -99,13 +114,18 @@ export default function EditPostPage() {
           <EmotionContainer diary={diary} onClick={handleClickDiaryEmotion} />
           <DiaryContainer>
             <label htmlFor="diary">한줄일기</label>
-            <InputText type="text" id="diary" name="diary" value={diary.text} onChange={handleChangeInputDiary} />
+            <InputField id="diary" onClick={handleChangeModalOpen}>
+              {diary.text.length > 0 ? diary.text : '내용을 입력해 주세요'}
+            </InputField>
           </DiaryContainer>
           <Button type="button" onClick={handleEditDiary}>
             수정완료
           </Button>
         </Container>
       </Body>
+      {isModalOpen && (
+        <Modal diaryId={parseDiaryId} diary={diary} onClose={handleChangeModalClose} onChange={handleChangeDiaryText} />
+      )}
     </>
   );
 }
@@ -138,10 +158,11 @@ const DiaryContainer = styled.div`
   }
 `;
 
-const InputText = styled.input`
+const InputField = styled.div`
   width: 100%;
   height: 100%;
   padding: 15px 10px;
+  margin-top: 5px;
   border-radius: 15px;
   border: none;
   color: ${styleTokenCss.color.gray3};

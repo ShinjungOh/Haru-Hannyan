@@ -4,24 +4,19 @@ import { PATH } from '@lib/const/path';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
 import TodayFeeling from '@ui/components/layout/calendar/TodayFeeling';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Diary } from '@lib/types/diary.type';
+import { feelCatIcon, menuIcon } from '@lib/const/ImageSrc';
 import styleToken from '../../styles/styleToken.css';
 import MenuItem from './MenuItem';
-
-const menuIcon = {
-  [PATH.CALENDAR]: { active: '/images/icon/menu/calendar-active.svg', inactive: '/images/icon/menu/calendar.svg' },
-  [PATH.TIMELINE]: { active: '/images/icon/menu/timeline-active.svg', inactive: '/images/icon/menu/timeline.svg' },
-  [PATH.REPORT]: { active: '/images/icon/menu/report-active.svg', inactive: '/images/icon/menu/report.svg' },
-  [PATH.SETTING]: { active: '/images/icon/menu/setting-active.svg', inactive: '/images/icon/menu/setting.svg' },
-};
-
-const feelCatIcon = '/images/icon/menu/feel-cat.svg';
+import { handleAxiosError, http } from '../../../api/http';
 
 export default function Menu() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [currentDate] = useDateStore((state) => [state.currentDate]);
+  const [diary, setDiary] = useState<Diary[]>();
   const [isOpen, setIsOpen] = useState(false);
 
   const getMenuIcon = (iconKey: 'CALENDAR' | 'TIMELINE' | 'REPORT' | 'SETTING') => {
@@ -39,11 +34,42 @@ export default function Menu() {
   };
 
   const handleClickTodayFeeling = (feeling: string) => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const date = currentDate.getDate();
-    navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
+    const today = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
+    const isAlreadyTodayDiary = () => {
+      const dateFormat = diary && diary.map((el) => `${el.createDate.year}${el.createDate.month}${el.createDate.date}`);
+      return dateFormat && dateFormat.includes(today);
+    };
+
+    if (diary && !isAlreadyTodayDiary()) {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      const date = currentDate.getDate();
+      navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
+    } else if (diary && !!isAlreadyTodayDiary()) {
+      alert('이미 일기가 존재합니다.');
+      setIsOpen(false);
+    }
   };
+
+  useEffect(() => {
+    const getMonthlyDiary = async () => {
+      try {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        const response = await http.get<{ diary: Diary[] }>(`/diary?year=${year}&month=${month}`);
+        const diaryData = response.data;
+        if (diaryData && diaryData.diary) {
+          console.log(diaryData.diary);
+          setDiary(diaryData.diary);
+        }
+      } catch (e) {
+        const error = handleAxiosError(e);
+        alert(error.msg);
+      }
+    };
+
+    getMonthlyDiary();
+  }, [currentDate]);
 
   return (
     <Container>

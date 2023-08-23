@@ -1,4 +1,14 @@
 import { Emotion, Feeling } from '@lib/types/diary.type';
+import { PATH } from '@lib/const/path';
+
+export const feelCatIcon = '/images/icon/menu/feel-cat.svg';
+
+export const menuIcon = {
+  [PATH.CALENDAR]: { active: '/images/icon/menu/calendar-active.svg', inactive: '/images/icon/menu/calendar.svg' },
+  [PATH.TIMELINE]: { active: '/images/icon/menu/timeline-active.svg', inactive: '/images/icon/menu/timeline.svg' },
+  [PATH.REPORT]: { active: '/images/icon/menu/report-active.svg', inactive: '/images/icon/menu/report.svg' },
+  [PATH.SETTING]: { active: '/images/icon/menu/setting-active.svg', inactive: '/images/icon/menu/setting.svg' },
+};
 
 export const calendarImageTypeSrc = {
   today: 'images/icon/calendar/today.svg',

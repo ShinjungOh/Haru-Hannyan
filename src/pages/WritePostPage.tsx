@@ -71,11 +71,10 @@ export default function WritePostPage() {
     }
   };
 
-  const handleChangeDiaryText = (e: any) => {
-    const { value } = e.target;
+  const handleSubmitDiaryTextModal = (text: string) => {
     setDiary({
       ...diary,
-      text: value,
+      text,
     });
   };
 
@@ -84,10 +83,7 @@ export default function WritePostPage() {
   };
 
   const handleChangeModalClose = () => {
-    const isConfirm = confirm('작성한 내용이 저장되지 않았습니다. 정말 취소하시겠습니까?');
-    if (isConfirm) {
-      setIsModalOpen(false);
-    }
+    setIsModalOpen(false);
   };
 
   console.log(diary);
@@ -130,7 +126,9 @@ export default function WritePostPage() {
           </Button>
         </Container>
       </Body>
-      {isModalOpen && <Modal diary={diary} onClose={handleChangeModalClose} onChange={handleChangeDiaryText} />}
+      {isModalOpen && (
+        <Modal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
+      )}
     </>
   );
 }
@@ -150,7 +148,7 @@ const DiaryContainer = styled.div`
   padding: 20px 15px 15px 15px;
   margin-top: 20px;
   width: 100%;
-  height: 120px;
+  height: auto;
   border-radius: 15px;
   background-color: white;
   border: 1px solid ${styleTokenCss.color.gray5};
@@ -165,8 +163,11 @@ const DiaryContainer = styled.div`
 `;
 
 const InputField = styled.div`
+  white-space: pre-wrap;
+  overflow-y: auto;
+  max-height: 200px;
   width: 100%;
-  height: 100%;
+  height: auto;
   padding: 16px;
   margin-top: 5px;
   border-radius: 15px;

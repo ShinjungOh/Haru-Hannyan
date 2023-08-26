@@ -1,43 +1,35 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
-import { Diary } from '@lib/types/diary.type';
-import { handleAxiosError, http } from '../../../../api/http';
-import { newDiaryType } from '../../../../pages/WritePostPage';
+import { ChangeEvent, useState } from 'react';
 
 type ModalProps = {
-  diaryId?: number;
-  diary: newDiaryType | Diary;
+  diaryText: string;
   onClose: () => void;
-  onChange: (e: any) => void;
+  onSubmit: (e: any) => void;
 };
 
-export default function Modal({ diaryId, diary, onClose, onChange }: ModalProps) {
-  const handleClickSubmit = async () => {
-    const diaryText = diary.text;
-    const isDiaryText = diaryText.length > 0;
-    if (isDiaryText) {
-      try {
-        const response = await http.put<{ text: string }>(`/diary/${diaryId}`, diary);
-        console.log(response.msg);
-        alert(response.msg);
-        onClose();
-      } catch (e) {
-        const error = handleAxiosError(e);
-        alert(error.msg);
-      }
-    } else {
-      try {
-        console.log('작성');
-      } catch (e) {
-        const error = handleAxiosError(e);
-        alert(error.msg);
-      }
-    }
+export default function Modal({ diaryText, onClose, onSubmit }: ModalProps) {
+  const [modalInput, setModalInput] = useState(diaryText || '');
+  console.log(modalInput);
+
+  const handleChangeModalInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    setModalInput(value);
+  };
+
+  const handleClickSubmit = () => {
+    onSubmit(modalInput);
+    onClose();
   };
 
   return (
     <Container>
-      <TextContainer placeholder="내용을 입력해 주세요" value={diary.text} onChange={onChange} />
+      <TextContainer
+        autoFocus
+        placeholder="내용을 입력해 주세요"
+        value={modalInput}
+        onChange={handleChangeModalInput}
+      />
       <ButtonContainer>
         <button
           type="button"

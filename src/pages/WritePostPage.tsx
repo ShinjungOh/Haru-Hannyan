@@ -8,7 +8,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
-import Modal from '@ui/components/layout/common/modal';
+import AlertModal from '@ui/components/layout/common/AlertModal';
+import DiaryModal from '@ui/components/layout/common/DiaryModal';
 import { handleAxiosError, http } from '../api/http';
 
 export type newDiaryType = {
@@ -47,6 +48,7 @@ export default function WritePostPage() {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -86,6 +88,14 @@ export default function WritePostPage() {
     setIsModalOpen(false);
   };
 
+  const handleChangeAlertModalOpen = () => {
+    setIsAlertModalOpen(true);
+  };
+
+  const handleChangeAlertModalClose = () => {
+    setIsAlertModalOpen(false);
+  };
+
   console.log(diary);
 
   const postNewDiary = async () => {
@@ -110,7 +120,7 @@ export default function WritePostPage() {
 
   return (
     <>
-      <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} />
+      <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} onCancel={handleChangeAlertModalOpen} />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
@@ -126,8 +136,9 @@ export default function WritePostPage() {
           </Button>
         </Container>
       </Body>
+      {isAlertModalOpen && <AlertModal onClose={handleChangeAlertModalClose} />}
       {isModalOpen && (
-        <Modal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
+        <DiaryModal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
       )}
     </>
   );

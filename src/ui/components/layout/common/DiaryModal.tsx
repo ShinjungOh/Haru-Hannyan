@@ -8,7 +8,7 @@ type ModalProps = {
   onSubmit: (e: any) => void;
 };
 
-export default function Modal({ diaryText, onClose, onSubmit }: ModalProps) {
+export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
   const [modalInput, setModalInput] = useState(diaryText || '');
   console.log(modalInput);
 

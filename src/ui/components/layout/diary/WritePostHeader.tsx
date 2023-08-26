@@ -7,12 +7,15 @@ type WritePostHeaderProps = {
   year: number;
   month: number;
   date: number;
+  onCancel: () => void;
 };
 
-export default function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
+export default function WritePostHeader({ year, month, date, onCancel }: WritePostHeaderProps) {
   const navigate = useNavigate();
 
   const handlePageBack = () => {
+    onCancel();
+    // TODO: 나가기 버튼 클릭 시 페이지 이동 로직 추가
     navigate(-1);
   };
 
@@ -23,7 +26,7 @@ export default function WritePostHeader({ year, month, date }: WritePostHeaderPr
   return (
     <>
       <Container>
-        <BackArrow onClick={handlePageBack} src="/images/icon/back.png" alt="back" />
+        <BackArrow src="/images/icon/back.png" alt="back" onClick={handlePageBack} />
         <SelectedDate>
           {month}월 {date}일 {dayOfWeek}요일
         </SelectedDate>

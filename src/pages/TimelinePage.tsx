@@ -120,17 +120,17 @@ export default function TimelinePage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
+  padding-bottom: 15px;
 `;
 
 const DiaryContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  margin: 10px 38px;
+  align-items: flex-start;
+  margin: 10px 38px 5px 38px;
   padding: 18px;
-  height: auto;
-  min-height: 120px;
+  height: 100%;
   background-color: white;
   border-radius: 15px;
   border: 1px solid ${styleTokenCss.color.gray5};
@@ -152,8 +152,8 @@ const FeelingCat = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 42px;
-  height: 42px;
+  width: 100%;
+  height: 100%;
 
   img {
     width: 42px;
@@ -174,6 +174,7 @@ const DayName = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 5px;
+  margin-bottom: 5px;
   padding: 12px;
   height: 24px;
   border-radius: 6px;
@@ -196,7 +197,8 @@ const EmotionAndTextContainer = styled.div`
 
 const EmotionItem = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 25%);
+  grid-gap: 5px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -221,12 +223,15 @@ const EmotionHeader = styled.div`
 `;
 
 const TextContainer = styled.div`
+  white-space: pre-wrap;
+  overflow-y: auto;
+  max-height: 400px;
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: auto;
+  align-items: flex-start;
   padding: 0 5px;
   margin-top: 15px;
   font-size: 14px;
@@ -235,11 +240,11 @@ const TextContainer = styled.div`
 `;
 
 const DeleteButton = styled.button`
-  position: relative;
-  bottom: 5px;
-  left: 350px;
-  width: 50px;
-  height: auto;
+  margin: 0 40px 2px 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
   border: none;
   background-color: unset;
   color: ${styleTokenCss.color.gray2};

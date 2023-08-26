@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
-import Modal from '@ui/components/layout/common/modal';
+import DiaryModal from '@ui/components/layout/common/DiaryModal';
+import AlertModal from '@ui/components/layout/common/AlertModal';
 import { handleAxiosError, http } from '../api/http';
 
 export default function EditPostPage() {
@@ -30,6 +31,7 @@ export default function EditPostPage() {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -69,6 +71,14 @@ export default function EditPostPage() {
     setIsModalOpen(false);
   };
 
+  const handleChangeAlertModalOpen = () => {
+    setIsAlertModalOpen(true);
+  };
+
+  const handleChangeAlertModalClose = () => {
+    setIsAlertModalOpen(false);
+  };
+
   console.log(diary);
 
   const putEditDiary = async () => {
@@ -102,7 +112,12 @@ export default function EditPostPage() {
 
   return (
     <>
-      <WritePostHeader year={diary.createDate.year} month={diary.createDate.month} date={diary.createDate.date} />
+      <WritePostHeader
+        year={diary.createDate.year}
+        month={diary.createDate.month}
+        date={diary.createDate.date}
+        onCancel={handleChangeAlertModalOpen}
+      />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
@@ -118,8 +133,9 @@ export default function EditPostPage() {
           </Button>
         </Container>
       </Body>
+      {isAlertModalOpen && <AlertModal onClose={handleChangeAlertModalClose} />}
       {isModalOpen && (
-        <Modal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
+        <DiaryModal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
       )}
     </>
   );

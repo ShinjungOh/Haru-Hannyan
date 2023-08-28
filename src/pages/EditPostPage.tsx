@@ -63,6 +63,10 @@ export default function EditPostPage() {
     });
   };
 
+  const handleSubmitAlertModal = () => {
+    navigate(-1);
+  };
+
   const handleChangeModalOpen = () => {
     setIsModalOpen(true);
   };
@@ -116,7 +120,7 @@ export default function EditPostPage() {
         year={diary.createDate.year}
         month={diary.createDate.month}
         date={diary.createDate.date}
-        onCancel={handleChangeAlertModalOpen}
+        onAlertModalOpen={handleChangeAlertModalOpen}
       />
       <Body>
         <Container>
@@ -133,7 +137,7 @@ export default function EditPostPage() {
           </Button>
         </Container>
       </Body>
-      {isAlertModalOpen && <AlertModal onClose={handleChangeAlertModalClose} />}
+      {isAlertModalOpen && <AlertModal onClose={handleChangeAlertModalClose} onSubmit={handleSubmitAlertModal} />}
       {isModalOpen && (
         <DiaryModal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
       )}

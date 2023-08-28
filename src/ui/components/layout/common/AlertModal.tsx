@@ -3,14 +3,10 @@ import styleToken from '@ui/styles/styleToken.css';
 
 type AlertModalProps = {
   onClose: () => void;
+  onSubmit: () => void;
 };
 
-export default function AlertModal({ onClose }: AlertModalProps) {
-  const handleClickSubmit = () => {
-    // TODO: 취소하고 나가기 로직 구현
-    onClose();
-  };
-
+export default function AlertModal({ onClose, onSubmit }: AlertModalProps) {
   return (
     <div>
       <Container>
@@ -36,7 +32,7 @@ export default function AlertModal({ onClose }: AlertModalProps) {
           <button
             type="button"
             style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert2 }}
-            onClick={handleClickSubmit}
+            onClick={onSubmit}
           >
             나가기
           </button>

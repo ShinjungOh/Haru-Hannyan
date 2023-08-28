@@ -1,4 +1,4 @@
-import Header from '@ui/components/layout/Header';
+import CalendarHeader from '@ui/components/layout/CalendarHeader';
 import Body from '@ui/components/layout/Body';
 import Menu from '@ui/components/layout/Menu';
 import styled from '@emotion/styled';
@@ -73,7 +73,7 @@ export default function TimelinePage() {
 
   return (
     <>
-      <Header />
+      <CalendarHeader page="timeline" />
       <Container>
         {diary &&
           diary.map((el) => {
@@ -96,14 +96,12 @@ export default function TimelinePage() {
                   </FeelingAndDateContainer>
                   <EmotionAndTextContainer>
                     <EmotionItem>
-                      <>
-                        {el.emotions &&
-                          el.emotions.map((emotion) => (
-                            <EmotionHeader>
-                              <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
-                            </EmotionHeader>
-                          ))}
-                      </>
+                      {el.emotions &&
+                        el.emotions.map((emotion) => (
+                          <EmotionHeader>
+                            <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
+                          </EmotionHeader>
+                        ))}
                     </EmotionItem>
                     <TextContainer>{el.text}</TextContainer>
                   </EmotionAndTextContainer>
@@ -130,7 +128,7 @@ const DiaryContainer = styled.div`
   align-items: flex-start;
   margin: 10px 38px 5px 38px;
   padding: 18px;
-  height: 100%;
+  height: auto;
   background-color: white;
   border-radius: 15px;
   border: 1px solid ${styleTokenCss.color.gray5};

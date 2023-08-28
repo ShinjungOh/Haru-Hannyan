@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router';
 import styleToken from '../../../styles/styleToken.css';
 import { dayName } from '../../../../pages/CalendarPage';
 
@@ -7,16 +6,12 @@ type WritePostHeaderProps = {
   year: number;
   month: number;
   date: number;
-  onCancel: () => void;
+  onAlertModalOpen: () => void;
 };
 
-export default function WritePostHeader({ year, month, date, onCancel }: WritePostHeaderProps) {
-  const navigate = useNavigate();
-
+export default function WritePostHeader({ year, month, date, onAlertModalOpen }: WritePostHeaderProps) {
   const handlePageBack = () => {
-    onCancel();
-    // TODO: 나가기 버튼 클릭 시 페이지 이동 로직 추가
-    navigate(-1);
+    onAlertModalOpen();
   };
 
   const getDayOfTargetDate = new Date(year, month - 1, date).getDay();

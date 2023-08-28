@@ -1,4 +1,4 @@
-import Header from '@ui/components/layout/Header';
+import CalendarHeader from '@ui/components/layout/CalendarHeader';
 import Body from '@ui/components/layout/Body';
 import DateColumn from '@ui/components/layout/calendar/DateColumn';
 import Menu from '@ui/components/layout/Menu';
@@ -103,7 +103,7 @@ export default function CalendarPage() {
 
   return (
     <>
-      <Header />
+      <CalendarHeader page="calendar" />
       <Container>
         <WeekRow>
           <>

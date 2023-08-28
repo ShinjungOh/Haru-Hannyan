@@ -5,7 +5,11 @@ import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import styleToken from '../../styles/styleToken.css';
 
-export default function Header() {
+type CalendarHeaderProps = {
+  page?: 'calendar' | 'timeline';
+};
+
+export default function CalendarHeader({ page }: CalendarHeaderProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -27,7 +31,11 @@ export default function Header() {
       targetDate.setMonth(targetDate.getMonth() + mappedTypeNumber);
       const year = targetDate.getFullYear();
       const month = targetDate.getMonth() + 1;
-      navigate(`/calendar?year=${year}&month=${month}`);
+      if (page === 'calendar') {
+        navigate(`/calendar?year=${year}&month=${month}`);
+      } else if (page === 'timeline') {
+        navigate(`/timeline?year=${year}&month=${month}`);
+      }
     }
   };
 

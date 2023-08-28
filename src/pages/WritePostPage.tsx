@@ -80,6 +80,10 @@ export default function WritePostPage() {
     });
   };
 
+  const handleSubmitAlertModal = () => {
+    navigate(-1);
+  };
+
   const handleChangeModalOpen = () => {
     setIsModalOpen(true);
   };
@@ -120,7 +124,12 @@ export default function WritePostPage() {
 
   return (
     <>
-      <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} onCancel={handleChangeAlertModalOpen} />
+      <WritePostHeader
+        year={parseYear}
+        month={parseMonth}
+        date={parseDate}
+        onAlertModalOpen={handleChangeAlertModalOpen}
+      />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
@@ -136,7 +145,7 @@ export default function WritePostPage() {
           </Button>
         </Container>
       </Body>
-      {isAlertModalOpen && <AlertModal onClose={handleChangeAlertModalClose} />}
+      {isAlertModalOpen && <AlertModal onClose={handleChangeAlertModalClose} onSubmit={handleSubmitAlertModal} />}
       {isModalOpen && (
         <DiaryModal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
       )}

@@ -2,48 +2,31 @@ import Body from '@ui/components/layout/Body';
 import WritePostHeader from '@ui/components/layout/diary/WritePostHeader';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import { Emotion, Feeling } from '@lib/types/diary.type';
+import { Diary, Emotion, Feeling } from '@lib/types/diary.type';
 import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
-import AlertModal from '@ui/components/layout/common/AlertModal';
 import DiaryModal from '@ui/components/layout/common/DiaryModal';
+import AlertModal from '@ui/components/layout/common/AlertModal';
 import { handleAxiosError, http } from '../api/http';
 
-export type newDiaryType = {
-  feel: string | null;
-  emotions: Emotion[];
-  text: string;
-  date: {
-    year: number;
-    month: number;
-    date: number;
-  };
-};
-
-export default function WritePostPage() {
+export default function EditPostPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
 
-  const todayFeeling = params.get('feeling');
-  const year = params.get('year');
-  const month = params.get('month');
-  const date = params.get('date');
+  const diaryId = params.get('diaryId');
 
-  const parseYear = year ? parseInt(year, 10) : 0;
-  const parseMonth = month ? parseInt(month, 10) : 0;
-  const parseDate = date ? parseInt(date, 10) : 0;
-
-  const [diary, setDiary] = useState<newDiaryType>({
-    feel: todayFeeling || null,
+  const [diary, setDiary] = useState<Diary>({
+    diaryId: 0,
+    feel: Feeling.보통,
     emotions: [],
     text: '',
-    date: {
-      year: parseYear,
-      month: parseMonth,
-      date: parseDate,
+    createDate: {
+      year: 0,
+      month: 0,
+      date: 0,
     },
   });
 
@@ -102,9 +85,9 @@ export default function WritePostPage() {
 
   console.log(diary);
 
-  const postNewDiary = async () => {
+  const putEditDiary = async () => {
     try {
-      const response = await http.post('/diary', diary);
+      const response = await http.put<{ diary: Diary }>(`/diary/${diaryId}`, diary);
       console.log(response.msg);
       alert(response.msg);
       navigate(-1);
@@ -114,20 +97,29 @@ export default function WritePostPage() {
     }
   };
 
-  const isDisabled = !!diary.feel;
-
-  const handlePostNewDiary = () => {
-    if (isDisabled) {
-      postNewDiary();
-    }
+  const handleEditDiary = () => {
+    putEditDiary();
   };
+
+  useEffect(() => {
+    const getDailyDiary = async () => {
+      const response = await http.get<{ diary: Diary }>(`/diary/${diaryId}`);
+      const isSuccess = response.success;
+      if (isSuccess && response.data) {
+        const dailyDiary = response.data.diary;
+        setDiary(dailyDiary);
+      }
+    };
+
+    getDailyDiary();
+  }, [diaryId]);
 
   return (
     <>
       <WritePostHeader
-        year={parseYear}
-        month={parseMonth}
-        date={parseDate}
+        year={diary.createDate.year}
+        month={diary.createDate.month}
+        date={diary.createDate.date}
         onAlertModalOpen={handleChangeAlertModalOpen}
       />
       <Body>
@@ -140,8 +132,8 @@ export default function WritePostPage() {
               {diary.text.length > 0 ? diary.text : '내용을 입력해 주세요'}
             </InputField>
           </DiaryContainer>
-          <Button type="button" onClick={handlePostNewDiary} disabled={!isDisabled}>
-            작성완료
+          <Button type="button" onClick={handleEditDiary}>
+            수정완료
           </Button>
         </Container>
       </Body>
@@ -173,12 +165,11 @@ const DiaryContainer = styled.div`
   background-color: white;
   border: 1px solid ${styleTokenCss.color.gray5};
   font-size: 14px;
-  z-index: 0;
 
   label {
     padding-bottom: 10px;
     font-weight: 600;
-    color: ${styleTokenCss.color.gray2};
+    color: ${styleTokenCss.color.gray3};
   }
 `;
 
@@ -188,19 +179,14 @@ const InputField = styled.div`
   max-height: 200px;
   width: 100%;
   height: auto;
-  padding: 16px;
+  padding: 15px 10px;
   margin-top: 5px;
   border-radius: 15px;
   border: none;
   color: ${styleTokenCss.color.gray3};
-  background-color: ${styleTokenCss.color.gray5};
   font-size: 12px;
   outline: none;
   cursor: pointer;
-
-  ::placeholder {
-    color: ${styleTokenCss.color.gray3};
-  }
 `;
 
 const Button = styled.button`

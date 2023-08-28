@@ -1,11 +1,11 @@
-import Header from '@ui/components/layout/Header';
+import CalendarHeader from '@ui/components/layout/CalendarHeader';
 import Body from '@ui/components/layout/Body';
 import Menu from '@ui/components/layout/Menu';
 
 export default function ReportPage() {
   return (
     <>
-      <Header />
+      <CalendarHeader />
       <Body>Report page</Body>
       <Menu />
     </>

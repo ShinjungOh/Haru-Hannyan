@@ -5,7 +5,11 @@ import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import styleToken from '../../styles/styleToken.css';
 
-export default function Header() {
+type CalendarHeaderProps = {
+  page?: 'calendar' | 'timeline';
+};
+
+export default function CalendarHeader({ page }: CalendarHeaderProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -22,11 +26,17 @@ export default function Header() {
   ]);
 
   const handleChangeTargetDate = (type: 'prev' | 'next') => {
-    const mappedTypeNumber = type === 'prev' ? -1 : +1;
-    targetDate.setMonth(targetDate.getMonth() + mappedTypeNumber);
-    const year = targetDate.getFullYear();
-    const month = targetDate.getMonth() + 1;
-    navigate(`/calendar?year=${year}&month=${month}`);
+    if (targetDate !== null) {
+      const mappedTypeNumber = type === 'prev' ? -1 : +1;
+      targetDate.setMonth(targetDate.getMonth() + mappedTypeNumber);
+      const year = targetDate.getFullYear();
+      const month = targetDate.getMonth() + 1;
+      if (page === 'calendar') {
+        navigate(`/calendar?year=${year}&month=${month}`);
+      } else if (page === 'timeline') {
+        navigate(`/timeline?year=${year}&month=${month}`);
+      }
+    }
   };
 
   const handleChangeDateToPrev = () => {
@@ -34,6 +44,9 @@ export default function Header() {
   };
 
   const isActiveNext = useMemo(() => {
+    if (targetDate === null) {
+      return false;
+    }
     const targetMonth = `${targetDate.getFullYear()}${targetDate.getMonth()}`;
     const currentMonth = `${currentDate.getFullYear()}${currentDate.getMonth()}`;
     return targetMonth < currentMonth;
@@ -45,8 +58,14 @@ export default function Header() {
     }
   };
 
+  const calendarTargetDateString =
+    targetDate !== null
+      ? `${targetDate.getFullYear()}년 ${targetDate.getMonth() + 1}월`
+      : `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
+
   useEffect(() => {
-    if (parseYear && parseMonth) {
+    const hasQueryString = parseYear && parseMonth;
+    if (hasQueryString) {
       setTargetDate(parseYear, parseMonth);
     }
   }, [parseYear, parseMonth, setTargetDate]);
@@ -54,17 +73,15 @@ export default function Header() {
   return (
     <Container>
       <Arrow onClick={handleChangeDateToPrev}>
-        <img src="images/icon/arrow-left.svg" alt="arrow-left" />
+        <img src="images/icon/arrow-left-active.svg" alt="arrow-left-active" />
       </Arrow>
-      <SelectDate>
-        {targetDate.getFullYear()}년 {targetDate.getMonth() + 1}월
-      </SelectDate>
+      <SelectDate>{calendarTargetDateString}</SelectDate>
       <Arrow onClick={handleChangeDateToNext}>
         <>
           {isActiveNext ? (
-            <img src="images/icon/arrow-right-active.svg" alt="arrow-left" />
+            <img src="images/icon/arrow-right-active.svg" alt="arrow-right-active" />
           ) : (
-            <img src="images/icon/arrow-right.svg" alt="arrow-left" />
+            <img src="images/icon/arrow-right-disabled.svg" alt="arrow-right-disabled" />
           )}
         </>
       </Arrow>

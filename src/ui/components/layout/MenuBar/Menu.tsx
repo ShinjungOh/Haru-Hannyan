@@ -7,9 +7,9 @@ import TodayFeeling from '@ui/components/layout/calendar/TodayFeeling';
 import { useEffect, useState } from 'react';
 import { Diary } from '@lib/types/diary.type';
 import { feelCatIcon, menuIcon } from '@lib/const/ImageSrc';
-import styleToken from '../../styles/styleToken.css';
+import styleToken from '../../../styles/styleToken.css';
 import MenuItem from './MenuItem';
-import { handleAxiosError, http } from '../../../api/http';
+import { handleAxiosError, http } from '../../../../api/http';
 
 export default function Menu() {
   const location = useLocation();

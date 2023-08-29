@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react';
 import useDateStore from '@lib/store/useDateStore';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import styleToken from '../../styles/styleToken.css';
+import styleToken from '../../../styles/styleToken.css';
 
 type CalendarHeaderProps = {
   page?: 'calendar' | 'timeline';

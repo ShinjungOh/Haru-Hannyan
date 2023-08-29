@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
-import DiaryModal from '@ui/components/layout/common/DiaryModal';
-import AlertModal from '@ui/components/layout/common/AlertModal';
+import DiaryModal from '@ui/components/layout/modal/DiaryModal';
+import ConfirmModal from '@ui/components/layout/modal/ConfirmModal';
 import { handleAxiosError, http } from '../api/http';
 
 export default function EditPostPage() {
@@ -137,7 +137,7 @@ export default function EditPostPage() {
           </Button>
         </Container>
       </Body>
-      {isAlertModalOpen && <AlertModal onClose={handleChangeAlertModalClose} onSubmit={handleSubmitAlertModal} />}
+      {isAlertModalOpen && <ConfirmModal onClose={handleChangeAlertModalClose} onSubmit={handleSubmitAlertModal} />}
       {isModalOpen && (
         <DiaryModal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
       )}

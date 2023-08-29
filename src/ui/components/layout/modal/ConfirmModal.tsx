@@ -6,7 +6,7 @@ type AlertModalProps = {
   onSubmit: () => void;
 };
 
-export default function AlertModal({ onClose, onSubmit }: AlertModalProps) {
+export default function ConfirmModal({ onClose, onSubmit }: AlertModalProps) {
   return (
     <div>
       <Container>

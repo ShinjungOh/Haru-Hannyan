@@ -66,11 +66,13 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
           onSubmit={handleSubmitOverlay}
           onClickOverlayClose={overlay.options.clickOverlayClose}
         >
-          {isValidElement(overlay.content) &&
-            cloneElement(overlay.content, {
-              onClose: handleCloseOverlay,
-              onSubmit: handleSubmitOverlay,
-            })}
+          <>
+            {isValidElement(overlay.content) &&
+              cloneElement(overlay.content, {
+                onClose: handleCloseOverlay,
+                onSubmit: handleSubmitOverlay,
+              })}
+          </>
         </Overlay>
       )}
     </OverlayContext.Provider>

@@ -1,26 +1,30 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
 
-type AlertModalProps = {
+type ConfirmModalProps = {
+  title: string;
+  description: string;
+  onBack: () => void;
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (result: unknown) => void;
 };
 
-export default function ConfirmModal({ onClose, onSubmit }: AlertModalProps) {
+export default function ConfirmModal({ title, description, onBack, onClose, onSubmit }: ConfirmModalProps) {
+  const handleSubmit = () => {
+    onSubmit(null);
+    onBack();
+  };
+
   return (
     <div>
       <Container>
-        <AlertImage>
+        <ConfirmImage>
           <img src="/images/icon/alert.svg" alt="alert" />
-        </AlertImage>
-        <AlertMessage>
-          <h2>감정일기 글쓰기</h2>
-          <h4>
-            기록한 내용이 저장되지 않습니다.
-            <br />
-            그래도 나가시겠습니까?
-          </h4>
-        </AlertMessage>
+        </ConfirmImage>
+        <ConfirmMessage>
+          <h2>{title}</h2>
+          <h4>{description}</h4>
+        </ConfirmMessage>
         <ButtonContainer>
           <button
             type="button"
@@ -32,7 +36,7 @@ export default function ConfirmModal({ onClose, onSubmit }: AlertModalProps) {
           <button
             type="button"
             style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert2 }}
-            onClick={onSubmit}
+            onClick={handleSubmit}
           >
             나가기
           </button>
@@ -60,7 +64,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const AlertImage = styled.div`
+const ConfirmImage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -73,7 +77,7 @@ const AlertImage = styled.div`
   }
 `;
 
-const AlertMessage = styled.div`
+const ConfirmMessage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;

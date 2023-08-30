@@ -34,6 +34,7 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
   const [overlay, setOverlay] = useState<OverlayState | null>(null);
 
   const openOverlay: OverlayOpenFn = useCallback((children, option) => {
+    console.log('열기');
     if (isValidElement(children)) {
       setOverlay({
         content: children,
@@ -50,11 +51,13 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
 
   const handleCloseOverlay = () => {
     setOverlay(null);
+    console.log('닫기');
   };
 
   const handleSubmitOverlay = (result: OverlaySubmitResult) => {
     overlay?.resolver?.(result);
     handleCloseOverlay();
+    console.log('제출');
   };
 
   return (

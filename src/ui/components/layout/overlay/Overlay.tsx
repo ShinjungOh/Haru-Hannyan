@@ -38,6 +38,9 @@ const BackDrop = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+  max-width: 440px;
+  height: 100%;
+  max-height: 920px;
   background-color: ${styleToken.color.gray3}80;
   z-index: 9;
 `;

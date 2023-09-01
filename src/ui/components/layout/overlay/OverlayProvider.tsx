@@ -55,9 +55,9 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
   };
 
   const handleSubmitOverlay = (result: OverlaySubmitResult) => {
+    console.log('제출');
     overlay?.resolver?.(result);
     handleCloseOverlay();
-    console.log('제출');
   };
 
   return (

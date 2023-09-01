@@ -12,6 +12,7 @@ type OverlayProps = {
 
 export default function Overlay({ onClose, onSubmit, onClickOverlayClose, children }: OverlayProps) {
   const handleBackDropClick = () => {
+    console.log('backdrop');
     if (onClickOverlayClose) {
       onClose();
     }
@@ -49,4 +50,5 @@ const OverlayContainer = styled.div`
   width: auto;
   border-radius: 8px;
   background-color: ${styleToken.color.white};
+  z-index: 100;
 `;

@@ -5,11 +5,11 @@ import { ChangeEvent, useState } from 'react';
 type ModalProps = {
   diaryText: string;
   onClose: () => void;
-  onSubmit: (e: any) => void;
+  onSubmit: (result: unknown) => void;
 };
 
 export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
-  const [modalInput, setModalInput] = useState(diaryText || '');
+  const [modalInput, setModalInput] = useState<string>(diaryText || '');
   console.log(modalInput);
 
   const handleChangeModalInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -18,7 +18,7 @@ export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps)
   };
 
   const handleClickSubmit = () => {
-    onSubmit(modalInput);
+    onSubmit({ text: modalInput });
     onClose();
   };
 
@@ -57,7 +57,6 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   width: 360px;
   height: 370px;
-  border: 1px solid ${styleToken.color.gray2};
   padding: 22px;
   border-radius: 15px;
   background-color: ${styleToken.color.white};

@@ -16,14 +16,13 @@ export default function WritePostHeader({ year, month, date }: WritePostHeaderPr
   const modal = useModal();
 
   const handlePageBack = async () => {
-    const isModal = await modal(
+    await modal(
       <ConfirmModal
         title="감정일기 글쓰기"
         description={'기록한 내용이 저장되지 않습니다.\n그래도 나가시겠습니까?'}
         onBack={handleNavigateBack}
       />,
     );
-    console.log(isModal);
   };
 
   const handleNavigateBack = () => {

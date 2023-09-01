@@ -9,12 +9,13 @@ import { useNavigate } from 'react-router';
 import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
 import DiaryModal from '@ui/components/layout/modal/DiaryModal';
-import ConfirmModal from '@ui/components/layout/modal/ConfirmModal';
+import useModal from '@lib/hooks/useModal';
 import { handleAxiosError, http } from '../api/http';
 
 export default function EditPostPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const modal = useModal();
 
   const diaryId = params.get('diaryId');
 
@@ -29,9 +30,6 @@ export default function EditPostPage() {
       date: 0,
     },
   });
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -56,31 +54,15 @@ export default function EditPostPage() {
     }
   };
 
-  const handleSubmitDiaryTextModal = (text: string) => {
-    setDiary({
-      ...diary,
-      text,
-    });
-  };
+  const handleDiaryModalOpen = async () => {
+    const isModal = await modal(<DiaryModal diaryText={diary.text} />);
 
-  const handleSubmitAlertModal = () => {
-    navigate(-1);
-  };
-
-  const handleChangeModalOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleChangeModalClose = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleChangeAlertModalOpen = () => {
-    setIsAlertModalOpen(true);
-  };
-
-  const handleChangeAlertModalClose = () => {
-    setIsAlertModalOpen(false);
+    if (isModal !== null) {
+      setDiary({
+        ...diary,
+        text: isModal.text,
+      });
+    }
   };
 
   console.log(diary);
@@ -116,19 +98,14 @@ export default function EditPostPage() {
 
   return (
     <>
-      <WritePostHeader
-        year={diary.createDate.year}
-        month={diary.createDate.month}
-        date={diary.createDate.date}
-        onAlertModalOpen={handleChangeAlertModalOpen}
-      />
+      <WritePostHeader year={diary.createDate.year} month={diary.createDate.month} date={diary.createDate.date} />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
           <EmotionContainer diary={diary} onClick={handleClickDiaryEmotion} />
           <DiaryContainer>
             <label htmlFor="diary">한줄일기</label>
-            <InputField id="diary" onClick={handleChangeModalOpen}>
+            <InputField id="diary" onClick={handleDiaryModalOpen}>
               {diary.text.length > 0 ? diary.text : '내용을 입력해 주세요'}
             </InputField>
           </DiaryContainer>
@@ -137,10 +114,6 @@ export default function EditPostPage() {
           </Button>
         </Container>
       </Body>
-      {isAlertModalOpen && <ConfirmModal onClose={handleChangeAlertModalClose} onSubmit={handleSubmitAlertModal} />}
-      {isModalOpen && (
-        <DiaryModal diaryText={diary.text} onClose={handleChangeModalClose} onSubmit={handleSubmitDiaryTextModal} />
-      )}
     </>
   );
 }

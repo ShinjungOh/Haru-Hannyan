@@ -4,9 +4,9 @@ import { OverlayOption, useOverlay } from '@ui/components/layout/overlay/Overlay
 export default function useModal() {
   const overlay = useOverlay();
 
-  const showModal = async (component: ReactElement, options?: OverlayOption) => {
+  const showModal = async <T = any,>(component: ReactElement, options?: OverlayOption): Promise<T> => {
     const submitResult = await overlay(component, options);
-    return submitResult;
+    return submitResult as T;
   };
 
   return showModal;

@@ -16,33 +16,31 @@ export default function ConfirmModal({ title, description, onBack, onClose, onSu
   };
 
   return (
-    <div>
-      <Container>
-        <ConfirmImage>
-          <img src="/images/icon/alert.svg" alt="alert" />
-        </ConfirmImage>
-        <ConfirmMessage>
-          <h2>{title}</h2>
-          <h4>{description}</h4>
-        </ConfirmMessage>
-        <ButtonContainer>
-          <button
-            type="button"
-            style={{ color: styleToken.color.gray2, backgroundColor: styleToken.color.gray4 }}
-            onClick={onClose}
-          >
-            취소
-          </button>
-          <button
-            type="button"
-            style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert2 }}
-            onClick={handleSubmit}
-          >
-            나가기
-          </button>
-        </ButtonContainer>
-      </Container>
-    </div>
+    <Container>
+      <ConfirmImage>
+        <img src="/images/icon/alert.svg" alt="alert" />
+      </ConfirmImage>
+      <ConfirmMessage>
+        <h2>{title}</h2>
+        <h4>{description}</h4>
+      </ConfirmMessage>
+      <ButtonContainer>
+        <button
+          type="button"
+          style={{ color: styleToken.color.gray2, backgroundColor: styleToken.color.gray4 }}
+          onClick={onClose}
+        >
+          취소
+        </button>
+        <button
+          type="button"
+          style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert2 }}
+          onClick={handleSubmit}
+        >
+          나가기
+        </button>
+      </ButtonContainer>
+    </Container>
   );
 }
 
@@ -56,7 +54,6 @@ const Container = styled.div`
   padding: 22px;
   border-radius: 15px;
   z-index: 2;
-  border: 1px solid ${styleToken.color.gray2};
   background-color: ${styleToken.color.white};
   display: flex;
   flex-direction: column;

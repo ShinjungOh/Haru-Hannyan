@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import useModal from '@lib/hooks/useModal';
-import ConfirmModal from '@ui/components/layout/modal/ConfirmModal';
 import { useNavigate } from 'react-router';
+import useConfirm from '@lib/hooks/useConfirm';
 import styleToken from '../../../styles/styleToken.css';
 import { dayName } from '../../../../pages/CalendarPage';
 
@@ -13,17 +12,7 @@ type WritePostHeaderProps = {
 
 export default function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
   const navigate = useNavigate();
-  const modal = useModal();
-
-  const handlePageBack = async () => {
-    await modal(
-      <ConfirmModal
-        title="감정일기 글쓰기"
-        description={'기록한 내용이 저장되지 않습니다.\n그래도 나가시겠습니까?'}
-        onBack={handleNavigateBack}
-      />,
-    );
-  };
+  const confirm = useConfirm();
 
   const handleNavigateBack = () => {
     navigate(-1);
@@ -32,6 +21,22 @@ export default function WritePostHeader({ year, month, date }: WritePostHeaderPr
   const getDayOfTargetDate = new Date(year, month - 1, date).getDay();
 
   const dayOfWeek = dayName[getDayOfTargetDate];
+
+  const handlePageBack = async () => {
+    const responseModal = await confirm(
+      {
+        modalType: 'Out',
+        title: '감정일기 글쓰기',
+        description: '기록한 내용이 저장되지 않습니다.\n그래도 나가시겠습니까?',
+        onBack: handleNavigateBack,
+      },
+      { clickOverlayClose: true },
+    );
+
+    if (responseModal) {
+      handleNavigateBack();
+    }
+  };
 
   return (
     <>

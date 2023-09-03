@@ -1,24 +1,35 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
+import { modalTypeSrc } from '@lib/const/confirmModalSrc';
+
+export type ConfirmModalType = 'Out' | 'Success';
 
 type ConfirmModalProps = {
+  modalType: ConfirmModalType;
   title: string;
   description: string;
   onBack: () => void;
-  onClose: () => void;
-  onSubmit: (result: unknown) => void;
+  onClose?: () => void;
+  onSubmit?: (result: unknown) => void;
 };
 
-export default function ConfirmModal({ title, description, onBack, onClose, onSubmit }: ConfirmModalProps) {
+export default function ConfirmModal({ modalType, title, description, onBack, onClose, onSubmit }: ConfirmModalProps) {
+  const imgSrc = modalTypeSrc[modalType].imageSrc;
+  const btnText = modalTypeSrc[modalType].buttonText;
+
+  const handleClose = () => {
+    onClose?.();
+  };
+
   const handleSubmit = () => {
-    onSubmit(null);
+    onSubmit?.(true);
     onBack();
   };
 
   return (
     <Container>
       <ConfirmImage>
-        <img src="/images/icon/alert.svg" alt="alert" />
+        <img src={imgSrc} alt={btnText} />
       </ConfirmImage>
       <ConfirmMessage>
         <h2>{title}</h2>
@@ -28,7 +39,7 @@ export default function ConfirmModal({ title, description, onBack, onClose, onSu
         <button
           type="button"
           style={{ color: styleToken.color.gray2, backgroundColor: styleToken.color.gray4 }}
-          onClick={onClose}
+          onClick={handleClose}
         >
           취소
         </button>
@@ -37,7 +48,7 @@ export default function ConfirmModal({ title, description, onBack, onClose, onSu
           style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert2 }}
           onClick={handleSubmit}
         >
-          나가기
+          {btnText}
         </button>
       </ButtonContainer>
     </Container>

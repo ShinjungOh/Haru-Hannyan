@@ -1,33 +1,28 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
-import { OverlaySubmitResult } from '@ui/components/layout/overlay/OverlayProvider';
-import { cloneElement, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 
 type OverlayProps = {
   onClose: () => void;
-  onSubmit: (result: OverlaySubmitResult) => void;
   onClickOverlayClose: boolean;
   children: PropsWithChildren;
 };
 
-export default function Overlay({ onClose, onSubmit, onClickOverlayClose, children }: OverlayProps) {
+export default function Overlay({ onClose, onClickOverlayClose, children }: OverlayProps) {
   const handleBackDropClick = () => {
-    console.log('backdrop');
     if (onClickOverlayClose) {
       onClose();
     }
   };
 
+  const handleEventStopCapturing = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <BackDrop onClick={handleBackDropClick}>
-      <OverlayContainer>
-        <>
-          {children &&
-            cloneElement(children, {
-              onClose,
-              onSubmit,
-            })}
-        </>
+      <OverlayContainer onClick={handleEventStopCapturing}>
+        <>{children}</>
       </OverlayContainer>
     </BackDrop>
   );

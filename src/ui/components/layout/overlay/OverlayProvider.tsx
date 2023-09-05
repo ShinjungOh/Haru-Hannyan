@@ -3,6 +3,7 @@ import {
   createContext,
   isValidElement,
   PropsWithChildren,
+  ReactElement,
   ReactNode,
   useCallback,
   useContext,
@@ -42,8 +43,10 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
       });
 
       return new Promise((resolver) => {
+        console.log('Promise 객체 생성됨');
         setOverlay((prevOverlay) => (prevOverlay ? { ...prevOverlay, resolver } : prevOverlay));
-      });
+        console.log(resolver);
+      }); // 모달이 켜졌을 때 여기까지 진행된 상태
     }
 
     return null;
@@ -57,6 +60,7 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
   const handleSubmitOverlay = (result: OverlaySubmitResult) => {
     console.log('제출');
     overlay?.resolver?.(result);
+    console.log('Promise가 끝남!');
     handleCloseOverlay();
   };
 
@@ -64,14 +68,10 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
     <OverlayContext.Provider value={openOverlay}>
       {children}
       {overlay && (
-        <Overlay
-          onClose={handleCloseOverlay}
-          onSubmit={handleSubmitOverlay}
-          onClickOverlayClose={overlay.options.clickOverlayClose}
-        >
+        <Overlay onClose={handleCloseOverlay} onClickOverlayClose={overlay?.options?.clickOverlayClose || false}>
           <>
             {isValidElement(overlay.content) &&
-              cloneElement(overlay.content, {
+              cloneElement(overlay.content as ReactElement, {
                 onClose: handleCloseOverlay,
                 onSubmit: handleSubmitOverlay,
               })}

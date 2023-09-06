@@ -55,12 +55,14 @@ export default function EditPostPage() {
   };
 
   const handleDiaryModalOpen = async () => {
-    const isModal = await modal(<DiaryModal diaryText={diary.text} />);
+    const responseModal = await modal<{ text: string }>(<DiaryModal diaryText={diary.text} />, {
+      clickOverlayClose: true,
+    });
 
-    if (isModal !== null) {
+    if (responseModal !== null) {
       setDiary({
         ...diary,
-        text: isModal.text,
+        text: responseModal.text,
       });
     }
   };

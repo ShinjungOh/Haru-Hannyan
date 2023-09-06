@@ -72,15 +72,14 @@ export default function WritePostPage() {
   };
 
   const handleDiaryModalOpen = async () => {
-    const isModal = await modal<{ text: string }>(<DiaryModal diaryText={diary.text} />, {
+    const responseModal = await modal<{ text: string }>(<DiaryModal diaryText={diary.text} />, {
       clickOverlayClose: true,
     });
-    // resolver를 실행하면서 넘겨준 값이 담김
 
-    if (isModal !== null) {
+    if (responseModal !== null) {
       setDiary({
         ...diary,
-        text: isModal.text,
+        text: responseModal.text,
       });
     }
   };

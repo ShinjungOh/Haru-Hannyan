@@ -35,7 +35,6 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
   const [overlay, setOverlay] = useState<OverlayState | null>(null);
 
   const openOverlay: OverlayOpenFn = useCallback((children, option) => {
-    console.log('열기');
     if (isValidElement(children)) {
       setOverlay({
         content: children,
@@ -43,10 +42,8 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
       });
 
       return new Promise((resolver) => {
-        console.log('Promise 객체 생성됨');
         setOverlay((prevOverlay) => (prevOverlay ? { ...prevOverlay, resolver } : prevOverlay));
-        console.log(resolver);
-      }); // 모달이 켜졌을 때 여기까지 진행된 상태
+      });
     }
 
     return null;
@@ -54,13 +51,10 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
 
   const handleCloseOverlay = () => {
     setOverlay(null);
-    console.log('닫기');
   };
 
   const handleSubmitOverlay = (result: OverlaySubmitResult) => {
-    console.log('제출');
     overlay?.resolver?.(result);
-    console.log('Promise가 끝남!');
     handleCloseOverlay();
   };
 

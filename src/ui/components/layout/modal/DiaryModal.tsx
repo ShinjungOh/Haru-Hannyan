@@ -4,22 +4,25 @@ import { ChangeEvent, useState } from 'react';
 
 type ModalProps = {
   diaryText: string;
-  onClose: () => void;
-  onSubmit: (e: any) => void;
+  onClose?: () => void;
+  onSubmit?: (result: unknown) => void;
 };
 
 export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
-  const [modalInput, setModalInput] = useState(diaryText || '');
-  console.log(modalInput);
+  const [modalInput, setModalInput] = useState<string>(diaryText || '');
 
   const handleChangeModalInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setModalInput(value);
   };
 
-  const handleClickSubmit = () => {
-    onSubmit(modalInput);
-    onClose();
+  const handleClose = () => {
+    onClose?.();
+  };
+
+  const handleSubmit = () => {
+    onSubmit?.({ text: modalInput });
+    onClose?.();
   };
 
   return (
@@ -34,14 +37,14 @@ export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps)
         <button
           type="button"
           style={{ color: styleToken.color.gray2, backgroundColor: styleToken.color.gray4 }}
-          onClick={onClose}
+          onClick={handleClose}
         >
           취소
         </button>
         <button
           type="button"
           style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert1 }}
-          onClick={handleClickSubmit}
+          onClick={handleSubmit}
         >
           작성완료
         </button>
@@ -57,7 +60,6 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   width: 360px;
   height: 370px;
-  border: 1px solid ${styleToken.color.gray2};
   padding: 22px;
   border-radius: 15px;
   background-color: ${styleToken.color.white};

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
-import { FeelingCatTypeSrc } from '@lib/const/ImageSrc';
+import { feelingCatTypeSrc } from '@lib/const/imageSrc';
 
 type TodayFeelingProps = {
   onClick: (feeling: string) => void;
@@ -13,7 +13,7 @@ export default function TodayFeeling({ onClick }: TodayFeelingProps) {
         <div>오늘은 어떤 고양이인가요?</div>
         <FeelingCat>
           <>
-            {FeelingCatTypeSrc.map((el, index) => (
+            {feelingCatTypeSrc.map((el, index) => (
               <img key={index} src={el.url} alt={el.feeling} onClick={() => onClick(el.feeling)} />
             ))}
           </>

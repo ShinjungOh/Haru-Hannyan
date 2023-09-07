@@ -21,7 +21,7 @@ export const calendarImageTypeSrc = {
   [Feeling.화남]: 'images/icon/calendar/feeling-cat-angry.svg',
 };
 
-export const FeelingCatTypeSrc = [
+export const feelingCatTypeSrc = [
   {
     feeling: Feeling.행복,
     url: '/images/icon/calendar/feeling-cat-great.svg',

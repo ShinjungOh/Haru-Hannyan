@@ -1,13 +1,13 @@
-import CalendarHeader from '@ui/components/layout/CalendarHeader';
+import CalendarHeader from '@ui/components/layout/calendar/CalendarHeader';
 import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/layout/Menu';
+import Menu from '@ui/components/layout/MenuBar/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
 import { Diary } from '@lib/types/diary.type';
 import { useEffect, useState } from 'react';
-import { calendarImageTypeSrc } from '@lib/const/ImageSrc';
+import { calendarImageTypeSrc } from '@lib/const/imageSrc';
 import { handleAxiosError, http } from '../api/http';
 import { dayName } from './CalendarPage';
 
@@ -96,12 +96,14 @@ export default function TimelinePage() {
                   </FeelingAndDateContainer>
                   <EmotionAndTextContainer>
                     <EmotionItem>
-                      {el.emotions &&
-                        el.emotions.map((emotion) => (
-                          <EmotionHeader>
-                            <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
-                          </EmotionHeader>
-                        ))}
+                      <>
+                        {el.emotions &&
+                          el.emotions.map((emotion) => (
+                            <EmotionHeader>
+                              <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
+                            </EmotionHeader>
+                          ))}
+                      </>
                     </EmotionItem>
                     <TextContainer>{el.text}</TextContainer>
                   </EmotionAndTextContainer>

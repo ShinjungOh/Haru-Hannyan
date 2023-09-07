@@ -1,4 +1,4 @@
-import { emotionImageSrc } from '@lib/const/ImageSrc';
+import { emotionImageSrc } from '@lib/const/imageSrc';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { Emotion } from '@lib/types/diary.type';

@@ -1,7 +1,7 @@
 import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
 import { DateType } from '@lib/types/diary.type';
-import { calendarImageTypeSrc } from '@lib/const/ImageSrc';
+import { calendarImageTypeSrc } from '@lib/const/imageSrc';
 
 type DateColumnProps = {
   date: number;

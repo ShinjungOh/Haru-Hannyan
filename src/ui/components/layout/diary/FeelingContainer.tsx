@@ -1,4 +1,4 @@
-import { FeelingCatTypeSrc } from '@lib/const/ImageSrc';
+import { feelingCatTypeSrc } from '@lib/const/imageSrc';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { Feeling } from '@lib/types/diary.type';
@@ -14,7 +14,7 @@ export default function FeelingContainer({ diary, onClick }: FeelingContainerPro
       <h4>오늘은 어떤 고양이인가요?</h4>
       <FeelingCatList>
         <>
-          {FeelingCatTypeSrc.map((el, index) => {
+          {feelingCatTypeSrc.map((el, index) => {
             const isSelected = el.feeling === diary.feel;
             return (
               <FeelingCatImage

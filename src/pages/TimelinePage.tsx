@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
 import { Diary } from '@lib/types/diary.type';
 import { useEffect, useState } from 'react';
-import { calendarImageTypeSrc } from '@lib/const/ImageSrc';
+import { calendarImageTypeSrc } from '@lib/const/imageSrc';
 import { handleAxiosError, http } from '../api/http';
 import { dayName } from './CalendarPage';
 

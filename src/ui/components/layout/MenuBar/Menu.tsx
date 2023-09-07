@@ -6,7 +6,7 @@ import useDateStore from '@lib/store/useDateStore';
 import TodayFeeling from '@ui/components/layout/calendar/TodayFeeling';
 import { useEffect, useState } from 'react';
 import { Diary } from '@lib/types/diary.type';
-import { feelCatIcon, menuIcon } from '@lib/const/ImageSrc';
+import { feelCatIcon, menuIcon } from '@lib/const/imageSrc';
 import styleToken from '../../../styles/styleToken.css';
 import MenuItem from './MenuItem';
 import { handleAxiosError, http } from '../../../../api/http';

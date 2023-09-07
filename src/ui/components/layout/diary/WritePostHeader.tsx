@@ -15,6 +15,7 @@ export default function WritePostHeader({ year, month, date }: WritePostHeaderPr
   const confirm = useConfirm();
 
   const handleNavigateBack = () => {
+    console.log('back');
     navigate(-1);
   };
 
@@ -23,17 +24,16 @@ export default function WritePostHeader({ year, month, date }: WritePostHeaderPr
   const dayOfWeek = dayName[getDayOfTargetDate];
 
   const handlePageBack = async () => {
-    const responseModal = await confirm(
+    const responseConfirm = await confirm(
       {
-        modalType: 'Out',
+        type: 'out',
         title: '감정일기 글쓰기',
         description: '기록한 내용이 저장되지 않습니다.\n그래도 나가시겠습니까?',
-        onBack: handleNavigateBack,
       },
       { clickOverlayClose: true },
     );
 
-    if (responseModal) {
+    if (responseConfirm) {
       handleNavigateBack();
     }
   };

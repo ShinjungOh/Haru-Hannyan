@@ -3,21 +3,20 @@ import useModal from '@lib/hooks/useModal';
 import ConfirmModal, { ConfirmModalType } from '@ui/components/layout/modal/ConfirmModal';
 
 type ConfirmModalProps = {
-  modalType: ConfirmModalType;
+  type: ConfirmModalType;
   title: string;
   description: string;
-  onBack: () => void;
 };
 
 export default function useConfirm() {
   const modal = useModal();
 
   const showConfirm = async (
-    { modalType, title, description, onBack }: ConfirmModalProps,
+    { type, title, description }: ConfirmModalProps,
     options?: OverlayOption,
   ): Promise<boolean> => {
     const submitResult = await modal<boolean>(
-      <ConfirmModal modalType={modalType} title={title} description={description} onBack={onBack} />,
+      <ConfirmModal type={type} title={title} description={description} />,
       options,
     );
     return submitResult;

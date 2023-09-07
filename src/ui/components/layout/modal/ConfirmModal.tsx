@@ -2,20 +2,19 @@ import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
 import { modalTypeSrc } from '@lib/const/confirmModalSrc';
 
-export type ConfirmModalType = 'Out' | 'Success';
+export type ConfirmModalType = 'out' | 'success';
 
 type ConfirmModalProps = {
-  modalType: ConfirmModalType;
+  type: ConfirmModalType;
   title: string;
   description: string;
-  onBack: () => void;
   onClose?: () => void;
   onSubmit?: (result: unknown) => void;
 };
 
-export default function ConfirmModal({ modalType, title, description, onBack, onClose, onSubmit }: ConfirmModalProps) {
-  const imgSrc = modalTypeSrc[modalType].imageSrc;
-  const btnText = modalTypeSrc[modalType].buttonText;
+export default function ConfirmModal({ type, title, description, onClose, onSubmit }: ConfirmModalProps) {
+  const imgSrc = modalTypeSrc[type].imageSrc;
+  const btnText = modalTypeSrc[type].buttonText;
 
   const handleClose = () => {
     onClose?.();
@@ -23,7 +22,6 @@ export default function ConfirmModal({ modalType, title, description, onBack, on
 
   const handleSubmit = () => {
     onSubmit?.(true);
-    onBack();
   };
 
   return (

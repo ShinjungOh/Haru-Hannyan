@@ -9,7 +9,7 @@ import {
   useContext,
   useState,
 } from 'react';
-import Overlay from '@ui/components/layout/overlay/Overlay';
+import Overlay from '@ui/components/overlay/Overlay';
 
 export type OverlaySubmitResult = unknown;
 

@@ -1,6 +1,6 @@
 import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/layout/MenuBar/Menu';
-import SignButton from '@ui/components/layout/common/SignButton';
+import Menu from '@ui/components/MenuBar/Menu';
+import SignButton from '@ui/components/common/SignButton';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';

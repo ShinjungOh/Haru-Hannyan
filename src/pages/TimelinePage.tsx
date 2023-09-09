@@ -1,6 +1,6 @@
-import CalendarHeader from '@ui/components/layout/calendar/CalendarHeader';
+import CalendarHeader from '@ui/components/calendar/CalendarHeader';
 import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/layout/MenuBar/Menu';
+import Menu from '@ui/components/MenuBar/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';

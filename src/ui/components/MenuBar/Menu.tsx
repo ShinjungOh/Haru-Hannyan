@@ -3,13 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { PATH } from '@lib/const/path';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
-import TodayFeeling from '@ui/components/layout/calendar/TodayFeeling';
+import TodayFeeling from '@ui/components/calendar/TodayFeeling';
 import { useEffect, useState } from 'react';
 import { Diary } from '@lib/types/diary.type';
 import { feelCatIcon, menuIcon } from '@lib/const/imageSrc';
-import styleToken from '../../../styles/styleToken.css';
+import styleToken from '../../styles/styleToken.css';
 import MenuItem from './MenuItem';
-import { handleAxiosError, http } from '../../../../api/http';
+import { handleAxiosError, http } from '../../../api/http';
 
 export default function Menu() {
   const location = useLocation();

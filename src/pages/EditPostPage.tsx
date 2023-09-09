@@ -1,14 +1,14 @@
 import Body from '@ui/components/layout/Body';
-import WritePostHeader from '@ui/components/layout/diary/WritePostHeader';
+import WritePostHeader from '@ui/components/diary/WritePostHeader';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { Diary, Emotion, Feeling } from '@lib/types/diary.type';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import FeelingContainer from '@ui/components/layout/diary/FeelingContainer';
-import EmotionContainer from '@ui/components/layout/diary/EmotionContainer';
-import DiaryModal from '@ui/components/layout/modal/DiaryModal';
+import FeelingContainer from '@ui/components/diary/FeelingContainer';
+import EmotionContainer from '@ui/components/diary/EmotionContainer';
+import DiaryModal from '@ui/components/modal/DiaryModal';
 import useModal from '@lib/hooks/useModal';
 import { handleAxiosError, http } from '../api/http';
 

@@ -1,6 +1,6 @@
-import { OverlayOption } from '@ui/components/layout/overlay/OverlayProvider';
+import { OverlayOption } from '@ui/components/overlay/OverlayProvider';
 import useModal from '@lib/hooks/useModal';
-import ConfirmModal, { ConfirmModalType } from '@ui/components/layout/modal/ConfirmModal';
+import ConfirmModal, { ConfirmModalType } from '@ui/components/modal/ConfirmModal';
 
 type ConfirmModalProps = {
   type: ConfirmModalType;

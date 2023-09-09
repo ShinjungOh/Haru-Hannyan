@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import SignButton from '@ui/components/layout/common/SignButton';
+import SignButton from '@ui/components/common/SignButton';
 import { KAKAO_AUTH_URL } from '@lib/const/config';
 
 export default function HomePage() {

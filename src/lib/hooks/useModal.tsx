@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { OverlayOption, useOverlay } from '@ui/components/layout/overlay/OverlayProvider';
+import { OverlayOption, useOverlay } from '@ui/components/overlay/OverlayProvider';
 
 export default function useModal() {
   const overlay = useOverlay();

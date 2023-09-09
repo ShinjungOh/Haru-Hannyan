@@ -1,5 +1,5 @@
 import { PATH } from '@lib/const/path';
-import RouterLayout from './ui/components/RouterLayout';
+import RouterLayout from '@ui/components/layout/RouterLayout';
 import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';

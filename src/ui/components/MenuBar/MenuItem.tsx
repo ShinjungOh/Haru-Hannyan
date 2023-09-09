@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
-import styleToken from '../../../styles/styleToken.css';
+import styleToken from '../../styles/styleToken.css';
 
 type MenuItemProps = {
   imageSrc: string;

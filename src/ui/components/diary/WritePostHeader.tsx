@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import useConfirm from '@lib/hooks/useConfirm';
-import styleToken from '../../../styles/styleToken.css';
-import { dayName } from '../../../../pages/CalendarPage';
+import styleToken from '../../styles/styleToken.css';
+import { dayName } from '../../../pages/CalendarPage';
 
 type WritePostHeaderProps = {
   year: number;

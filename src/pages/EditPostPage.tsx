@@ -10,12 +10,14 @@ import FeelingContainer from '@ui/components/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/diary/EmotionContainer';
 import DiaryModal from '@ui/components/modal/DiaryModal';
 import useModal from '@lib/hooks/useModal';
+import useAlert from '@lib/hooks/useAlert';
 import { handleAxiosError, http } from '../api/http';
 
 export default function EditPostPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const modal = useModal();
+  const alert = useAlert();
 
   const diaryId = params.get('diaryId');
 
@@ -73,11 +75,19 @@ export default function EditPostPage() {
     try {
       const response = await http.put<{ diary: Diary }>(`/diary/${diaryId}`, diary);
       console.log(response.msg);
-      alert(response.msg);
-      navigate(-1);
+      const responseAlert = await alert({
+        type: 'positive',
+        title: response.msg,
+      });
+      if (responseAlert) {
+        navigate(-1);
+      }
     } catch (e) {
       const error = handleAxiosError(e);
-      alert(error.msg);
+      await alert({
+        type: 'negative',
+        title: error.msg,
+      });
     }
   };
 

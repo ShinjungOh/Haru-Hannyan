@@ -10,6 +10,7 @@ import FeelingContainer from '@ui/components/diary/FeelingContainer';
 import EmotionContainer from '@ui/components/diary/EmotionContainer';
 import DiaryModal from '@ui/components/modal/DiaryModal';
 import useModal from '@lib/hooks/useModal';
+import useAlert from '@lib/hooks/useAlert';
 import { handleAxiosError, http } from '../api/http';
 
 export type newDiaryType = {
@@ -27,6 +28,7 @@ export default function WritePostPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const modal = useModal();
+  const alert = useAlert();
 
   const todayFeeling = params.get('feeling');
   const year = params.get('year');
@@ -90,11 +92,19 @@ export default function WritePostPage() {
     try {
       const response = await http.post('/diary', diary);
       console.log(response.msg);
-      alert(response.msg);
-      navigate(-1);
+      const responseAlert = await alert({
+        type: 'positive',
+        title: response.msg,
+      });
+      if (responseAlert) {
+        navigate(-1);
+      }
     } catch (e) {
       const error = handleAxiosError(e);
-      alert(error.msg);
+      await alert({
+        type: 'negative',
+        title: error.msg,
+      });
     }
   };
 

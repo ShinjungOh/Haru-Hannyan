@@ -10,10 +10,13 @@ import getValidationUser from '@lib/utils/getValidationUser';
 import SignButton from '@ui/components/common/SignButton';
 import InputBox from '@ui/components/common/InputBox';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import useAlert from '@lib/hooks/useAlert';
 import { handleAxiosError, http } from '../api/http';
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const alert = useAlert();
+
   const [user, setUser] = useState<UserType>({
     email: '',
     password: '',
@@ -84,7 +87,10 @@ export default function SignupPage() {
       }
     } catch (e) {
       const error = handleAxiosError(e);
-      alert(error.msg);
+      alert({
+        type: 'negative',
+        title: error.msg,
+      });
     }
   };
 

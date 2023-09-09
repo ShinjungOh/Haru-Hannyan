@@ -1,24 +1,18 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
-import { confirmModalTypeSrc } from '@lib/const/confirmModalSrc';
+import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
 
-export type ConfirmModalType = 'out' | 'success' | 'delete';
+export type AlertModalType = 'positive' | 'negative';
 
 type ConfirmModalProps = {
-  type: ConfirmModalType;
+  type: AlertModalType;
   title: string;
-  description: string;
-  onClose?: () => void;
   onSubmit?: (result: unknown) => void;
 };
 
-export default function ConfirmModal({ type, title, description, onClose, onSubmit }: ConfirmModalProps) {
-  const imgSrc = confirmModalTypeSrc[type].imageSrc;
-  const btnText = confirmModalTypeSrc[type].buttonText;
-
-  const handleClose = () => {
-    onClose?.();
-  };
+export default function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
+  const imgSrc = alertModalTypeSrc[type].imageSrc;
+  const backgroundColor = alertModalTypeSrc[type].color;
 
   const handleSubmit = () => {
     onSubmit?.(true);
@@ -26,27 +20,15 @@ export default function ConfirmModal({ type, title, description, onClose, onSubm
 
   return (
     <Container>
-      <ConfirmImage>
-        <img src={imgSrc} alt={btnText} />
-      </ConfirmImage>
-      <ConfirmMessage>
+      <AlertImage>
+        <img src={imgSrc} alt="alert" />
+      </AlertImage>
+      <AlertMessage>
         <h2>{title}</h2>
-        <h4>{description}</h4>
-      </ConfirmMessage>
+      </AlertMessage>
       <ButtonContainer>
-        <button
-          type="button"
-          style={{ color: styleToken.color.gray2, backgroundColor: styleToken.color.gray4 }}
-          onClick={handleClose}
-        >
-          취소
-        </button>
-        <button
-          type="button"
-          style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert2 }}
-          onClick={handleSubmit}
-        >
-          {btnText}
+        <button type="button" style={{ color: styleToken.color.white, backgroundColor }} onClick={handleSubmit}>
+          확인
         </button>
       </ButtonContainer>
     </Container>
@@ -58,7 +40,7 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 280px;
+  width: auto;
   height: auto;
   padding: 22px;
   border-radius: 15px;
@@ -70,39 +52,32 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ConfirmImage = styled.div`
+const AlertImage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  padding: 0 10px 10px 10px;
 
   img {
-    width: 60px;
+    width: 38px;
   }
 `;
 
-const ConfirmMessage = styled.div`
+const AlertMessage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  margin-top: 18px;
+  margin-top: 10px;
   width: 210px;
-  height: 80px;
   font-weight: 600;
   line-height: 1.3;
 
   h2 {
     color: ${styleToken.color.gray1};
-    font-size: 20px;
-  }
-
-  h4 {
-    color: ${styleToken.color.gray2};
-    font-size: 15px;
+    font-size: 18px;
   }
 `;
 
@@ -115,7 +90,7 @@ const ButtonContainer = styled.div`
   width: 100%;
 
   button {
-    width: 110px;
+    width: 100%;
     height: 50px;
     border-radius: 8px;
     border: none;

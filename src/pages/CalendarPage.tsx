@@ -9,12 +9,15 @@ import useDateStore from '@lib/store/useDateStore';
 import { useEffect, useState } from 'react';
 import { DateType, Diary } from '@lib/types/diary.type';
 import { useNavigate } from 'react-router';
+import useAlert from '@lib/hooks/useAlert';
 import { handleAxiosError, http } from '../api/http';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function CalendarPage() {
   const navigate = useNavigate();
+  const alert = useAlert();
+
   const [currentDate, targetDate, setTargetDate, getFirstDayOfMonth] = useDateStore((state) => [
     state.currentDate,
     state.targetDate,
@@ -84,7 +87,10 @@ export default function CalendarPage() {
         }
       } catch (e) {
         const error = handleAxiosError(e);
-        alert(error.msg);
+        await alert({
+          type: 'negative',
+          title: error.msg,
+        });
       }
     };
 
@@ -99,7 +105,7 @@ export default function CalendarPage() {
     } else {
       setCurrentDateToTargetDate();
     }
-  }, [currentDate, navigate, setTargetDate, targetDate]);
+  }, [alert, currentDate, navigate, setTargetDate, targetDate]);
 
   return (
     <>

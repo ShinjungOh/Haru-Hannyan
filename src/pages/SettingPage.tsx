@@ -5,13 +5,19 @@ import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
+import useConfirm from '@lib/hooks/useConfirm';
 
 export default function SettingPage() {
   const navigate = useNavigate();
+  const confirm = useConfirm();
 
-  const handleClickLogout = () => {
-    const isLogout = confirm('로그아웃 하시겠습니까?');
-    if (isLogout) {
+  const handleClickLogout = async () => {
+    const responseConfirm = await confirm({
+      type: 'delete',
+      title: '로그아웃 하시겠습니까?',
+      description: '하루한냥 홈으로 이동합니다.',
+    });
+    if (responseConfirm) {
       localStorage.clear();
       navigate(PATH.HOME);
     }

@@ -3,11 +3,14 @@ import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import useAlert from '@lib/hooks/useAlert';
 import { handleAxiosError, http } from '../api/http';
 
 export default function AuthKakaoPage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  const alert = useAlert();
+
   const code = params.get('code');
 
   const handleSigninKakao = useCallback(async () => {
@@ -25,10 +28,15 @@ export default function AuthKakaoPage() {
       }
     } catch (e) {
       const error = handleAxiosError(e);
-      alert(error.msg);
-      navigate(PATH.HOME);
+      const response = await alert({
+        type: 'negative',
+        title: error.msg,
+      });
+      if (response) {
+        navigate(PATH.HOME);
+      }
     }
-  }, [code, navigate]);
+  }, [alert, code, navigate]);
 
   useEffect(() => {
     if (code) {

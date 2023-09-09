@@ -8,11 +8,16 @@ import useDateStore from '@lib/store/useDateStore';
 import { Diary } from '@lib/types/diary.type';
 import { useEffect, useState } from 'react';
 import { calendarImageTypeSrc } from '@lib/const/imageSrc';
+import useAlert from '@lib/hooks/useAlert';
+import useConfirm from '@lib/hooks/useConfirm';
 import { handleAxiosError, http } from '../api/http';
 import { dayName } from './CalendarPage';
 
 export default function TimelinePage() {
   const navigate = useNavigate();
+  const confirm = useConfirm();
+  const alert = useAlert();
+
   const [currentDate, targetDate, setTargetDate] = useDateStore((state) => [
     state.currentDate,
     state.targetDate,
@@ -27,15 +32,22 @@ export default function TimelinePage() {
 
   const handleClickDeleteDiary = async (diaryId: number | undefined) => {
     try {
-      const isConfirm = confirm('일기를 삭제하시겠습니까?');
-      if (isConfirm) {
+      const responseConfirm = await confirm({
+        type: 'delete',
+        title: '일기를 삭제하시겠습니까?',
+        description: '하루의 일기가 사라집니다.',
+      });
+      if (responseConfirm) {
         const response = await http.delete(`/diary/${diaryId}`);
         console.log(response);
         location.reload();
       }
     } catch (e) {
       const error = handleAxiosError(e);
-      alert(error.msg);
+      await alert({
+        type: 'negative',
+        title: error.msg,
+      });
     }
   };
 
@@ -54,7 +66,10 @@ export default function TimelinePage() {
         }
       } catch (e) {
         const error = handleAxiosError(e);
-        alert(error.msg);
+        await alert({
+          type: 'negative',
+          title: error.msg,
+        });
       }
     };
 
@@ -69,7 +84,7 @@ export default function TimelinePage() {
     } else {
       setCurrentDateToTargetDate();
     }
-  }, [currentDate, setTargetDate, targetDate]);
+  }, [alert, currentDate, setTargetDate, targetDate]);
 
   return (
     <>

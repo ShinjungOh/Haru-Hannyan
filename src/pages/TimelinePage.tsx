@@ -45,7 +45,7 @@ export default function TimelinePage() {
     } catch (e) {
       const error = handleAxiosError(e);
       await alert({
-        type: 'negative',
+        type: 'danger',
         title: error.msg,
       });
     }
@@ -67,7 +67,7 @@ export default function TimelinePage() {
       } catch (e) {
         const error = handleAxiosError(e);
         await alert({
-          type: 'negative',
+          type: 'danger',
           title: error.msg,
         });
       }

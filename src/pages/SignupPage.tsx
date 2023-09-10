@@ -88,7 +88,7 @@ export default function SignupPage() {
     } catch (e) {
       const error = handleAxiosError(e);
       alert({
-        type: 'negative',
+        type: 'danger',
         title: error.msg,
       });
     }

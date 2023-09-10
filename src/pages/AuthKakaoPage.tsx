@@ -29,7 +29,7 @@ export default function AuthKakaoPage() {
     } catch (e) {
       const error = handleAxiosError(e);
       const response = await alert({
-        type: 'negative',
+        type: 'danger',
         title: error.msg,
       });
       if (response) {

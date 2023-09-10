@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
 import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
 
-export type AlertModalType = 'positive' | 'negative' | 'information';
+export type AlertModalType = 'success' | 'danger' | 'information';
 
 type ConfirmModalProps = {
   type: AlertModalType;

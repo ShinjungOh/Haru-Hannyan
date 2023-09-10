@@ -93,7 +93,7 @@ export default function WritePostPage() {
       const response = await http.post('/diary', diary);
       console.log(response.msg);
       const responseAlert = await alert({
-        type: 'positive',
+        type: 'success',
         title: response.msg,
       });
       if (responseAlert) {
@@ -102,7 +102,7 @@ export default function WritePostPage() {
     } catch (e) {
       const error = handleAxiosError(e);
       await alert({
-        type: 'negative',
+        type: 'danger',
         title: error.msg,
       });
     }

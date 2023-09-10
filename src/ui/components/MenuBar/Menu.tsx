@@ -48,7 +48,10 @@ export default function Menu() {
       const date = currentDate.getDate();
       navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
     } else if (diary && !!isAlreadyTodayDiary()) {
-      const responseAlert = await alert({ type: 'negative', title: '이미 일기가 존재합니다.' });
+      const responseAlert = await alert({
+        type: 'danger',
+        title: '이미 일기가 존재합니다.',
+      });
       if (responseAlert) {
         setIsOpen(false);
       }
@@ -69,7 +72,7 @@ export default function Menu() {
       } catch (e) {
         const error = handleAxiosError(e);
         await alert({
-          type: 'negative',
+          type: 'danger',
           title: error.msg,
         });
       }

@@ -76,7 +76,7 @@ export default function EditPostPage() {
       const response = await http.put<{ diary: Diary }>(`/diary/${diaryId}`, diary);
       console.log(response.msg);
       const responseAlert = await alert({
-        type: 'positive',
+        type: 'success',
         title: response.msg,
       });
       if (responseAlert) {
@@ -85,7 +85,7 @@ export default function EditPostPage() {
     } catch (e) {
       const error = handleAxiosError(e);
       await alert({
-        type: 'negative',
+        type: 'danger',
         title: error.msg,
       });
     }

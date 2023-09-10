@@ -105,7 +105,7 @@ export default function CalendarPage() {
     } else {
       setCurrentDateToTargetDate();
     }
-  }, [alert, currentDate, navigate, setTargetDate, targetDate]);
+  }, [currentDate, navigate, setTargetDate, targetDate]);
 
   return (
     <>

@@ -15,7 +15,6 @@ export default function WritePostHeader({ year, month, date }: WritePostHeaderPr
   const confirm = useConfirm();
 
   const handleNavigateBack = () => {
-    console.log('back');
     navigate(-1);
   };
 

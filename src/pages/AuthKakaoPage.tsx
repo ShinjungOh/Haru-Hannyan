@@ -36,7 +36,7 @@ export default function AuthKakaoPage() {
         navigate(PATH.HOME);
       }
     }
-  }, [alert, code, navigate]);
+  }, [code, navigate]);
 
   useEffect(() => {
     if (code) {

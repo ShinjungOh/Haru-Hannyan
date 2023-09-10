@@ -84,7 +84,7 @@ export default function TimelinePage() {
     } else {
       setCurrentDateToTargetDate();
     }
-  }, [alert, currentDate, setTargetDate, targetDate]);
+  }, [currentDate, setTargetDate, targetDate]);
 
   return (
     <>

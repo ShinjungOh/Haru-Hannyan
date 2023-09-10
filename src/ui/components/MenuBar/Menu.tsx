@@ -76,7 +76,7 @@ export default function Menu() {
     };
 
     getMonthlyDiary();
-  }, [alert, currentDate]);
+  }, [currentDate]);
 
   return (
     <Container>

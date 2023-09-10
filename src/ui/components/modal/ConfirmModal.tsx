@@ -103,6 +103,7 @@ const ConfirmMessage = styled.div`
   h4 {
     color: ${styleToken.color.gray2};
     font-size: 15px;
+    white-space: pre-wrap;
   }
 `;
 

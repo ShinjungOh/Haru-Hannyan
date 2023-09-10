@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
 import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
 
-export type AlertModalType = 'positive' | 'negative';
+export type AlertModalType = 'positive' | 'negative' | 'information';
 
 type ConfirmModalProps = {
   type: AlertModalType;
@@ -78,6 +78,7 @@ const AlertMessage = styled.div`
   h2 {
     color: ${styleToken.color.gray1};
     font-size: 18px;
+    white-space: pre-wrap;
   }
 `;
 

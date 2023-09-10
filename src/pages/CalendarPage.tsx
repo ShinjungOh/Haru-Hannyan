@@ -58,7 +58,7 @@ export default function CalendarPage() {
     return false;
   };
 
-  const handleClickDiaryPage = (type: DateType, date: number) => {
+  const handleClickDiaryPage = async (type: DateType, date: number) => {
     if (type !== 'disabled' && targetDate !== null) {
       const year = targetDate.getFullYear();
       const month = targetDate.getMonth() + 1;
@@ -70,6 +70,11 @@ export default function CalendarPage() {
       } else if (findDiary) {
         navigate(`/calendar/edit?diaryId=${findDiary.diaryId}`);
       }
+    } else if (type === 'disabled') {
+      await alert({
+        type: 'information',
+        title: '미래의 날짜는\n 일기를 기록할 수 없어요.',
+      });
     }
   };
 

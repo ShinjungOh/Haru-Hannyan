@@ -1,6 +1,6 @@
 import CalendarHeader from '@ui/components/calendar/CalendarHeader';
 import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/MenuBar/Menu';
+import Menu from '@ui/components/menu/Menu';
 
 export default function ReportPage() {
   return (

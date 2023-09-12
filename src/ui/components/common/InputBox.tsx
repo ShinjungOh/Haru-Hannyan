@@ -7,11 +7,12 @@ type InputBoxProps = {
   id: string;
   name: string;
   placeholder: string;
+  autoFocus?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function InputBox({ type, id, name, placeholder, onChange }: InputBoxProps) {
-  return <Input type={type} id={id} name={name} placeholder={placeholder} onChange={onChange} autoFocus />;
+export default function InputBox({ type, id, name, placeholder, autoFocus, onChange }: InputBoxProps) {
+  return <Input type={type} id={id} name={name} placeholder={placeholder} autoFocus={autoFocus} onChange={onChange} />;
 }
 
 const Input = styled.input`

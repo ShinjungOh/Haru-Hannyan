@@ -98,6 +98,7 @@ export default function SigninPage() {
             id="email"
             name="email"
             placeholder="이메일을 입력해 주세요."
+            autoFocus
             onChange={handleChangeUser}
           />
         </InputContainer>

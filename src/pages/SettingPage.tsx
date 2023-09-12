@@ -1,5 +1,5 @@
 import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/MenuBar/Menu';
+import Menu from '@ui/components/menu/Menu';
 import SignButton from '@ui/components/common/SignButton';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';

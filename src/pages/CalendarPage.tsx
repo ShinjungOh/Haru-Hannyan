@@ -72,8 +72,8 @@ export default function CalendarPage() {
       }
     } else if (type === 'disabled') {
       await alert({
-        type: 'information',
-        title: '미래의 날짜는\n 일기를 기록할 수 없어요.',
+        type: 'info',
+        title: '미래의 날짜는\n일기를 기록할 수 없어요.',
       });
     }
   };

@@ -9,7 +9,7 @@ export const alertModalTypeSrc = {
     imageSrc: '/images/icon/modal/alert.svg',
     color: styleToken.color.alert2,
   },
-  information: {
+  info: {
     imageSrc: '/images/icon/modal/info.svg',
     color: styleToken.color.primary,
   },

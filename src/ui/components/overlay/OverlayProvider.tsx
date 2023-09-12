@@ -3,7 +3,7 @@ import {
   createContext,
   isValidElement,
   PropsWithChildren,
-  ReactElement,
+  ReactHTMLElement,
   ReactNode,
   useCallback,
   useContext,
@@ -65,7 +65,7 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
         <Overlay onClose={handleCloseOverlay} onClickOverlayClose={overlay?.options?.clickOverlayClose || false}>
           <>
             {isValidElement(overlay.content) &&
-              cloneElement(overlay.content as ReactElement, {
+              cloneElement(overlay.content as ReactHTMLElement<any>, {
                 onClose: handleCloseOverlay,
                 onSubmit: handleSubmitOverlay,
               })}

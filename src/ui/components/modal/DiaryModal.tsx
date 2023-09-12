@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 type ModalProps = {
   diaryText: string;
@@ -10,6 +10,7 @@ type ModalProps = {
 
 export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
   const [modalInput, setModalInput] = useState<string>(diaryText || '');
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleChangeModalInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
@@ -25,13 +26,21 @@ export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps)
     onClose?.();
   };
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      const inputLength = modalInput.length;
+      textareaRef.current?.setSelectionRange(inputLength, inputLength);
+      textareaRef.current?.focus();
+    }
+  }, [textareaRef]);
+
   return (
     <Container>
       <TextContainer
-        autoFocus
         placeholder="내용을 입력해 주세요"
         value={modalInput}
         onChange={handleChangeModalInput}
+        ref={textareaRef}
       />
       <ButtonContainer>
         <button

@@ -9,7 +9,7 @@ type CalendarHeaderProps = {
   page?: 'calendar' | 'timeline';
 };
 
-export default function CalendarHeader({ page }: CalendarHeaderProps) {
+export function CalendarHeader({ page }: CalendarHeaderProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 

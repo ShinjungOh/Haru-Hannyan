@@ -1,19 +1,17 @@
-import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { UserType, UserValidation } from '@lib/types/user.type';
-import NavigationHeader from '@ui/components/common/NavigationHeader';
 import getValidationUser from '@lib/utils/getValidationUser';
-import SignButton from '@ui/components/common/SignButton';
-import InputBox from '@ui/components/common/InputBox';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
-import useAlert from '@lib/hooks/useAlert';
+import { Body } from '@ui/components/layout';
+import { InputBox, NavigationHeader, SignButton } from '@ui/components/common';
+import { useAlert } from '@lib/hooks';
 import { handleAxiosError, http } from '../api/http';
 
-export default function SignupPage() {
+export function SignupPage() {
   const navigate = useNavigate();
   const alert = useAlert();
 

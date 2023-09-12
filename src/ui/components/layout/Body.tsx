@@ -6,7 +6,7 @@ type BodyProps = {
   [K: string]: unknown;
 };
 
-export default function Body({ children, ...props }: PropsWithChildren<BodyProps>) {
+export function Body({ children, ...props }: PropsWithChildren<BodyProps>) {
   return <Container {...props}>{children}</Container>;
 }
 

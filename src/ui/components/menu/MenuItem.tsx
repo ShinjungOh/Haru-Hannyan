@@ -7,7 +7,7 @@ type MenuItemProps = {
   path: string;
 };
 
-export default function MenuItem({ imageSrc, path }: MenuItemProps) {
+export function MenuItem({ imageSrc, path }: MenuItemProps) {
   const navigate = useNavigate();
 
   const handleChangePage = () => {

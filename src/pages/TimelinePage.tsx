@@ -1,6 +1,4 @@
-import CalendarHeader from '@ui/components/calendar/CalendarHeader';
-import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/menu/Menu';
+import { Menu } from '@ui/components/menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
@@ -8,12 +6,13 @@ import useDateStore from '@lib/store/useDateStore';
 import { Diary } from '@lib/types/diary.type';
 import { useEffect, useState } from 'react';
 import { calendarImageTypeSrc } from '@lib/const/imageSrc';
-import useAlert from '@lib/hooks/useAlert';
-import useConfirm from '@lib/hooks/useConfirm';
+import { Body } from '@ui/components/layout';
+import { CalendarHeader } from '@ui/components/calendar';
+import { useAlert, useConfirm } from '@lib/hooks';
 import { handleAxiosError, http } from '../api/http';
 import { dayName } from './CalendarPage';
 
-export default function TimelinePage() {
+export function TimelinePage() {
   const navigate = useNavigate();
   const confirm = useConfirm();
   const alert = useAlert();

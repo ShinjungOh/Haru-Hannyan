@@ -9,7 +9,7 @@ import {
   useContext,
   useState,
 } from 'react';
-import Overlay from '@ui/components/overlay/Overlay';
+import { Overlay } from '@ui/components/overlay';
 
 export type OverlaySubmitResult = unknown;
 
@@ -31,7 +31,7 @@ type OverlayState = {
   resolver?: (value: unknown) => void;
 };
 
-export const OverlayProvider = ({ children }: PropsWithChildren) => {
+export function OverlayProvider({ children }: PropsWithChildren) {
   const [overlay, setOverlay] = useState<OverlayState | null>(null);
 
   const openOverlay: OverlayOpenFn = useCallback((children, option) => {
@@ -74,7 +74,7 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
       )}
     </OverlayContext.Provider>
   );
-};
+}
 
 export const useOverlay = () => {
   const context = useContext(OverlayContext);

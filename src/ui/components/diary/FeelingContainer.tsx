@@ -8,7 +8,7 @@ type FeelingContainerProps = {
   onClick: (feeling: Feeling) => void;
 };
 
-export default function FeelingContainer({ diary, onClick }: FeelingContainerProps) {
+export function FeelingContainer({ diary, onClick }: FeelingContainerProps) {
   return (
     <Container>
       <h4>오늘은 어떤 고양이인가요?</h4>

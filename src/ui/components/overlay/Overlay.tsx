@@ -9,7 +9,7 @@ type OverlayProps = {
 
 type Props = PropsWithChildren<OverlayProps>;
 
-export default function Overlay({ onClose, onClickOverlayClose, children }: Props) {
+export function Overlay({ onClose, onClickOverlayClose, children }: Props) {
   const handleBackDropClick = () => {
     if (onClickOverlayClose) {
       onClose();

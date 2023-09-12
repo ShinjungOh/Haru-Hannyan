@@ -11,7 +11,7 @@ type InputBoxProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function InputBox({ type, id, name, placeholder, autoFocus, onChange }: InputBoxProps) {
+export function InputBox({ type, id, name, placeholder, autoFocus, onChange }: InputBoxProps) {
   return <Input type={type} id={id} name={name} placeholder={placeholder} autoFocus={autoFocus} onChange={onChange} />;
 }
 

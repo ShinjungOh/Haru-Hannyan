@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { PropsWithChildren } from 'react';
 
-export default function Page({ children }: PropsWithChildren) {
+export function Page({ children }: PropsWithChildren) {
   return <Container>{children}</Container>;
 }
 

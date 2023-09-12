@@ -8,7 +8,7 @@ type EmotionContainerProps = {
   onClick: (emotion: Emotion) => void;
 };
 
-export default function EmotionContainer({ diary, onClick }: EmotionContainerProps) {
+export function EmotionContainer({ diary, onClick }: EmotionContainerProps) {
   return (
     <Container>
       <h4>감정</h4>

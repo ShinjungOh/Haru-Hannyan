@@ -10,7 +10,7 @@ type SignButtonProps = {
   color: string;
 };
 
-export default function SignButton({ text, imgSrc, onClick, disabled, backgroundColor, color }: SignButtonProps) {
+export function SignButton({ text, imgSrc, onClick, disabled, backgroundColor, color }: SignButtonProps) {
   return (
     <Button type="button" onClick={onClick} disabled={disabled} backgroundColor={backgroundColor} color={color}>
       {imgSrc && <img src={imgSrc} alt="버튼 아이콘" />}

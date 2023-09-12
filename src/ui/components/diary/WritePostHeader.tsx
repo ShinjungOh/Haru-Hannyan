@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
-import useConfirm from '@lib/hooks/useConfirm';
+import { useConfirm } from '@lib/hooks';
 import styleToken from '../../styles/styleToken.css';
-import { dayName } from '../../../pages/CalendarPage';
+import { dayName } from '../../../pages';
 
 type WritePostHeaderProps = {
   year: number;
@@ -10,7 +10,7 @@ type WritePostHeaderProps = {
   date: number;
 };
 
-export default function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
+export function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
   const navigate = useNavigate();
   const confirm = useConfirm();
 

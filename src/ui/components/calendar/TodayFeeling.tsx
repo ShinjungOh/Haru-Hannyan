@@ -6,7 +6,7 @@ type TodayFeelingProps = {
   onClick: (feeling: string) => void;
 };
 
-export default function TodayFeeling({ onClick }: TodayFeelingProps) {
+export function TodayFeeling({ onClick }: TodayFeelingProps) {
   return (
     <Container>
       <FeelingContainer>

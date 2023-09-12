@@ -3,10 +3,10 @@ import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
-import useAlert from '@lib/hooks/useAlert';
+import { useAlert } from '@lib/hooks';
 import { handleAxiosError, http } from '../api/http';
 
-export default function AuthKakaoPage() {
+export function AuthKakaoPage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const alert = useAlert();

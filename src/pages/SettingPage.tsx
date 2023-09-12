@@ -1,13 +1,13 @@
-import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/menu/Menu';
-import SignButton from '@ui/components/common/SignButton';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import useConfirm from '@lib/hooks/useConfirm';
+import { Body } from '@ui/components/layout';
+import { Menu } from '@ui/components/menu';
+import { SignButton } from '@ui/components/common';
+import { useConfirm } from '@lib/hooks';
 
-export default function SettingPage() {
+export function SettingPage() {
   const navigate = useNavigate();
   const confirm = useConfirm();
 

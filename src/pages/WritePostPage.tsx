@@ -1,16 +1,13 @@
-import Body from '@ui/components/layout/Body';
-import WritePostHeader from '@ui/components/diary/WritePostHeader';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import { Emotion, Feeling } from '@lib/types/diary.type';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import FeelingContainer from '@ui/components/diary/FeelingContainer';
-import EmotionContainer from '@ui/components/diary/EmotionContainer';
-import DiaryModal from '@ui/components/modal/DiaryModal';
-import useModal from '@lib/hooks/useModal';
-import useAlert from '@lib/hooks/useAlert';
+import { Body } from '@ui/components/layout';
+import { DiaryModal } from '@ui/components/modal';
+import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
+import { useAlert, useModal } from '@lib/hooks';
 import { handleAxiosError, http } from '../api/http';
 
 export type newDiaryType = {
@@ -24,7 +21,7 @@ export type newDiaryType = {
   };
 };
 
-export default function WritePostPage() {
+export function WritePostPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const modal = useModal();

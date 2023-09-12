@@ -1,16 +1,18 @@
 import { PATH } from '@lib/const/path';
-import RouterLayout from '@ui/components/layout/RouterLayout';
-import HomePage from './pages/HomePage';
-import SigninPage from './pages/SigninPage';
-import SignupPage from './pages/SignupPage';
-import ProtectedRoute from './pages/ProtectedRoute';
-import CalendarPage from './pages/CalendarPage';
-import TimelinePage from './pages/TimelinePage';
-import ReportPage from './pages/ReportPage';
-import SettingPage from './pages/SettingPage';
-import AuthKakaoPage from './pages/AuthKakaoPage';
-import WritePostPage from './pages/WritePostPage';
-import EditPostPage from './pages/EditPostPage';
+import { RouterLayout } from '@ui/components/layout';
+import {
+  AuthKakaoPage,
+  CalendarPage,
+  EditPostPage,
+  HomePage,
+  ProtectedRoute,
+  ReportPage,
+  SettingPage,
+  SigninPage,
+  SignupPage,
+  TimelinePage,
+  WritePostPage,
+} from './pages';
 
 const routes = [
   {

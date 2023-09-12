@@ -12,7 +12,7 @@ type ConfirmModalProps = {
   onSubmit?: (result: unknown) => void;
 };
 
-export default function ConfirmModal({ type, title, description, onClose, onSubmit }: ConfirmModalProps) {
+export function ConfirmModal({ type, title, description, onClose, onSubmit }: ConfirmModalProps) {
   const imgSrc = confirmModalTypeSrc[type].imageSrc;
   const btnText = confirmModalTypeSrc[type].buttonText;
 

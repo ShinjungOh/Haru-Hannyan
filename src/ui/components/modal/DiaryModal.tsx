@@ -8,7 +8,7 @@ type ModalProps = {
   onSubmit?: (result: unknown) => void;
 };
 
-export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
+export function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
   const [modalInput, setModalInput] = useState<string>(diaryText || '');
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 

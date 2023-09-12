@@ -1,7 +1,3 @@
-import CalendarHeader from '@ui/components/calendar/CalendarHeader';
-import Body from '@ui/components/layout/Body';
-import DateColumn from '@ui/components/calendar/DateColumn';
-import Menu from '@ui/components/menu/Menu';
 import styled from '@emotion/styled';
 import styleTokenCss from '@ui/styles/styleToken.css';
 import range from '@lib/utils/range';
@@ -9,12 +5,15 @@ import useDateStore from '@lib/store/useDateStore';
 import { useEffect, useState } from 'react';
 import { DateType, Diary } from '@lib/types/diary.type';
 import { useNavigate } from 'react-router';
-import useAlert from '@lib/hooks/useAlert';
+import { Body } from '@ui/components/layout';
+import { Menu } from '@ui/components/menu';
+import { CalendarHeader, DateColumn } from '@ui/components/calendar';
+import { useAlert } from '@lib/hooks';
 import { handleAxiosError, http } from '../api/http';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
-export default function CalendarPage() {
+export function CalendarPage() {
   const navigate = useNavigate();
   const alert = useAlert();
 

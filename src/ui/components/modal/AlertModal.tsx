@@ -10,7 +10,7 @@ type ConfirmModalProps = {
   onSubmit?: (result: unknown) => void;
 };
 
-export default function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
+export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
   const imgSrc = alertModalTypeSrc[type].imageSrc;
   const buttonColor = alertModalTypeSrc[type].color;
 

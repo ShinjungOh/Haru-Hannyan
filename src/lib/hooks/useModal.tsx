@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
-import { OverlayOption, useOverlay } from '@ui/components/overlay/OverlayProvider';
+import { OverlayOption, useOverlay } from '@ui/components/overlay';
 
-export default function useModal() {
+export function useModal() {
   const overlay = useOverlay();
 
   const showModal = async <T = any,>(component: ReactElement, options?: OverlayOption): Promise<T> => {

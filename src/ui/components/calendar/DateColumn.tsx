@@ -9,7 +9,7 @@ type DateColumnProps = {
   onClick: () => void;
 };
 
-export default function DateColumn({ date, type, onClick }: DateColumnProps) {
+export function DateColumn({ date, type, onClick }: DateColumnProps) {
   const imgSrc = calendarImageTypeSrc[type];
 
   return (

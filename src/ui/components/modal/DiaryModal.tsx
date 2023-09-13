@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { BaseButton } from '@ui/components/common';
+import { styleToken } from '@ui/styles';
 
 type ModalProps = {
   diaryText: string;

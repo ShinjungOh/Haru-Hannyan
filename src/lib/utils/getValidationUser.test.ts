@@ -1,4 +1,4 @@
-import getValidationUser from '@lib/utils/getValidationUser';
+import { getValidationUser } from '@lib/utils';
 
 const context = describe;
 

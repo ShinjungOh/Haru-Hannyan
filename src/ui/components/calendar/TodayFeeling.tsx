@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import { feelingCatTypeSrc } from '@lib/const/imageSrc';
+import { styleToken } from '@ui/styles';
 
 type TodayFeelingProps = {
   onClick: (feeling: string) => void;
@@ -34,7 +34,7 @@ const Container = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: ${styleTokenCss.color.gray3}80;
+  background-color: ${styleToken.color.gray3}80;
   z-index: 1;
 `;
 
@@ -56,7 +56,7 @@ const FeelingContainer = styled.div`
   div {
     font-size: 14px;
     font-weight: 600;
-    color: ${styleTokenCss.color.gray3};
+    color: ${styleToken.color.gray3};
   }
 `;
 

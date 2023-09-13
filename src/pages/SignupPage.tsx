@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { UserType, UserValidation } from '@lib/types/user.type';
-import getValidationUser from '@lib/utils/getValidationUser';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { Body } from '@ui/components/layout';
 import { InputBox, NavigationHeader, SignButton } from '@ui/components/common';
 import { useAlert } from '@lib/hooks';
+import { UserType, UserValidation } from '@lib/types';
+import { getValidationUser } from '@lib/utils';
+import { styleToken } from '@ui/styles';
 import { handleAxiosError, http } from '../api/http';
 
 export function SignupPage() {
@@ -183,8 +183,8 @@ export function SignupPage() {
           text="회원가입"
           disabled={isDisabledSubmit}
           onClick={handleClickSignUp}
-          backgroundColor={styleTokenCss.color.secondaryActive}
-          color={styleTokenCss.color.white}
+          backgroundColor={styleToken.color.secondaryActive}
+          color={styleToken.color.white}
         />
       </Container>
     </>
@@ -204,7 +204,7 @@ const Title = styled.h2`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: ${styleTokenCss.color.gray2};
+  color: ${styleToken.color.gray2};
   font-size: 26px;
   font-weight: 600;
   margin-bottom: 48px;
@@ -225,7 +225,7 @@ const InputContainer = styled.div`
     height: 15px;
     padding-left: 3px;
     margin-bottom: 8px;
-    color: ${styleTokenCss.color.gray3};
+    color: ${styleToken.color.gray3};
     font-size: 15px;
   }
 
@@ -235,7 +235,7 @@ const InputContainer = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  color: ${styleTokenCss.color.alert_danger};
+  color: ${styleToken.color.alert_danger};
   width: 100%;
   height: 15px;
   padding-left: 10px;
@@ -255,11 +255,11 @@ const CheckBoxContainer = styled.div`
     width: 22px;
     height: 22px;
     margin-right: 10px;
-    accent-color: ${styleTokenCss.color.secondary};
+    accent-color: ${styleToken.color.secondary};
   }
 `;
 
 const CheckBox = styled.label`
-  color: ${styleTokenCss.color.gray3};
+  color: ${styleToken.color.gray3};
   font-size: 15px;
 `;

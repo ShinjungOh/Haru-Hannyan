@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
-import { Emotion, Feeling } from '@lib/types/diary.type';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -9,6 +7,8 @@ import { DiaryModal } from '@ui/components/modal';
 import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
 import { useAlert, useModal } from '@lib/hooks';
 import { BaseButton } from '@ui/components/common';
+import { Emotion, Feeling } from '@lib/types';
+import { styleToken } from '@ui/styles';
 import { handleAxiosError, http } from '../api/http';
 
 export type newDiaryType = {
@@ -110,7 +110,7 @@ export function WritePostPage() {
   const buttonTheme = isDisabled ? 'disabled' : 'primary';
 
   const handlePostNewDiary = () => {
-    if (isDisabled) {
+    if (!isDisabled) {
       postNewDiary();
     }
   };
@@ -160,14 +160,14 @@ const DiaryContainer = styled.div`
   height: auto;
   border-radius: 15px;
   background-color: white;
-  border: 1px solid ${styleTokenCss.color.gray5};
+  border: 1px solid ${styleToken.color.gray5};
   font-size: 14px;
   z-index: 0;
 
   label {
     padding-bottom: 10px;
     font-weight: 600;
-    color: ${styleTokenCss.color.gray2};
+    color: ${styleToken.color.gray2};
   }
 `;
 
@@ -181,13 +181,13 @@ const InputField = styled.div`
   margin-top: 5px;
   border-radius: 15px;
   border: none;
-  color: ${styleTokenCss.color.gray3};
-  background-color: ${styleTokenCss.color.gray5};
+  color: ${styleToken.color.gray3};
+  background-color: ${styleToken.color.gray5};
   font-size: 12px;
   outline: none;
   cursor: pointer;
 
   ::placeholder {
-    color: ${styleTokenCss.color.gray3};
+    color: ${styleToken.color.gray3};
   }
 `;

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { KAKAO_AUTH_URL } from '@lib/const/config';
 import { SignButton } from '@ui/components/common';
-import styleToken from '@ui/styles/styleToken.css';
+import { styleToken } from '@ui/styles';
 
 export function HomePage() {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { useConfirm } from '@lib/hooks';
-import styleToken from '../../styles/styleToken.css';
+import { styleToken } from '@ui/styles';
 import { dayName } from '../../../pages';
 
 type WritePostHeaderProps = {

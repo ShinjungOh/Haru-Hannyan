@@ -1,4 +1,4 @@
-import styleToken from '@ui/styles/styleToken.css';
+import { styleToken } from '@ui/styles';
 
 export const alertModalTypeSrc = {
   success: {

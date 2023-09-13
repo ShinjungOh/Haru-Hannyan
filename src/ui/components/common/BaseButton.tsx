@@ -1,30 +1,30 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
+import { styleToken } from '@ui/styles';
 
 const colorSchemaStyle = {
   primary: {
-    color: styleToken.color.white,
+    mainColor: styleToken.color.white,
     backgroundColor: styleToken.color.secondaryActive,
   },
   success: {
-    color: styleToken.color.white,
+    mainColor: styleToken.color.white,
     backgroundColor: styleToken.color.alert_success,
   },
   danger: {
-    color: styleToken.color.white,
+    mainColor: styleToken.color.white,
     backgroundColor: styleToken.color.alert_danger,
   },
   info: {
-    color: styleToken.color.white,
+    mainColor: styleToken.color.white,
     backgroundColor: styleToken.color.primary,
   },
   light: {
-    color: styleToken.color.gray2,
+    mainColor: styleToken.color.gray2,
     backgroundColor: styleToken.color.gray4,
   },
   disabled: {
-    color: styleToken.color.white,
+    mainColor: styleToken.color.white,
     backgroundColor: styleToken.color.gray4,
   },
 };
@@ -47,7 +47,7 @@ export function BaseButton({ children, colorTheme, ...props }: PropsWithChildren
 }
 
 const Button = styled.button<Props>`
-  color: ${(props) => colorSchemaStyle[props.colorTheme].color};
+  color: ${(props) => colorSchemaStyle[props.colorTheme].mainColor};
   background-color: ${(props) => colorSchemaStyle[props.colorTheme].backgroundColor};
   width: ${(props) => props.width || '100%'};
   height: ${(props) => props.height || '68px'};

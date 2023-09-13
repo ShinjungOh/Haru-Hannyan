@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
-import range from '@lib/utils/range';
 import useDateStore from '@lib/store/useDateStore';
 import { useEffect, useState } from 'react';
-import { DateType, Diary } from '@lib/types/diary.type';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { CalendarHeader, DateColumn } from '@ui/components/calendar';
 import { useAlert } from '@lib/hooks';
+import { DateType, Diary } from '@lib/types';
+import { range } from '@lib/utils';
+import { styleToken } from '@ui/styles';
 import { handleAxiosError, http } from '../api/http';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
@@ -184,7 +184,7 @@ const WeekRow = styled.div`
   grid-gap: 20px 0;
   justify-items: center;
   align-items: center;
-  color: ${styleTokenCss.color.gray3};
+  color: ${styleToken.color.gray3};
   font-weight: 600;
   font-size: 13px;
 

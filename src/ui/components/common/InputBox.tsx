@@ -1,6 +1,6 @@
-import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
 import { ChangeEvent } from 'react';
+import { styleToken } from '@ui/styles';
 
 type InputBoxProps = {
   type: string;
@@ -20,13 +20,13 @@ const Input = styled.input`
   height: 100%;
   padding: 22px;
   border-radius: 15px;
-  border: 1px solid ${styleTokenCss.color.gray4};
-  color: ${styleTokenCss.color.gray2};
+  border: 1px solid ${styleToken.color.gray4};
+  color: ${styleToken.color.gray2};
   font-size: 17px;
   outline: none;
   cursor: pointer;
 
   ::placeholder {
-    color: ${styleTokenCss.color.gray4};
+    color: ${styleToken.color.gray4};
   }
 `;

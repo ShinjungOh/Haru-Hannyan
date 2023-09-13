@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
 import React, { PropsWithChildren } from 'react';
+import { styleToken } from '@ui/styles';
 
 type OverlayProps = {
   onClose: () => void;

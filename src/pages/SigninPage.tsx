@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { UserType, UserValidation } from '@lib/types/user.type';
-import getValidationUser from '@lib/utils/getValidationUser';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { Body } from '@ui/components/layout';
 import { InputBox, NavigationHeader, SignButton } from '@ui/components/common';
 import { useAlert } from '@lib/hooks';
+import { UserType, UserValidation } from '@lib/types';
+import { getValidationUser } from '@lib/utils';
+import { styleToken } from '@ui/styles';
 import { handleAxiosError, http } from '../api/http';
 
 export function SigninPage() {
@@ -114,8 +114,8 @@ export function SigninPage() {
           text="로그인"
           onClick={handleClickSignIn}
           disabled={isDisabledSubmit}
-          backgroundColor={styleTokenCss.color.secondaryActive}
-          color={styleTokenCss.color.white}
+          backgroundColor={styleToken.color.secondaryActive}
+          color={styleToken.color.white}
         />
         <Description>
           회원이 아니신가요?{' '}
@@ -138,7 +138,7 @@ const Container = styled(Body)`
 const Title = styled.h2`
   margin-top: 20px;
   margin-bottom: 50px;
-  color: ${styleTokenCss.color.gray2};
+  color: ${styleToken.color.gray2};
   font-size: 32px;
   font-weight: 600;
 `;
@@ -158,7 +158,7 @@ const InputContainer = styled.div`
     height: 15px;
     padding-left: 3px;
     margin-bottom: 8px;
-    color: ${styleTokenCss.color.gray3};
+    color: ${styleToken.color.gray3};
     font-size: 15px;
   }
 
@@ -170,13 +170,13 @@ const InputContainer = styled.div`
 const Description = styled.h5`
   margin-top: 40px;
   margin-bottom: 40px;
-  color: ${styleTokenCss.color.gray3};
+  color: ${styleToken.color.gray3};
   font-size: 14px;
   font-weight: 600;
 
   a {
     cursor: pointer;
     text-decoration: underline;
-    color: ${styleTokenCss.color.alert_success};
+    color: ${styleToken.color.alert_success};
   }
 `;

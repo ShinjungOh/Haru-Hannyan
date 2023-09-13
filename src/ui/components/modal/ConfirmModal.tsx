@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
 import { confirmModalTypeSrc } from '@lib/const/confirmModalSrc';
 import { BaseButton } from '@ui/components/common';
+import { styleToken } from '@ui/styles';
 
 export type ConfirmModalType = 'out' | 'success' | 'delete';
 

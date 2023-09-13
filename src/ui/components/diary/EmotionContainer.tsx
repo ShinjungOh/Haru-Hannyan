@@ -1,7 +1,7 @@
 import { emotionImageSrc } from '@lib/const/imageSrc';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
-import { Emotion } from '@lib/types/diary.type';
+import { Emotion } from '@lib/types';
+import { styleToken } from '@ui/styles';
 
 type EmotionContainerProps = {
   diary: any;
@@ -42,12 +42,12 @@ const Container = styled.div`
   height: auto;
   border-radius: 15px;
   background-color: white;
-  border: 1px solid ${styleTokenCss.color.gray5};
+  border: 1px solid ${styleToken.color.gray5};
   font-size: 14px;
 
   h4 {
     font-weight: 600;
-    color: ${styleTokenCss.color.gray2};
+    color: ${styleToken.color.gray2};
   }
 `;
 
@@ -78,7 +78,7 @@ const EmotionHeader = styled.div<{ isSelected: boolean }>`
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  background-color: ${styleTokenCss.color.secondary};
+  background-color: ${styleToken.color.secondary};
   cursor: pointer;
   opacity: ${(props) => (props.isSelected ? '100%' : '45%')};
 
@@ -100,5 +100,5 @@ const EmotionBody = styled.div`
   width: 55px;
   font-size: 12px;
   font-weight: 600;
-  color: ${styleTokenCss.color.gray3};
+  color: ${styleToken.color.gray3};
 `;

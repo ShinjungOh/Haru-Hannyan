@@ -1,4 +1,4 @@
-import range from '@lib/utils/range';
+import { range } from '@lib/utils';
 
 describe('range', () => {
   it('should be [1, 2, 3, 4, 5]', () => {

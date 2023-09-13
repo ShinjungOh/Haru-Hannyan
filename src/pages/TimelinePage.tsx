@@ -1,14 +1,14 @@
 import { Menu } from '@ui/components/menu';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
-import { Diary } from '@lib/types/diary.type';
 import { useEffect, useState } from 'react';
 import { calendarImageTypeSrc } from '@lib/const/imageSrc';
 import { Body } from '@ui/components/layout';
 import { CalendarHeader } from '@ui/components/calendar';
 import { useAlert, useConfirm } from '@lib/hooks';
+import { Diary } from '@lib/types';
+import { styleToken } from '@ui/styles';
 import { handleAxiosError, http } from '../api/http';
 import { dayName } from './CalendarPage';
 
@@ -147,7 +147,7 @@ const DiaryContainer = styled.div`
   height: auto;
   background-color: white;
   border-radius: 15px;
-  border: 1px solid ${styleTokenCss.color.gray5};
+  border: 1px solid ${styleToken.color.gray5};
   font-size: 14px;
   cursor: pointer;
 `;
@@ -179,7 +179,7 @@ const DiaryDate = styled.div`
   margin-top: 8px;
   font-size: 20px;
   font-weight: 600;
-  color: ${styleTokenCss.color.gray1};
+  color: ${styleToken.color.gray1};
 `;
 
 const DayName = styled.div`
@@ -193,8 +193,8 @@ const DayName = styled.div`
   height: 24px;
   border-radius: 6px;
   border: none;
-  background-color: ${styleTokenCss.color.gray5};
-  color: ${styleTokenCss.color.gray1};
+  background-color: ${styleToken.color.gray5};
+  color: ${styleToken.color.gray1};
   font-size: 12px;
   font-weight: 400;
 `;
@@ -228,7 +228,7 @@ const EmotionHeader = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${styleTokenCss.color.secondary};
+  background-color: ${styleToken.color.secondary};
   cursor: pointer;
 
   img {
@@ -250,7 +250,7 @@ const TextContainer = styled.div`
   margin-top: 15px;
   font-size: 14px;
   line-height: 1.3;
-  color: ${styleTokenCss.color.gray2};
+  color: ${styleToken.color.gray2};
 `;
 
 const DeleteButton = styled.button`
@@ -261,6 +261,6 @@ const DeleteButton = styled.button`
   align-items: center;
   border: none;
   background-color: unset;
-  color: ${styleTokenCss.color.gray2};
+  color: ${styleToken.color.gray2};
   cursor: pointer;
 `;

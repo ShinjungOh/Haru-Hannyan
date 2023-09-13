@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
 import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
 import { BaseButton } from '@ui/components/common';
+import { styleToken } from '@ui/styles';
 
 export type AlertModalType = 'success' | 'danger' | 'info';
 

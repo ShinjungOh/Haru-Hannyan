@@ -4,12 +4,12 @@ import { PATH } from '@lib/const/path';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
 import { useEffect, useState } from 'react';
-import { Diary } from '@lib/types/diary.type';
 import { feelCatIcon, menuIcon } from '@lib/const/imageSrc';
 import { MenuItem } from '@ui/components/menu';
 import { TodayFeeling } from '@ui/components/calendar';
 import { useAlert } from '@lib/hooks';
-import styleToken from '../../styles/styleToken.css';
+import { Diary } from '@lib/types';
+import { styleToken } from '@ui/styles';
 import { handleAxiosError, http } from '../../../api/http';
 
 export function Menu() {

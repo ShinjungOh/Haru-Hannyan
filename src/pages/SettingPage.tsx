@@ -1,4 +1,3 @@
-import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
@@ -6,6 +5,7 @@ import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { BaseButton } from '@ui/components/common';
 import { useConfirm } from '@lib/hooks';
+import { styleToken } from '@ui/styles';
 
 export function SettingPage() {
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ export function SettingPage() {
 }
 
 const Title = styled.h2`
-  background-color: ${styleTokenCss.color.background};
-  color: ${styleTokenCss.color.gray2};
+  background-color: ${styleToken.color.background};
+  color: ${styleToken.color.gray2};
   font-size: 24px;
   font-weight: 600;
 

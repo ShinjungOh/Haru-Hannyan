@@ -177,6 +177,6 @@ const Description = styled.h5`
   a {
     cursor: pointer;
     text-decoration: underline;
-    color: ${styleTokenCss.color.alert1};
+    color: ${styleTokenCss.color.alert_success};
   }
 `;

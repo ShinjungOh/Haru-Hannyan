@@ -235,7 +235,7 @@ const InputContainer = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  color: ${styleTokenCss.color.alert2};
+  color: ${styleTokenCss.color.alert_danger};
   width: 100%;
   height: 15px;
   padding-left: 10px;

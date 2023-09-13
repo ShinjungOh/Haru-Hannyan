@@ -8,6 +8,7 @@ import { Body } from '@ui/components/layout';
 import { DiaryModal } from '@ui/components/modal';
 import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
 import { useAlert, useModal } from '@lib/hooks';
+import { BaseButton } from '@ui/components/common';
 import { handleAxiosError, http } from '../api/http';
 
 export type newDiaryType = {
@@ -105,7 +106,8 @@ export function WritePostPage() {
     }
   };
 
-  const isDisabled = !!diary.feel;
+  const isDisabled = !diary.feel;
+  const buttonTheme = isDisabled ? 'disabled' : 'primary';
 
   const handlePostNewDiary = () => {
     if (isDisabled) {
@@ -126,9 +128,14 @@ export function WritePostPage() {
               {diary.text.length > 0 ? diary.text : '내용을 입력해 주세요'}
             </InputField>
           </DiaryContainer>
-          <Button type="button" onClick={handlePostNewDiary} disabled={!isDisabled}>
+          <BaseButton
+            colorTheme={buttonTheme}
+            onClick={handlePostNewDiary}
+            disabled={isDisabled}
+            style={{ marginTop: '20px', height: '68px', minHeight: '65px' }}
+          >
             작성완료
-          </Button>
+          </BaseButton>
         </Container>
       </Body>
     </>
@@ -182,38 +189,5 @@ const InputField = styled.div`
 
   ::placeholder {
     color: ${styleTokenCss.color.gray3};
-  }
-`;
-
-const Button = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 71px;
-  min-height: 65px;
-  margin-top: 20px;
-  border-radius: 15px;
-  border: none;
-  background-color: ${styleTokenCss.color.secondary};
-  color: white;
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-
-  :hover {
-    background-color: ${styleTokenCss.color.secondaryActive};
-  }
-
-  &:disabled {
-    background-color: ${styleTokenCss.color.gray5};
-    color: ${styleTokenCss.color.white};
-    cursor: not-allowed;
-
-    :hover {
-      cursor: not-allowed;
-      background-color: ${styleTokenCss.color.gray5};
-    }
   }
 `;

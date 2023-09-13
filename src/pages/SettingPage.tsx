@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
-import { SignButton } from '@ui/components/common';
+import { BaseButton } from '@ui/components/common';
 import { useConfirm } from '@lib/hooks';
 
 export function SettingPage() {
@@ -27,12 +27,15 @@ export function SettingPage() {
     <>
       <Title>마이 페이지</Title>
       <Container>
-        <SignButton
-          text="로그아웃"
-          backgroundColor={styleTokenCss.color.secondaryActive}
-          color={styleTokenCss.color.white}
+        <BaseButton
+          colorTheme="primary"
           onClick={handleClickLogout}
-        />
+          style={{
+            margin: '10px',
+          }}
+        >
+          로그아웃
+        </BaseButton>
       </Container>
       <Menu />
     </>

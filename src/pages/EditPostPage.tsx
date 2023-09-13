@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
 import { DiaryModal } from '@ui/components/modal';
 import { useAlert, useModal } from '@lib/hooks';
+import { BaseButton } from '@ui/components/common';
 import { handleAxiosError, http } from '../api/http';
 
 export function EditPostPage() {
@@ -118,9 +119,13 @@ export function EditPostPage() {
               {diary.text.length > 0 ? diary.text : '내용을 입력해 주세요'}
             </InputField>
           </DiaryContainer>
-          <Button type="button" onClick={handleEditDiary}>
+          <BaseButton
+            colorTheme="primary"
+            onClick={handleEditDiary}
+            style={{ marginTop: '20px', height: '68px', minHeight: '65px' }}
+          >
             수정완료
-          </Button>
+          </BaseButton>
         </Container>
       </Body>
     </>
@@ -169,37 +174,4 @@ const InputField = styled.div`
   font-size: 12px;
   outline: none;
   cursor: pointer;
-`;
-
-const Button = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 71px;
-  min-height: 65px;
-  margin-top: 20px;
-  border-radius: 15px;
-  border: none;
-  background-color: ${styleTokenCss.color.secondary};
-  color: white;
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-
-  :hover {
-    background-color: ${styleTokenCss.color.secondaryActive};
-  }
-
-  &:disabled {
-    background-color: ${styleTokenCss.color.gray5};
-    color: ${styleTokenCss.color.white};
-    cursor: not-allowed;
-
-    :hover {
-      cursor: not-allowed;
-      background-color: ${styleTokenCss.color.gray5};
-    }
-  }
 `;

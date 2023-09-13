@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
 import { confirmModalTypeSrc } from '@lib/const/confirmModalSrc';
+import { BaseButton } from '@ui/components/common';
 
 export type ConfirmModalType = 'out' | 'success' | 'delete';
 
@@ -34,20 +35,22 @@ export function ConfirmModal({ type, title, description, onClose, onSubmit }: Co
         <h4>{description}</h4>
       </ConfirmMessage>
       <ButtonContainer>
-        <button
-          type="button"
-          style={{ color: styleToken.color.gray2, backgroundColor: styleToken.color.gray4 }}
+        <BaseButton
+          colorTheme="light"
+          height="50px"
           onClick={handleClose}
+          style={{ borderRadius: '8px', fontSize: '16px' }}
         >
           취소
-        </button>
-        <button
-          type="button"
-          style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert2 }}
+        </BaseButton>
+        <BaseButton
+          colorTheme="danger"
+          height="50px"
           onClick={handleSubmit}
+          style={{ borderRadius: '8px', fontSize: '16px' }}
         >
           {btnText}
-        </button>
+        </BaseButton>
       </ButtonContainer>
     </Container>
   );
@@ -114,14 +117,5 @@ const ButtonContainer = styled.div`
   align-items: center;
   margin-top: 22px;
   width: 100%;
-
-  button {
-    width: 110px;
-    height: 50px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    cursor: pointer;
-  }
+  gap: 10px;
 `;

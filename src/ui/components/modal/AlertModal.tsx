@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import styleToken from '@ui/styles/styleToken.css';
 import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
+import { BaseButton } from '@ui/components/common';
 
 export type AlertModalType = 'success' | 'danger' | 'info';
 
@@ -12,7 +13,6 @@ type ConfirmModalProps = {
 
 export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
   const imgSrc = alertModalTypeSrc[type].imageSrc;
-  const buttonColor = alertModalTypeSrc[type].color;
 
   const handleSubmit = () => {
     onSubmit?.(true);
@@ -27,13 +27,14 @@ export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
         <h2>{title}</h2>
       </AlertMessage>
       <ButtonContainer>
-        <button
-          type="button"
-          style={{ color: styleToken.color.white, backgroundColor: buttonColor }}
+        <BaseButton
+          colorTheme={type}
+          height="50px"
           onClick={handleSubmit}
+          style={{ borderRadius: '8px', fontSize: '16px' }}
         >
           확인
-        </button>
+        </BaseButton>
       </ButtonContainer>
     </Container>
   );
@@ -93,14 +94,4 @@ const ButtonContainer = styled.div`
   align-items: center;
   margin-top: 22px;
   width: 100%;
-
-  button {
-    width: 100%;
-    height: 50px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    cursor: pointer;
-  }
 `;

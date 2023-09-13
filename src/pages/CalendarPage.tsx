@@ -39,16 +39,7 @@ export function CalendarPage() {
 
   const daysInMonth = getTargetMonthLastDay();
 
-  const isTodayWithoutDate = () => {
-    if (targetDate !== null) {
-      const year = targetDate.getFullYear() === currentDate.getFullYear();
-      const month = targetDate.getMonth() === currentDate.getMonth();
-      return year && month;
-    }
-    return false;
-  };
-
-  const isDisabledWithoutDate = () => {
+  const isCurrentDateSameAsTarget = () => {
     if (targetDate !== null) {
       const year = targetDate.getFullYear() === currentDate.getFullYear();
       const month = targetDate.getMonth() === currentDate.getMonth();
@@ -64,11 +55,12 @@ export function CalendarPage() {
       const findDiary = monthlyDiary.find(
         (el) => el.createDate.year === year && el.createDate.month === month && el.createDate.date === date,
       );
-      if (!findDiary) {
-        navigate(`/calendar/write?year=${year}&month=${month}&date=${date}`);
-      } else if (findDiary) {
-        navigate(`/calendar/edit?diaryId=${findDiary.diaryId}`);
-      }
+
+      const editDiaryPageURL = `/calendar/edit?diaryId=${findDiary?.diaryId}`;
+      const writeDiaryPageURL = `/calendar/write?year=${year}&month=${month}&date=${date}`;
+      const navigateURL = findDiary ? editDiaryPageURL : writeDiaryPageURL;
+
+      navigate(navigateURL);
     } else if (type === 'disabled') {
       await alert({
         type: 'info',
@@ -129,8 +121,8 @@ export function CalendarPage() {
             ))}
             {range(daysInMonth, 1).map((date) => {
               const findElement = monthlyDiary.find((el) => el.createDate.date === date);
-              const isToday = isTodayWithoutDate() && date === currentDate.getDate();
-              const isDisabled = isDisabledWithoutDate() && date > currentDate.getDate();
+              const isToday = isCurrentDateSameAsTarget() && date === currentDate.getDate();
+              const isDisabled = isCurrentDateSameAsTarget() && date > currentDate.getDate();
               if (findElement) {
                 return (
                   <DateColumn

@@ -115,9 +115,17 @@ export function EditPostPage() {
           <EmotionContainer diary={diary} onClick={handleClickDiaryEmotion} />
           <DiaryContainer>
             <label htmlFor="diary">한줄일기</label>
-            <InputField id="diary" onClick={handleDiaryModalOpen}>
-              {diary.text.length > 0 ? diary.text : '내용을 입력해 주세요'}
-            </InputField>
+            <>
+              {diary.text.length > 0 ? (
+                <InputField id="diary" onClick={handleDiaryModalOpen}>
+                  {diary.text}
+                </InputField>
+              ) : (
+                <EmptyInputField id="diary" onClick={handleDiaryModalOpen}>
+                  내용을 입력해 주세요
+                </EmptyInputField>
+              )}
+            </>
           </DiaryContainer>
           <BaseButton
             colorTheme="primary"
@@ -156,6 +164,27 @@ const DiaryContainer = styled.div`
   label {
     padding-bottom: 10px;
     font-weight: 600;
+    color: ${styleToken.color.gray3};
+  }
+`;
+
+const EmptyInputField = styled.div`
+  white-space: pre-wrap;
+  overflow-y: auto;
+  max-height: 200px;
+  width: 100%;
+  height: auto;
+  padding: 16px;
+  margin-top: 5px;
+  border-radius: 15px;
+  border: none;
+  color: ${styleToken.color.gray3};
+  background-color: ${styleToken.color.gray5};
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+
+  ::placeholder {
     color: ${styleToken.color.gray3};
   }
 `;

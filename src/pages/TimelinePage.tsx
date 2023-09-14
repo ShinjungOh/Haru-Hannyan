@@ -9,6 +9,7 @@ import { CalendarHeader } from '@ui/components/calendar';
 import { useAlert, useConfirm } from '@lib/hooks';
 import { Diary } from '@lib/types';
 import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 import { handleAxiosError, http } from '../api/http';
 import { dayName } from './CalendarPage';
 
@@ -105,8 +106,16 @@ export function TimelinePage() {
                     <FeelingCat>
                       <img src={calendarImageTypeSrc[el.feel]} alt={el.feel} />
                     </FeelingCat>
-                    <DiaryDate>{date2Digit}</DiaryDate>
-                    <DayName>{dayOfWeek}요일</DayName>
+                    <DiaryDate>
+                      <Typography variant="h4" color={styleToken.color.gray1}>
+                        {date2Digit}
+                      </Typography>
+                    </DiaryDate>
+                    <DayName>
+                      <Typography variant="body4" fontWeight={400}>
+                        {dayOfWeek}요일
+                      </Typography>
+                    </DayName>
                   </FeelingAndDateContainer>
                   <EmotionAndTextContainer>
                     <EmotionItem>
@@ -176,10 +185,7 @@ const FeelingCat = styled.div`
 `;
 
 const DiaryDate = styled.div`
-  margin-top: 8px;
-  font-size: 20px;
-  font-weight: 600;
-  color: ${styleToken.color.gray1};
+  margin-top: 4px;
 `;
 
 const DayName = styled.div`
@@ -194,9 +200,6 @@ const DayName = styled.div`
   border-radius: 6px;
   border: none;
   background-color: ${styleToken.color.gray5};
-  color: ${styleToken.color.gray1};
-  font-size: 12px;
-  font-weight: 400;
 `;
 
 const EmotionAndTextContainer = styled.div`

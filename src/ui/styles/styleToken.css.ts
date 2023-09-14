@@ -16,6 +16,12 @@ const COLOR_PROPERTIES = {
   white: '#ffffff',
 };
 
+const FONT_PROPERTIES = {
+  weightBold: 600,
+  weightMedium: 500,
+  weightRegular: 400,
+};
+
 const headerHeight = 80;
 const menuHeight = 80;
 const SIZE_PROPERTIES = {
@@ -24,8 +30,9 @@ const SIZE_PROPERTIES = {
 };
 
 const styleToken = {
-  size: SIZE_PROPERTIES,
   color: COLOR_PROPERTIES,
+  font: FONT_PROPERTIES,
+  size: SIZE_PROPERTIES,
 };
 
 export default styleToken;

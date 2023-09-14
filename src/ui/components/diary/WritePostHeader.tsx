@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { useConfirm } from '@lib/hooks';
 import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 import { dayName } from '../../../pages';
 
 type WritePostHeaderProps = {
@@ -42,7 +43,9 @@ export function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
       <Container>
         <BackArrow src="/images/icon/back.png" alt="back" onClick={handlePageBack} />
         <SelectedDate>
-          {month}월 {date}일 {dayOfWeek}요일
+          <Typography variant="h4">
+            {month}월 {date}일 {dayOfWeek}요일
+          </Typography>
         </SelectedDate>
       </Container>
     </>
@@ -65,9 +68,6 @@ const SelectedDate = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: ${styleToken.color.gray2};
 `;
 
 const BackArrow = styled.img`

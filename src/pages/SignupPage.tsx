@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { Body } from '@ui/components/layout';
-import { InputBox, NavigationHeader, SignButton } from '@ui/components/common';
+import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
 import { useAlert } from '@lib/hooks';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
@@ -122,7 +122,9 @@ export function SignupPage() {
     <>
       <NavigationHeader />
       <Container>
-        <Title>회원가입</Title>
+        <TitleContainer>
+          <Typography variant="h3">회원가입</Typography>
+        </TitleContainer>
         <InputContainer>
           <label htmlFor="email">이메일</label>
           <InputBox
@@ -192,21 +194,18 @@ export function SignupPage() {
 }
 
 const Container = styled(Body)`
-  padding: 35px;
+  padding: 10px 35px 35px 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 `;
 
-const Title = styled.h2`
+const TitleContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: ${styleToken.color.gray2};
-  font-size: 26px;
-  font-weight: 600;
   margin-bottom: 48px;
 `;
 

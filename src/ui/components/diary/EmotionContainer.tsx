@@ -2,6 +2,7 @@ import { emotionImageSrc } from '@lib/const/imageSrc';
 import styled from '@emotion/styled';
 import { Emotion } from '@lib/types';
 import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 
 type EmotionContainerProps = {
   diary: any;
@@ -11,7 +12,9 @@ type EmotionContainerProps = {
 export function EmotionContainer({ diary, onClick }: EmotionContainerProps) {
   return (
     <Container>
-      <h4>감정</h4>
+      <Typography variant="subtitle4" color={styleToken.color.gray3}>
+        감정
+      </Typography>
       <EmotionList>
         <>
           {emotionImageSrc.map((el, index) => {
@@ -36,7 +39,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 15px 15px 15px;
+  padding: 16px;
   margin-top: 20px;
   width: 100%;
   height: auto;
@@ -44,11 +47,6 @@ const Container = styled.div`
   background-color: white;
   border: 1px solid ${styleToken.color.gray5};
   font-size: 14px;
-
-  h4 {
-    font-weight: 600;
-    color: ${styleToken.color.gray2};
-  }
 `;
 
 const EmotionList = styled.div`

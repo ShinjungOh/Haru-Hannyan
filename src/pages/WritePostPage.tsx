@@ -167,7 +167,7 @@ const DiaryContainer = styled.div`
   label {
     padding-bottom: 10px;
     font-weight: 600;
-    color: ${styleToken.color.gray2};
+    color: ${styleToken.color.gray3};
   }
 `;
 

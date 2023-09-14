@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
-import { BaseButton } from '@ui/components/common';
+import { BaseButton, Typography } from '@ui/components/common';
 import { styleToken } from '@ui/styles';
 
 export type AlertModalType = 'success' | 'danger' | 'info';
@@ -24,7 +24,9 @@ export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
         <img src={imgSrc} alt="alert" />
       </AlertImage>
       <AlertMessage>
-        <h2>{title}</h2>
+        <Typography variant="subtitle2" color={styleToken.color.gray1} fontWeight={styleToken.font.weightBold}>
+          {title}
+        </Typography>
       </AlertMessage>
       <ButtonContainer>
         <BaseButton
@@ -79,12 +81,6 @@ const AlertMessage = styled.div`
   width: 210px;
   font-weight: 600;
   line-height: 1.3;
-
-  h2 {
-    color: ${styleToken.color.gray1};
-    font-size: 18px;
-    white-space: pre-wrap;
-  }
 `;
 
 const ButtonContainer = styled.div`

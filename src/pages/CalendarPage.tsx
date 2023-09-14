@@ -9,6 +9,7 @@ import { useAlert } from '@lib/hooks';
 import { DateType, Diary } from '@lib/types';
 import { range } from '@lib/utils';
 import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 import { handleAxiosError, http } from '../api/http';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
@@ -110,7 +111,9 @@ export function CalendarPage() {
         <WeekRow>
           <>
             {dayName.map((day) => (
-              <span key={day}>{day}</span>
+              <Typography variant="body3" key={day}>
+                {day}
+              </Typography>
             ))}
           </>
         </WeekRow>
@@ -166,7 +169,7 @@ export function CalendarPage() {
 }
 
 const Container = styled(Body)`
-  padding: 15px 6px;
+  padding: 14px 8px;
   overflow-y: auto;
 `;
 
@@ -179,13 +182,5 @@ const WeekRow = styled.div`
   color: ${styleToken.color.gray3};
   font-weight: 600;
   font-size: 13px;
-
-  span {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 35px;
-  }
+  margin-bottom: 35px;
 `;

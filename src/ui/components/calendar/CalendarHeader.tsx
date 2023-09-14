@@ -4,6 +4,7 @@ import useDateStore from '@lib/store/useDateStore';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 
 type CalendarHeaderProps = {
   page?: 'calendar' | 'timeline';
@@ -75,7 +76,9 @@ export function CalendarHeader({ page }: CalendarHeaderProps) {
       <Arrow onClick={handleChangeDateToPrev}>
         <img src="images/icon/arrow-left-active.svg" alt="arrow-left-active" />
       </Arrow>
-      <SelectDate>{calendarTargetDateString}</SelectDate>
+      <SelectDate>
+        <Typography variant="h4">{calendarTargetDateString}</Typography>
+      </SelectDate>
       <Arrow onClick={handleChangeDateToNext}>
         <>
           {isActiveNext ? (
@@ -118,6 +121,4 @@ const SelectDate = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
-  color: ${styleToken.color.gray2};
 `;

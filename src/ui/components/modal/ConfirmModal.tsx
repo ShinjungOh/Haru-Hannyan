@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { confirmModalTypeSrc } from '@lib/const/confirmModalSrc';
-import { BaseButton } from '@ui/components/common';
+import { BaseButton, Typography } from '@ui/components/common';
 import { styleToken } from '@ui/styles';
 
 export type ConfirmModalType = 'out' | 'success' | 'delete';
@@ -31,8 +31,12 @@ export function ConfirmModal({ type, title, description, onClose, onSubmit }: Co
         <img src={imgSrc} alt={btnText} />
       </ConfirmImage>
       <ConfirmMessage>
-        <h2>{title}</h2>
-        <h4>{description}</h4>
+        <Typography variant="h4" color={styleToken.color.gray1}>
+          {title}
+        </Typography>
+        <Typography variant="subtitle3" color={styleToken.color.gray2} style={{ marginTop: '5px' }}>
+          {description}
+        </Typography>
       </ConfirmMessage>
       <ButtonContainer>
         <BaseButton
@@ -78,8 +82,8 @@ const ConfirmImage = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
 
   img {
     width: 60px;
@@ -95,19 +99,6 @@ const ConfirmMessage = styled.div`
   margin-top: 18px;
   width: 210px;
   height: 80px;
-  font-weight: 600;
-  line-height: 1.3;
-
-  h2 {
-    color: ${styleToken.color.gray1};
-    font-size: 20px;
-  }
-
-  h4 {
-    color: ${styleToken.color.gray2};
-    font-size: 15px;
-    white-space: pre-wrap;
-  }
 `;
 
 const ButtonContainer = styled.div`

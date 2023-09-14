@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { Body } from '@ui/components/layout';
-import { InputBox, NavigationHeader, SignButton } from '@ui/components/common';
+import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
 import { useAlert } from '@lib/hooks';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
@@ -88,7 +88,9 @@ export function SigninPage() {
     <>
       <NavigationHeader />
       <Container>
-        <Title>로그인</Title>
+        <TitleContainer>
+          <Typography variant="h1">로그인</Typography>
+        </TitleContainer>
         <InputContainer>
           <label htmlFor="email">이메일</label>
           <InputBox
@@ -118,10 +120,12 @@ export function SigninPage() {
           color={styleToken.color.white}
         />
         <Description>
-          회원이 아니신가요?{' '}
-          <a href="#" onClick={handlePageSignup}>
-            회원가입
-          </a>
+          <Typography variant="subtitle4" color={styleToken.color.gray3} fontWeight={600}>
+            회원이 아니신가요?{' '}
+            <a href="#" onClick={handlePageSignup}>
+              회원가입
+            </a>
+          </Typography>
         </Description>
       </Container>
     </>
@@ -129,18 +133,15 @@ export function SigninPage() {
 }
 
 const Container = styled(Body)`
-  padding: 35px;
+  padding: 10px 35px 35px 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 `;
 
-const Title = styled.h2`
+const TitleContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 50px;
-  color: ${styleToken.color.gray2};
-  font-size: 32px;
-  font-weight: 600;
 `;
 
 const InputContainer = styled.div`
@@ -167,12 +168,9 @@ const InputContainer = styled.div`
   }
 `;
 
-const Description = styled.h5`
+const Description = styled.div`
   margin-top: 40px;
   margin-bottom: 40px;
-  color: ${styleToken.color.gray3};
-  font-size: 14px;
-  font-weight: 600;
 
   a {
     cursor: pointer;

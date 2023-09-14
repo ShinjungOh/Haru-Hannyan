@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
-import { BaseButton } from '@ui/components/common';
+import { BaseButton, Typography } from '@ui/components/common';
 import { useConfirm } from '@lib/hooks';
 import { styleToken } from '@ui/styles';
 
@@ -25,7 +25,9 @@ export function SettingPage() {
 
   return (
     <>
-      <Title>마이 페이지</Title>
+      <TitleContainer>
+        <Typography variant="h3">마이 페이지</Typography>
+      </TitleContainer>
       <Container>
         <BaseButton
           colorTheme="primary"
@@ -42,12 +44,8 @@ export function SettingPage() {
   );
 }
 
-const Title = styled.h2`
+const TitleContainer = styled.div`
   background-color: ${styleToken.color.background};
-  color: ${styleToken.color.gray2};
-  font-size: 24px;
-  font-weight: 600;
-
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

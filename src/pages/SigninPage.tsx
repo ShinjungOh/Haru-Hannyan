@@ -72,7 +72,13 @@ export function SigninPage() {
     }
   };
 
-  const handlePageSignup = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleClickSignIn();
+    }
+  };
+
+  const handleChangePageSignup = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     navigate(PATH.SIGN_UP);
   };
@@ -110,6 +116,7 @@ export function SigninPage() {
             name="password"
             placeholder="비밀번호를 입력해 주세요."
             onChange={handleChangeUser}
+            onKeyPress={handleOnKeyPress}
           />
         </InputContainer>
         <SignButton
@@ -122,7 +129,7 @@ export function SigninPage() {
         <Description>
           <Typography variant="subtitle4" color={styleToken.color.gray3} fontWeight={600}>
             회원이 아니신가요?{' '}
-            <a href="#" onClick={handlePageSignup}>
+            <a href="#" onClick={handleChangePageSignup}>
               회원가입
             </a>
           </Typography>

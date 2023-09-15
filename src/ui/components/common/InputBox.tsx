@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import { styleToken } from '@ui/styles';
 
 type InputBoxProps = {
@@ -9,10 +9,21 @@ type InputBoxProps = {
   placeholder: string;
   autoFocus?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-export function InputBox({ type, id, name, placeholder, autoFocus, onChange }: InputBoxProps) {
-  return <Input type={type} id={id} name={name} placeholder={placeholder} autoFocus={autoFocus} onChange={onChange} />;
+export function InputBox({ type, id, name, placeholder, autoFocus, onChange, onKeyPress }: InputBoxProps) {
+  return (
+    <Input
+      type={type}
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      autoFocus={autoFocus}
+      onChange={onChange}
+      onKeyPress={onKeyPress}
+    />
+  );
 }
 
 const Input = styled.input`

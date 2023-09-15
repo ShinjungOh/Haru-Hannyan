@@ -73,16 +73,8 @@ export function TimelinePage() {
       }
     };
 
-    const setCurrentDateToTargetDate = () => {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() + 1;
-      setTargetDate(year, month);
-    };
-
     if (targetDate !== null) {
       getMonthlyDiary();
-    } else {
-      setCurrentDateToTargetDate();
     }
   }, [currentDate, setTargetDate, targetDate]);
 

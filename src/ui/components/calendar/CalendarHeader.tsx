@@ -17,8 +17,8 @@ export function CalendarHeader({ page }: CalendarHeaderProps) {
   const paramYear = searchParams.get('year');
   const paramMonth = searchParams.get('month');
 
-  const parseYear = paramYear ? parseInt(paramYear, 10) : null;
-  const parseMonth = paramMonth ? parseInt(paramMonth, 10) : null;
+  const paramParseYear = paramYear ? parseInt(paramYear, 10) : null;
+  const paramParseMonth = paramMonth ? parseInt(paramMonth, 10) : null;
 
   const [currentDate, targetDate, setTargetDate] = useDateStore((state) => [
     state.currentDate,
@@ -65,11 +65,20 @@ export function CalendarHeader({ page }: CalendarHeaderProps) {
       : `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
 
   useEffect(() => {
-    const hasQueryString = parseYear && parseMonth;
+    const hasQueryString = paramParseYear && paramParseMonth;
+
+    const setCurrentDateToTargetDate = () => {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      setTargetDate(year, month);
+    };
+
     if (hasQueryString) {
-      setTargetDate(parseYear, parseMonth);
+      setTargetDate(paramParseYear, paramParseMonth);
+    } else {
+      setCurrentDateToTargetDate();
     }
-  }, [parseYear, parseMonth, setTargetDate]);
+  }, [paramParseYear, paramParseMonth, setTargetDate]);
 
   return (
     <Container>

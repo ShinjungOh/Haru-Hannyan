@@ -54,8 +54,22 @@ const routes = [
           </ProtectedRoute>
         ),
       },
-      { path: PATH.WRITE, element: <WritePostPage /> },
-      { path: PATH.EDIT, element: <EditPostPage /> },
+      {
+        path: PATH.WRITE,
+        element: (
+          <ProtectedRoute>
+            <WritePostPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.EDIT,
+        element: (
+          <ProtectedRoute>
+            <EditPostPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ];

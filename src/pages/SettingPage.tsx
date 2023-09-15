@@ -19,7 +19,7 @@ export function SettingPage() {
     });
     if (responseConfirm) {
       localStorage.clear();
-      navigate(PATH.HOME);
+      navigate(PATH.HOME, { replace: true });
     }
   };
 

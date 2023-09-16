@@ -36,11 +36,12 @@ type Props = {
   width?: string;
   height?: string;
   minHeight?: string;
+  onKeyPress?: (e: KeyboardEvent) => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function BaseButton({ children, colorTheme, ...props }: PropsWithChildren<Props>) {
+export function BaseButton({ children, colorTheme, onKeyPress, ...props }: PropsWithChildren<Props>) {
   return (
-    <Button type="button" colorTheme={colorTheme} {...props}>
+    <Button type="button" colorTheme={colorTheme} onKeyPress={onKeyPress} {...props}>
       {children}
     </Button>
   );

@@ -35,6 +35,19 @@ export function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
     }
   }, [textareaRef]);
 
+  useEffect(() => {
+    const handleOnKeyPressESC = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleOnKeyPressESC);
+    return () => {
+      window.removeEventListener('keydown', handleOnKeyPressESC);
+    };
+  }, []);
+
   return (
     <Container>
       <TextContainer
@@ -53,7 +66,7 @@ export function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
           취소
         </BaseButton>
         <BaseButton
-          colorTheme="success"
+          colorTheme="primary"
           height="50px"
           onClick={handleSubmit}
           style={{ borderRadius: '8px', fontSize: '15px' }}

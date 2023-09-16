@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { confirmModalTypeSrc } from '@lib/const/confirmModalSrc';
 import { BaseButton, Typography } from '@ui/components/common';
 import { styleToken } from '@ui/styles';
+import { useEffect } from 'react';
 
 export type ConfirmModalType = 'out' | 'success' | 'delete';
 
@@ -24,6 +25,27 @@ export function ConfirmModal({ type, title, description, onClose, onSubmit }: Co
   const handleSubmit = () => {
     onSubmit?.(true);
   };
+
+  useEffect(() => {
+    const handleOnKeyPressESC = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    const handleOnKeyPressEnter = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        handleSubmit();
+      }
+    };
+
+    window.addEventListener('keydown', handleOnKeyPressESC);
+    window.addEventListener('keydown', handleOnKeyPressEnter);
+    return () => {
+      window.removeEventListener('keydown', handleOnKeyPressESC);
+      window.removeEventListener('keydown', handleOnKeyPressEnter);
+    };
+  }, []);
 
   return (
     <Container>

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
 import { BaseButton, Typography } from '@ui/components/common';
 import { styleToken } from '@ui/styles';
+import { useEffect } from 'react';
 
 export type AlertModalType = 'success' | 'danger' | 'info';
 
@@ -18,13 +19,26 @@ export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
     onSubmit?.(true);
   };
 
+  useEffect(() => {
+    const handleOnKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === 'Escape') {
+        handleSubmit();
+      }
+    };
+
+    window.addEventListener('keydown', handleOnKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleOnKeyPress);
+    };
+  }, []);
+
   return (
     <Container>
       <AlertImage>
         <img src={imgSrc} alt="alert" />
       </AlertImage>
       <AlertMessage>
-        <Typography variant="subtitle2" color={styleToken.color.gray1} fontWeight={styleToken.font.weightBold}>
+        <Typography variant="subtitle2" color={styleToken.color.gray1}>
           {title}
         </Typography>
       </AlertMessage>

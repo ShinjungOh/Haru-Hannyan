@@ -83,7 +83,7 @@ export function TimelinePage() {
       <CalendarHeader page="timeline" />
       <Container>
         {diary &&
-          diary.map((el) => {
+          diary.map((el, index) => {
             const date2Digit = el.createDate.date < 10 ? `0${el.createDate.date}` : el.createDate.date;
             const getDayOfTargetDate = new Date(
               el.createDate.year,
@@ -92,7 +92,7 @@ export function TimelinePage() {
             ).getDay();
             const dayOfWeek = dayName[getDayOfTargetDate];
             return (
-              <>
+              <div key={index}>
                 <DiaryContainer onClick={() => handlePageToEditDiary(el.diaryId)}>
                   <FeelingAndDateContainer>
                     <FeelingCat>
@@ -113,8 +113,8 @@ export function TimelinePage() {
                     <EmotionItem>
                       <>
                         {el.emotions &&
-                          el.emotions.map((emotion) => (
-                            <EmotionHeader>
+                          el.emotions.map((emotion, index) => (
+                            <EmotionHeader key={index}>
                               <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
                             </EmotionHeader>
                           ))}
@@ -124,7 +124,7 @@ export function TimelinePage() {
                   </EmotionAndTextContainer>
                 </DiaryContainer>
                 <DeleteButton onClick={() => handleClickDeleteDiary(el.diaryId)}>삭제</DeleteButton>
-              </>
+              </div>
             );
           })}
       </Container>
@@ -135,7 +135,8 @@ export function TimelinePage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding-bottom: 15px;
+  padding: 5px 34px 15px 34px;
+  width: 100%;
 `;
 
 const DiaryContainer = styled.div`
@@ -143,7 +144,6 @@ const DiaryContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 10px 38px 5px 38px;
   padding: 18px;
   height: auto;
   background-color: white;
@@ -249,7 +249,8 @@ const TextContainer = styled.div`
 `;
 
 const DeleteButton = styled.button`
-  margin: 0 40px 2px 40px;
+  width: 100%;
+  margin: 2px 0 4px 0;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

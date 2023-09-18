@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { Emotion } from '@lib/types';
-import { useEffect, useRef, useState } from 'react';
 import { styleToken } from '@ui/styles';
+import { Emotion } from '@lib/types';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type EmotionItemProps = {
   emotion: any;
@@ -10,16 +10,40 @@ type EmotionItemProps = {
   onClick: (emotion: Emotion) => void;
 };
 
+const throttle = (callback: (...args: any[]) => void, ms: number): ((...args: any[]) => void) => {
+  let timer: NodeJS.Timeout | null = null;
+
+  return (...args: any[]) => {
+    if (!timer) {
+      timer = setTimeout(() => {
+        timer = null;
+        callback(...args);
+        console.log(window.innerWidth);
+      }, ms);
+    }
+  };
+};
+
 export function EmotionItem({ emotion, imgSrc, isSelected, onClick }: EmotionItemProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [width, setWidth] = useState(0);
 
-  useEffect(() => {
+  const handleResize = useCallback(() => {
     if (containerRef.current) {
-      console.log(containerRef.current?.clientWidth);
       setWidth(containerRef.current?.clientWidth || 0);
     }
   }, [containerRef]);
+
+  const handleThrottleResize = useCallback(throttle(handleResize, 1000), [handleResize]);
+
+  useEffect(() => {
+    handleResize();
+
+    window.addEventListener('resize', handleThrottleResize);
+    return () => {
+      window.removeEventListener('resize', handleThrottleResize);
+    };
+  }, [handleResize]);
 
   return (
     <Container onClick={() => onClick(emotion)} ref={containerRef}>
@@ -35,7 +59,6 @@ const Container = styled.div`
   width: 80%;
   height: auto;
   margin-left: 10%;
-
   display: flex;
   flex-direction: column;
   justify-content: center;

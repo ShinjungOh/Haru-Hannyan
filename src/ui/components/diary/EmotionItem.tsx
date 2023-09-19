@@ -2,26 +2,13 @@ import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
 import { Emotion } from '@lib/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { throttle } from '@lib/utils';
 
 type EmotionItemProps = {
-  emotion: any;
+  emotion: Emotion;
   imgSrc: string;
   isSelected: boolean;
   onClick: (emotion: Emotion) => void;
-};
-
-const throttle = (callback: (...args: any[]) => void, ms: number): ((...args: any[]) => void) => {
-  let timer: NodeJS.Timeout | null = null;
-
-  return (...args: any[]) => {
-    if (!timer) {
-      timer = setTimeout(() => {
-        timer = null;
-        callback(...args);
-        console.log(window.innerWidth);
-      }, ms);
-    }
-  };
 };
 
 export function EmotionItem({ emotion, imgSrc, isSelected, onClick }: EmotionItemProps) {
@@ -34,7 +21,7 @@ export function EmotionItem({ emotion, imgSrc, isSelected, onClick }: EmotionIte
     }
   }, [containerRef]);
 
-  const handleThrottleResize = useCallback(throttle(handleResize, 1000), [handleResize]);
+  const handleThrottleResize = useCallback(throttle(handleResize, 800), [handleResize]);
 
   useEffect(() => {
     handleResize();

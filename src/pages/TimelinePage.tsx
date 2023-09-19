@@ -10,6 +10,7 @@ import { useAlert, useConfirm } from '@lib/hooks';
 import { Diary } from '@lib/types';
 import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
+import { TimelineEmotionItem } from '@ui/components/diary';
 import { handleAxiosError, http } from '../api/http';
 import { dayName } from './CalendarPage';
 
@@ -110,16 +111,7 @@ export function TimelinePage() {
                     </DayName>
                   </FeelingAndDateContainer>
                   <EmotionAndTextContainer>
-                    <EmotionItem>
-                      <>
-                        {el.emotions &&
-                          el.emotions.map((emotion, index) => (
-                            <EmotionHeader key={index}>
-                              <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
-                            </EmotionHeader>
-                          ))}
-                      </>
-                    </EmotionItem>
+                    <TimelineEmotionItem emotions={el.emotions} />
                     <TextContainer>{el.text}</TextContainer>
                   </EmotionAndTextContainer>
                 </DiaryContainer>
@@ -199,36 +191,10 @@ const EmotionAndTextContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 250px;
+  width: calc(100% - 60px);
   height: auto;
   min-height: 100px;
-`;
-
-const EmotionItem = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-gap: 5px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: auto;
-`;
-
-const EmotionHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: ${styleToken.color.secondary};
-  cursor: pointer;
-
-  img {
-    width: 30px;
-  }
+  padding-left: 12px;
 `;
 
 const TextContainer = styled.div`
@@ -242,7 +208,7 @@ const TextContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 0 5px;
-  margin-top: 15px;
+  margin-top: 14px;
   font-size: 14px;
   line-height: 1.3;
   color: ${styleToken.color.gray2};

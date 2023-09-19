@@ -141,7 +141,7 @@ export function EditPostPage() {
 }
 
 const Container = styled(Body)`
-  padding: 15px 35px 35px 35px;
+  padding: 14px 34px 34px 34px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;

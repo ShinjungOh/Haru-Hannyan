@@ -15,7 +15,6 @@ export function TimelineEmotionItem({ emotions }: TimelineEmotionItemProps) {
   const handleResize = useCallback(() => {
     if (containerRef.current && containerRef.current.clientWidth) {
       const newWidth = containerRef.current.clientWidth / 4.4;
-      console.log(typeof newWidth);
       setWidth(newWidth || 0);
     }
   }, [containerRef]);

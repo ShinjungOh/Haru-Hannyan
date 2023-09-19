@@ -83,7 +83,7 @@ export function TimelinePage() {
     <>
       <CalendarHeader page="timeline" />
       <Container>
-        {diary &&
+        {diary && diary?.length > 0 ? (
           diary.map((el, index) => {
             const date2Digit = el.createDate.date < 10 ? `0${el.createDate.date}` : el.createDate.date;
             const getDayOfTargetDate = new Date(
@@ -118,7 +118,14 @@ export function TimelinePage() {
                 <DeleteButton onClick={() => handleClickDeleteDiary(el.diaryId)}>삭제</DeleteButton>
               </div>
             );
-          })}
+          })
+        ) : (
+          <EmptyContainer>
+            <Typography variant="subtitle3" color={styleToken.color.gray3} fontWeight={400}>
+              작성한 일기가 없어요
+            </Typography>
+          </EmptyContainer>
+        )}
       </Container>
       <Menu />
     </>
@@ -224,5 +231,19 @@ const DeleteButton = styled.button`
   border: none;
   background-color: unset;
   color: ${styleToken.color.gray2};
+  cursor: pointer;
+`;
+
+const EmptyContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  height: 100px;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid ${styleToken.color.gray5};
+  font-size: 14px;
   cursor: pointer;
 `;

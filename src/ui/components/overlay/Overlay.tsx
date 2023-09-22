@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren, MouseEvent } from 'react';
 import { styleToken } from '@ui/styles';
 
 type OverlayProps = {
@@ -16,7 +16,7 @@ export function Overlay({ onClose, onClickOverlayClose, children }: Props) {
     }
   };
 
-  const handleEventStopCapturing = (e: React.MouseEvent) => {
+  const handleEventStopCapturing = (e: MouseEvent) => {
     e.stopPropagation();
   };
 

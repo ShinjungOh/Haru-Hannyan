@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { KeyboardEvent, MouseEvent, ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
@@ -68,13 +68,13 @@ export function SigninPage() {
     }
   };
 
-  const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleClickSignIn();
     }
   };
 
-  const handleChangePageSignup = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleChangePageSignup = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     navigate(PATH.SIGN_UP);
   };

@@ -6,18 +6,18 @@ import { useEffect, useState } from 'react';
 import { calendarImageTypeSrc } from '@lib/const/imageSrc';
 import { Body } from '@ui/components/layout';
 import { CalendarHeader } from '@ui/components/calendar';
-import { useAlert, useConfirm } from '@lib/hooks';
+import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { Diary } from '@lib/types';
 import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
 import { TimelineEmotionItem } from '@ui/components/diary';
-import { handleAxiosError, http } from '../api/http';
+import { http } from '../api/http';
 import { dayName } from './CalendarPage';
 
 export function TimelinePage() {
   const navigate = useNavigate();
   const confirm = useConfirm();
-  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const [currentDate, targetDate, setTargetDate] = useDateStore((state) => [
     state.currentDate,
@@ -44,11 +44,7 @@ export function TimelinePage() {
         location.reload();
       }
     } catch (e) {
-      const error = handleAxiosError(e);
-      await alert({
-        type: 'danger',
-        title: error.msg,
-      });
+      await axiosErrorAlert(e);
     }
   };
 
@@ -66,11 +62,7 @@ export function TimelinePage() {
           }
         }
       } catch (e) {
-        const error = handleAxiosError(e);
-        await alert({
-          type: 'danger',
-          title: error.msg,
-        });
+        await axiosErrorAlert(e);
       }
     };
 

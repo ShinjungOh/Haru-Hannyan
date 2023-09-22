@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { DiaryModal } from '@ui/components/modal';
 import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
-import { useAlert, useModal } from '@lib/hooks';
+import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
 import { BaseButton } from '@ui/components/common';
 import { Emotion, Feeling } from '@lib/types';
 import { styleToken } from '@ui/styles';
-import { handleAxiosError, http } from '../api/http';
+import { http } from '../api/http';
 
 export type newDiaryType = {
   feel: string | null;
@@ -27,6 +27,7 @@ export function WritePostPage() {
   const navigate = useNavigate();
   const modal = useModal();
   const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const todayFeeling = params.get('feeling');
   const year = params.get('year');
@@ -98,11 +99,7 @@ export function WritePostPage() {
         navigate(-1);
       }
     } catch (e) {
-      const error = handleAxiosError(e);
-      await alert({
-        type: 'danger',
-        title: error.msg,
-      });
+      await axiosErrorAlert(e);
     }
   };
 

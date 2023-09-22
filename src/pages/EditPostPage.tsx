@@ -5,17 +5,18 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
 import { DiaryModal } from '@ui/components/modal';
-import { useAlert, useModal } from '@lib/hooks';
+import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
 import { BaseButton } from '@ui/components/common';
 import { Diary, Emotion, Feeling } from '@lib/types';
 import { styleToken } from '@ui/styles';
-import { handleAxiosError, http } from '../api/http';
+import { http } from '../api/http';
 
 export function EditPostPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const modal = useModal();
   const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const diaryId = params.get('diaryId');
 
@@ -81,11 +82,7 @@ export function EditPostPage() {
         navigate(-1);
       }
     } catch (e) {
-      const error = handleAxiosError(e);
-      await alert({
-        type: 'danger',
-        title: error.msg,
-      });
+      await axiosErrorAlert(e);
     }
   };
 

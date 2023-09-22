@@ -5,18 +5,19 @@ import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { CalendarHeader, DateColumn } from '@ui/components/calendar';
-import { useAlert } from '@lib/hooks';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { DateType, Diary } from '@lib/types';
 import { range } from '@lib/utils';
 import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
-import { handleAxiosError, http } from '../api/http';
+import { http } from '../api/http';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
 export function CalendarPage() {
   const navigate = useNavigate();
   const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const [currentDate, targetDate, setTargetDate, getFirstDayOfMonth] = useDateStore((state) => [
     state.currentDate,
@@ -83,11 +84,7 @@ export function CalendarPage() {
           }
         }
       } catch (e) {
-        const error = handleAxiosError(e);
-        await alert({
-          type: 'danger',
-          title: error.msg,
-        });
+        await axiosErrorAlert(e);
       }
     };
 

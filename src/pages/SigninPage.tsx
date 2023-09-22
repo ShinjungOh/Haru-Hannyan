@@ -5,15 +5,15 @@ import { PATH } from '@lib/const/path';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { Body } from '@ui/components/layout';
 import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
-import { useAlert } from '@lib/hooks';
+import { useAxiosErrorAlert } from '@lib/hooks';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
 import { styleToken } from '@ui/styles';
-import { handleAxiosError, http } from '../api/http';
+import { http } from '../api/http';
 
 export function SigninPage() {
   const navigate = useNavigate();
-  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const [user, setUser] = useState<Pick<UserType, 'email' | 'password'>>({
     email: '',
@@ -64,11 +64,7 @@ export function SigninPage() {
         navigate(PATH.CALENDAR);
       }
     } catch (e) {
-      const error = handleAxiosError(e);
-      alert({
-        type: 'danger',
-        title: error.msg,
-      });
+      await axiosErrorAlert(e);
     }
   };
 

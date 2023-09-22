@@ -7,15 +7,16 @@ import { useEffect, useState } from 'react';
 import { feelCatIcon, menuIcon } from '@lib/const/imageSrc';
 import { MenuItem } from '@ui/components/menu';
 import { TodayFeeling } from '@ui/components/calendar';
-import { useAlert } from '@lib/hooks';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { Diary } from '@lib/types';
 import { styleToken } from '@ui/styles';
-import { handleAxiosError, http } from '../../../api/http';
+import { http } from '../../../api/http';
 
 export function Menu() {
   const location = useLocation();
   const navigate = useNavigate();
   const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const [currentDate] = useDateStore((state) => [state.currentDate]);
   const [diary, setDiary] = useState<Diary[]>();
@@ -70,11 +71,7 @@ export function Menu() {
           setDiary(diaryData.diary);
         }
       } catch (e) {
-        const error = handleAxiosError(e);
-        await alert({
-          type: 'danger',
-          title: error.msg,
-        });
+        await axiosErrorAlert(e);
       }
     };
 

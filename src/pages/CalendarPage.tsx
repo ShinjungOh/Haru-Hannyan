@@ -1,20 +1,24 @@
-import CalendarHeader from '@ui/components/layout/calendar/CalendarHeader';
-import Body from '@ui/components/layout/Body';
-import DateColumn from '@ui/components/layout/calendar/DateColumn';
-import Menu from '@ui/components/layout/MenuBar/Menu';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
-import range from '@lib/utils/range';
 import useDateStore from '@lib/store/useDateStore';
 import { useEffect, useState } from 'react';
-import { DateType, Diary } from '@lib/types/diary.type';
 import { useNavigate } from 'react-router';
-import { handleAxiosError, http } from '../api/http';
+import { Body } from '@ui/components/layout';
+import { Menu } from '@ui/components/menu';
+import { CalendarHeader, DateColumn } from '@ui/components/calendar';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { DateType, Diary } from '@lib/types';
+import { range } from '@lib/utils';
+import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
+import { http } from '../api/http';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
-export default function CalendarPage() {
+export function CalendarPage() {
   const navigate = useNavigate();
+  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
+
   const [currentDate, targetDate, setTargetDate, getFirstDayOfMonth] = useDateStore((state) => [
     state.currentDate,
     state.targetDate,
@@ -37,7 +41,7 @@ export default function CalendarPage() {
 
   const daysInMonth = getTargetMonthLastDay();
 
-  const isTodayWithoutDate = () => {
+  const isCurrentDateSameAsTarget = () => {
     if (targetDate !== null) {
       const year = targetDate.getFullYear() === currentDate.getFullYear();
       const month = targetDate.getMonth() === currentDate.getMonth();
@@ -46,27 +50,24 @@ export default function CalendarPage() {
     return false;
   };
 
-  const isDisabledWithoutDate = () => {
-    if (targetDate !== null) {
-      const year = targetDate.getFullYear() === currentDate.getFullYear();
-      const month = targetDate.getMonth() === currentDate.getMonth();
-      return year && month;
-    }
-    return false;
-  };
-
-  const handleClickDiaryPage = (type: DateType, date: number) => {
+  const handleClickDiaryPage = async (type: DateType, date: number) => {
     if (type !== 'disabled' && targetDate !== null) {
       const year = targetDate.getFullYear();
       const month = targetDate.getMonth() + 1;
       const findDiary = monthlyDiary.find(
         (el) => el.createDate.year === year && el.createDate.month === month && el.createDate.date === date,
       );
-      if (!findDiary) {
-        navigate(`/calendar/write?year=${year}&month=${month}&date=${date}`);
-      } else if (findDiary) {
-        navigate(`/calendar/edit?diaryId=${findDiary.diaryId}`);
-      }
+
+      const editDiaryPageURL = `/calendar/edit?diaryId=${findDiary?.diaryId}`;
+      const writeDiaryPageURL = `/calendar/write?year=${year}&month=${month}&date=${date}`;
+      const navigateURL = findDiary ? editDiaryPageURL : writeDiaryPageURL;
+
+      navigate(navigateURL);
+    } else if (type === 'disabled') {
+      await alert({
+        type: 'info',
+        title: '미래의 날짜는\n일기를 기록할 수 없어요.',
+      });
     }
   };
 
@@ -83,21 +84,12 @@ export default function CalendarPage() {
           }
         }
       } catch (e) {
-        const error = handleAxiosError(e);
-        alert(error.msg);
+        await axiosErrorAlert(e);
       }
-    };
-
-    const setCurrentDateToTargetDate = () => {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() + 1;
-      setTargetDate(year, month);
     };
 
     if (targetDate !== null) {
       getMonthlyDiary();
-    } else {
-      setCurrentDateToTargetDate();
     }
   }, [currentDate, navigate, setTargetDate, targetDate]);
 
@@ -108,7 +100,9 @@ export default function CalendarPage() {
         <WeekRow>
           <>
             {dayName.map((day) => (
-              <span key={day}>{day}</span>
+              <Typography variant="body3" key={day}>
+                {day}
+              </Typography>
             ))}
           </>
         </WeekRow>
@@ -119,8 +113,8 @@ export default function CalendarPage() {
             ))}
             {range(daysInMonth, 1).map((date) => {
               const findElement = monthlyDiary.find((el) => el.createDate.date === date);
-              const isToday = isTodayWithoutDate() && date === currentDate.getDate();
-              const isDisabled = isDisabledWithoutDate() && date > currentDate.getDate();
+              const isToday = isCurrentDateSameAsTarget() && date === currentDate.getDate();
+              const isDisabled = isCurrentDateSameAsTarget() && date > currentDate.getDate();
               if (findElement) {
                 return (
                   <DateColumn
@@ -164,7 +158,7 @@ export default function CalendarPage() {
 }
 
 const Container = styled(Body)`
-  padding: 15px 6px;
+  padding: 14px 8px;
   overflow-y: auto;
 `;
 
@@ -174,16 +168,8 @@ const WeekRow = styled.div`
   grid-gap: 20px 0;
   justify-items: center;
   align-items: center;
-  color: ${styleTokenCss.color.gray3};
+  color: ${styleToken.color.gray3};
   font-weight: 600;
   font-size: 13px;
-
-  span {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 35px;
-  }
+  margin-bottom: 35px;
 `;

@@ -1,18 +1,24 @@
-import CalendarHeader from '@ui/components/layout/calendar/CalendarHeader';
-import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/layout/MenuBar/Menu';
+import { Menu } from '@ui/components/menu';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
-import { Diary } from '@lib/types/diary.type';
 import { useEffect, useState } from 'react';
 import { calendarImageTypeSrc } from '@lib/const/imageSrc';
-import { handleAxiosError, http } from '../api/http';
+import { Body } from '@ui/components/layout';
+import { CalendarHeader } from '@ui/components/calendar';
+import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
+import { Diary } from '@lib/types';
+import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
+import { TimelineEmotionItem } from '@ui/components/diary';
+import { http } from '../api/http';
 import { dayName } from './CalendarPage';
 
-export default function TimelinePage() {
+export function TimelinePage() {
   const navigate = useNavigate();
+  const confirm = useConfirm();
+  const axiosErrorAlert = useAxiosErrorAlert();
+
   const [currentDate, targetDate, setTargetDate] = useDateStore((state) => [
     state.currentDate,
     state.targetDate,
@@ -27,15 +33,18 @@ export default function TimelinePage() {
 
   const handleClickDeleteDiary = async (diaryId: number | undefined) => {
     try {
-      const isConfirm = confirm('일기를 삭제하시겠습니까?');
-      if (isConfirm) {
+      const responseConfirm = await confirm({
+        type: 'delete',
+        title: '일기를 삭제하시겠습니까?',
+        description: '하루의 일기가 사라집니다.',
+      });
+      if (responseConfirm) {
         const response = await http.delete(`/diary/${diaryId}`);
         console.log(response);
         location.reload();
       }
     } catch (e) {
-      const error = handleAxiosError(e);
-      alert(error.msg);
+      await axiosErrorAlert(e);
     }
   };
 
@@ -53,21 +62,12 @@ export default function TimelinePage() {
           }
         }
       } catch (e) {
-        const error = handleAxiosError(e);
-        alert(error.msg);
+        await axiosErrorAlert(e);
       }
-    };
-
-    const setCurrentDateToTargetDate = () => {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() + 1;
-      setTargetDate(year, month);
     };
 
     if (targetDate !== null) {
       getMonthlyDiary();
-    } else {
-      setCurrentDateToTargetDate();
     }
   }, [currentDate, setTargetDate, targetDate]);
 
@@ -75,8 +75,8 @@ export default function TimelinePage() {
     <>
       <CalendarHeader page="timeline" />
       <Container>
-        {diary &&
-          diary.map((el) => {
+        {diary && diary?.length > 0 ? (
+          diary.map((el, index) => {
             const date2Digit = el.createDate.date < 10 ? `0${el.createDate.date}` : el.createDate.date;
             const getDayOfTargetDate = new Date(
               el.createDate.year,
@@ -85,33 +85,39 @@ export default function TimelinePage() {
             ).getDay();
             const dayOfWeek = dayName[getDayOfTargetDate];
             return (
-              <>
+              <div key={index}>
                 <DiaryContainer onClick={() => handlePageToEditDiary(el.diaryId)}>
                   <FeelingAndDateContainer>
                     <FeelingCat>
                       <img src={calendarImageTypeSrc[el.feel]} alt={el.feel} />
                     </FeelingCat>
-                    <DiaryDate>{date2Digit}</DiaryDate>
-                    <DayName>{dayOfWeek}요일</DayName>
+                    <DiaryDate>
+                      <Typography variant="h4" color={styleToken.color.gray1}>
+                        {date2Digit}
+                      </Typography>
+                    </DiaryDate>
+                    <DayName>
+                      <Typography variant="body4" fontWeight={400}>
+                        {dayOfWeek}요일
+                      </Typography>
+                    </DayName>
                   </FeelingAndDateContainer>
                   <EmotionAndTextContainer>
-                    <EmotionItem>
-                      <>
-                        {el.emotions &&
-                          el.emotions.map((emotion) => (
-                            <EmotionHeader>
-                              <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
-                            </EmotionHeader>
-                          ))}
-                      </>
-                    </EmotionItem>
+                    <TimelineEmotionItem emotions={el.emotions} />
                     <TextContainer>{el.text}</TextContainer>
                   </EmotionAndTextContainer>
                 </DiaryContainer>
                 <DeleteButton onClick={() => handleClickDeleteDiary(el.diaryId)}>삭제</DeleteButton>
-              </>
+              </div>
             );
-          })}
+          })
+        ) : (
+          <EmptyContainer>
+            <Typography variant="subtitle3" color={styleToken.color.gray3} fontWeight={400}>
+              작성한 일기가 없어요
+            </Typography>
+          </EmptyContainer>
+        )}
       </Container>
       <Menu />
     </>
@@ -120,7 +126,8 @@ export default function TimelinePage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding-bottom: 15px;
+  padding: 5px 34px 15px 34px;
+  width: 100%;
 `;
 
 const DiaryContainer = styled.div`
@@ -128,12 +135,11 @@ const DiaryContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 10px 38px 5px 38px;
   padding: 18px;
   height: auto;
   background-color: white;
   border-radius: 15px;
-  border: 1px solid ${styleTokenCss.color.gray5};
+  border: 1px solid ${styleToken.color.gray5};
   font-size: 14px;
   cursor: pointer;
 `;
@@ -162,10 +168,7 @@ const FeelingCat = styled.div`
 `;
 
 const DiaryDate = styled.div`
-  margin-top: 8px;
-  font-size: 20px;
-  font-weight: 600;
-  color: ${styleTokenCss.color.gray1};
+  margin-top: 4px;
 `;
 
 const DayName = styled.div`
@@ -179,10 +182,7 @@ const DayName = styled.div`
   height: 24px;
   border-radius: 6px;
   border: none;
-  background-color: ${styleTokenCss.color.gray5};
-  color: ${styleTokenCss.color.gray1};
-  font-size: 12px;
-  font-weight: 400;
+  background-color: ${styleToken.color.gray5};
 `;
 
 const EmotionAndTextContainer = styled.div`
@@ -190,36 +190,10 @@ const EmotionAndTextContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 250px;
+  width: calc(100% - 60px);
   height: auto;
   min-height: 100px;
-`;
-
-const EmotionItem = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-gap: 5px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: auto;
-`;
-
-const EmotionHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: ${styleTokenCss.color.secondary};
-  cursor: pointer;
-
-  img {
-    width: 30px;
-  }
+  padding-left: 12px;
 `;
 
 const TextContainer = styled.div`
@@ -233,20 +207,35 @@ const TextContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 0 5px;
-  margin-top: 15px;
+  margin-top: 14px;
   font-size: 14px;
   line-height: 1.3;
-  color: ${styleTokenCss.color.gray2};
+  color: ${styleToken.color.gray2};
 `;
 
 const DeleteButton = styled.button`
-  margin: 0 40px 2px 40px;
+  width: 100%;
+  margin: 2px 0 4px 0;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   border: none;
   background-color: unset;
-  color: ${styleTokenCss.color.gray2};
+  color: ${styleToken.color.gray2};
+  cursor: pointer;
+`;
+
+const EmptyContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  height: 100px;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid ${styleToken.color.gray5};
+  font-size: 14px;
   cursor: pointer;
 `;

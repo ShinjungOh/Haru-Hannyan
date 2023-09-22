@@ -3,13 +3,13 @@ import {
   createContext,
   isValidElement,
   PropsWithChildren,
-  ReactElement,
+  ReactHTMLElement,
   ReactNode,
   useCallback,
   useContext,
   useState,
 } from 'react';
-import Overlay from '@ui/components/layout/overlay/Overlay';
+import { Overlay } from '@ui/components/overlay';
 
 export type OverlaySubmitResult = unknown;
 
@@ -31,7 +31,7 @@ type OverlayState = {
   resolver?: (value: unknown) => void;
 };
 
-export const OverlayProvider = ({ children }: PropsWithChildren) => {
+export function OverlayProvider({ children }: PropsWithChildren) {
   const [overlay, setOverlay] = useState<OverlayState | null>(null);
 
   const openOverlay: OverlayOpenFn = useCallback((children, option) => {
@@ -65,7 +65,7 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
         <Overlay onClose={handleCloseOverlay} onClickOverlayClose={overlay?.options?.clickOverlayClose || false}>
           <>
             {isValidElement(overlay.content) &&
-              cloneElement(overlay.content as ReactElement, {
+              cloneElement(overlay.content as ReactHTMLElement<any>, {
                 onClose: handleCloseOverlay,
                 onSubmit: handleSubmitOverlay,
               })}
@@ -74,7 +74,7 @@ export const OverlayProvider = ({ children }: PropsWithChildren) => {
       )}
     </OverlayContext.Provider>
   );
-};
+}
 
 export const useOverlay = () => {
   const context = useContext(OverlayContext);

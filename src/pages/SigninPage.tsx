@@ -1,19 +1,20 @@
-import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { KeyboardEvent, MouseEvent, ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { UserType, UserValidation } from '@lib/types/user.type';
-import NavigationHeader from '@ui/components/layout/common/NavigationHeader';
-import getValidationUser from '@lib/utils/getValidationUser';
-import SignButton from '@ui/components/layout/common/SignButton';
-import InputBox from '@ui/components/layout/common/InputBox';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
-import { handleAxiosError, http } from '../api/http';
+import { Body } from '@ui/components/layout';
+import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
+import { useAxiosErrorAlert } from '@lib/hooks';
+import { UserType, UserValidation } from '@lib/types';
+import { getValidationUser } from '@lib/utils';
+import { styleToken } from '@ui/styles';
+import { http } from '../api/http';
 
-export default function SigninPage() {
+export function SigninPage() {
   const navigate = useNavigate();
+  const axiosErrorAlert = useAxiosErrorAlert();
+
   const [user, setUser] = useState<Pick<UserType, 'email' | 'password'>>({
     email: '',
     password: '',
@@ -63,12 +64,17 @@ export default function SigninPage() {
         navigate(PATH.CALENDAR);
       }
     } catch (e) {
-      const error = handleAxiosError(e);
-      alert(error.msg);
+      await axiosErrorAlert(e);
     }
   };
 
-  const handlePageSignup = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleClickSignIn();
+    }
+  };
+
+  const handleChangePageSignup = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     navigate(PATH.SIGN_UP);
   };
@@ -84,7 +90,9 @@ export default function SigninPage() {
     <>
       <NavigationHeader />
       <Container>
-        <Title>로그인</Title>
+        <TitleContainer>
+          <Typography variant="h1">로그인</Typography>
+        </TitleContainer>
         <InputContainer>
           <label htmlFor="email">이메일</label>
           <InputBox
@@ -92,6 +100,7 @@ export default function SigninPage() {
             id="email"
             name="email"
             placeholder="이메일을 입력해 주세요."
+            autoFocus
             onChange={handleChangeUser}
           />
         </InputContainer>
@@ -103,20 +112,23 @@ export default function SigninPage() {
             name="password"
             placeholder="비밀번호를 입력해 주세요."
             onChange={handleChangeUser}
+            onKeyPress={handleOnKeyPress}
           />
         </InputContainer>
         <SignButton
           text="로그인"
           onClick={handleClickSignIn}
           disabled={isDisabledSubmit}
-          backgroundColor={styleTokenCss.color.secondaryActive}
-          color={styleTokenCss.color.white}
+          backgroundColor={styleToken.color.secondaryActive}
+          color={styleToken.color.white}
         />
         <Description>
-          회원이 아니신가요?{' '}
-          <a href="#" onClick={handlePageSignup}>
-            회원가입
-          </a>
+          <Typography variant="subtitle4" color={styleToken.color.gray3} fontWeight={600}>
+            회원이 아니신가요?{' '}
+            <a href="#" onClick={handleChangePageSignup}>
+              회원가입
+            </a>
+          </Typography>
         </Description>
       </Container>
     </>
@@ -124,18 +136,15 @@ export default function SigninPage() {
 }
 
 const Container = styled(Body)`
-  padding: 35px;
+  padding: 10px 35px 35px 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 `;
 
-const Title = styled.h2`
+const TitleContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 50px;
-  color: ${styleTokenCss.color.gray2};
-  font-size: 32px;
-  font-weight: 600;
 `;
 
 const InputContainer = styled.div`
@@ -153,7 +162,7 @@ const InputContainer = styled.div`
     height: 15px;
     padding-left: 3px;
     margin-bottom: 8px;
-    color: ${styleTokenCss.color.gray3};
+    color: ${styleToken.color.gray3};
     font-size: 15px;
   }
 
@@ -162,16 +171,13 @@ const InputContainer = styled.div`
   }
 `;
 
-const Description = styled.h5`
+const Description = styled.div`
   margin-top: 40px;
   margin-bottom: 40px;
-  color: ${styleTokenCss.color.gray3};
-  font-size: 14px;
-  font-weight: 600;
 
   a {
     cursor: pointer;
     text-decoration: underline;
-    color: ${styleTokenCss.color.alert1};
+    color: ${styleToken.color.alert_success};
   }
 `;

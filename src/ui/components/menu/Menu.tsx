@@ -3,17 +3,20 @@ import { useLocation } from 'react-router-dom';
 import { PATH } from '@lib/const/path';
 import { useNavigate } from 'react-router';
 import useDateStore from '@lib/store/useDateStore';
-import TodayFeeling from '@ui/components/layout/calendar/TodayFeeling';
 import { useEffect, useState } from 'react';
-import { Diary } from '@lib/types/diary.type';
 import { feelCatIcon, menuIcon } from '@lib/const/imageSrc';
-import styleToken from '../../../styles/styleToken.css';
-import MenuItem from './MenuItem';
-import { handleAxiosError, http } from '../../../../api/http';
+import { MenuItem } from '@ui/components/menu';
+import { TodayFeeling } from '@ui/components/calendar';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { Diary } from '@lib/types';
+import { styleToken } from '@ui/styles';
+import { http } from '../../../api/http';
 
-export default function Menu() {
+export function Menu() {
   const location = useLocation();
   const navigate = useNavigate();
+  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const [currentDate] = useDateStore((state) => [state.currentDate]);
   const [diary, setDiary] = useState<Diary[]>();
@@ -33,7 +36,7 @@ export default function Menu() {
     setIsOpen((prevState) => !prevState);
   };
 
-  const handleClickTodayFeeling = (feeling: string) => {
+  const handleClickTodayFeeling = async (feeling: string) => {
     const today = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
     const isAlreadyTodayDiary = () => {
       const dateFormat = diary && diary.map((el) => `${el.createDate.year}${el.createDate.month}${el.createDate.date}`);
@@ -46,8 +49,13 @@ export default function Menu() {
       const date = currentDate.getDate();
       navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
     } else if (diary && !!isAlreadyTodayDiary()) {
-      alert('이미 일기가 존재합니다.');
-      setIsOpen(false);
+      const responseAlert = await alert({
+        type: 'danger',
+        title: '이미 일기가 존재합니다.',
+      });
+      if (responseAlert) {
+        setIsOpen(false);
+      }
     }
   };
 
@@ -63,8 +71,7 @@ export default function Menu() {
           setDiary(diaryData.diary);
         }
       } catch (e) {
-        const error = handleAxiosError(e);
-        alert(error.msg);
+        await axiosErrorAlert(e);
       }
     };
 

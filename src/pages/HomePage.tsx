@@ -1,12 +1,12 @@
-import Body from '@ui/components/layout/Body';
+import { Body } from '@ui/components/layout';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import SignButton from '@ui/components/layout/common/SignButton';
 import { KAKAO_AUTH_URL } from '@lib/const/config';
+import { SignButton } from '@ui/components/common';
+import { styleToken } from '@ui/styles';
 
-export default function HomePage() {
+export function HomePage() {
   const navigate = useNavigate();
 
   const handlePageSignin = () => {
@@ -27,15 +27,15 @@ export default function HomePage() {
       <ButtonContainer>
         <SignButton
           text="이메일로 로그인"
-          backgroundColor={styleTokenCss.color.secondary}
-          color={styleTokenCss.color.gray2}
+          backgroundColor={styleToken.color.secondary}
+          color={styleToken.color.gray2}
           onClick={handlePageSignin}
         />
         <SignButton
           text="카카오로 로그인"
           imgSrc="/images/icon/kakao.svg"
-          backgroundColor={styleTokenCss.color.kakao}
-          color={styleTokenCss.color.gray2}
+          backgroundColor={styleToken.color.kakao}
+          color={styleToken.color.gray2}
           onClick={handlePageAuthKakao}
         />
       </ButtonContainer>
@@ -64,14 +64,14 @@ const TitleContainer = styled.div`
 
 const Title = styled.h1`
   margin-top: 20px;
-  color: ${styleTokenCss.color.gray2};
+  color: ${styleToken.color.gray2};
   font-size: 45px;
   font-weight: 600;
 `;
 
 const Description = styled.h5`
   margin-top: 15px;
-  color: ${styleTokenCss.color.gray3};
+  color: ${styleToken.color.gray3};
   font-size: 14px;
   font-weight: 600;
 `;

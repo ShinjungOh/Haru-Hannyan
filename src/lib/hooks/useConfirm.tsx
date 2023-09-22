@@ -1,6 +1,6 @@
-import { OverlayOption } from '@ui/components/layout/overlay/OverlayProvider';
-import useModal from '@lib/hooks/useModal';
-import ConfirmModal, { ConfirmModalType } from '@ui/components/layout/modal/ConfirmModal';
+import { OverlayOption } from '@ui/components/overlay/OverlayProvider';
+import { ConfirmModal, ConfirmModalType } from '@ui/components/modal';
+import { useModal } from '@lib/hooks';
 
 type ConfirmModalProps = {
   type: ConfirmModalType;
@@ -8,7 +8,7 @@ type ConfirmModalProps = {
   description: string;
 };
 
-export default function useConfirm() {
+export function useConfirm() {
   const modal = useModal();
 
   const showConfirm = async (

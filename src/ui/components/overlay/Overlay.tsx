@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren, MouseEvent } from 'react';
+import { styleToken } from '@ui/styles';
 
 type OverlayProps = {
   onClose: () => void;
@@ -9,14 +9,14 @@ type OverlayProps = {
 
 type Props = PropsWithChildren<OverlayProps>;
 
-export default function Overlay({ onClose, onClickOverlayClose, children }: Props) {
+export function Overlay({ onClose, onClickOverlayClose, children }: Props) {
   const handleBackDropClick = () => {
     if (onClickOverlayClose) {
       onClose();
     }
   };
 
-  const handleEventStopCapturing = (e: React.MouseEvent) => {
+  const handleEventStopCapturing = (e: MouseEvent) => {
     e.stopPropagation();
   };
 

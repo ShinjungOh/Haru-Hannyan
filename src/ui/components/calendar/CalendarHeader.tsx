@@ -3,21 +3,22 @@ import { useEffect, useMemo } from 'react';
 import useDateStore from '@lib/store/useDateStore';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import styleToken from '../../../styles/styleToken.css';
+import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 
 type CalendarHeaderProps = {
   page?: 'calendar' | 'timeline';
 };
 
-export default function CalendarHeader({ page }: CalendarHeaderProps) {
+export function CalendarHeader({ page }: CalendarHeaderProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const paramYear = searchParams.get('year');
   const paramMonth = searchParams.get('month');
 
-  const parseYear = paramYear ? parseInt(paramYear, 10) : null;
-  const parseMonth = paramMonth ? parseInt(paramMonth, 10) : null;
+  const paramParseYear = paramYear ? parseInt(paramYear, 10) : null;
+  const paramParseMonth = paramMonth ? parseInt(paramMonth, 10) : null;
 
   const [currentDate, targetDate, setTargetDate] = useDateStore((state) => [
     state.currentDate,
@@ -64,18 +65,29 @@ export default function CalendarHeader({ page }: CalendarHeaderProps) {
       : `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
 
   useEffect(() => {
-    const hasQueryString = parseYear && parseMonth;
+    const hasQueryString = paramParseYear && paramParseMonth;
+
+    const setCurrentDateToTargetDate = () => {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      setTargetDate(year, month);
+    };
+
     if (hasQueryString) {
-      setTargetDate(parseYear, parseMonth);
+      setTargetDate(paramParseYear, paramParseMonth);
+    } else {
+      setCurrentDateToTargetDate();
     }
-  }, [parseYear, parseMonth, setTargetDate]);
+  }, [paramParseYear, paramParseMonth, setTargetDate]);
 
   return (
     <Container>
       <Arrow onClick={handleChangeDateToPrev}>
         <img src="images/icon/arrow-left-active.svg" alt="arrow-left-active" />
       </Arrow>
-      <SelectDate>{calendarTargetDateString}</SelectDate>
+      <SelectDate>
+        <Typography variant="h4">{calendarTargetDateString}</Typography>
+      </SelectDate>
       <Arrow onClick={handleChangeDateToNext}>
         <>
           {isActiveNext ? (
@@ -118,6 +130,4 @@ const SelectDate = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
-  color: ${styleToken.color.gray2};
 `;

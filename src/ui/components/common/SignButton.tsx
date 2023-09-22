@@ -1,5 +1,5 @@
-import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 
 type SignButtonProps = {
   text: string;
@@ -10,7 +10,7 @@ type SignButtonProps = {
   color: string;
 };
 
-export default function SignButton({ text, imgSrc, onClick, disabled, backgroundColor, color }: SignButtonProps) {
+export function SignButton({ text, imgSrc, onClick, disabled, backgroundColor, color }: SignButtonProps) {
   return (
     <Button type="button" onClick={onClick} disabled={disabled} backgroundColor={backgroundColor} color={color}>
       {imgSrc && <img src={imgSrc} alt="버튼 아이콘" />}
@@ -43,8 +43,8 @@ const Button = styled.button<{ backgroundColor: string; color: string }>`
   }
 
   &:disabled {
-    background-color: ${styleTokenCss.color.gray5};
-    color: ${styleTokenCss.color.white};
+    background-color: ${styleToken.color.gray5};
+    color: ${styleToken.color.white};
     cursor: not-allowed;
   }
 `;

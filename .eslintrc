@@ -97,6 +97,7 @@
     "jsx-a11y/no-noninteractive-element-interactions": "off", // 비대화형 요소에 대한 상호작용 경고
     "jsx-a11y/anchor-is-valid": "off",
     "react-refresh/only-export-components": "off",
-    "react/jsx-no-useless-fragment": "off"
+    "react/jsx-no-useless-fragment": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

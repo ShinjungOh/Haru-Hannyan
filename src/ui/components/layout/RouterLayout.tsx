@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { Layout, Page } from '@ui/components/layout';
+import { Page, Layout } from '@ui/components/layout';
 
-export default function RouterLayout() {
+export function RouterLayout() {
   return (
     <Page>
       <Layout>

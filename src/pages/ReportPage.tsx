@@ -1,8 +1,8 @@
-import CalendarHeader from '@ui/components/layout/calendar/CalendarHeader';
-import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/layout/MenuBar/Menu';
+import { Menu } from '@ui/components/menu';
+import { Body } from '@ui/components/layout';
+import { CalendarHeader } from '@ui/components/calendar';
 
-export default function ReportPage() {
+export function ReportPage() {
   return (
     <>
       <CalendarHeader />

@@ -1,16 +1,19 @@
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import { feelingCatTypeSrc } from '@lib/const/imageSrc';
+import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 
 type TodayFeelingProps = {
   onClick: (feeling: string) => void;
 };
 
-export default function TodayFeeling({ onClick }: TodayFeelingProps) {
+export function TodayFeeling({ onClick }: TodayFeelingProps) {
   return (
     <Container>
       <FeelingContainer>
-        <div>오늘은 어떤 고양이인가요?</div>
+        <Typography variant="subtitle4" color={styleToken.color.gray2}>
+          오늘은 어떤 고양이인가요?
+        </Typography>
         <FeelingCat>
           <>
             {feelingCatTypeSrc.map((el, index) => (
@@ -34,7 +37,7 @@ const Container = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: ${styleTokenCss.color.gray3}80;
+  background-color: ${styleToken.color.gray3}80;
   z-index: 1;
 `;
 
@@ -47,17 +50,11 @@ const FeelingContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 15px 15px 15px;
+  padding: 18px 14px 16px 14px;
   width: 330px;
   height: 100px;
   border-radius: 15px;
   background-color: white;
-
-  div {
-    font-size: 14px;
-    font-weight: 600;
-    color: ${styleTokenCss.color.gray3};
-  }
 `;
 
 const Triangle = styled.div`

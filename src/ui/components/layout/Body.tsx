@@ -1,12 +1,12 @@
 import { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
-import styleToken from '../../styles/styleToken.css';
+import { styleToken } from '@ui/styles';
 
 type BodyProps = {
   [K: string]: unknown;
 };
 
-export default function Body({ children, ...props }: PropsWithChildren<BodyProps>) {
+export function Body({ children, ...props }: PropsWithChildren<BodyProps>) {
   return <Container {...props}>{children}</Container>;
 }
 

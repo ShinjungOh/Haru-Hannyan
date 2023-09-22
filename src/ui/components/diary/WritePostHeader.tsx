@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
-import useConfirm from '@lib/hooks/useConfirm';
-import styleToken from '../../../styles/styleToken.css';
-import { dayName } from '../../../../pages/CalendarPage';
+import { useConfirm } from '@lib/hooks';
+import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
+import { dayName } from '../../../pages';
 
 type WritePostHeaderProps = {
   year: number;
@@ -10,12 +11,11 @@ type WritePostHeaderProps = {
   date: number;
 };
 
-export default function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
+export function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
   const navigate = useNavigate();
   const confirm = useConfirm();
 
   const handleNavigateBack = () => {
-    console.log('back');
     navigate(-1);
   };
 
@@ -43,7 +43,9 @@ export default function WritePostHeader({ year, month, date }: WritePostHeaderPr
       <Container>
         <BackArrow src="/images/icon/back.png" alt="back" onClick={handlePageBack} />
         <SelectedDate>
-          {month}월 {date}일 {dayOfWeek}요일
+          <Typography variant="h4">
+            {month}월 {date}일 {dayOfWeek}요일
+          </Typography>
         </SelectedDate>
       </Container>
     </>
@@ -66,9 +68,6 @@ const SelectedDate = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: ${styleToken.color.gray2};
 `;
 
 const BackArrow = styled.img`

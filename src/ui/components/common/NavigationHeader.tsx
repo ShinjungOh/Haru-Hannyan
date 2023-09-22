@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router';
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
+import { styleToken } from '@ui/styles';
 
-export default function NavigationHeader() {
+export function NavigationHeader() {
   const navigate = useNavigate();
 
   const handlePageBack = () => {

@@ -2,6 +2,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 
 import { PATH } from '@lib/const/path';
+import { OverlayProvider } from '@ui/components/overlay/OverlayProvider';
 import routes from './routes';
 
 const context = describe;
@@ -9,7 +10,11 @@ const context = describe;
 describe('App', () => {
   function renderRouter(path: string) {
     const router = createMemoryRouter(routes, { initialEntries: [path] });
-    render(<RouterProvider router={router} />);
+    render(
+      <OverlayProvider>
+        <RouterProvider router={router} />
+      </OverlayProvider>,
+    );
   }
 
   context('When the current page is "/"', () => {

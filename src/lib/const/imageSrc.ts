@@ -1,5 +1,5 @@
-import { Emotion, Feeling } from '@lib/types/diary.type';
 import { PATH } from '@lib/const/path';
+import { Emotion, Feeling } from '@lib/types';
 
 export const feelCatIcon = '/images/icon/menu/feel-cat.svg';
 

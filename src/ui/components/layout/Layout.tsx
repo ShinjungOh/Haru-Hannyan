@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { PropsWithChildren } from 'react';
 
-export default function Layout({ children }: PropsWithChildren) {
+export function Layout({ children }: PropsWithChildren) {
   return <Container>{children}</Container>;
 }
 

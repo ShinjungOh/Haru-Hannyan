@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import styleToken from '@ui/styles/styleToken.css';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { BaseButton } from '@ui/components/common';
+import { styleToken } from '@ui/styles';
 
 type ModalProps = {
   diaryText: string;
@@ -8,8 +9,9 @@ type ModalProps = {
   onSubmit?: (result: unknown) => void;
 };
 
-export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
+export function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
   const [modalInput, setModalInput] = useState<string>(diaryText || '');
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleChangeModalInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
@@ -25,29 +27,52 @@ export default function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps)
     onClose?.();
   };
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      const inputLength = modalInput.length;
+      textareaRef.current?.setSelectionRange(inputLength, inputLength);
+      textareaRef.current?.focus();
+    }
+  }, [textareaRef]);
+
+  useEffect(() => {
+    const handleOnKeyPressESC = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleOnKeyPressESC);
+    return () => {
+      window.removeEventListener('keydown', handleOnKeyPressESC);
+    };
+  }, []);
+
   return (
     <Container>
       <TextContainer
-        autoFocus
         placeholder="내용을 입력해 주세요"
         value={modalInput}
         onChange={handleChangeModalInput}
+        ref={textareaRef}
       />
       <ButtonContainer>
-        <button
-          type="button"
-          style={{ color: styleToken.color.gray2, backgroundColor: styleToken.color.gray4 }}
+        <BaseButton
+          colorTheme="light"
+          height="50px"
           onClick={handleClose}
+          style={{ borderRadius: '8px', fontSize: '16px' }}
         >
           취소
-        </button>
-        <button
-          type="button"
-          style={{ color: styleToken.color.white, backgroundColor: styleToken.color.alert1 }}
+        </BaseButton>
+        <BaseButton
+          colorTheme="primary"
+          height="50px"
           onClick={handleSubmit}
+          style={{ borderRadius: '8px', fontSize: '15px' }}
         >
           작성완료
-        </button>
+        </BaseButton>
       </ButtonContainer>
     </Container>
   );
@@ -91,14 +116,5 @@ const ButtonContainer = styled.div`
   align-items: center;
   margin-top: 22px;
   width: 100%;
-
-  button {
-    width: 150px;
-    height: 50px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    cursor: pointer;
-  }
+  gap: 10px;
 `;

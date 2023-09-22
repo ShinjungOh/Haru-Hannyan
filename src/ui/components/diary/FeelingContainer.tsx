@@ -1,17 +1,20 @@
 import { feelingCatTypeSrc } from '@lib/const/imageSrc';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
-import { Feeling } from '@lib/types/diary.type';
+import { Feeling } from '@lib/types';
+import { styleToken } from '@ui/styles';
+import { Typography } from '@ui/components/common';
 
 type FeelingContainerProps = {
   diary: any;
   onClick: (feeling: Feeling) => void;
 };
 
-export default function FeelingContainer({ diary, onClick }: FeelingContainerProps) {
+export function FeelingContainer({ diary, onClick }: FeelingContainerProps) {
   return (
     <Container>
-      <h4>오늘은 어떤 고양이인가요?</h4>
+      <Typography variant="subtitle4" color={styleToken.color.gray3}>
+        오늘은 어떤 고양이인가요?
+      </Typography>
       <FeelingCatList>
         <>
           {feelingCatTypeSrc.map((el, index) => {
@@ -37,18 +40,12 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 15px 15px 15px;
+  padding: 16px;
   width: 100%;
   height: auto;
   border-radius: 15px;
   background-color: white;
-  border: 1px solid ${styleTokenCss.color.gray5};
-  font-size: 14px;
-
-  h4 {
-    font-weight: 600;
-    color: ${styleTokenCss.color.gray2};
-  }
+  border: 1px solid ${styleToken.color.gray5};
 `;
 
 const FeelingCatList = styled.div`

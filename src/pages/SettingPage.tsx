@@ -1,44 +1,51 @@
-import Body from '@ui/components/layout/Body';
-import Menu from '@ui/components/layout/MenuBar/Menu';
-import SignButton from '@ui/components/layout/common/SignButton';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
+import { Body } from '@ui/components/layout';
+import { Menu } from '@ui/components/menu';
+import { BaseButton, Typography } from '@ui/components/common';
+import { useConfirm } from '@lib/hooks';
+import { styleToken } from '@ui/styles';
 
-export default function SettingPage() {
+export function SettingPage() {
   const navigate = useNavigate();
+  const confirm = useConfirm();
 
-  const handleClickLogout = () => {
-    const isLogout = confirm('로그아웃 하시겠습니까?');
-    if (isLogout) {
+  const handleClickLogout = async () => {
+    const responseConfirm = await confirm({
+      type: 'delete',
+      title: '로그아웃 하시겠습니까?',
+      description: '하루한냥 홈으로 이동합니다.',
+    });
+    if (responseConfirm) {
       localStorage.clear();
-      navigate(PATH.HOME);
+      navigate(PATH.HOME, { replace: true });
     }
   };
 
   return (
     <>
-      <Title>마이 페이지</Title>
+      <TitleContainer>
+        <Typography variant="h3">마이 페이지</Typography>
+      </TitleContainer>
       <Container>
-        <SignButton
-          text="로그아웃"
-          backgroundColor={styleTokenCss.color.secondaryActive}
-          color={styleTokenCss.color.white}
+        <BaseButton
+          colorTheme="primary"
           onClick={handleClickLogout}
-        />
+          style={{
+            margin: '10px',
+          }}
+        >
+          로그아웃
+        </BaseButton>
       </Container>
       <Menu />
     </>
   );
 }
 
-const Title = styled.h2`
-  background-color: ${styleTokenCss.color.background};
-  color: ${styleTokenCss.color.gray2};
-  font-size: 24px;
-  font-weight: 600;
-
+const TitleContainer = styled.div`
+  background-color: ${styleToken.color.background};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

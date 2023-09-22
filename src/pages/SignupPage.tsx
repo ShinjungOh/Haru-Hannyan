@@ -1,19 +1,20 @@
-import Body from '@ui/components/layout/Body';
 import styled from '@emotion/styled';
-import styleTokenCss from '@ui/styles/styleToken.css';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { UserType, UserValidation } from '@lib/types/user.type';
-import NavigationHeader from '@ui/components/layout/common/NavigationHeader';
-import getValidationUser from '@lib/utils/getValidationUser';
-import SignButton from '@ui/components/layout/common/SignButton';
-import InputBox from '@ui/components/layout/common/InputBox';
 import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
-import { handleAxiosError, http } from '../api/http';
+import { Body } from '@ui/components/layout';
+import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
+import { useAxiosErrorAlert } from '@lib/hooks';
+import { UserType, UserValidation } from '@lib/types';
+import { getValidationUser } from '@lib/utils';
+import { styleToken } from '@ui/styles';
+import { http } from '../api/http';
 
-export default function SignupPage() {
+export function SignupPage() {
   const navigate = useNavigate();
+  const axiosErrorAlert = useAxiosErrorAlert();
+
   const [user, setUser] = useState<UserType>({
     email: '',
     password: '',
@@ -83,8 +84,7 @@ export default function SignupPage() {
         navigate(PATH.CALENDAR);
       }
     } catch (e) {
-      const error = handleAxiosError(e);
-      alert(error.msg);
+      await axiosErrorAlert(e);
     }
   };
 
@@ -118,7 +118,9 @@ export default function SignupPage() {
     <>
       <NavigationHeader />
       <Container>
-        <Title>회원가입</Title>
+        <TitleContainer>
+          <Typography variant="h3">회원가입</Typography>
+        </TitleContainer>
         <InputContainer>
           <label htmlFor="email">이메일</label>
           <InputBox
@@ -126,6 +128,7 @@ export default function SignupPage() {
             id="email"
             name="email"
             placeholder="이메일을 입력해 주세요."
+            autoFocus
             onChange={handleChangeUser}
           />
           <ErrorMessage>{isError.email.error && isError.email.message}</ErrorMessage>
@@ -178,8 +181,8 @@ export default function SignupPage() {
           text="회원가입"
           disabled={isDisabledSubmit}
           onClick={handleClickSignUp}
-          backgroundColor={styleTokenCss.color.secondaryActive}
-          color={styleTokenCss.color.white}
+          backgroundColor={styleToken.color.secondaryActive}
+          color={styleToken.color.white}
         />
       </Container>
     </>
@@ -187,21 +190,18 @@ export default function SignupPage() {
 }
 
 const Container = styled(Body)`
-  padding: 35px;
+  padding: 10px 35px 35px 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 `;
 
-const Title = styled.h2`
+const TitleContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: ${styleTokenCss.color.gray2};
-  font-size: 26px;
-  font-weight: 600;
   margin-bottom: 48px;
 `;
 
@@ -220,7 +220,7 @@ const InputContainer = styled.div`
     height: 15px;
     padding-left: 3px;
     margin-bottom: 8px;
-    color: ${styleTokenCss.color.gray3};
+    color: ${styleToken.color.gray3};
     font-size: 15px;
   }
 
@@ -230,7 +230,7 @@ const InputContainer = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  color: ${styleTokenCss.color.alert2};
+  color: ${styleToken.color.alert_danger};
   width: 100%;
   height: 15px;
   padding-left: 10px;
@@ -250,11 +250,11 @@ const CheckBoxContainer = styled.div`
     width: 22px;
     height: 22px;
     margin-right: 10px;
-    accent-color: ${styleTokenCss.color.secondary};
+    accent-color: ${styleToken.color.secondary};
   }
 `;
 
 const CheckBox = styled.label`
-  color: ${styleTokenCss.color.gray3};
+  color: ${styleToken.color.gray3};
   font-size: 15px;
 `;

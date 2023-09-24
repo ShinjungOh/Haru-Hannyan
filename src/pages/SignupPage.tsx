@@ -116,7 +116,7 @@ export function SignupPage() {
 
   return (
     <>
-      <NavigationHeader />
+      <NavigationHeader isBack />
       <Container>
         <TitleContainer>
           <Typography variant="h3">회원가입</Typography>
@@ -190,7 +190,7 @@ export function SignupPage() {
 }
 
 const Container = styled(Body)`
-  padding: 10px 35px 35px 35px;
+  padding: 0 35px 35px 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;

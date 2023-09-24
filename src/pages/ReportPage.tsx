@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
 import { Menu } from '@ui/components/menu';
 import { Body } from '@ui/components/layout';
-import { BaseButton, Typography } from '@ui/components/common';
+import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useNavigate } from 'react-router';
 
 export function ReportPage() {
   const navigate = useNavigate();
 
   const handlePageNewTest = () => {
-    navigate('/');
+    navigate('/report/question');
   };
 
   const handlePageTestResult = () => {
@@ -18,9 +18,7 @@ export function ReportPage() {
 
   return (
     <>
-      <Header>
-        <Typography variant="h4">스트레스 측정하기</Typography>
-      </Header>
+      <NavigationHeader title="스트레스 측정하기" isBack={false} />
       <Container>
         <InfoContainer>
           <Typography variant="subtitle3" fontWeight={600}>
@@ -46,16 +44,6 @@ export function ReportPage() {
   );
 }
 
-const Header = styled.header`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 80px;
-  background-color: ${styleToken.color.background};
-`;
-
 const Container = styled(Body)`
   overflow-y: auto;
   padding: 5px 34px 15px 34px;
@@ -72,6 +60,7 @@ const InfoContainer = styled.div`
   background-color: white;
   border-radius: 15px;
   border: 1px solid ${styleToken.color.gray5};
+  text-align: center;
 `;
 
 const ButtonContainer = styled.div`

@@ -6,6 +6,7 @@ import {
   EditPostPage,
   HomePage,
   ProtectedRoute,
+  QuestionPage,
   ReportPage,
   SettingPage,
   SigninPage,
@@ -46,6 +47,15 @@ const routes = [
           </ProtectedRoute>
         ),
       },
+      {
+        path: PATH.QUESTION,
+        element: (
+          <ProtectedRoute>
+            <QuestionPage />
+          </ProtectedRoute>
+        ),
+      },
+
       {
         path: PATH.SETTING,
         element: (

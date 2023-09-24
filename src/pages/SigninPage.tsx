@@ -88,7 +88,7 @@ export function SigninPage() {
 
   return (
     <>
-      <NavigationHeader />
+      <NavigationHeader isBack />
       <Container>
         <TitleContainer>
           <Typography variant="h1">로그인</Typography>
@@ -143,7 +143,6 @@ const Container = styled(Body)`
 `;
 
 const TitleContainer = styled.div`
-  margin-top: 20px;
   margin-bottom: 50px;
 `;
 

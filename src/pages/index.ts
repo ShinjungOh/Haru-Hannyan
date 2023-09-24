@@ -3,6 +3,7 @@ export * from './CalendarPage';
 export * from './EditPostPage';
 export * from './HomePage';
 export * from './ProtectedRoute';
+export * from './QuestionPage';
 export * from './ReportPage';
 export * from './SigninPage';
 export * from './SignupPage';

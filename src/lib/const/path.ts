@@ -4,9 +4,10 @@ export const PATH = {
   SIGN_UP: '/signup',
   OAUTH_KAKAO: '/oauth/kakao',
   CALENDAR: '/calendar',
-  TIMELINE: '/timeline',
-  REPORT: '/report',
-  SETTING: '/setting',
   WRITE: '/calendar/write',
   EDIT: '/calendar/edit',
+  TIMELINE: '/timeline',
+  REPORT: '/report',
+  QUESTION: '/report/question',
+  SETTING: '/setting',
 };

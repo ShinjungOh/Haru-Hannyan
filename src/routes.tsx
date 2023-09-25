@@ -11,6 +11,7 @@ import {
   SettingPage,
   SigninPage,
   SignupPage,
+  TestResultPage,
   TimelinePage,
   WritePostPage,
 } from './pages';
@@ -52,6 +53,14 @@ const routes = [
         element: (
           <ProtectedRoute>
             <QuestionPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.RESULT,
+        element: (
+          <ProtectedRoute>
+            <TestResultPage />
           </ProtectedRoute>
         ),
       },

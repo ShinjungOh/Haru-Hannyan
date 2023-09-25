@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
+import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
-import { styleToken } from '@ui/styles';
+import { useConfirm } from '@lib/hooks';
+import { PATH } from '@lib/const/path';
 
 const QuestionDummy = [
   {
@@ -70,9 +73,35 @@ const AnswerTitle = [
 ];
 
 export function QuestionPage() {
+  const navigate = useNavigate();
+  const confirm = useConfirm();
+
+  const isValidate = true;
+
+  const handlePageBack = async () => {
+    const responseConfirm = await confirm(
+      {
+        type: 'out',
+        title: '스트레스 측정하기',
+        description: '검사가 완료되지 않았어요.\n그래도 나가시겠어요?',
+      },
+      { clickOverlayClose: true },
+    );
+
+    if (responseConfirm) {
+      navigate(-1);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (isValidate) {
+      navigate(PATH.RESULT);
+    }
+  };
+
   return (
     <>
-      <NavigationHeader title="스트레스 측정하기" isBack />
+      <NavigationHeader title="스트레스 측정하기" isBack onBack={handlePageBack} />
       <Container>
         <InfoContainer>
           <Typography variant="subtitle4" fontWeight={400}>
@@ -85,7 +114,7 @@ export function QuestionPage() {
             <br /> 얼마나 자주 겪었는지 선택해 주세요.
           </Typography>
         </InfoContainer>
-        {QuestionDummy.map((question) => (
+        {QuestionDummy.map((question, questionIndex) => (
           <QuestionContainer key={question.text}>
             <QuestionTitle>
               <Typography variant="body4" fontWeight={600}>
@@ -97,15 +126,24 @@ export function QuestionPage() {
             </QuestionTitle>
             <AnswerContainer>
               {AnswerTitle.map((answer) => (
-                <AnswerItem key={answer.score}>
-                  <AnswerBox />
-                  <Typography variant="body4">{answer.text}</Typography>
-                </AnswerItem>
+                <Radio key={answer.text}>
+                  <input type="radio" name={`question-${questionIndex}`} value={answer.text} />
+                  <i />
+                  <Typography variant="body4" style={{ marginTop: 8 }}>
+                    {answer.text}
+                  </Typography>
+                </Radio>
               ))}
             </AnswerContainer>
           </QuestionContainer>
         ))}
-        <BaseButton colorTheme="primary" height="68px" minHeight="68px" style={{ marginTop: 30 }}>
+        <BaseButton
+          colorTheme="primary"
+          height="68px"
+          minHeight="68px"
+          onClick={handleSubmit}
+          style={{ marginTop: 30 }}
+        >
           결과보기
         </BaseButton>
       </Container>
@@ -127,7 +165,7 @@ const InfoContainer = styled.div`
   text-align: center;
   padding: 22px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   background-color: white;
   border-radius: 15px;
   border: 1px solid ${styleToken.color.gray5};
@@ -155,7 +193,6 @@ const QuestionTitle = styled.div`
   gap: 6px;
 `;
 
-// 5개 묶음
 const AnswerContainer = styled.div`
   width: 100%;
   display: flex;
@@ -164,25 +201,49 @@ const AnswerContainer = styled.div`
   align-items: flex-start;
 `;
 
-// 동그라미 + 타이틀
-const AnswerItem = styled.div`
+const Radio = styled.label`
   width: 50px;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   cursor: pointer;
-`;
 
-// 동그라미
-// TODO: 라디오 버튼으로 교체
-// TODO: 버튼 클릭 시 스타일링 추가
-const AnswerBox = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: white;
-  border: 1px solid ${styleToken.color.gray5};
-  margin-bottom: 8px;
+  i {
+    position: relative;
+    display: inline-block;
+    height: 36px;
+    width: 36px;
+    outline: 0;
+    background: ${styleToken.color.white};
+    border: 1px solid ${styleToken.color.gray4};
+    border-radius: 50%;
+  }
+
+  input {
+    visibility: hidden;
+    vertical-align: middle;
+    position: absolute;
+    height: 100%;
+  }
+
+  input[type='radio']:checked + i {
+    background-color: ${styleToken.color.secondary};
+    border: unset;
+  }
+
+  input[type='radio']:checked + i:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 20%;
+    left: 55%;
+    transform: rotate(-45deg) translate(-50%, -50%);
+    width: 49%;
+    height: 30%;
+    border-bottom: 2px solid ${styleToken.color.white};
+    border-left: 2px solid ${styleToken.color.white};
+  }
 `;

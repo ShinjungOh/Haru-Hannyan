@@ -9,5 +9,6 @@ export const PATH = {
   TIMELINE: '/timeline',
   REPORT: '/report',
   QUESTION: '/report/question',
+  RESULT: '/report/result',
   SETTING: '/setting',
 };

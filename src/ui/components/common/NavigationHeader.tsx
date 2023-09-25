@@ -6,18 +6,25 @@ import { Typography } from '@ui/components/common/Typography';
 type Props = {
   isBack: boolean;
   title?: string;
+  onBack?: () => void;
 };
-export function NavigationHeader({ isBack, title }: Props) {
+export function NavigationHeader({ isBack, title, onBack }: Props) {
   const navigate = useNavigate();
 
   const handlePageBack = () => {
+    if (onBack) {
+      onBack();
+      return;
+    }
     navigate(-1);
   };
 
   return (
     <Container>
-      {isBack && <BackArrow onClick={handlePageBack} src="/images/icon/back.png" alt="back" />}
-      {title && <Typography variant="h4">{title}</Typography>}
+      <>
+        {isBack && <BackArrow onClick={handlePageBack} src="/images/icon/back.png" alt="back" />}
+        {title && <Typography variant="h4">{title}</Typography>}
+      </>
     </Container>
   );
 }

@@ -8,5 +8,6 @@ export * from './ReportPage';
 export * from './SigninPage';
 export * from './SignupPage';
 export * from './SettingPage';
+export * from './TestResultPage';
 export * from './TimelinePage';
 export * from './WritePostPage';

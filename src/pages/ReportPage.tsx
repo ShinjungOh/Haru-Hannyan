@@ -4,16 +4,42 @@ import { Menu } from '@ui/components/menu';
 import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useNavigate } from 'react-router';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { http } from '../api/http';
 
 export function ReportPage() {
   const navigate = useNavigate();
+  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
-  const handlePageNewTest = () => {
-    navigate('/report/question');
+  const handlePageNewTest = async () => {
+    const isTry = await getIsAnswerableWithinWeek();
+
+    if (isTry) {
+      navigate('/report/question');
+      return;
+    }
+
+    await alert({
+      type: 'danger',
+      title: '일주일 내의 검사 결과가 이미 존재합니다.',
+    });
   };
 
-  const handlePageTestResult = () => {
+  const handlePageReportList = () => {
     navigate('/');
+  };
+
+  const getIsAnswerableWithinWeek = async () => {
+    try {
+      const response = await http.get<{ isTry: boolean }>('/answer/try');
+      if (response.data) {
+        return response.data.isTry;
+      }
+    } catch (e) {
+      await axiosErrorAlert(e);
+      return false;
+    }
   };
 
   return (
@@ -34,7 +60,7 @@ export function ReportPage() {
           <BaseButton colorTheme="info" onClick={handlePageNewTest}>
             새로 검사하기
           </BaseButton>
-          <BaseButton colorTheme="info" onClick={handlePageTestResult} style={{ marginTop: 22 }}>
+          <BaseButton colorTheme="info" onClick={handlePageReportList} style={{ marginTop: 22 }}>
             이전 검사결과 보기
           </BaseButton>
         </ButtonContainer>

@@ -22,11 +22,24 @@ export function Menu() {
   const [diary, setDiary] = useState<Diary[]>();
   const [isOpen, setIsOpen] = useState(false);
 
+  const pathName = location.pathname.toUpperCase();
+
+  const mappedReportPath = () => {
+    if (pathName === '/REPORT/RESULT') {
+      return 'REPORT';
+    }
+    return 'REPORT';
+  };
+
+  const mappedReport = mappedReportPath();
+
+  // console.log(pathName);
+  // console.log(mappedReport);
+
   const getMenuIcon = (iconKey: 'CALENDAR' | 'TIMELINE' | 'REPORT' | 'SETTING') => {
     const menuIconKey = PATH[iconKey];
-    const pathName = location.pathname.toUpperCase();
 
-    if (pathName === `/${iconKey}`) {
+    if (pathName === `/${iconKey}` && mappedReport === 'REPORT') {
       return menuIcon[menuIconKey].active;
     }
     return menuIcon[menuIconKey].inactive;

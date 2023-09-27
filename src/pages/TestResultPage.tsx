@@ -1,24 +1,65 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
+import { PATH } from '@lib/const/path';
 import { useNavigate } from 'react-router';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { Body } from '@ui/components/layout';
-import { PATH } from '@lib/const/path';
-import { styleToken } from '@ui/styles';
+import { Score } from '@ui/components/report';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { Menu } from '@ui/components/menu';
+import { useEffect } from 'react';
+import { http } from '../api/http';
 
 export function TestResultPage() {
   const navigate = useNavigate();
+  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
-  const handlePageNewTest = () => {
-    navigate('/report/question');
+  const handlePageNewTest = async () => {
+    const isTry = await getIsAnswerableWithinWeek();
+
+    if (isTry) {
+      navigate('/report/question');
+      return;
+    }
+
+    await alert({
+      type: 'danger',
+      title: '일주일 내의 검사 결과가 이미 존재합니다.',
+    });
   };
 
-  const handlePageTestResult = () => {
+  const handlePageReportList = () => {
     navigate('/');
   };
 
   const handlePageBack = () => {
     navigate(PATH.REPORT);
   };
+
+  const getIsAnswerableWithinWeek = async () => {
+    try {
+      const response = await http.get<{ isTry: boolean }>('/answer/try');
+      if (response.data) {
+        console.log(response.data.isTry);
+        return response.data.isTry;
+      }
+    } catch (e) {
+      await axiosErrorAlert(e);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const getTestResult = async () => {
+      const response = await http.get('/answer/3');
+      if (response.data) {
+        console.log(response.data);
+      }
+    };
+
+    getTestResult();
+  }, []);
 
   return (
     <>
@@ -41,56 +82,18 @@ export function TestResultPage() {
           <Typography variant="subtitle3" fontWeight={600}>
             스트레스 점수표
           </Typography>
-          <ScoreContainer>
-            <ScoreList>
-              <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-                23 ~ 40점
-              </Typography>
-              <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-                22 ~ 17점
-              </Typography>
-              <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-                16 ~ 14점
-              </Typography>
-              <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-                13 ~ 0점
-              </Typography>
-            </ScoreList>
-            <ScoreList>
-              <Typography
-                variant="body2"
-                color={styleToken.color.alert_danger}
-                fontWeight={600}
-                style={{ lineHeight: 1.6 }}
-              >
-                위험
-              </Typography>
-              <Typography variant="body2" color={styleToken.color.primary} fontWeight={600} style={{ lineHeight: 1.6 }}>
-                중증
-              </Typography>
-              <Typography
-                variant="body2"
-                color={styleToken.color.alert_success}
-                fontWeight={600}
-                style={{ lineHeight: 1.6 }}
-              >
-                경도
-              </Typography>
-              <Typography variant="body2" fontWeight={600} style={{ lineHeight: 1.6 }}>
-                정상
-              </Typography>
-            </ScoreList>
-          </ScoreContainer>
+          <Score />
         </InfoContainer>
         <ButtonContainer>
-          <BaseButton colorTheme="info" onClick={handlePageNewTest}>
+          <BaseButton colorTheme="info" onClick={handlePageNewTest} minHeight="68px">
             새로 검사하기
           </BaseButton>
-          <BaseButton colorTheme="info" onClick={handlePageTestResult} style={{ marginTop: 22 }}>
+          <BaseButton colorTheme="info" onClick={handlePageReportList} style={{ marginTop: 22 }} minHeight="68px">
             이전 검사결과 보기
           </BaseButton>
         </ButtonContainer>
       </Container>
+      <Menu />
     </>
   );
 }
@@ -113,28 +116,6 @@ const InfoContainer = styled.div`
   background-color: white;
   border-radius: 15px;
   border: 1px solid ${styleToken.color.gray5};
-`;
-
-const ScoreContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-top: 20px;
-  width: 100%;
-  height: auto;
-`;
-
-const ScoreList = styled.div`
-  // border: 1px solid ${styleToken.color.primary};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 40%;
-  height: auto;
 `;
 
 const ButtonContainer = styled.div`

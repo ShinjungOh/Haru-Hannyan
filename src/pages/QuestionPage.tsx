@@ -1,82 +1,37 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
+import { PATH } from '@lib/const/path';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
-import { useConfirm } from '@lib/hooks';
-import { PATH } from '@lib/const/path';
-
-const QuestionDummy = [
-  {
-    seq: 1,
-    text: '어려운 일들이 너무 많이 쌓여서 극복하지 못할 것 같은 느낌을 얼마나 자주 경험했나요?',
-  },
-  {
-    seq: 2,
-    text: '컨디션이 매우 좋다고 느껴지는 순간이 얼마나 자주 있었나요?',
-  },
-  {
-    seq: 3,
-    text: '꼭 해야하는 일을 처리할 수 없다고 생각한 적이 얼마나 있었나요?',
-  },
-  {
-    seq: 4,
-    text: '개인적인 문제를 다루는 일에 얼마나 자주 자신감을 느꼈나요?',
-  },
-  {
-    seq: 5,
-    text: '인생에서 중요한 일을 조절할 수 없다는 느낌을 얼마나 자주 받았나요?',
-  },
-  {
-    seq: 6,
-    text: '예상치 못한 일 때문에 당황했던 적이 얼마나 있었나요?',
-  },
-  {
-    seq: 7,
-    text: '신경이 예민해지고, 스트레스를 받고 있다는 느낌을 얼마나 경험했나요?',
-  },
-  {
-    seq: 8,
-    text: '일상이 나의 생각대로 진행되고 있다는 느낌을 얼마나 느꼈나요?',
-  },
-  {
-    seq: 9,
-    text: '일상생활의 짜증을 얼마나 자주 잘 다스릴 수 있었나요?',
-  },
-  {
-    seq: 10,
-    text: '본인이 통제할 수 없는 일 때문에 화가 난 경험이 얼마나 있었나요?',
-  },
-];
-
-const AnswerTitle = [
-  {
-    score: 0,
-    text: '전혀 아님',
-  },
-  {
-    score: 1,
-    text: '거의 아님',
-  },
-  {
-    score: 2,
-    text: '보통',
-  },
-  {
-    score: 3,
-    text: '자주 있음',
-  },
-  {
-    score: 4,
-    text: '매일',
-  },
-];
+import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { answerTitle } from '@lib/const/reportQnA';
+import { http } from '../api/http';
 
 export function QuestionPage() {
   const navigate = useNavigate();
   const confirm = useConfirm();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
-  const isValidate = true;
+  const [questions, setQuestions] = useState<[]>([]);
+  const [answer, setAnswer] = useState<number[]>([]);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const handleChangeAnswer = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    const { value } = e.target;
+    const parseNumberAnswer = Number(value);
+
+    const updatedAnswers = [...answer];
+    updatedAnswers[index] = parseNumberAnswer;
+    setAnswer(updatedAnswers);
+  };
+
+  const handleChangeDisabled = () => {
+    if (answer.length === 10) {
+      setIsDisabled(false);
+    }
+  };
 
   const handlePageBack = async () => {
     const responseConfirm = await confirm(
@@ -93,11 +48,49 @@ export function QuestionPage() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const isValidate = await postCheckedAnswer();
+
     if (isValidate) {
       navigate(PATH.RESULT);
     }
   };
+
+  const postCheckedAnswer = async () => {
+    try {
+      const response = await http.post('/answer', {
+        type: 'stress',
+        scores: answer,
+      });
+
+      if (response.success) {
+        return response.success;
+      }
+    } catch (e) {
+      await axiosErrorAlert(e);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const getQuestionList = async () => {
+      try {
+        const response = await http.get<{ question: [] }>('/question/stress');
+        if (response.data) {
+          const isQuestions = response.data.question;
+          setQuestions(isQuestions);
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
+      }
+    };
+
+    getQuestionList();
+  }, []);
+
+  useEffect(() => {
+    handleChangeDisabled();
+  }, [answer]);
 
   return (
     <>
@@ -114,35 +107,44 @@ export function QuestionPage() {
             <br /> 얼마나 자주 겪었는지 선택해 주세요.
           </Typography>
         </InfoContainer>
-        {QuestionDummy.map((question, questionIndex) => (
-          <QuestionContainer key={question.text}>
-            <QuestionTitle>
-              <Typography variant="body4" fontWeight={600}>
-                {question.seq}.
-              </Typography>
-              <Typography variant="body4" fontWeight={600}>
-                {question.text}
-              </Typography>
-            </QuestionTitle>
-            <AnswerContainer>
-              {AnswerTitle.map((answer) => (
-                <Radio key={answer.text}>
-                  <input type="radio" name={`question-${questionIndex}`} value={answer.text} />
-                  <i />
-                  <Typography variant="body4" style={{ marginTop: 8 }}>
-                    {answer.text}
-                  </Typography>
-                </Radio>
-              ))}
-            </AnswerContainer>
-          </QuestionContainer>
-        ))}
+        {questions &&
+          questions.map((question: any, questionIndex: number) => (
+            <QuestionContainer key={question.text}>
+              <QuestionTitle>
+                <Typography variant="body4" fontWeight={600}>
+                  {question.seq}.
+                </Typography>
+                <Typography variant="body4" fontWeight={600}>
+                  {question.text}
+                </Typography>
+              </QuestionTitle>
+              <AnswerContainer>
+                <>
+                  {answerTitle.map((answer) => (
+                    <Radio key={answer.text}>
+                      <input
+                        type="radio"
+                        name={`question-${questionIndex}`}
+                        value={answer.score}
+                        onChange={(e) => handleChangeAnswer(e, questionIndex)}
+                      />
+                      <i />
+                      <Typography variant="body4" style={{ marginTop: 8 }}>
+                        {answer.text}
+                      </Typography>
+                    </Radio>
+                  ))}
+                </>
+              </AnswerContainer>
+            </QuestionContainer>
+          ))}
         <BaseButton
           colorTheme="primary"
           height="68px"
           minHeight="68px"
           onClick={handleSubmit}
           style={{ marginTop: 30 }}
+          disabled={isDisabled}
         >
           결과보기
         </BaseButton>

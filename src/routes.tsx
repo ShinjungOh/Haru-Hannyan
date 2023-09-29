@@ -7,6 +7,8 @@ import {
   HomePage,
   ProtectedRoute,
   QuestionPage,
+  ReportItemPage,
+  ReportListPage,
   ReportPage,
   SettingPage,
   SigninPage,
@@ -64,7 +66,22 @@ const routes = [
           </ProtectedRoute>
         ),
       },
-
+      {
+        path: PATH.REPORTLIST,
+        element: (
+          <ProtectedRoute>
+            <ReportListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.REPORTITEM,
+        element: (
+          <ProtectedRoute>
+            <ReportItemPage />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: PATH.SETTING,
         element: (

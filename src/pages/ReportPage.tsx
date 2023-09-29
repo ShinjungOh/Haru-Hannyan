@@ -5,6 +5,7 @@ import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useNavigate } from 'react-router';
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { PATH } from '@lib/const/path';
 import { http } from '../api/http';
 
 export function ReportPage() {
@@ -16,7 +17,7 @@ export function ReportPage() {
     const isTry = await getIsAnswerableWithinWeek();
 
     if (isTry) {
-      navigate('/report/question');
+      navigate(PATH.QUESTION);
       return;
     }
 
@@ -27,7 +28,7 @@ export function ReportPage() {
   };
 
   const handlePageReportList = () => {
-    navigate('/');
+    navigate(PATH.REPORTLIST);
   };
 
   const getIsAnswerableWithinWeek = async () => {

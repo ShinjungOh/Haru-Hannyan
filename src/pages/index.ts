@@ -4,6 +4,8 @@ export * from './EditPostPage';
 export * from './HomePage';
 export * from './ProtectedRoute';
 export * from './QuestionPage';
+export * from './ReportItemPage';
+export * from './ReportListPage';
 export * from './ReportPage';
 export * from './SigninPage';
 export * from './SignupPage';

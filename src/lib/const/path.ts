@@ -10,5 +10,7 @@ export const PATH = {
   REPORT: '/report',
   QUESTION: '/report/question',
   RESULT: '/report/result',
+  REPORTLIST: '/report/report_list',
+  REPORTITEM: '/report/report_item',
   SETTING: '/setting',
 };

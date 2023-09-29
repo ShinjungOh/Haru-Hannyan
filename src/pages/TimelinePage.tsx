@@ -114,7 +114,7 @@ export function TimelinePage() {
         ) : (
           <EmptyContainer>
             <Typography variant="subtitle3" color={styleToken.color.gray3} fontWeight={400}>
-              작성한 일기가 없어요
+              작성한 일기가 없어요.
             </Typography>
           </EmptyContainer>
         )}

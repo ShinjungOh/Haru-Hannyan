@@ -1,22 +1,26 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
-import { PATH } from '@lib/const/path';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
-import { ChangeEvent, useEffect, useState } from 'react';
 import { answerTitle } from '@lib/const/reportQnA';
 import { http } from '../api/http';
 
 export function QuestionPage() {
   const navigate = useNavigate();
+  const params = useParams();
+  const { id } = params;
   const confirm = useConfirm();
   const axiosErrorAlert = useAxiosErrorAlert();
 
   const [questions, setQuestions] = useState<[]>([]);
   const [answer, setAnswer] = useState<number[]>([]);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const parseId = Number(id);
 
   const handleChangeAnswer = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
@@ -48,11 +52,11 @@ export function QuestionPage() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (id: number) => {
     const isValidate = await postCheckedAnswer();
 
     if (isValidate) {
-      navigate(PATH.RESULT);
+      navigate(`/report/result/${id}`);
     }
   };
 
@@ -142,7 +146,7 @@ export function QuestionPage() {
           colorTheme="primary"
           height="68px"
           minHeight="68px"
-          onClick={handleSubmit}
+          onClick={() => handleSubmit(parseId)}
           style={{ marginTop: 30 }}
           disabled={isDisabled}
         >

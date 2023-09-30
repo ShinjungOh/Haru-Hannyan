@@ -9,8 +9,8 @@ export const PATH = {
   TIMELINE: '/timeline',
   REPORT: '/report',
   QUESTION: '/report/question',
-  RESULT: '/report/result',
+  RESULT: '/report/result/:id',
   REPORTLIST: '/report/report_list',
-  REPORTITEM: '/report/report_item',
+  REPORTITEM: '/report/report_list/:id',
   SETTING: '/setting',
 };

@@ -1,60 +1,29 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { NavigationHeader, Typography } from '@ui/components/common';
-import { PATH } from '@lib/const/path';
-import { useEffect, useState } from 'react';
-import { resultDetail } from '@lib/const/reportQnA';
 import { ReportAnswers } from '@lib/types';
+import { mappedResultType, parseDate } from '@lib/utils';
 import { http } from '../api/http';
 
 export function ReportListPage() {
-  const [answers, setAnswers] = useState<ReportAnswers[]>([]);
-
   const navigate = useNavigate();
 
-  const handlePageReportItem = () => {
-    navigate(PATH.REPORTITEM);
-  };
+  const [answers, setAnswers] = useState<ReportAnswers[]>([]);
 
-  const mappedResultType = (num: number) => {
-    if (num > 22) {
-      const { color, description, title } = resultDetail.위험;
-      return { color, description, title };
-    }
-
-    if (num > 16 && num <= 22) {
-      const { color, description, title } = resultDetail.중증;
-      return { color, description, title };
-    }
-
-    if (num > 13 && num <= 16) {
-      const { color, description, title } = resultDetail.경도;
-      return { color, description, title };
-    }
-
-    if (num > 0 && num <= 13) {
-      const { color, description, title } = resultDetail.정상;
-      return { color, description, title };
-    }
-  };
-
-  const parseDate = (date) => {
-    const createDate = new Date(date);
-    const year = createDate.getFullYear();
-    const month = createDate.getMonth();
-    const data = createDate.getDate();
-    return { year, month, data };
+  const handlePageReportItem = (id: number) => {
+    navigate(`/report/report_list/${id}`);
   };
 
   useEffect(() => {
     const getReportsList = async () => {
       const response = await http.get<{ data: { answers: ReportAnswers[] } }>('/answer');
       if (response) {
-        setAnswers(response.data.answers);
-        console.log(response.data.answers);
+        // console.log(response.data.answers);
+        setAnswers(response.data?.answers);
       }
     };
 
@@ -65,15 +34,16 @@ export function ReportListPage() {
     <>
       <NavigationHeader title="스트레스 측정하기" isBack />
       <Container>
-        {answers.length > 0 ? (
+        {answers && answers.length > 0 ? (
           answers.map((answer) => {
             const answerDate = parseDate(answer.create_date);
-            const date2DigitMonth = answerDate.month < 10 ? `0${answerDate.month}` : answerDate.month;
-            const date2DigitDate = answerDate.data < 10 ? `0${answerDate.data}` : answerDate.data;
+            const parseMonth = answerDate.month + 1;
+            const date2DigitMonth = parseMonth < 10 ? `0${parseMonth}` : parseMonth;
+            const date2DigitDate = answerDate.date < 10 ? `0${answerDate.date}` : answerDate.date;
             const answerTitle = mappedResultType(answer.sumScore);
 
             return (
-              <InfoContainer key={answer.answer_id} onClick={handlePageReportItem}>
+              <InfoContainer key={answer.answer_id} onClick={() => handlePageReportItem(answer.answer_id)}>
                 <DetailContainer>
                   <Typography variant="h4" color={styleToken.color.gray1}>
                     {date2DigitMonth}/{date2DigitDate}

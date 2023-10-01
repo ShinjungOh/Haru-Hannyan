@@ -29,7 +29,7 @@ export function Score() {
         <Typography variant="body2" color={styleToken.color.alert_success} fontWeight={600} style={{ lineHeight: 1.6 }}>
           경도
         </Typography>
-        <Typography variant="body2" fontWeight={600} style={{ lineHeight: 1.6 }}>
+        <Typography variant="body2" color={styleToken.color.gray3} fontWeight={600} style={{ lineHeight: 1.6 }}>
           정상
         </Typography>
       </ScoreList>

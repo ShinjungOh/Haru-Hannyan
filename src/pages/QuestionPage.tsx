@@ -2,25 +2,21 @@ import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useParams } from 'react-router-dom';
 import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { answerTitle } from '@lib/const/reportQnA';
+import { ReportAnswers } from '@lib/types';
 import { http } from '../api/http';
 
 export function QuestionPage() {
   const navigate = useNavigate();
-  const params = useParams();
-  const { id } = params;
   const confirm = useConfirm();
   const axiosErrorAlert = useAxiosErrorAlert();
 
   const [questions, setQuestions] = useState<[]>([]);
   const [answer, setAnswer] = useState<number[]>([]);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-
-  const parseId = Number(id);
 
   const handleChangeAnswer = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
@@ -52,12 +48,25 @@ export function QuestionPage() {
     }
   };
 
-  const handleSubmit = async (id: number) => {
+  const handleSubmit = async () => {
     const isValidate = await postCheckedAnswer();
 
-    if (isValidate) {
-      navigate(`/report/result/${id}`);
-    }
+    const getReportsList = async () => {
+      try {
+        const response = await http.get<{ answers: ReportAnswers[] }>('/answer');
+        if (response.data) {
+          const id = response.data.answers[0].answer_id;
+
+          if (isValidate) {
+            navigate(`/report/answer/${id}`);
+          }
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
+      }
+    };
+
+    getReportsList();
   };
 
   const postCheckedAnswer = async () => {
@@ -146,7 +155,7 @@ export function QuestionPage() {
           colorTheme="primary"
           height="68px"
           minHeight="68px"
-          onClick={() => handleSubmit(parseId)}
+          onClick={handleSubmit}
           style={{ marginTop: 30 }}
           disabled={isDisabled}
         >

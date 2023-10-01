@@ -13,7 +13,6 @@ import {
   SettingPage,
   SigninPage,
   SignupPage,
-  TestResultPage,
   TimelinePage,
   WritePostPage,
 } from './pages';
@@ -35,6 +34,22 @@ const routes = [
         ),
       },
       {
+        path: PATH.CALENDAR_WRITE,
+        element: (
+          <ProtectedRoute>
+            <WritePostPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.CALENDAR_EDIT,
+        element: (
+          <ProtectedRoute>
+            <EditPostPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: PATH.TIMELINE,
         element: (
           <ProtectedRoute>
@@ -51,7 +66,7 @@ const routes = [
         ),
       },
       {
-        path: PATH.QUESTION,
+        path: PATH.REPORT_QUESTION,
         element: (
           <ProtectedRoute>
             <QuestionPage />
@@ -59,15 +74,7 @@ const routes = [
         ),
       },
       {
-        path: PATH.RESULT,
-        element: (
-          <ProtectedRoute>
-            <TestResultPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: PATH.REPORTLIST,
+        path: PATH.REPORT_ANSWER,
         element: (
           <ProtectedRoute>
             <ReportListPage />
@@ -75,7 +82,7 @@ const routes = [
         ),
       },
       {
-        path: PATH.REPORTITEM,
+        path: PATH.REPORT_DETAIL,
         element: (
           <ProtectedRoute>
             <ReportItemPage />
@@ -87,22 +94,6 @@ const routes = [
         element: (
           <ProtectedRoute>
             <SettingPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: PATH.WRITE,
-        element: (
-          <ProtectedRoute>
-            <WritePostPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: PATH.EDIT,
-        element: (
-          <ProtectedRoute>
-            <EditPostPage />
           </ProtectedRoute>
         ),
       },

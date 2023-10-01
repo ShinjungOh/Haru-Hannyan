@@ -16,8 +16,6 @@ export const mappedResultType = (num: number) => {
     return { color, description, title };
   }
 
-  if (num > 0 && num <= 13) {
-    const { color, description, title } = resultDetail.정상;
-    return { color, description, title };
-  }
+  const { color, description, title } = resultDetail.정상;
+  return { color, description, title };
 };

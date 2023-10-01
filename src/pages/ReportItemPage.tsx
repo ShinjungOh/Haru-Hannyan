@@ -10,6 +10,7 @@ import { BaseButton, NavigationHeader, Typography } from '@ui/components/common'
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { ReportAnswers, ResultDetail } from '@lib/types';
 import { mappedResultType, parseDate } from '@lib/utils';
+import { PATH } from '@lib/const/path';
 import { http } from '../api/http';
 
 export function ReportItemPage() {
@@ -32,6 +33,14 @@ export function ReportItemPage() {
     title: '',
   });
 
+  const handlePageBack = () => {
+    navigate(-1);
+  };
+
+  const handlePageReportList = () => {
+    navigate(PATH.REPORT_ANSWER);
+  };
+
   const handleClickDeleteReport = async () => {
     await deleteReport();
   };
@@ -39,11 +48,7 @@ export function ReportItemPage() {
   const answerDate = parseDate(answer.create_date);
 
   const mappedResultDetails = () => {
-    const mappedResult: ResultDetail = mappedResultType(answer.sumScore) || {
-      color: '#ffffff',
-      description: '',
-      title: '',
-    };
+    const mappedResult: ResultDetail = mappedResultType(answer.sumScore);
     setResult(mappedResult);
   };
 
@@ -71,10 +76,13 @@ export function ReportItemPage() {
 
   useEffect(() => {
     const getTestResult = async () => {
-      const response = await http.get(`/answer/${id}`);
-      console.log('response>>>>', response.data);
-      if (response) {
-        setAnswer(response?.data?.answer as any);
+      try {
+        const response = await http.get<{ answer: ReportAnswers }>(`/answer/${id}`);
+        if (response.data) {
+          setAnswer(response.data.answer);
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
       }
     };
 
@@ -83,7 +91,7 @@ export function ReportItemPage() {
 
   return (
     <>
-      <NavigationHeader title="스트레스 측정하기" isBack />
+      <NavigationHeader title="스트레스 측정하기" isBack onBack={handlePageBack} />
       <Container>
         {answer && (
           <InfoContainer>
@@ -101,15 +109,18 @@ export function ReportItemPage() {
             </Typography>
           </InfoContainer>
         )}
-        <InfoContainer style={{ marginTop: 20 }}>
+        <InfoContainer style={{ marginTop: 14 }}>
           <Typography variant="subtitle3" fontWeight={600}>
             스트레스 점수표
           </Typography>
           <Score />
         </InfoContainer>
         <ButtonContainer>
-          <BaseButton colorTheme="primary" minHeight="68px" onClick={handleClickDeleteReport}>
+          <BaseButton colorTheme="info" minHeight="68px" onClick={handleClickDeleteReport}>
             검사 기록 삭제하기
+          </BaseButton>
+          <BaseButton colorTheme="info" minHeight="68px" onClick={handlePageReportList} style={{ marginTop: 22 }}>
+            이전 검사결과 보기
           </BaseButton>
         </ButtonContainer>
       </Container>
@@ -139,10 +150,11 @@ const InfoContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 46px;
+  margin-top: 26px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 116px;
+  height: auto;
 `;

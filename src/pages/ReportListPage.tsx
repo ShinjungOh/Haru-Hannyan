@@ -7,23 +7,28 @@ import { Menu } from '@ui/components/menu';
 import { NavigationHeader, Typography } from '@ui/components/common';
 import { ReportAnswers } from '@lib/types';
 import { mappedResultType, parseDate } from '@lib/utils';
+import { useAxiosErrorAlert } from '@lib/hooks';
 import { http } from '../api/http';
 
 export function ReportListPage() {
   const navigate = useNavigate();
+  const axiosErrorAlert = useAxiosErrorAlert();
 
   const [answers, setAnswers] = useState<ReportAnswers[]>([]);
 
   const handlePageReportItem = (id: number) => {
-    navigate(`/report/report_list/${id}`);
+    navigate(`/report/answer/${id}`);
   };
 
   useEffect(() => {
     const getReportsList = async () => {
-      const response = await http.get<{ data: { answers: ReportAnswers[] } }>('/answer');
-      if (response) {
-        // console.log(response.data.answers);
-        setAnswers(response.data?.answers);
+      try {
+        const response = await http.get<{ answers: ReportAnswers[] }>('/answer');
+        if (response.data) {
+          setAnswers(response.data.answers);
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
       }
     };
 

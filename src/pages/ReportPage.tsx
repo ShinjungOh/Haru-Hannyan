@@ -17,7 +17,7 @@ export function ReportPage() {
     const isTry = await getIsAnswerableWithinWeek();
 
     if (isTry) {
-      navigate(PATH.QUESTION);
+      navigate(PATH.REPORT_QUESTION);
       return;
     }
 
@@ -28,7 +28,7 @@ export function ReportPage() {
   };
 
   const handlePageReportList = () => {
-    navigate(PATH.REPORTLIST);
+    navigate(PATH.REPORT_ANSWER);
   };
 
   const getIsAnswerableWithinWeek = async () => {
@@ -96,5 +96,4 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 116px;
 `;

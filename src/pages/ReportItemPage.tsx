@@ -7,7 +7,7 @@ import { Body } from '@ui/components/layout';
 import { Score } from '@ui/components/report';
 import { Menu } from '@ui/components/menu';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
-import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { useAlert, useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { ReportAnswers, ResultDetail } from '@lib/types';
 import { mappedResultType, parseDate } from '@lib/utils';
 import { PATH } from '@lib/const/path';
@@ -18,6 +18,7 @@ export function ReportItemPage() {
   const params = useParams();
   const { id } = params;
   const alert = useAlert();
+  const confirm = useConfirm();
   const axiosErrorAlert = useAxiosErrorAlert();
 
   const [answer, setAnswer] = useState<ReportAnswers>({
@@ -42,7 +43,15 @@ export function ReportItemPage() {
   };
 
   const handleClickDeleteReport = async () => {
-    await deleteReport();
+    const responseConfirm = await confirm({
+      type: 'delete',
+      title: '기록을 삭제할까요?',
+      description: '스트레스 측정 기록이 사라져요.',
+    });
+
+    if (responseConfirm) {
+      await deleteReport();
+    }
   };
 
   const answerDate = parseDate(answer.create_date);

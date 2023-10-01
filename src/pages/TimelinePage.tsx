@@ -198,8 +198,6 @@ const EmotionAndTextContainer = styled.div`
 
 const TextContainer = styled.div`
   white-space: pre-wrap;
-  overflow-y: auto;
-  max-height: 400px;
   width: 100%;
   height: auto;
   display: flex;

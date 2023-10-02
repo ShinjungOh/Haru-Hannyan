@@ -6,7 +6,7 @@ import { BaseButton, NavigationHeader, Typography } from '@ui/components/common'
 import { useNavigate } from 'react-router';
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { PATH } from '@lib/const/path';
-import { http } from '../api/http';
+import { apiGetTry } from '../api/report';
 
 export function ReportPage() {
   const navigate = useNavigate();
@@ -33,9 +33,9 @@ export function ReportPage() {
 
   const getIsAnswerableWithinWeek = async () => {
     try {
-      const response = await http.get<{ isTry: boolean }>('/answer/try');
-      if (response.data) {
-        return response.data.isTry;
+      const responseGetTry = await apiGetTry();
+      if (responseGetTry.success && responseGetTry.data) {
+        return responseGetTry.data.isTry;
       }
     } catch (e) {
       await axiosErrorAlert(e);

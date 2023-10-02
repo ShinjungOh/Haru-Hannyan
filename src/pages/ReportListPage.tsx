@@ -8,7 +8,7 @@ import { NavigationHeader, Typography } from '@ui/components/common';
 import { ReportAnswers } from '@lib/types';
 import { mappedResultType, parseDate } from '@lib/utils';
 import { useAxiosErrorAlert } from '@lib/hooks';
-import { http } from '../api/http';
+import { apiGetAnswers } from '../api/report';
 
 export function ReportListPage() {
   const navigate = useNavigate();
@@ -23,9 +23,9 @@ export function ReportListPage() {
   useEffect(() => {
     const getReportsList = async () => {
       try {
-        const response = await http.get<{ answers: ReportAnswers[] }>('/answer');
-        if (response.data) {
-          setAnswers(response.data.answers);
+        const responseGetAnswers = await apiGetAnswers();
+        if (responseGetAnswers.success && responseGetAnswers.data) {
+          setAnswers(responseGetAnswers.data.answers);
         }
       } catch (e) {
         await axiosErrorAlert(e);

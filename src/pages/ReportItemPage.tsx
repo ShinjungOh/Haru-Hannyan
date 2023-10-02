@@ -11,7 +11,7 @@ import { useAlert, useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { ReportAnswers, ResultDetail } from '@lib/types';
 import { mappedResultType, parseDate } from '@lib/utils';
 import { PATH } from '@lib/const/path';
-import { http } from '../api/http';
+import { apiDeleteAnswer, apiGetAnswer } from '../api/report';
 
 export function ReportItemPage() {
   const navigate = useNavigate();
@@ -33,6 +33,8 @@ export function ReportItemPage() {
     description: '',
     title: '',
   });
+
+  const parseId = Number(id);
 
   const handlePageBack = () => {
     navigate(-1);
@@ -63,11 +65,12 @@ export function ReportItemPage() {
 
   const deleteReport = async () => {
     try {
-      const response = await http.delete<{ success: boolean }>(`/answer/${id}`);
-      if (response) {
+      const responseDeleteAnswer = await apiDeleteAnswer(parseId);
+
+      if (responseDeleteAnswer.success) {
         const responseAlert = await alert({
           type: 'success',
-          title: `${response.msg}`,
+          title: `${responseDeleteAnswer.msg}`,
         });
 
         if (responseAlert) {
@@ -86,9 +89,9 @@ export function ReportItemPage() {
   useEffect(() => {
     const getTestResult = async () => {
       try {
-        const response = await http.get<{ answer: ReportAnswers }>(`/answer/${id}`);
-        if (response.data) {
-          setAnswer(response.data.answer);
+        const responseGetAnswer = await apiGetAnswer(parseId);
+        if (responseGetAnswer.success && responseGetAnswer.data) {
+          setAnswer(responseGetAnswer.data.answer);
         }
       } catch (e) {
         await axiosErrorAlert(e);

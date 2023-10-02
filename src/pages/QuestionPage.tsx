@@ -6,8 +6,7 @@ import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { answerTitle } from '@lib/const/reportQnA';
-import { ReportAnswers } from '@lib/types';
-import { http } from '../api/http';
+import { apiGetAnswers, apiGetQuestions, apiPostAnswer } from '../api/report';
 
 export function QuestionPage() {
   const navigate = useNavigate();
@@ -49,48 +48,31 @@ export function QuestionPage() {
   };
 
   const handleSubmit = async () => {
-    const isValidate = await postCheckedAnswer();
-
-    const getReportsList = async () => {
-      try {
-        const response = await http.get<{ answers: ReportAnswers[] }>('/answer');
-        if (response.data) {
-          const id = response.data.answers[0].answer_id;
-
-          if (isValidate) {
-            navigate(`/report/answer/${id}`);
-          }
-        }
-      } catch (e) {
-        await axiosErrorAlert(e);
-      }
-    };
-
-    getReportsList();
-  };
-
-  const postCheckedAnswer = async () => {
     try {
-      const response = await http.post('/answer', {
-        type: 'stress',
-        scores: answer,
-      });
+      const responsePostAnswer = await apiPostAnswer('stress', answer);
 
-      if (response.success) {
-        return response.success;
+      if (responsePostAnswer.success) {
+        // console.log(responsePostAnswer);
+        const responseGetAnswers = await apiGetAnswers();
+
+        if (responseGetAnswers.success && responseGetAnswers.data) {
+          // console.log(responseGetAnswers);
+          const id = responseGetAnswers.data.answers[0].answer_id;
+          navigate(`/report/answer/${id}`);
+        }
       }
     } catch (e) {
       await axiosErrorAlert(e);
-      return false;
     }
   };
 
   useEffect(() => {
     const getQuestionList = async () => {
       try {
-        const response = await http.get<{ question: [] }>('/question/stress');
-        if (response.data) {
-          const isQuestions = response.data.question;
+        const responseGetQuestions = await apiGetQuestions();
+
+        if (responseGetQuestions.success && responseGetQuestions.data) {
+          const isQuestions = responseGetQuestions.data.question;
           setQuestions(isQuestions);
         }
       } catch (e) {

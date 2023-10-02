@@ -21,7 +21,8 @@ export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
 
   useEffect(() => {
     const handleOnKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === 'Escape') {
+      if (e.key === 'Escape' || e.key === 'Enter') {
+        e.preventDefault();
         handleSubmit();
       }
     };

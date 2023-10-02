@@ -189,7 +189,7 @@ const EmptyInputField = styled.div`
   color: ${styleToken.color.gray3};
   background-color: ${styleToken.color.gray5};
   font-size: 12px;
-  outline: none;
+  outline: 0;
   cursor: pointer;
 
   ::placeholder {
@@ -209,6 +209,6 @@ const InputField = styled.div`
   border: none;
   color: ${styleToken.color.gray3};
   font-size: 12px;
-  outline: none;
+  outline: 0;
   cursor: pointer;
 `;

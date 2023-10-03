@@ -74,7 +74,7 @@ export function EditPostPage() {
     try {
       const responsePutDiary = await apiPutDiary(diaryId, diary);
 
-      if (responsePutDiary.success && responsePutDiary.data) {
+      if (responsePutDiary.success) {
         const responseAlert = await alert({
           type: 'success',
           title: responsePutDiary.msg,

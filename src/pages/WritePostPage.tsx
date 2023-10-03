@@ -83,9 +83,8 @@ export function WritePostPage() {
     if (!isDisabled) {
       try {
         const responsePostDiary = await apiPostDiary(diary);
-        console.log(responsePostDiary);
 
-        if (responsePostDiary.success && responsePostDiary.data) {
+        if (responsePostDiary.success) {
           const responseAlert = await alert({
             type: 'success',
             title: responsePostDiary.msg,

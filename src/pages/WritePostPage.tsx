@@ -1,26 +1,15 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { DiaryModal } from '@ui/components/modal';
 import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
-import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
 import { BaseButton } from '@ui/components/common';
-import { Emotion, Feeling } from '@lib/types';
-import { styleToken } from '@ui/styles';
-import { http } from '../api/http';
-
-export type newDiaryType = {
-  feel: string | null;
-  emotions: Emotion[];
-  text: string;
-  date: {
-    year: number;
-    month: number;
-    date: number;
-  };
-};
+import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
+import { Emotion, Feeling, NewDiary } from '@lib/types';
+import { apiPostDiary } from '../api/diary';
 
 export function WritePostPage() {
   const [params] = useSearchParams();
@@ -38,7 +27,7 @@ export function WritePostPage() {
   const parseMonth = month ? parseInt(month, 10) : 0;
   const parseDate = date ? parseInt(date, 10) : 0;
 
-  const [diary, setDiary] = useState<newDiaryType>({
+  const [diary, setDiary] = useState<NewDiary>({
     feel: todayFeeling || null,
     emotions: [],
     text: '',
@@ -77,7 +66,7 @@ export function WritePostPage() {
       clickOverlayClose: true,
     });
 
-    if (responseDiaryModal !== null) {
+    if (responseDiaryModal) {
       setDiary({
         ...diary,
         text: responseDiaryModal.text,
@@ -87,28 +76,28 @@ export function WritePostPage() {
 
   console.log(diary);
 
-  const postNewDiary = async () => {
-    try {
-      const response = await http.post('/diary', diary);
-      console.log(response.msg);
-      const responseAlert = await alert({
-        type: 'success',
-        title: response.msg,
-      });
-      if (responseAlert) {
-        navigate(-1);
-      }
-    } catch (e) {
-      await axiosErrorAlert(e);
-    }
-  };
-
   const isDisabled = !diary.feel;
   const buttonTheme = isDisabled ? 'disabled' : 'primary';
 
-  const handlePostNewDiary = () => {
+  const handlePostNewDiary = async () => {
     if (!isDisabled) {
-      postNewDiary();
+      try {
+        const responsePostDiary = await apiPostDiary(diary);
+        console.log(responsePostDiary);
+
+        if (responsePostDiary.success && responsePostDiary.data) {
+          const responseAlert = await alert({
+            type: 'success',
+            title: responsePostDiary.msg,
+          });
+
+          if (responseAlert) {
+            navigate(-1);
+          }
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
+      }
     }
   };
 

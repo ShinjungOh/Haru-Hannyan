@@ -1,17 +1,17 @@
-import { Menu } from '@ui/components/menu';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router';
-import useDateStore from '@lib/store/useDateStore';
-import { useEffect, useState } from 'react';
-import { calendarImageTypeSrc } from '@lib/const/imageSrc';
-import { Body } from '@ui/components/layout';
-import { CalendarHeader } from '@ui/components/calendar';
-import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
-import { Diary } from '@lib/types';
 import { styleToken } from '@ui/styles';
-import { Typography } from '@ui/components/common';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { CalendarHeader } from '@ui/components/calendar';
+import { Body } from '@ui/components/layout';
+import { Menu } from '@ui/components/menu';
 import { TimelineEmotionItem } from '@ui/components/diary';
-import { http } from '../api/http';
+import { Typography } from '@ui/components/common';
+import useDateStore from '@lib/store/useDateStore';
+import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
+import { calendarImageTypeSrc } from '@lib/const/imageSrc';
+import { Diary } from '@lib/types';
+import { apiDeleteDiary, apiGetMonthlyDiary } from '../api/diary';
 import { dayName } from './CalendarPage';
 
 export function TimelinePage() {
@@ -39,8 +39,7 @@ export function TimelinePage() {
         description: '하루의 일기가 사라집니다.',
       });
       if (responseConfirm) {
-        const response = await http.delete(`/diary/${diaryId}`);
-        console.log(response);
+        await apiDeleteDiary(diaryId);
         location.reload();
       }
     } catch (e) {
@@ -54,11 +53,12 @@ export function TimelinePage() {
         if (targetDate !== null) {
           const year = targetDate.getFullYear();
           const month = targetDate.getMonth() + 1;
-          const response = await http.get<{ diary: Diary[] }>(`/diary?year=${year}&month=${month}`);
-          const diaryData = response.data;
-          if (diaryData && diaryData.diary) {
-            console.log(diaryData.diary);
-            setDiary(diaryData.diary);
+
+          const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
+
+          if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
+            console.log(responseGetMonthlyDiary.data.diary);
+            setDiary(responseGetMonthlyDiary.data.diary);
           }
         }
       } catch (e) {

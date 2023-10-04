@@ -5,4 +5,4 @@ type ResponseOAuthKakao = {
   msg: string;
 };
 
-export const apiOAuthKakao = (code: string | null) => http.post<ResponseOAuthKakao>('/user/oauth/kakao', { code });
+export const apiPostOAuthKakao = (code: string | null) => http.post<ResponseOAuthKakao>('/user/oauth/kakao', { code });

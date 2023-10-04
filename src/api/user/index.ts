@@ -1,3 +1,3 @@
-export * from './apiOAuthKakao';
+export * from './apiPostOAuthKakao';
 export * from './apiPostSignin';
 export * from './apiPostSignup';

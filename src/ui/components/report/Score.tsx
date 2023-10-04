@@ -1,37 +1,27 @@
 import styled from '@emotion/styled';
-import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
+import { RESULT_DETAIL } from '@lib/const/reportQnA';
 
 export function Score() {
   return (
     <ScoreContainer>
       <ScoreList>
-        <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-          23 ~ 40점
-        </Typography>
-        <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-          22 ~ 17점
-        </Typography>
-        <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-          16 ~ 14점
-        </Typography>
-        <Typography variant="body3" style={{ lineHeight: 1.8 }}>
-          13 ~ 0점
-        </Typography>
+        <>
+          {Object.values(RESULT_DETAIL).map((detail) => (
+            <Typography variant="body3" style={{ lineHeight: 1.8 }}>
+              {detail.score}
+            </Typography>
+          ))}
+        </>
       </ScoreList>
       <ScoreList>
-        <Typography variant="body2" color={styleToken.color.alert_danger} fontWeight={600} style={{ lineHeight: 1.6 }}>
-          위험
-        </Typography>
-        <Typography variant="body2" color={styleToken.color.primary} fontWeight={600} style={{ lineHeight: 1.6 }}>
-          중증
-        </Typography>
-        <Typography variant="body2" color={styleToken.color.alert_success} fontWeight={600} style={{ lineHeight: 1.6 }}>
-          경도
-        </Typography>
-        <Typography variant="body2" color={styleToken.color.gray3} fontWeight={600} style={{ lineHeight: 1.6 }}>
-          정상
-        </Typography>
+        <>
+          {Object.values(RESULT_DETAIL).map((detail) => (
+            <Typography variant="body2" color={detail.color} fontWeight={600} style={{ lineHeight: 1.6 }}>
+              {detail.title}
+            </Typography>
+          ))}
+        </>
       </ScoreList>
     </ScoreContainer>
   );

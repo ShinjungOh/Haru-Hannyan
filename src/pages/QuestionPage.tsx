@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
@@ -15,7 +15,8 @@ export function QuestionPage() {
 
   const [questions, setQuestions] = useState<[]>([]);
   const [answer, setAnswer] = useState<number[]>([]);
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const isAvailable = useMemo(() => answer.length === 10, [answer]);
 
   const handleChangeAnswer = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
@@ -24,12 +25,6 @@ export function QuestionPage() {
     const updatedAnswers = [...answer];
     updatedAnswers[index] = parseNumberAnswer;
     setAnswer(updatedAnswers);
-  };
-
-  const handleChangeDisabled = () => {
-    if (answer.length === 10) {
-      setIsDisabled(false);
-    }
   };
 
   const handlePageBack = async () => {
@@ -80,10 +75,6 @@ export function QuestionPage() {
 
     getQuestionList();
   }, []);
-
-  useEffect(() => {
-    handleChangeDisabled();
-  }, [answer]);
 
   return (
     <>
@@ -137,7 +128,7 @@ export function QuestionPage() {
           minHeight="68px"
           onClick={handleSubmit}
           style={{ marginTop: 30 }}
-          disabled={isDisabled}
+          disabled={!isAvailable}
         >
           결과보기
         </BaseButton>

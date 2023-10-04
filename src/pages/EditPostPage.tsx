@@ -72,6 +72,14 @@ export function EditPostPage() {
 
   const handleEditDiary = async () => {
     try {
+      if (!diaryId) {
+        await alert({
+          type: 'danger',
+          title: '선택된 일기가 없어요.',
+        });
+        return;
+      }
+
       const responsePutDiary = await apiPutDiary(diaryId, diary);
 
       if (responsePutDiary.success) {
@@ -91,11 +99,23 @@ export function EditPostPage() {
 
   useEffect(() => {
     const getDailyDiary = async () => {
-      const responseGetDiary = await apiGetDailyDiary(diaryId);
+      try {
+        if (!diaryId) {
+          await alert({
+            type: 'danger',
+            title: '선택된 일기가 없어요.',
+          });
+          return;
+        }
 
-      if (responseGetDiary.success && responseGetDiary.data) {
-        const dailyDiary = responseGetDiary.data.diary;
-        setDiary(dailyDiary);
+        const responseGetDiary = await apiGetDailyDiary(diaryId);
+
+        if (responseGetDiary.success && responseGetDiary.data) {
+          const dailyDiary = responseGetDiary.data.diary;
+          setDiary(dailyDiary);
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
       }
     };
 

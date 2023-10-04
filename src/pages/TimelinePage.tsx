@@ -27,11 +27,11 @@ export function TimelinePage() {
 
   const [diary, setDiary] = useState<Diary[]>();
 
-  const handlePageToEditDiary = (diaryId: number | undefined) => {
+  const handlePageToEditDiary = (diaryId: string) => {
     navigate(`/calendar/edit?diaryId=${diaryId}`);
   };
 
-  const handleClickDeleteDiary = async (diaryId: number | undefined) => {
+  const handleClickDeleteDiary = async (diaryId: string) => {
     try {
       const responseConfirm = await confirm({
         type: 'delete',
@@ -57,7 +57,6 @@ export function TimelinePage() {
           const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
 
           if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
-            console.log(responseGetMonthlyDiary.data.diary);
             setDiary(responseGetMonthlyDiary.data.diary);
           }
         }
@@ -86,7 +85,7 @@ export function TimelinePage() {
             const dayOfWeek = dayName[getDayOfTargetDate];
             return (
               <div key={index}>
-                <DiaryContainer onClick={() => handlePageToEditDiary(el.diaryId)}>
+                <DiaryContainer onClick={() => handlePageToEditDiary(String(el.diaryId))}>
                   <FeelingAndDateContainer>
                     <FeelingCat>
                       <img src={CALENDAR_TYPE_IMG[el.feel]} alt={el.feel} />
@@ -107,7 +106,7 @@ export function TimelinePage() {
                     <TextContainer>{el.text}</TextContainer>
                   </EmotionAndTextContainer>
                 </DiaryContainer>
-                <DeleteButton onClick={() => handleClickDeleteDiary(el.diaryId)}>삭제</DeleteButton>
+                <DeleteButton onClick={() => handleClickDeleteDiary(String(el.diaryId))}>삭제</DeleteButton>
               </div>
             );
           })

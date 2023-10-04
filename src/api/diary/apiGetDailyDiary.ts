@@ -5,4 +5,4 @@ type ResponseGetDailyDiary = {
   diary: Diary;
 };
 
-export const apiGetDailyDiary = (id: string | null) => http.get<ResponseGetDailyDiary>(`/diary/${id}`);
+export const apiGetDailyDiary = (id: string) => http.get<ResponseGetDailyDiary>(`/diary/${id}`);

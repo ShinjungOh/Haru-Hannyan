@@ -9,6 +9,12 @@ type ResponsePostSignup = {
   };
 };
 
+type RequestPostSignup = {
+  email: string;
+  password: string;
+  name: string;
+};
+
 export const apiPostSignup = (user: UserType) => {
   const data = {
     email: user.email,
@@ -16,5 +22,5 @@ export const apiPostSignup = (user: UserType) => {
     name: user.name,
   };
 
-  return http.post<ResponsePostSignup>('/user/signup', data);
+  return http.post<ResponsePostSignup, RequestPostSignup>('/user/signup', data);
 };

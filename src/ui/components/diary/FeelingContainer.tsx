@@ -1,8 +1,8 @@
-import { feelingCatTypeSrc } from '@lib/const/imageSrc';
 import styled from '@emotion/styled';
-import { Feeling } from '@lib/types';
 import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
+import { FEELING_CAT_TYPE } from '@lib/const/imageSrc';
+import { Feeling } from '@lib/types';
 
 type FeelingContainerProps = {
   diary: any;
@@ -17,7 +17,7 @@ export function FeelingContainer({ diary, onClick }: FeelingContainerProps) {
       </Typography>
       <FeelingCatList>
         <>
-          {feelingCatTypeSrc.map((el, index) => {
+          {FEELING_CAT_TYPE.map((el, index) => {
             const isSelected = el.feeling === diary.feel;
             return (
               <FeelingCatImage

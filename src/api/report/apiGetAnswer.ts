@@ -5,4 +5,4 @@ type ResponseGetAnswer = {
   answer: ReportAnswers;
 };
 
-export const apiGetAnswer = (answer_id: number) => http.get<ResponseGetAnswer>(`/answer/${answer_id}`);
+export const apiGetAnswer = (answerId: number) => http.get<ResponseGetAnswer>(`/answer/${answerId}`);

@@ -1,6 +1,6 @@
 import { styleToken } from '@ui/styles';
 
-export const alertModalTypeSrc = {
+export const ALERT_MODAL_TYPE = {
   success: {
     imageSrc: '/images/icon/modal/success.svg',
     color: styleToken.color.alert_success,

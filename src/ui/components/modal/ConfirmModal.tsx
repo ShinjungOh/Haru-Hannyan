@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { confirmModalTypeSrc } from '@lib/const/confirmModalSrc';
+import { CONFIRM_MODAL_TYPE } from '@lib/const/confirmModalSrc';
 import { BaseButton, Typography } from '@ui/components/common';
 import { styleToken } from '@ui/styles';
 import { useEffect } from 'react';
@@ -15,8 +15,8 @@ type ConfirmModalProps = {
 };
 
 export function ConfirmModal({ type, title, description, onClose, onSubmit }: ConfirmModalProps) {
-  const imgSrc = confirmModalTypeSrc[type].imageSrc;
-  const btnText = confirmModalTypeSrc[type].buttonText;
+  const imgSrc = CONFIRM_MODAL_TYPE[type].imageSrc;
+  const btnText = CONFIRM_MODAL_TYPE[type].buttonText;
 
   const handleClose = () => {
     onClose?.();

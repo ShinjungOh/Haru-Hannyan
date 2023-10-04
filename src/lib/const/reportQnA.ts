@@ -1,6 +1,6 @@
 import { styleToken } from '@ui/styles';
 
-export const answerTitle = [
+export const ANSWER_TITLE = [
   {
     score: 0,
     text: '전혀 아님',
@@ -23,7 +23,7 @@ export const answerTitle = [
   },
 ];
 
-export const resultDetail = {
+export const RESULT_DETAIL = {
   위험: {
     score: '23~40',
     title: '위험',

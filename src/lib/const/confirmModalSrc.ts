@@ -1,4 +1,4 @@
-export const confirmModalTypeSrc = {
+export const CONFIRM_MODAL_TYPE = {
   out: {
     imageSrc: '/images/icon/modal/alert.svg',
     buttonText: '나가기',

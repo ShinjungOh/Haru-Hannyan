@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
-import { answerTitle } from '@lib/const/reportQnA';
+import { ANSWER_TITLE } from '@lib/const/reportQnA';
 import { apiGetAnswers, apiGetQuestions, apiPostAnswer } from '../api/report';
 
 export function QuestionPage() {
@@ -52,11 +52,9 @@ export function QuestionPage() {
       const responsePostAnswer = await apiPostAnswer('stress', answer);
 
       if (responsePostAnswer.success) {
-        // console.log(responsePostAnswer);
         const responseGetAnswers = await apiGetAnswers();
 
         if (responseGetAnswers.success && responseGetAnswers.data) {
-          // console.log(responseGetAnswers);
           const id = responseGetAnswers.data.answers[0].answer_id;
           navigate(`/report/answer/${id}`);
         }
@@ -115,7 +113,7 @@ export function QuestionPage() {
               </QuestionTitle>
               <AnswerContainer>
                 <>
-                  {answerTitle.map((answer) => (
+                  {ANSWER_TITLE.map((answer) => (
                     <Radio key={answer.text}>
                       <input
                         type="radio"

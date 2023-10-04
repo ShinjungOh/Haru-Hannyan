@@ -9,8 +9,8 @@ import { TimelineEmotionItem } from '@ui/components/diary';
 import { Typography } from '@ui/components/common';
 import useDateStore from '@lib/store/useDateStore';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
-import { calendarImageTypeSrc } from '@lib/const/imageSrc';
 import { Diary } from '@lib/types';
+import { CALENDAR_TYPE_IMG } from '@lib/const/imageSrc';
 import { apiDeleteDiary, apiGetMonthlyDiary } from '../api/diary';
 import { dayName } from './CalendarPage';
 
@@ -89,7 +89,7 @@ export function TimelinePage() {
                 <DiaryContainer onClick={() => handlePageToEditDiary(el.diaryId)}>
                   <FeelingAndDateContainer>
                     <FeelingCat>
-                      <img src={calendarImageTypeSrc[el.feel]} alt={el.feel} />
+                      <img src={CALENDAR_TYPE_IMG[el.feel]} alt={el.feel} />
                     </FeelingCat>
                     <DiaryDate>
                       <Typography variant="h4" color={styleToken.color.gray1}>

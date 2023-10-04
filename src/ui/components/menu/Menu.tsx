@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
-import { useLocation } from 'react-router-dom';
-import { PATH } from '@lib/const/path';
-import { useNavigate } from 'react-router';
-import useDateStore from '@lib/store/useDateStore';
+import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
-import { feelCatIcon, menuIcon } from '@lib/const/imageSrc';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { MenuItem } from '@ui/components/menu';
 import { TodayFeeling } from '@ui/components/calendar';
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { FEELING_CAT_ICON, MENU_ICON } from '@lib/const/imageSrc';
+import { PATH } from '@lib/const/path';
+import useDateStore from '@lib/store/useDateStore';
 import { Diary } from '@lib/types';
-import { styleToken } from '@ui/styles';
 import { http } from '../../../api/http';
 
 export function Menu() {
@@ -40,9 +40,9 @@ export function Menu() {
     const menuIconKey = PATH[iconKey];
 
     if (pathName === `/${iconKey}` && mappedReport === 'REPORT') {
-      return menuIcon[menuIconKey].active;
+      return MENU_ICON[menuIconKey].active;
     }
-    return menuIcon[menuIconKey].inactive;
+    return MENU_ICON[menuIconKey].inactive;
   };
 
   const handleCreateTodayDiary = () => {
@@ -99,7 +99,7 @@ export function Menu() {
       <MenuItem imageSrc={getMenuIcon('SETTING')} path={PATH.SETTING} />
       <>{isOpen && <TodayFeeling onClick={handleClickTodayFeeling} />}</>
       <FeelCatIcon onClick={handleCreateTodayDiary}>
-        <img src={feelCatIcon} alt="cat-icon" />
+        <img src={FEELING_CAT_ICON} alt="cat-icon" />
       </FeelCatIcon>
     </Container>
   );

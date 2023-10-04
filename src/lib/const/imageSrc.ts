@@ -1,16 +1,16 @@
 import { PATH } from '@lib/const/path';
 import { Emotion, Feeling } from '@lib/types';
 
-export const feelCatIcon = '/images/icon/menu/feel-cat.svg';
+export const FEELING_CAT_ICON = '/images/icon/menu/feel-cat.svg';
 
-export const menuIcon = {
+export const MENU_ICON = {
   [PATH.CALENDAR]: { active: '/images/icon/menu/calendar-active.svg', inactive: '/images/icon/menu/calendar.svg' },
   [PATH.TIMELINE]: { active: '/images/icon/menu/timeline-active.svg', inactive: '/images/icon/menu/timeline.svg' },
   [PATH.REPORT]: { active: '/images/icon/menu/report-active.svg', inactive: '/images/icon/menu/report.svg' },
   [PATH.SETTING]: { active: '/images/icon/menu/setting-active.svg', inactive: '/images/icon/menu/setting.svg' },
 };
 
-export const calendarImageTypeSrc = {
+export const CALENDAR_TYPE_IMG = {
   today: 'images/icon/calendar/today.svg',
   available: 'images/icon/calendar/available.svg',
   disabled: 'images/icon/calendar/disabled.svg',
@@ -21,7 +21,7 @@ export const calendarImageTypeSrc = {
   [Feeling.화남]: 'images/icon/calendar/feeling-cat-angry.svg',
 };
 
-export const feelingCatTypeSrc = [
+export const FEELING_CAT_TYPE = [
   {
     feeling: Feeling.행복,
     url: '/images/icon/calendar/feeling-cat-great.svg',
@@ -44,7 +44,7 @@ export const feelingCatTypeSrc = [
   },
 ];
 
-export const emotionImageSrc = [
+export const EMOTION_TYPE = [
   {
     emotion: Emotion.신나는,
     url: '/images/icon/emotion/신나는.svg',

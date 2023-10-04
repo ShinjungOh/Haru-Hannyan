@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { calendarImageTypeSrc } from '@lib/const/imageSrc';
+import { CALENDAR_TYPE_IMG } from '@lib/const/imageSrc';
 import { DateType } from '@lib/types';
 import { styleToken } from '@ui/styles';
 
@@ -10,7 +10,7 @@ type DateColumnProps = {
 };
 
 export function DateColumn({ date, type, onClick }: DateColumnProps) {
-  const imgSrc = calendarImageTypeSrc[type];
+  const imgSrc = CALENDAR_TYPE_IMG[type];
 
   return (
     <Day type={type} onClick={onClick}>

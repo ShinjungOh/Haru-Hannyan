@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { PATH } from '@lib/const/path';
-import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { Body } from '@ui/components/layout';
 import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert } from '@lib/hooks';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
-import { styleToken } from '@ui/styles';
-import { http } from '../api/http';
+import { PATH } from '@lib/const/path';
+import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import { apiPostSignup } from '../api/user';
 
 export function SignupPage() {
   const navigate = useNavigate();
@@ -69,13 +69,11 @@ export function SignupPage() {
 
   const handleClickSignUp = async () => {
     try {
-      const responseSignUp = await http.post<{ user: { user_token: string; name: string } }>('/user/signup', {
-        email: user.email,
-        password: user.password,
-        name: user.name,
-      });
-      if (responseSignUp.data) {
-        const accessToken = responseSignUp.data.user.user_token;
+      const responseSignUp = await apiPostSignup(user);
+      console.log(responseSignUp);
+
+      if (responseSignUp.success && responseSignUp.data) {
+        const accessToken = responseSignUp.data.token;
         const userProfile = {
           name: responseSignUp.data.user.name,
         };
@@ -116,7 +114,7 @@ export function SignupPage() {
 
   return (
     <>
-      <NavigationHeader />
+      <NavigationHeader isBack />
       <Container>
         <TitleContainer>
           <Typography variant="h3">회원가입</Typography>
@@ -190,7 +188,7 @@ export function SignupPage() {
 }
 
 const Container = styled(Body)`
-  padding: 10px 35px 35px 35px;
+  padding: 0 35px 35px 35px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;

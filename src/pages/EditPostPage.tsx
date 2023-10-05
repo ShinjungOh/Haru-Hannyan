@@ -1,15 +1,15 @@
-import { Body } from '@ui/components/layout';
 import styled from '@emotion/styled';
-import { useSearchParams } from 'react-router-dom';
+import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
+import { Body } from '@ui/components/layout';
 import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
+import { BaseButton } from '@ui/components/common';
 import { DiaryModal } from '@ui/components/modal';
 import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
-import { BaseButton } from '@ui/components/common';
 import { Diary, Emotion, Feeling } from '@lib/types';
-import { styleToken } from '@ui/styles';
-import { http } from '../api/http';
+import { apiGetDailyDiary, apiPutDiary } from '../api/diary';
 
 export function EditPostPage() {
   const [params] = useSearchParams();
@@ -68,35 +68,54 @@ export function EditPostPage() {
     }
   };
 
-  console.log(diary);
+  console.log('>>>', diary);
 
-  const putEditDiary = async () => {
+  const handleEditDiary = async () => {
     try {
-      const response = await http.put<{ diary: Diary }>(`/diary/${diaryId}`, diary);
-      console.log(response.msg);
-      const responseAlert = await alert({
-        type: 'success',
-        title: response.msg,
-      });
-      if (responseAlert) {
-        navigate(-1);
+      if (!diaryId) {
+        await alert({
+          type: 'danger',
+          title: '선택된 일기가 없어요.',
+        });
+        return;
+      }
+
+      const responsePutDiary = await apiPutDiary(diaryId, diary);
+
+      if (responsePutDiary.success) {
+        const responseAlert = await alert({
+          type: 'success',
+          title: responsePutDiary.msg,
+        });
+
+        if (responseAlert) {
+          navigate(-1);
+        }
       }
     } catch (e) {
       await axiosErrorAlert(e);
     }
   };
 
-  const handleEditDiary = () => {
-    putEditDiary();
-  };
-
   useEffect(() => {
     const getDailyDiary = async () => {
-      const response = await http.get<{ diary: Diary }>(`/diary/${diaryId}`);
-      const isSuccess = response.success;
-      if (isSuccess && response.data) {
-        const dailyDiary = response.data.diary;
-        setDiary(dailyDiary);
+      try {
+        if (!diaryId) {
+          await alert({
+            type: 'danger',
+            title: '선택된 일기가 없어요.',
+          });
+          return;
+        }
+
+        const responseGetDiary = await apiGetDailyDiary(diaryId);
+
+        if (responseGetDiary.success && responseGetDiary.data) {
+          const dailyDiary = responseGetDiary.data.diary;
+          setDiary(dailyDiary);
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
       }
     };
 
@@ -178,7 +197,7 @@ const EmptyInputField = styled.div`
   color: ${styleToken.color.gray3};
   background-color: ${styleToken.color.gray5};
   font-size: 12px;
-  outline: none;
+  outline: 0;
   cursor: pointer;
 
   ::placeholder {
@@ -198,6 +217,6 @@ const InputField = styled.div`
   border: none;
   color: ${styleToken.color.gray3};
   font-size: 12px;
-  outline: none;
+  outline: 0;
   cursor: pointer;
 `;

@@ -37,4 +37,15 @@ export type Diary = {
   };
 };
 
+export type NewDiary = {
+  feel: string | null;
+  emotions: Emotion[];
+  text: string;
+  date: {
+    year: number;
+    month: number;
+    date: number;
+  };
+};
+
 export type DateType = 'today' | 'available' | 'disabled' | Feeling;

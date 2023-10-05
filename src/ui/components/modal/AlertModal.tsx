@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { alertModalTypeSrc } from '@lib/const/alertModalSrc';
+import { ALERT_MODAL_TYPE } from '@lib/const/alertModalSrc';
 import { BaseButton, Typography } from '@ui/components/common';
 import { styleToken } from '@ui/styles';
 import { useEffect } from 'react';
@@ -13,7 +13,7 @@ type ConfirmModalProps = {
 };
 
 export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
-  const imgSrc = alertModalTypeSrc[type].imageSrc;
+  const imgSrc = ALERT_MODAL_TYPE[type].imageSrc;
 
   const handleSubmit = () => {
     onSubmit?.(true);
@@ -21,7 +21,8 @@ export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
 
   useEffect(() => {
     const handleOnKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === 'Escape') {
+      if (e.key === 'Escape' || e.key === 'Enter') {
+        e.preventDefault();
         handleSubmit();
       }
     };

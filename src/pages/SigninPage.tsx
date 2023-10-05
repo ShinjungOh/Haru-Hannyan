@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { KeyboardEvent, MouseEvent, ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { PATH } from '@lib/const/path';
-import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { Body } from '@ui/components/layout';
 import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert } from '@lib/hooks';
+import { PATH } from '@lib/const/path';
+import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
-import { styleToken } from '@ui/styles';
-import { http } from '../api/http';
+import { apiPostSignin } from '../api/user';
 
 export function SigninPage() {
   const navigate = useNavigate();
@@ -50,11 +50,9 @@ export function SigninPage() {
     }
 
     try {
-      const responseSignIn = await http.post<{ user: { user_token: string; name: string } }>('/user/signin', {
-        email: user.email,
-        password: user.password,
-      });
-      if (responseSignIn.data) {
+      const responseSignIn = await apiPostSignin(user);
+
+      if (responseSignIn.success && responseSignIn.data) {
         const accessToken = responseSignIn.data.user.user_token;
         const userProfile = {
           name: responseSignIn.data.user.name,
@@ -88,7 +86,7 @@ export function SigninPage() {
 
   return (
     <>
-      <NavigationHeader />
+      <NavigationHeader isBack />
       <Container>
         <TitleContainer>
           <Typography variant="h1">로그인</Typography>
@@ -143,7 +141,6 @@ const Container = styled(Body)`
 `;
 
 const TitleContainer = styled.div`
-  margin-top: 20px;
   margin-bottom: 50px;
 `;
 

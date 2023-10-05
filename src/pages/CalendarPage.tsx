@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
-import useDateStore from '@lib/store/useDateStore';
+import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { CalendarHeader, DateColumn } from '@ui/components/calendar';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
-import { CalendarHeader, DateColumn } from '@ui/components/calendar';
+import { Typography } from '@ui/components/common';
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { DateType, Diary } from '@lib/types';
 import { range } from '@lib/utils';
-import { styleToken } from '@ui/styles';
-import { Typography } from '@ui/components/common';
-import { http } from '../api/http';
+import useDateStore from '@lib/store/useDateStore';
+import { apiGetMonthlyDiary } from '../api/diary';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -77,10 +77,11 @@ export function CalendarPage() {
         if (targetDate !== null) {
           const year = targetDate.getFullYear();
           const month = targetDate.getMonth() + 1;
-          const response = await http.get<{ diary: Diary[] }>(`/diary?year=${year}&month=${month}`);
-          const diaryData = response.data;
-          if (diaryData) {
-            setMonthlyDiary(diaryData.diary);
+
+          const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
+
+          if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
+            setMonthlyDiary(responseGetMonthlyDiary.data.diary);
           }
         }
       } catch (e) {

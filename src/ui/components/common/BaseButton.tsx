@@ -67,6 +67,8 @@ const Button = styled.button<Props>`
     background-color: ${(props) => colorSchemaStyle[props.colorTheme].backgroundColor}dd;
   }
   &:disabled {
-    background-color: ${(props) => colorSchemaStyle[props.colorTheme].backgroundColor}77;
+    cursor: not-allowed;
+    background-color: ${styleToken.color.gray5};
+    color: ${styleToken.color.white};
   }
 `;

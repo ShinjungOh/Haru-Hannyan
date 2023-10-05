@@ -104,7 +104,7 @@ const TextContainer = styled.textarea`
   color: ${styleToken.color.gray2};
   cursor: pointer;
   font-size: 14px;
-  outline: none;
+  outline: 0;
   resize: none;
   overflow-y: auto;
 `;

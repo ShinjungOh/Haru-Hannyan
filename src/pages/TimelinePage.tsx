@@ -1,17 +1,17 @@
-import { Menu } from '@ui/components/menu';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router';
-import useDateStore from '@lib/store/useDateStore';
+import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
-import { calendarImageTypeSrc } from '@lib/const/imageSrc';
-import { Body } from '@ui/components/layout';
+import { useNavigate } from 'react-router';
 import { CalendarHeader } from '@ui/components/calendar';
+import { Body } from '@ui/components/layout';
+import { Menu } from '@ui/components/menu';
+import { TimelineEmotionItem } from '@ui/components/diary';
+import { Typography } from '@ui/components/common';
+import useDateStore from '@lib/store/useDateStore';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { Diary } from '@lib/types';
-import { styleToken } from '@ui/styles';
-import { Typography } from '@ui/components/common';
-import { TimelineEmotionItem } from '@ui/components/diary';
-import { http } from '../api/http';
+import { CALENDAR_TYPE_IMG } from '@lib/const/imageSrc';
+import { apiDeleteDiary, apiGetMonthlyDiary } from '../api/diary';
 import { dayName } from './CalendarPage';
 
 export function TimelinePage() {
@@ -27,11 +27,11 @@ export function TimelinePage() {
 
   const [diary, setDiary] = useState<Diary[]>();
 
-  const handlePageToEditDiary = (diaryId: number | undefined) => {
+  const handlePageToEditDiary = (diaryId: string) => {
     navigate(`/calendar/edit?diaryId=${diaryId}`);
   };
 
-  const handleClickDeleteDiary = async (diaryId: number | undefined) => {
+  const handleClickDeleteDiary = async (diaryId: string) => {
     try {
       const responseConfirm = await confirm({
         type: 'delete',
@@ -39,8 +39,7 @@ export function TimelinePage() {
         description: '하루의 일기가 사라집니다.',
       });
       if (responseConfirm) {
-        const response = await http.delete(`/diary/${diaryId}`);
-        console.log(response);
+        await apiDeleteDiary(diaryId);
         location.reload();
       }
     } catch (e) {
@@ -54,11 +53,11 @@ export function TimelinePage() {
         if (targetDate !== null) {
           const year = targetDate.getFullYear();
           const month = targetDate.getMonth() + 1;
-          const response = await http.get<{ diary: Diary[] }>(`/diary?year=${year}&month=${month}`);
-          const diaryData = response.data;
-          if (diaryData && diaryData.diary) {
-            console.log(diaryData.diary);
-            setDiary(diaryData.diary);
+
+          const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
+
+          if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
+            setDiary(responseGetMonthlyDiary.data.diary);
           }
         }
       } catch (e) {
@@ -86,10 +85,10 @@ export function TimelinePage() {
             const dayOfWeek = dayName[getDayOfTargetDate];
             return (
               <div key={index}>
-                <DiaryContainer onClick={() => handlePageToEditDiary(el.diaryId)}>
+                <DiaryContainer onClick={() => handlePageToEditDiary(String(el.diaryId))}>
                   <FeelingAndDateContainer>
                     <FeelingCat>
-                      <img src={calendarImageTypeSrc[el.feel]} alt={el.feel} />
+                      <img src={CALENDAR_TYPE_IMG[el.feel]} alt={el.feel} />
                     </FeelingCat>
                     <DiaryDate>
                       <Typography variant="h4" color={styleToken.color.gray1}>
@@ -107,14 +106,14 @@ export function TimelinePage() {
                     <TextContainer>{el.text}</TextContainer>
                   </EmotionAndTextContainer>
                 </DiaryContainer>
-                <DeleteButton onClick={() => handleClickDeleteDiary(el.diaryId)}>삭제</DeleteButton>
+                <DeleteButton onClick={() => handleClickDeleteDiary(String(el.diaryId))}>삭제</DeleteButton>
               </div>
             );
           })
         ) : (
           <EmptyContainer>
             <Typography variant="subtitle3" color={styleToken.color.gray3} fontWeight={400}>
-              작성한 일기가 없어요
+              작성한 일기가 없어요.
             </Typography>
           </EmptyContainer>
         )}
@@ -198,8 +197,6 @@ const EmotionAndTextContainer = styled.div`
 
 const TextContainer = styled.div`
   white-space: pre-wrap;
-  overflow-y: auto;
-  max-height: 400px;
   width: 100%;
   height: auto;
   display: flex;

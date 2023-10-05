@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { feelingCatTypeSrc } from '@lib/const/imageSrc';
 import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
+import { FEELING_CAT_TYPE } from '@lib/const/imageSrc';
 
 type TodayFeelingProps = {
   onClick: (feeling: string) => void;
@@ -16,7 +16,7 @@ export function TodayFeeling({ onClick }: TodayFeelingProps) {
         </Typography>
         <FeelingCat>
           <>
-            {feelingCatTypeSrc.map((el, index) => (
+            {FEELING_CAT_TYPE.map((el, index) => (
               <img key={index} src={el.url} alt={el.feeling} onClick={() => onClick(el.feeling)} />
             ))}
           </>

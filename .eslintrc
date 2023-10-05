@@ -98,6 +98,7 @@
     "jsx-a11y/anchor-is-valid": "off",
     "react-refresh/only-export-components": "off",
     "react/jsx-no-useless-fragment": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "consistent-return": "off"
   }
 }

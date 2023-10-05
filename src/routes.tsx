@@ -6,6 +6,9 @@ import {
   EditPostPage,
   HomePage,
   ProtectedRoute,
+  QuestionPage,
+  ReportItemPage,
+  ReportListPage,
   ReportPage,
   SettingPage,
   SigninPage,
@@ -31,6 +34,22 @@ const routes = [
         ),
       },
       {
+        path: PATH.CALENDAR_WRITE,
+        element: (
+          <ProtectedRoute>
+            <WritePostPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.CALENDAR_EDIT,
+        element: (
+          <ProtectedRoute>
+            <EditPostPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: PATH.TIMELINE,
         element: (
           <ProtectedRoute>
@@ -47,26 +66,34 @@ const routes = [
         ),
       },
       {
+        path: PATH.REPORT_QUESTION,
+        element: (
+          <ProtectedRoute>
+            <QuestionPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.REPORT_ANSWER,
+        element: (
+          <ProtectedRoute>
+            <ReportListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.REPORT_DETAIL,
+        element: (
+          <ProtectedRoute>
+            <ReportItemPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: PATH.SETTING,
         element: (
           <ProtectedRoute>
             <SettingPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: PATH.WRITE,
-        element: (
-          <ProtectedRoute>
-            <WritePostPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: PATH.EDIT,
-        element: (
-          <ProtectedRoute>
-            <EditPostPage />
           </ProtectedRoute>
         ),
       },

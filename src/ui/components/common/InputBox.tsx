@@ -34,7 +34,7 @@ const Input = styled.input`
   border: 1px solid ${styleToken.color.gray4};
   color: ${styleToken.color.gray2};
   font-size: 17px;
-  outline: none;
+  outline: 0;
   cursor: pointer;
 
   ::placeholder {

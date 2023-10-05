@@ -76,9 +76,11 @@ export function SignupPage() {
         const accessToken = responseSignUp.data.token;
         const userProfile = {
           name: responseSignUp.data.user.name,
+          // email: responseSignUp.data.user.email,
         };
         localStorage.setItem(ACCESS_TOKEN, accessToken);
-        localStorage.setItem(USER, JSON.stringify(userProfile));
+        localStorage.setItem(USER, JSON.stringify(userProfile.name));
+        // localStorage.setItem(EMAIL, JSON.stringify(userProfile.email));
         navigate(PATH.CALENDAR);
       }
     } catch (e) {

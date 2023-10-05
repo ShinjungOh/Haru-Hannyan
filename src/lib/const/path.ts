@@ -12,4 +12,5 @@ export const PATH = {
   REPORT_ANSWER: '/report/answer',
   REPORT_DETAIL: '/report/answer/:id',
   SETTING: '/setting',
+  SETTING_PRIVACY: '/setting/privacy',
 };

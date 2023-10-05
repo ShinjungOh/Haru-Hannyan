@@ -6,7 +6,7 @@ import { Body } from '@ui/components/layout';
 import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert } from '@lib/hooks';
 import { PATH } from '@lib/const/path';
-import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import { ACCESS_TOKEN, EMAIL, USER } from '@lib/const/localstorage';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
 import { apiPostSignin } from '../api/user';
@@ -56,9 +56,11 @@ export function SigninPage() {
         const accessToken = responseSignIn.data.user.user_token;
         const userProfile = {
           name: responseSignIn.data.user.name,
+          email: responseSignIn.data.user.email,
         };
         localStorage.setItem(ACCESS_TOKEN, accessToken);
-        localStorage.setItem(USER, JSON.stringify(userProfile));
+        localStorage.setItem(USER, JSON.stringify(userProfile.name));
+        localStorage.setItem(EMAIL, JSON.stringify(userProfile.email));
         navigate(PATH.CALENDAR);
       }
     } catch (e) {

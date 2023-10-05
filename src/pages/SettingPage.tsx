@@ -1,15 +1,39 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { useNavigate } from 'react-router';
-import { PATH } from '@lib/const/path';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { BaseButton, Typography } from '@ui/components/common';
-import { useConfirm } from '@lib/hooks';
-import { styleToken } from '@ui/styles';
+import { PATH } from '@lib/const/path';
+import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
+import { useEffect, useState } from 'react';
+import useDateStore from '@lib/store/useDateStore';
+import { apiGetAnswers } from '../api/report';
+import { apiGetMonthlyDiary } from '../api/diary';
+
+type Record = {
+  diaries: number;
+  answers: number;
+};
 
 export function SettingPage() {
   const navigate = useNavigate();
   const confirm = useConfirm();
+  const axiosErrorAlert = useAxiosErrorAlert();
+
+  const [record, setRecord] = useState<Record>({
+    diaries: 0,
+    answers: 0,
+  });
+
+  const [currentDate] = useDateStore((state) => [state.currentDate]);
+
+  // const userName = JSON.parse(localStorage.getItem(USER));
+  // const userEmail = JSON.parse(localStorage.getItem(EMAIL));
+
+  const handlePagePrivacyPolicy = () => {
+    navigate(PATH.SETTING_PRIVACY);
+  };
 
   const handleClickLogout = async () => {
     const responseConfirm = await confirm({
@@ -23,6 +47,45 @@ export function SettingPage() {
     }
   };
 
+  console.log(record);
+
+  useEffect(() => {
+    const getDiaries = async () => {
+      try {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        const responseGetDiaries = await apiGetMonthlyDiary(year, month);
+
+        if (responseGetDiaries.success && responseGetDiaries.data) {
+          setRecord({
+            ...record,
+            diaries: responseGetDiaries.data.diary.length,
+          });
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
+      }
+    };
+
+    const getAnswers = async () => {
+      try {
+        const responseGetAnswers = await apiGetAnswers();
+
+        if (responseGetAnswers.success && responseGetAnswers.data) {
+          setRecord({
+            ...record,
+            answers: responseGetAnswers.data.answers.length,
+          });
+        }
+      } catch (e) {
+        await axiosErrorAlert(e);
+      }
+    };
+
+    getDiaries();
+    getAnswers();
+  }, []);
+
   return (
     <>
       <TitleContainer>
@@ -35,8 +98,12 @@ export function SettingPage() {
         <ProfileDetail>
           <Typography variant="subtitle3" fontWeight={600}>
             닉네임
+            {/* {userName} */}
           </Typography>
-          <Typography variant="body3">haru-hannyan@gmail.com</Typography>
+          <Typography variant="body3" style={{ width: 148 }}>
+            haru-hannyan@gmail.com
+            {/* {userEmail} */}
+          </Typography>
         </ProfileDetail>
       </ProfileContainer>
       <Container>
@@ -59,15 +126,15 @@ export function SettingPage() {
           </Typography>
           <InfoContainer>
             <SettingButton type="button">
-              <Typography variant="body3">총 일기 갯수</Typography>
+              <Typography variant="body3">이번 달 일기 갯수</Typography>
               <Typography variant="body3" fontWeight={600} color={styleToken.color.secondaryActive}>
-                15개
+                {record.diaries}개
               </Typography>
             </SettingButton>
             <SettingButton type="button">
               <Typography variant="body3">총 검사 갯수</Typography>
               <Typography variant="body3" fontWeight={600} color={styleToken.color.secondaryActive}>
-                3개
+                {record.answers}개
               </Typography>
             </SettingButton>
           </InfoContainer>
@@ -78,9 +145,19 @@ export function SettingPage() {
           </Typography>
           <InfoContainer>
             <SettingButton type="button">
-              <Typography variant="body3">하루한냥 개발 과정이 궁금하다면?</Typography>
+              <Typography variant="body3">
+                <a
+                  href="https://shinjungoh.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5"
+                  style={{
+                    color: styleToken.color.gray2,
+                    textDecoration: 'none',
+                  }}
+                >
+                  하루한냥 개발 과정이 궁금하다면?
+                </a>
+              </Typography>
             </SettingButton>
-            <SettingButton type="button">
+            <SettingButton type="button" onClick={handlePagePrivacyPolicy}>
               <Typography variant="body3">개인정보처리방침</Typography>
             </SettingButton>
           </InfoContainer>

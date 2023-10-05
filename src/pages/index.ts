@@ -2,6 +2,7 @@ export * from './AuthKakaoPage';
 export * from './CalendarPage';
 export * from './EditPostPage';
 export * from './HomePage';
+export * from './PrivacyPolicyPage';
 export * from './ProtectedRoute';
 export * from './QuestionPage';
 export * from './ReportItemPage';

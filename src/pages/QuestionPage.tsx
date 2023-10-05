@@ -16,7 +16,8 @@ export function QuestionPage() {
   const [questions, setQuestions] = useState<[]>([]);
   const [answer, setAnswer] = useState<number[]>([]);
 
-  const isAvailable = useMemo(() => answer.length === 10, [answer]);
+  const validAnswer = answer.filter((el) => el);
+  const isDisabledSubmit = useMemo(() => validAnswer.length !== 10, [answer]);
 
   const handleChangeAnswer = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
@@ -128,7 +129,7 @@ export function QuestionPage() {
           minHeight="68px"
           onClick={handleSubmit}
           style={{ marginTop: 30 }}
-          disabled={!isAvailable}
+          disabled={isDisabledSubmit}
         >
           결과보기
         </BaseButton>

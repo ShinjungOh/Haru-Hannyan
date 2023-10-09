@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { BaseButton, Typography } from '@ui/components/common';
 import { PATH } from '@lib/const/path';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
-import { useEffect, useState } from 'react';
-import useDateStore from '@lib/store/useDateStore';
-import { apiGetAnswers } from '../api/report';
-import { apiGetMonthlyDiary } from '../api/diary';
+import { EMAIL, USER } from '@lib/const/localstorage';
+import { apiGetRecord } from '../api/setting/apiGetRecord';
 
 type Record = {
   diaries: number;
@@ -26,10 +25,8 @@ export function SettingPage() {
     answers: 0,
   });
 
-  const [currentDate] = useDateStore((state) => [state.currentDate]);
-
-  // const userName = JSON.parse(localStorage.getItem(USER));
-  // const userEmail = JSON.parse(localStorage.getItem(EMAIL));
+  const userName = JSON.parse(localStorage.getItem(USER));
+  const userEmail = JSON.parse(localStorage.getItem(EMAIL));
 
   const handlePagePrivacyPolicy = () => {
     navigate(PATH.SETTING_PRIVACY);
@@ -47,34 +44,16 @@ export function SettingPage() {
     }
   };
 
-  console.log(record);
-
   useEffect(() => {
-    const getDiaries = async () => {
+    const getRecord = async () => {
       try {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth() + 1;
-        const responseGetDiaries = await apiGetMonthlyDiary(year, month);
-
-        if (responseGetDiaries.success && responseGetDiaries.data) {
-          setRecord({
-            ...record,
-            diaries: responseGetDiaries.data.diary.length,
-          });
-        }
-      } catch (e) {
-        await axiosErrorAlert(e);
-      }
-    };
-
-    const getAnswers = async () => {
-      try {
-        const responseGetAnswers = await apiGetAnswers();
+        const responseGetAnswers = await apiGetRecord();
 
         if (responseGetAnswers.success && responseGetAnswers.data) {
           setRecord({
             ...record,
-            answers: responseGetAnswers.data.answers.length,
+            diaries: responseGetAnswers.data.diaryCount,
+            answers: responseGetAnswers.data.answerCount,
           });
         }
       } catch (e) {
@@ -82,8 +61,7 @@ export function SettingPage() {
       }
     };
 
-    getDiaries();
-    getAnswers();
+    getRecord();
   }, []);
 
   return (
@@ -97,12 +75,10 @@ export function SettingPage() {
         </ProfileIcon>
         <ProfileDetail>
           <Typography variant="subtitle3" fontWeight={600}>
-            닉네임
-            {/* {userName} */}
+            {userName}
           </Typography>
           <Typography variant="body3" style={{ width: 148 }}>
-            haru-hannyan@gmail.com
-            {/* {userEmail} */}
+            {userEmail}
           </Typography>
         </ProfileDetail>
       </ProfileContainer>
@@ -126,7 +102,7 @@ export function SettingPage() {
           </Typography>
           <InfoContainer>
             <SettingButton type="button">
-              <Typography variant="body3">이번 달 일기 갯수</Typography>
+              <Typography variant="body3">총 일기 갯수</Typography>
               <Typography variant="body3" fontWeight={600} color={styleToken.color.secondaryActive}>
                 {record.diaries}개
               </Typography>

@@ -6,6 +6,7 @@ type ResponsePostSignin = {
     user_token: string;
     name: string;
     email: string;
+    type: number;
   };
 };
 

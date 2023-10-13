@@ -60,7 +60,7 @@ export function EditPostPage() {
       clickOverlayClose: true,
     });
 
-    if (responseDiaryModal !== null) {
+    if (responseDiaryModal) {
       setDiary({
         ...diary,
         text: responseDiaryModal.text,

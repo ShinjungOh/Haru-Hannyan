@@ -8,25 +8,45 @@ import { BaseButton, Typography } from '@ui/components/common';
 import { PATH } from '@lib/const/path';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { EMAIL, USER } from '@lib/const/localstorage';
-import { apiGetRecord } from '../api/setting/apiGetRecord';
+import { apiGetRecord } from '../api/setting';
+
+type User = {
+  name: string;
+  email: string;
+};
 
 type Record = {
   diaries: number;
   answers: number;
 };
 
+const storeName = localStorage?.getItem(USER);
+const storeEmail = localStorage?.getItem(EMAIL);
+
 export function SettingPage() {
   const navigate = useNavigate();
   const confirm = useConfirm();
   const axiosErrorAlert = useAxiosErrorAlert();
+
+  const [user, setUser] = useState<User>({
+    name: storeName ? JSON.parse(storeName) : undefined,
+    email: storeEmail ? JSON.parse(storeEmail) : undefined,
+  });
 
   const [record, setRecord] = useState<Record>({
     diaries: 0,
     answers: 0,
   });
 
-  const userName = JSON.parse(localStorage.getItem(USER));
-  const userEmail = JSON.parse(localStorage.getItem(EMAIL));
+  console.log(setUser);
+
+  const handleChangeUserName = () => {
+    navigate(PATH.SETTING_MODIFY_NAME);
+  };
+
+  const handleChangePassword = () => {
+    navigate(PATH.SETTING_MODIFY_PASSWORD);
+  };
 
   const handlePagePrivacyPolicy = () => {
     navigate(PATH.SETTING_PRIVACY);
@@ -75,10 +95,10 @@ export function SettingPage() {
         </ProfileIcon>
         <ProfileDetail>
           <Typography variant="subtitle3" fontWeight={600}>
-            {userName}
+            {user.name}
           </Typography>
           <Typography variant="body3" style={{ width: 148 }}>
-            {userEmail}
+            {user.email}
           </Typography>
         </ProfileDetail>
       </ProfileContainer>
@@ -88,10 +108,10 @@ export function SettingPage() {
             프로필
           </Typography>
           <InfoContainer>
-            <SettingButton type="button">
+            <SettingButton type="button" onClick={handleChangeUserName}>
               <Typography variant="body3">닉네임 변경하기</Typography>
             </SettingButton>
-            <SettingButton type="button">
+            <SettingButton type="button" onClick={handleChangePassword}>
               <Typography variant="body3">비밀번호 변경하기</Typography>
             </SettingButton>
           </InfoContainer>

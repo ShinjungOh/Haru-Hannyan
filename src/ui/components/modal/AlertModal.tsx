@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 
 export type AlertModalType = 'success' | 'danger' | 'info';
 
-type ConfirmModalProps = {
+type AlertModalProps = {
   type: AlertModalType;
   title: string;
   onSubmit?: (result: unknown) => void;
 };
 
-export function AlertModal({ type, title, onSubmit }: ConfirmModalProps) {
+export function AlertModal({ type, title, onSubmit }: AlertModalProps) {
   const imgSrc = ALERT_MODAL_TYPE[type].imageSrc;
 
   const handleSubmit = () => {

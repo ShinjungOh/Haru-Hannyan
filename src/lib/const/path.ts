@@ -12,5 +12,7 @@ export const PATH = {
   REPORT_ANSWER: '/report/answer',
   REPORT_DETAIL: '/report/answer/:id',
   SETTING: '/setting',
+  SETTING_MODIFY_NAME: '/setting/modifyName',
+  SETTING_MODIFY_PASSWORD: '/setting/modifyPassword',
   SETTING_PRIVACY: '/setting/privacy',
 };

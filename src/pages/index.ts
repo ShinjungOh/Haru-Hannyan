@@ -2,6 +2,8 @@ export * from './AuthKakaoPage';
 export * from './CalendarPage';
 export * from './EditPostPage';
 export * from './HomePage';
+export * from './ModifyNamePage';
+export * from './ModifyPasswordPage';
 export * from './PrivacyPolicyPage';
 export * from './ProtectedRoute';
 export * from './QuestionPage';

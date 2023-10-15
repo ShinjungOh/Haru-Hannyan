@@ -1,11 +1,20 @@
-import { BaseButton, NavigationHeader } from '@ui/components/common';
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
+import { useNavigate } from 'react-router';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { Body } from '@ui/components/layout';
-import { ChangeEvent, useState } from 'react';
+import { BaseButton, NavigationHeader } from '@ui/components/common';
 import { getValidationUser } from '@lib/utils';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { USER_NAME_KEY } from '@lib/const/localstorage';
+import { PATH } from '@lib/const/path';
+import { apiPatchName } from '../api/user';
 
 export function ModifyNamePage() {
+  const navigate = useNavigate();
+  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
+
   const [name, setName] = useState<string>('');
   const [nameValidation, setNameValidation] = useState(false);
 
@@ -17,6 +26,33 @@ export function ModifyNamePage() {
 
     setName(value);
     setNameValidation(test);
+  };
+
+  const handleSubmitPatchName = async () => {
+    try {
+      const responsePatchName = await apiPatchName(name);
+      if (responsePatchName.success) {
+        localStorage.setItem(USER_NAME_KEY, name);
+
+        const responseAlert = await alert({
+          type: 'success',
+          title: responsePatchName.msg,
+        });
+
+        if (responseAlert) {
+          navigate(PATH.SETTING);
+          location.reload();
+        }
+      }
+    } catch (e) {
+      await axiosErrorAlert(e);
+    }
+  };
+
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmitPatchName();
+    }
   };
 
   const isError = {
@@ -33,10 +69,21 @@ export function ModifyNamePage() {
       <NavigationHeader isBack title="닉네임 변경하기" />
       <Container>
         <InputContainer>
-          <Input type="text" name="name" placeholder="새로운 닉네임" onChange={handleChangeName} />
+          <Input
+            type="text"
+            name="name"
+            placeholder="새로운 닉네임"
+            onChange={handleChangeName}
+            onKeyPress={handleOnKeyPress}
+          />
           <ErrorMessage>{isError.name.error && isError.name.message}</ErrorMessage>
         </InputContainer>
-        <BaseButton colorTheme="primary" disabled={isValidate} style={{ marginTop: 28 }}>
+        <BaseButton
+          colorTheme="primary"
+          disabled={isValidate}
+          style={{ marginTop: 28 }}
+          onClick={handleSubmitPatchName}
+        >
           변경하기
         </BaseButton>
       </Container>

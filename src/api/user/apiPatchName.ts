@@ -4,4 +4,7 @@ type RequestPatchName = {
   name: string;
 };
 
-export const apiPatchName = (name: string) => http.patch<RequestPatchName>('/user', name);
+export const apiPatchName = (name: string) =>
+  http.patch<RequestPatchName>('/user', {
+    name,
+  });

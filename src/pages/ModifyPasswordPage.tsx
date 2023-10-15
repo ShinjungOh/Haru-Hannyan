@@ -1,11 +1,19 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
-import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
+import { useNavigate } from 'react-router';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { Body } from '@ui/components/layout';
-import { ChangeEvent, useState } from 'react';
+import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { getValidationUser } from '@lib/utils';
+import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
+import { PATH } from '@lib/const/path';
+import { apiPutPassword } from '../api/user';
 
 export function ModifyPasswordPage() {
+  const navigate = useNavigate();
+  const alert = useAlert();
+  const axiosErrorAlert = useAxiosErrorAlert();
+
   const [pw, setPw] = useState({
     password: '',
     passwordCheck: '',
@@ -17,8 +25,6 @@ export function ModifyPasswordPage() {
 
   const handleChangePw = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    console.log(name, value);
 
     let test = false;
 
@@ -37,6 +43,30 @@ export function ModifyPasswordPage() {
       ...pwValidation,
       [name]: test,
     });
+  };
+
+  const handleSubmitPutPw = async () => {
+    try {
+      const responsePutPw = await apiPutPassword(pw.password);
+      if (responsePutPw.success) {
+        const responseAlert = await alert({
+          type: 'success',
+          title: responsePutPw.msg,
+        });
+
+        if (responseAlert) {
+          navigate(PATH.SETTING);
+        }
+      }
+    } catch (e) {
+      await axiosErrorAlert(e);
+    }
+  };
+
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmitPutPw();
+    }
   };
 
   const isError = {
@@ -67,10 +97,16 @@ export function ModifyPasswordPage() {
         <InputContainer>
           <Input type="password" name="password" placeholder="새로운 비밀번호" onChange={handleChangePw} />
           <ErrorMessage>{isError.password.error && isError.password.message}</ErrorMessage>
-          <Input type="password" name="passwordCheck" placeholder="비밀번호 확인" onChange={handleChangePw} />
+          <Input
+            type="password"
+            name="passwordCheck"
+            placeholder="비밀번호 확인"
+            onChange={handleChangePw}
+            onKeyPress={handleOnKeyPress}
+          />
           <ErrorMessage>{isError.passwordCheck.error && isError.passwordCheck.message}</ErrorMessage>
         </InputContainer>
-        <BaseButton colorTheme="primary" disabled={isValidate} style={{ marginTop: 28 }}>
+        <BaseButton colorTheme="primary" disabled={isValidate} style={{ marginTop: 28 }} onClick={handleSubmitPutPw}>
           변경하기
         </BaseButton>
       </Container>

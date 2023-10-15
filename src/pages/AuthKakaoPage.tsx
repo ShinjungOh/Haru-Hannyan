@@ -2,8 +2,8 @@ import { useSearchParams } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { PATH } from '@lib/const/path';
-import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
 import { useAlert } from '@lib/hooks';
+import { ACCESS_TOKEN_KEY, USER_NAME_KEY } from '@lib/const/localstorage';
 import { handleAxiosError, http } from '../api/http';
 
 export function AuthKakaoPage() {
@@ -22,8 +22,8 @@ export function AuthKakaoPage() {
         const userProfile = {
           name: responseSignIn.data.user.name,
         };
-        localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
-        localStorage.setItem(USER, JSON.stringify(userProfile));
+        localStorage.setItem(ACCESS_TOKEN_KEY, JSON.stringify(accessToken));
+        localStorage.setItem(USER_NAME_KEY, JSON.stringify(userProfile));
         navigate(PATH.CALENDAR);
       }
     } catch (e) {

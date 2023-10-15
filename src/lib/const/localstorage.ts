@@ -1,4 +1,4 @@
-export const ACCESS_TOKEN = 'accessToken';
-export const USER = 'user';
-export const EMAIL = 'email';
-export const USER_TYPE = 'userType';
+export const ACCESS_TOKEN_KEY = 'accessToken';
+export const USER_NAME_KEY = 'user';
+export const EMAIL_KEY = 'email';
+export const USER_TYPE_KEY = 'userType';

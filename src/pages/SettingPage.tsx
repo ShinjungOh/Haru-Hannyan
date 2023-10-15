@@ -7,38 +7,26 @@ import { Menu } from '@ui/components/menu';
 import { BaseButton, Typography } from '@ui/components/common';
 import { PATH } from '@lib/const/path';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
-import { EMAIL, USER } from '@lib/const/localstorage';
+import { EMAIL_KEY, USER_NAME_KEY } from '@lib/const/localstorage';
 import { apiGetRecord } from '../api/setting';
-
-type User = {
-  name: string;
-  email: string;
-};
 
 type Record = {
   diaries: number;
   answers: number;
 };
 
-const storeName = localStorage?.getItem(USER);
-const storeEmail = localStorage?.getItem(EMAIL);
+const storeName = localStorage?.getItem(USER_NAME_KEY);
+const storeEmail = localStorage?.getItem(EMAIL_KEY);
 
 export function SettingPage() {
   const navigate = useNavigate();
   const confirm = useConfirm();
   const axiosErrorAlert = useAxiosErrorAlert();
 
-  const [user, setUser] = useState<User>({
-    name: storeName ? JSON.parse(storeName) : undefined,
-    email: storeEmail ? JSON.parse(storeEmail) : undefined,
-  });
-
   const [record, setRecord] = useState<Record>({
     diaries: 0,
     answers: 0,
   });
-
-  console.log(setUser);
 
   const handleChangeUserName = () => {
     navigate(PATH.SETTING_MODIFY_NAME);
@@ -95,10 +83,10 @@ export function SettingPage() {
         </ProfileIcon>
         <ProfileDetail>
           <Typography variant="subtitle3" fontWeight={600}>
-            {user.name}
+            {storeName}
           </Typography>
           <Typography variant="body3" style={{ width: 148 }}>
-            {user.email}
+            {storeEmail}
           </Typography>
         </ProfileDetail>
       </ProfileContainer>

@@ -80,7 +80,7 @@ export function ModifyPasswordPage() {
     },
   };
 
-  const isValidate = !(pwValidation.password && pwValidation.passwordCheck);
+  const isDisabledSubmit = !(pwValidation.password && pwValidation.passwordCheck);
 
   return (
     <>
@@ -106,7 +106,12 @@ export function ModifyPasswordPage() {
           />
           <ErrorMessage>{isError.passwordCheck.error && isError.passwordCheck.message}</ErrorMessage>
         </InputContainer>
-        <BaseButton colorTheme="primary" disabled={isValidate} style={{ marginTop: 28 }} onClick={handleSubmitPutPw}>
+        <BaseButton
+          colorTheme="primary"
+          disabled={isDisabledSubmit}
+          style={{ marginTop: 28 }}
+          onClick={handleSubmitPutPw}
+        >
           변경하기
         </BaseButton>
       </Container>

@@ -21,8 +21,7 @@ export function ModifyNamePage() {
   const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
-    let test = false;
-    test = getValidationUser('name', value);
+    const test = getValidationUser('name', value);
 
     setName(value);
     setNameValidation(test);
@@ -62,7 +61,7 @@ export function ModifyNamePage() {
     },
   };
 
-  const isValidate = !nameValidation;
+  const isDisabledSubmit = !nameValidation;
 
   return (
     <>
@@ -80,7 +79,7 @@ export function ModifyNamePage() {
         </InputContainer>
         <BaseButton
           colorTheme="primary"
-          disabled={isValidate}
+          disabled={isDisabledSubmit}
           style={{ marginTop: 28 }}
           onClick={handleSubmitPatchName}
         >

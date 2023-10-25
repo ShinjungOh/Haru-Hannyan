@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { API_TIMEOUT, BASE_URL } from '@lib/const/config';
-import { ACCESS_TOKEN } from '@lib/const/localstorage';
+import { ACCESS_TOKEN_KEY } from '@lib/const/localstorage';
 
 type APIResponse<T = unknown> = {
   success: boolean;
@@ -17,7 +17,7 @@ export const client = axios.create({
 });
 
 const handleHeadersWithAccessToken = (config: AxiosRequestConfig): InternalAxiosRequestConfig => {
-  const accessToken = localStorage.getItem(ACCESS_TOKEN) || '';
+  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY) || '';
   config.headers = {
     ...config.headers,
     Authorization: `Bearer ${accessToken}`,

@@ -8,7 +8,7 @@ export function Score() {
       <ScoreList>
         <>
           {Object.values(RESULT_DETAIL).map((detail) => (
-            <Typography variant="body3" style={{ lineHeight: 1.8 }}>
+            <Typography key={detail.score} variant="body3" style={{ lineHeight: 1.8 }}>
               {detail.score}
             </Typography>
           ))}
@@ -17,7 +17,13 @@ export function Score() {
       <ScoreList>
         <>
           {Object.values(RESULT_DETAIL).map((detail) => (
-            <Typography variant="body2" color={detail.color} fontWeight={600} style={{ lineHeight: 1.6 }}>
+            <Typography
+              key={detail.score}
+              variant="body2"
+              color={detail.color}
+              fontWeight={600}
+              style={{ lineHeight: 1.6 }}
+            >
               {detail.title}
             </Typography>
           ))}

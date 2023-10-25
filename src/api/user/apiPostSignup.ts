@@ -6,6 +6,7 @@ type ResponsePostSignup = {
   user: {
     type: number;
     name: string;
+    email: string;
   };
 };
 

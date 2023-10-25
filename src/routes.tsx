@@ -5,6 +5,9 @@ import {
   CalendarPage,
   EditPostPage,
   HomePage,
+  ModifyNamePage,
+  ModifyPasswordPage,
+  PrivacyPolicyPage,
   ProtectedRoute,
   QuestionPage,
   ReportItemPage,
@@ -94,6 +97,30 @@ const routes = [
         element: (
           <ProtectedRoute>
             <SettingPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.SETTING_MODIFY_NAME,
+        element: (
+          <ProtectedRoute>
+            <ModifyNamePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.SETTING_MODIFY_PASSWORD,
+        element: (
+          <ProtectedRoute>
+            <ModifyPasswordPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: PATH.SETTING_PRIVACY,
+        element: (
+          <ProtectedRoute>
+            <PrivacyPolicyPage />
           </ProtectedRoute>
         ),
       },

@@ -30,10 +30,10 @@ const Input = styled.input`
   width: 100%;
   height: 100%;
   padding: 22px;
-  border-radius: 15px;
+  border-radius: 14px;
   border: 1px solid ${styleToken.color.gray4};
   color: ${styleToken.color.gray2};
-  font-size: 17px;
+  font-size: 16px;
   outline: 0;
   cursor: pointer;
 

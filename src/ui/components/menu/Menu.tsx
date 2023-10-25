@@ -10,7 +10,7 @@ import { FEELING_CAT_ICON, MENU_ICON } from '@lib/const/imageSrc';
 import { PATH } from '@lib/const/path';
 import useDateStore from '@lib/store/useDateStore';
 import { Diary } from '@lib/types';
-import { http } from '../../../api/http';
+import { apiGetMonthlyDiary } from '../../../api/diary';
 
 export function Menu() {
   const location = useLocation();
@@ -66,11 +66,11 @@ export function Menu() {
       try {
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth() + 1;
-        const response = await http.get<{ diary: Diary[] }>(`/diary?year=${year}&month=${month}`);
-        const diaryData = response.data;
-        if (diaryData && diaryData.diary) {
-          console.log(diaryData.diary);
-          setDiary(diaryData.diary);
+        const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
+
+        if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
+          console.log(responseGetMonthlyDiary.data.diary);
+          setDiary(responseGetMonthlyDiary.data.diary);
         }
       } catch (e) {
         await axiosErrorAlert(e);

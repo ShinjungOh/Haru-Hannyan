@@ -8,7 +8,7 @@ import { useAxiosErrorAlert } from '@lib/hooks';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
 import { PATH } from '@lib/const/path';
-import { ACCESS_TOKEN, USER } from '@lib/const/localstorage';
+import { ACCESS_TOKEN_KEY, EMAIL_KEY, USER_NAME_KEY, USER_TYPE_KEY } from '@lib/const/localstorage';
 import { apiPostSignup } from '../api/user';
 
 export function SignupPage() {
@@ -76,9 +76,13 @@ export function SignupPage() {
         const accessToken = responseSignUp.data.token;
         const userProfile = {
           name: responseSignUp.data.user.name,
+          email: responseSignUp.data.user.email,
+          type: responseSignUp.data.user.type,
         };
-        localStorage.setItem(ACCESS_TOKEN, accessToken);
-        localStorage.setItem(USER, JSON.stringify(userProfile));
+        localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+        localStorage.setItem(USER_NAME_KEY, userProfile.name);
+        localStorage.setItem(EMAIL_KEY, userProfile.email);
+        localStorage.setItem(USER_TYPE_KEY, JSON.stringify(userProfile.type));
         navigate(PATH.CALENDAR);
       }
     } catch (e) {

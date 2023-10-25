@@ -1,14 +1,8 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
-import { Typography } from '@ui/components/common';
 import { SettingMenuItem } from '@ui/components/setting/SettingMenuItem';
-
-type MenuItems = {
-  title: string;
-  description?: string;
-  link?: string;
-  isOpen?: boolean;
-};
+import { Typography } from '@ui/components/common';
+import { MenuItems } from '@lib/types';
 
 type SettingListProps = {
   label: string;

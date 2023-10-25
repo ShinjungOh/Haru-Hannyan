@@ -9,9 +9,10 @@ import { BaseButton, Typography } from '@ui/components/common';
 import { PATH } from '@lib/const/path';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { EMAIL_KEY, USER_NAME_KEY } from '@lib/const/localstorage';
+import { BLOG_LINK } from '@lib/const/link';
 import { apiGetRecord } from '../api/setting';
 
-export type Record = {
+type Record = {
   diaries: number;
   answers: number;
 };
@@ -53,7 +54,7 @@ export function SettingPage() {
     etc: [
       {
         title: '하루한냥 개발 과정이 궁금하다면?',
-        link: 'https://shinjungoh.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5',
+        link: BLOG_LINK,
         isOpen: true,
       },
       {

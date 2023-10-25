@@ -1,16 +1,10 @@
 import styled from '@emotion/styled';
-import { Typography } from '@ui/components/common';
 import { styleToken } from '@ui/styles';
 import { useNavigate } from 'react-router';
+import { Typography } from '@ui/components/common';
+import { MenuItems } from '@lib/types';
 
-type SettingItemProps = {
-  title: string;
-  description?: string;
-  link?: string;
-  isOpen?: boolean;
-};
-
-export function SettingMenuItem({ title, description, link, isOpen }: SettingItemProps) {
+export function SettingMenuItem({ title, description, link, isOpen }: MenuItems) {
   const navigate = useNavigate();
 
   const isLink = Boolean(link);

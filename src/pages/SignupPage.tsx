@@ -70,7 +70,6 @@ export function SignupPage() {
   const handleClickSignUp = async () => {
     try {
       const responseSignUp = await apiPostSignup(user);
-      console.log(responseSignUp);
 
       if (responseSignUp.success && responseSignUp.data) {
         const accessToken = responseSignUp.data.token;

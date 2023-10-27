@@ -68,8 +68,6 @@ export function EditPostPage() {
     }
   };
 
-  console.log('>>>', diary);
-
   const handleEditDiary = async () => {
     try {
       if (!diaryId) {

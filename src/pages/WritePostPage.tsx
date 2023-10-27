@@ -74,8 +74,6 @@ export function WritePostPage() {
     }
   };
 
-  console.log(diary);
-
   const isDisabled = !diary.feel;
   const buttonTheme = isDisabled ? 'disabled' : 'primary';
 

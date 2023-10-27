@@ -69,7 +69,6 @@ export function Menu() {
         const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
 
         if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
-          console.log(responseGetMonthlyDiary.data.diary);
           setDiary(responseGetMonthlyDiary.data.diary);
         }
       } catch (e) {

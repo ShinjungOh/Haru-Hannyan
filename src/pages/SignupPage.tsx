@@ -92,7 +92,7 @@ export function SignupPage() {
   const isError = {
     email: {
       error: user.email.length > 0 && !userValidation.email,
-      message: '이메일 형식이 올바르지 않습니다.',
+      message: '이메일 형식이 올바르지 않아요.',
     },
     password: {
       error: user.password.length > 0 && user.password.length < 9 && !userValidation.password,
@@ -100,11 +100,11 @@ export function SignupPage() {
     },
     passwordCheck: {
       error: user.passwordCheck.length > 0 && !userValidation.passwordCheck,
-      message: '비밀번호가 일치하지 않습니다.',
+      message: '비밀번호가 일치하지 않아요.',
     },
     name: {
       error: user.name.length > 0 && user.name.length < 2,
-      message: '닉네임 형식이 올바르지 않습니다.',
+      message: '닉네임 형식이 올바르지 않아요.',
     },
   };
 

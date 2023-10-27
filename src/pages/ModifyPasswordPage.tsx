@@ -76,7 +76,7 @@ export function ModifyPasswordPage() {
     },
     passwordCheck: {
       error: pw.passwordCheck.length > 0 && !pwValidation.passwordCheck,
-      message: '비밀번호가 일치하지 않습니다.',
+      message: '비밀번호가 일치하지 않아요.',
     },
   };
 

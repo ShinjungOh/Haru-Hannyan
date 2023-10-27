@@ -28,7 +28,7 @@ export function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
       {
         type: 'out',
         title: '감정일기 글쓰기',
-        description: '기록한 내용이 저장되지 않습니다.\n그래도 나가시겠습니까?',
+        description: '기록한 내용이 저장되지 않아요.\n그래도 나가시겠어요?',
       },
       { clickOverlayClose: true },
     );

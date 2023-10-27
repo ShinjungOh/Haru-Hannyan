@@ -57,7 +57,7 @@ export function ModifyNamePage() {
   const isError = {
     name: {
       error: name.length > 0 && name.length < 2,
-      message: '닉네임 형식이 올바르지 않습니다.',
+      message: '닉네임 형식이 올바르지 않아요.',
     },
   };
 

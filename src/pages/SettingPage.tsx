@@ -67,8 +67,8 @@ export function SettingPage() {
   const handleClickLogout = async () => {
     const responseConfirm = await confirm({
       type: 'delete',
-      title: '로그아웃 하시겠습니까?',
-      description: '하루한냥 홈으로 이동합니다.',
+      title: '로그아웃 하시겠어요?',
+      description: '하루한냥 홈으로 이동해요.',
     });
 
     if (responseConfirm) {

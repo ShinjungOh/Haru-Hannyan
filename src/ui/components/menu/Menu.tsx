@@ -53,7 +53,7 @@ export function Menu() {
     } else if (diary && !!isAlreadyTodayDiary()) {
       const responseAlert = await alert({
         type: 'danger',
-        title: '이미 일기가 존재합니다.',
+        title: '이미 일기가 존재해요.',
       });
       if (responseAlert) {
         setIsOpen(false);

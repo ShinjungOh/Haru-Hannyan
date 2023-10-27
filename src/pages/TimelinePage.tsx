@@ -35,8 +35,8 @@ export function TimelinePage() {
     try {
       const responseConfirm = await confirm({
         type: 'delete',
-        title: '일기를 삭제하시겠습니까?',
-        description: '하루의 일기가 사라집니다.',
+        title: '일기를 삭제하시겠어요?',
+        description: '하루의 일기가 사라져요.',
       });
       if (responseConfirm) {
         await apiDeleteDiary(diaryId);

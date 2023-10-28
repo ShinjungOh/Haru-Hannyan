@@ -102,20 +102,21 @@ export function SettingPage() {
       <TitleContainer>
         <Typography variant="h3">마이 페이지</Typography>
       </TitleContainer>
-      <ProfileContainer>
-        <ProfileIcon>
-          <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
-        </ProfileIcon>
-        <ProfileDetail>
-          <Typography variant="subtitle3" fontWeight={600}>
-            {storeName}
-          </Typography>
-          <Typography variant="body3" style={{ width: 148 }}>
-            {storeEmail}
-          </Typography>
-        </ProfileDetail>
-      </ProfileContainer>
       <Container>
+        <ProfileContainer>
+          <ProfileIcon>
+            <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
+          </ProfileIcon>
+          <ProfileDetail>
+            <Typography variant="subtitle3" fontWeight={600}>
+              {storeName}
+            </Typography>
+            <Typography variant="body3" style={{ width: 148 }}>
+              {storeEmail}
+            </Typography>
+          </ProfileDetail>
+        </ProfileContainer>
+        <HorizontalLine />
         <SettingMenuList label="프로필" menuItems={settingMenus.profile} />
         <SettingMenuList label="기록" menuItems={settingMenus.record} />
         <SettingMenuList label="기타" menuItems={settingMenus.etc} />
@@ -137,10 +138,19 @@ const TitleContainer = styled.div`
   width: 100%;
   height: 80px;
   padding: 22px 35px;
+  border: 1px solid green;
+`;
+
+const Container = styled(Body)`
+  padding: 28px 34px 34px 34px;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 20px;
 `;
 
 const ProfileContainer = styled.div`
-  border-bottom: 1px solid ${styleToken.color.gray4};
   background-color: ${styleToken.color.background};
   display: flex;
   flex-direction: row;
@@ -148,7 +158,7 @@ const ProfileContainer = styled.div`
   align-items: center;
   width: 100%;
   height: auto;
-  padding: 22px 22px 40px;
+  padding: 0 0 28px 0;
   gap: 8px;
 `;
 
@@ -157,14 +167,16 @@ const ProfileIcon = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  min-width: 70px;
+  height: 72px;
+  min-height: 70px;
   border-radius: 50%;
   background-color: ${styleToken.color.primary}75;
 
   img {
-    width: 54px;
-    height: 54px;
+    width: 50px;
+    height: 50px;
   }
 `;
 
@@ -177,10 +189,13 @@ const ProfileDetail = styled.div`
   gap: 4px;
 `;
 
-const Container = styled(Body)`
-  padding: 28px 34px 34px 34px;
-  justify-content: flex-start;
+const HorizontalLine = styled.hr`
+  width: 100vw;
+  border: 0.5px solid ${styleToken.color.gray4};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  overflow-y: auto;
-  gap: 20px;
+  margin: 0;
+  padding: 0;
 `;

@@ -73,7 +73,7 @@ export function ReportPage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding: 5px 34px 15px 34px;
+  padding: 4px 20px 14px 20px;
   width: 100%;
 `;
 

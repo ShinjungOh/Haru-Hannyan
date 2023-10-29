@@ -110,13 +110,13 @@ export function ReportItemPage() {
             <Typography variant="subtitle4" color={styleToken.color.gray3}>
               {answerDate.year}년 {answerDate.month + 1}월 {answerDate.date}일
             </Typography>
-            <Typography variant="subtitle3" fontWeight={600} style={{ marginTop: 26 }}>
+            <Typography variant="subtitle3" fontWeight={600} style={{ marginTop: 10 }}>
               나의 스트레스 결과
             </Typography>
             <Typography variant="h1" color={result.color} fontWeight={600} style={{ margin: 20 }}>
               {answer.sumScore}점
             </Typography>
-            <Typography variant="body4" style={{ marginBottom: 14, marginLeft: 18, marginRight: 18 }}>
+            <Typography variant="body4" style={{ marginLeft: 8, marginRight: 8 }}>
               {result?.description}
             </Typography>
           </InfoContainer>
@@ -143,7 +143,7 @@ export function ReportItemPage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding: 5px 34px 15px 34px;
+  padding: 4px 20px 14px 20px;
   width: 100%;
 `;
 

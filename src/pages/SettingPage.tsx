@@ -142,7 +142,7 @@ const TitleContainer = styled.header`
 `;
 
 const Container = styled(Body)`
-  padding: 28px 34px 34px 34px;
+  padding: 24px 20px 30px 20px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;

@@ -83,8 +83,14 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 360px;
-  height: 370px;
+  width: 90%;
+  max-width: 360px;
+  //width: 360px;
+  //min-width: 270px;
+  height: 50%;
+  max-height: 370px;
+  //height: 370px;
+  //min-height: 270px;
   padding: 22px;
   border-radius: 15px;
   background-color: ${styleToken.color.white};

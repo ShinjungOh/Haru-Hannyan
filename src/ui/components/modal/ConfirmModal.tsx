@@ -53,17 +53,17 @@ export function ConfirmModal({ type, title, description, onClose, onSubmit }: Co
         <img src={imgSrc} alt={btnText} />
       </ConfirmImage>
       <ConfirmMessage>
-        <Typography variant="h4" color={styleToken.color.gray1}>
+        <Typography variant="subtitle1" color={styleToken.color.gray1}>
           {title}
         </Typography>
-        <Typography variant="subtitle3" color={styleToken.color.gray2} style={{ marginTop: '5px' }}>
+        <Typography variant="subtitle3" color={styleToken.color.gray2} style={{ marginTop: '10px' }}>
           {description}
         </Typography>
       </ConfirmMessage>
       <ButtonContainer>
         <BaseButton
           colorTheme="light"
-          height="50px"
+          height="44px"
           onClick={handleClose}
           style={{ borderRadius: '8px', fontSize: '16px' }}
         >
@@ -71,7 +71,7 @@ export function ConfirmModal({ type, title, description, onClose, onSubmit }: Co
         </BaseButton>
         <BaseButton
           colorTheme="danger"
-          height="50px"
+          height="44px"
           onClick={handleSubmit}
           style={{ borderRadius: '8px', fontSize: '16px' }}
         >
@@ -104,11 +104,11 @@ const ConfirmImage = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 70px;
-  height: 70px;
+  width: auto;
+  margin: 4px;
 
   img {
-    width: 60px;
+    width: 50px;
   }
 `;
 
@@ -119,8 +119,6 @@ const ConfirmMessage = styled.div`
   align-items: center;
   text-align: center;
   margin-top: 18px;
-  width: 210px;
-  height: 80px;
 `;
 
 const ButtonContainer = styled.div`

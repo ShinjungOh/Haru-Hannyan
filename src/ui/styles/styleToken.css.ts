@@ -22,7 +22,7 @@ const FONT_PROPERTIES = {
   weightRegular: 400,
 };
 
-const headerHeight = 80;
+const headerHeight = 64;
 const menuHeight = 80;
 const SIZE_PROPERTIES = {
   headerHeight: `${headerHeight}px`,

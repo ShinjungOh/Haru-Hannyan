@@ -22,7 +22,7 @@ export function NavigationHeader({ isBack, title, onBack }: Props) {
   return (
     <Container>
       <>
-        {isBack && <BackArrow onClick={handlePageBack} src="/images/icon/back.png" alt="back" />}
+        {isBack && <BackArrow onClick={handlePageBack} src="/images/icon/back.svg" alt="back" />}
         {title && <Typography variant="h4">{title}</Typography>}
       </>
     </Container>
@@ -36,7 +36,7 @@ const Container = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 80px;
+  height: ${styleToken.size.headerHeight};
   background-color: ${styleToken.color.background};
 `;
 
@@ -45,6 +45,8 @@ const BackArrow = styled.img`
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  padding: 21px;
+  width: 60px;
+  height: 60px;
+  padding: 0 22px;
   cursor: pointer;
 `;

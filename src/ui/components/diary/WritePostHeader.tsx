@@ -41,7 +41,7 @@ export function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
   return (
     <>
       <Container>
-        <BackArrow src="/images/icon/back.png" alt="back" onClick={handlePageBack} />
+        <BackArrow src="/images/icon/back.svg" alt="back" onClick={handlePageBack} />
         <SelectedDate>
           <Typography variant="h4">
             {month}월 {date}일 {dayOfWeek}요일
@@ -59,7 +59,6 @@ const Container = styled.header`
   align-items: center;
   height: ${styleToken.size.headerHeight};
   background-color: ${styleToken.color.background};
-  font-weight: 600;
 `;
 
 const SelectedDate = styled.div`
@@ -73,6 +72,8 @@ const SelectedDate = styled.div`
 const BackArrow = styled.img`
   position: absolute;
   left: 0;
-  padding: 21px;
+  width: 60px;
+  height: 60px;
+  padding: 0 22px;
   cursor: pointer;
 `;

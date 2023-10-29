@@ -108,7 +108,6 @@ const Container = styled.header`
   align-items: center;
   height: ${styleToken.size.headerHeight};
   background-color: ${styleToken.color.background};
-  font-weight: 600;
 `;
 
 const Arrow = styled.button`

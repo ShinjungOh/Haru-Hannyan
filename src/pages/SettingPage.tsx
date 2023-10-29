@@ -129,16 +129,16 @@ export function SettingPage() {
   );
 }
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.header`
   background-color: ${styleToken.color.background};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 80px;
-  padding: 22px 35px;
-  border: 1px solid green;
+  height: ${styleToken.size.headerHeight};
+  padding: 8px 34px;
+  text-align: center;
 `;
 
 const Container = styled(Body)`

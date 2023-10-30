@@ -128,10 +128,10 @@ export function ReportItemPage() {
           <Score />
         </InfoContainer>
         <ButtonContainer>
-          <BaseButton colorTheme="info" minHeight="68px" onClick={handleClickDeleteReport}>
+          <BaseButton colorTheme="info" minHeight="54px" onClick={handleClickDeleteReport}>
             검사 기록 삭제하기
           </BaseButton>
-          <BaseButton colorTheme="info" minHeight="68px" onClick={handlePageReportList} style={{ marginTop: 22 }}>
+          <BaseButton colorTheme="info" minHeight="54px" onClick={handlePageReportList} style={{ marginTop: 18 }}>
             이전 검사결과 보기
           </BaseButton>
         </ButtonContainer>

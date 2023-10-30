@@ -28,8 +28,8 @@ export function InputBox({ type, id, name, placeholder, autoFocus, onChange, onK
 
 const Input = styled.input`
   width: 100%;
-  height: 100%;
-  padding: 22px;
+  height: 54px;
+  padding: 20px 14px;
   border-radius: 14px;
   border: 1px solid ${styleToken.color.gray4};
   color: ${styleToken.color.gray2};

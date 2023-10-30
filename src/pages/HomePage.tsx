@@ -44,7 +44,7 @@ export function HomePage() {
 }
 
 const Container = styled(Body)`
-  padding: 100px 35px;
+  padding: 100px 34px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -65,19 +65,18 @@ const TitleContainer = styled.div`
 const Title = styled.h1`
   margin-top: 20px;
   color: ${styleToken.color.gray2};
-  font-size: 45px;
+  font-size: 42px;
   font-weight: 600;
 `;
 
 const Description = styled.h5`
-  margin-top: 15px;
+  margin-top: 14px;
   color: ${styleToken.color.gray3};
   font-size: 14px;
   font-weight: 600;
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 100px;
   width: 100%;
 
   Button + Button {

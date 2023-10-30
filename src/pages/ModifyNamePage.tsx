@@ -80,7 +80,7 @@ export function ModifyNamePage() {
         <BaseButton
           colorTheme="primary"
           disabled={isDisabledSubmit}
-          style={{ marginTop: 28 }}
+          style={{ marginTop: 22 }}
           onClick={handleSubmitPatchName}
         >
           변경하기
@@ -92,20 +92,20 @@ export function ModifyNamePage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding: 5px 34px 15px 34px;
+  padding: 10px 34px 16px 34px;
   width: 100%;
 `;
 
 const InputContainer = styled.div`
   width: auto;
-  height: 80px;
+  height: auto;
   margin-top: 18px;
 `;
 
 const Input = styled.input`
   width: 100%;
-  height: 68px;
-  padding: 12px;
+  height: 40px;
+  padding: 4px 10px;
   font-size: 16px;
   color: ${styleToken.color.gray2};
   background-color: ${styleToken.color.background};

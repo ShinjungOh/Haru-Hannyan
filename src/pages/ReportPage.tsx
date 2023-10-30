@@ -61,7 +61,7 @@ export function ReportPage() {
           <BaseButton colorTheme="info" onClick={handlePageNewTest}>
             새로 검사하기
           </BaseButton>
-          <BaseButton colorTheme="info" onClick={handlePageReportList} style={{ marginTop: 22 }}>
+          <BaseButton colorTheme="info" onClick={handlePageReportList} style={{ marginTop: 18 }}>
             이전 검사결과 보기
           </BaseButton>
         </ButtonContainer>

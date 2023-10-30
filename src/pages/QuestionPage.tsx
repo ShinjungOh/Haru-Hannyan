@@ -125,8 +125,8 @@ export function QuestionPage() {
           ))}
         <BaseButton
           colorTheme="primary"
-          height="68px"
-          minHeight="68px"
+          height="54px"
+          minHeight="54px"
           onClick={handleSubmit}
           style={{ marginTop: 30 }}
           disabled={isDisabledSubmit}
@@ -140,7 +140,7 @@ export function QuestionPage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding: 5px 34px 15px 34px;
+  padding: 4px 20px 14px 20px;
   width: 100%;
 `;
 
@@ -150,7 +150,7 @@ const InfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 22px;
+  padding: 22px 12px;
   height: auto;
   margin-bottom: 6px;
   background-color: white;

@@ -103,13 +103,14 @@ export function ModifyPasswordPage() {
             placeholder="비밀번호 확인"
             onChange={handleChangePw}
             onKeyPress={handleOnKeyPress}
+            style={{ marginTop: 6 }}
           />
           <ErrorMessage>{isError.passwordCheck.error && isError.passwordCheck.message}</ErrorMessage>
         </InputContainer>
         <BaseButton
           colorTheme="primary"
           disabled={isDisabledSubmit}
-          style={{ marginTop: 28 }}
+          style={{ marginTop: 22 }}
           onClick={handleSubmitPutPw}
         >
           변경하기
@@ -121,7 +122,7 @@ export function ModifyPasswordPage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding: 5px 34px 15px 34px;
+  padding: 4px 34px 16px 34px;
   width: 100%;
 `;
 
@@ -142,18 +143,14 @@ const InputContainer = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  height: 68px;
-  padding: 12px;
+  height: 40px;
+  padding: 4px 10px;
   font-size: 16px;
   color: ${styleToken.color.gray2};
   background-color: ${styleToken.color.background};
   border: none;
   border-bottom: 1px solid ${styleToken.color.gray4};
   outline: 0;
-
-  & + & {
-    margin-top: 20px;
-  }
 
   ::placeholder {
     color: ${styleToken.color.gray4};

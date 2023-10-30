@@ -120,7 +120,7 @@ export function SettingPage() {
         <SettingMenuList label="프로필" menuItems={settingMenus.profile} />
         <SettingMenuList label="기록" menuItems={settingMenus.record} />
         <SettingMenuList label="기타" menuItems={settingMenus.etc} />
-        <BaseButton colorTheme="primary" height="68px" minHeight="68px" onClick={handleClickLogout}>
+        <BaseButton colorTheme="primary" height="54px" minHeight="54px" onClick={handleClickLogout}>
           로그아웃
         </BaseButton>
       </Container>

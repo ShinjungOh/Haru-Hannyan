@@ -1,6 +1,13 @@
 import { css } from '@emotion/react';
 
 const globalStyle = css`
+  @font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   html {
     box-sizing: border-box;
   }
@@ -135,6 +142,7 @@ const globalStyle = css`
   *::before,
   *::after {
     box-sizing: inherit;
+    font-family: 'SUIT-Regular';
   }
 
   html {
@@ -143,6 +151,7 @@ const globalStyle = css`
 
   body {
     font-size: 1.6rem;
+    font-family: 'SUIT-Regular';
     line-height: 1;
   }
 

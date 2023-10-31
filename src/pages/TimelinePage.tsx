@@ -6,7 +6,7 @@ import { CalendarHeader } from '@ui/components/calendar';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { TimelineEmotionItem } from '@ui/components/diary';
-import { Typography } from '@ui/components/common';
+import { EmptyItem, Typography } from '@ui/components/common';
 import useDateStore from '@lib/store/useDateStore';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { Diary } from '@lib/types';
@@ -111,11 +111,7 @@ export function TimelinePage() {
             );
           })
         ) : (
-          <EmptyContainer>
-            <Typography variant="subtitle3" color={styleToken.color.gray3} fontWeight={400}>
-              작성한 일기가 없어요.
-            </Typography>
-          </EmptyContainer>
+          <EmptyItem description="작성한 일기가 없어요." />
         )}
       </Container>
       <Menu />
@@ -204,7 +200,6 @@ const TextContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 0 5px;
-  margin-top: 14px;
   font-size: 14px;
   line-height: 1.3;
   color: ${styleToken.color.gray2};
@@ -220,19 +215,5 @@ const DeleteButton = styled.button`
   border: none;
   background-color: unset;
   color: ${styleToken.color.gray2};
-  cursor: pointer;
-`;
-
-const EmptyContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 18px;
-  height: 100px;
-  background-color: white;
-  border-radius: 15px;
-  border: 1px solid ${styleToken.color.gray5};
-  font-size: 14px;
   cursor: pointer;
 `;

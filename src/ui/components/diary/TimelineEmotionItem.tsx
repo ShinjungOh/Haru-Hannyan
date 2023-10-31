@@ -30,16 +30,18 @@ export function TimelineEmotionItem({ emotions }: TimelineEmotionItemProps) {
   }, [containerRef]);
 
   return (
-    <Container ref={containerRef}>
-      <>
-        {emotions &&
-          emotions.map((emotion, index) => (
-            <EmotionItem key={index} height={width}>
-              <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
-            </EmotionItem>
-          ))}
-      </>
-    </Container>
+    emotions.length > 0 && (
+      <Container ref={containerRef}>
+        <>
+          {emotions &&
+            emotions.map((emotion, index) => (
+              <EmotionItem key={index} height={width}>
+                <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
+              </EmotionItem>
+            ))}
+        </>
+      </Container>
+    )
   );
 }
 
@@ -50,9 +52,10 @@ const Container = styled.div`
   grid-column-gap: 6px;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  height: 100%;
+  height: auto;
+  margin-bottom: 16px;
 `;
 
 const EmotionItem = styled.div<{ height: number }>`

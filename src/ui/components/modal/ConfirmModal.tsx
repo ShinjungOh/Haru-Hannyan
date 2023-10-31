@@ -118,7 +118,7 @@ const ConfirmMessage = styled.div`
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  margin-top: 18px;
+  margin-top: 10px;
 `;
 
 const ButtonContainer = styled.div`

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
-import { NavigationHeader, Typography } from '@ui/components/common';
+import { EmptyItem, NavigationHeader, Typography } from '@ui/components/common';
 import { ReportAnswers } from '@lib/types';
 import { mappedResultType, parseDate } from '@lib/utils';
 import { useAxiosErrorAlert } from '@lib/hooks';
@@ -66,11 +66,7 @@ export function ReportListPage() {
             );
           })
         ) : (
-          <EmptyContainer>
-            <Typography variant="subtitle3" color={styleToken.color.gray3} fontWeight={400}>
-              측정한 기록이 없어요.
-            </Typography>
-          </EmptyContainer>
+          <EmptyItem description="측정한 기록이 없어요." />
         )}
       </Container>
       <Menu />
@@ -117,18 +113,4 @@ const DayName = styled.div<{ color: string }>`
   border-radius: 6px;
   border: none;
   background-color: ${(props) => props.color};
-`;
-
-const EmptyContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 18px;
-  height: 100px;
-  background-color: white;
-  border-radius: 15px;
-  border: 1px solid ${styleToken.color.gray5};
-  font-size: 14px;
-  cursor: pointer;
 `;

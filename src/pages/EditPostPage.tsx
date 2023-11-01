@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { Body } from '@ui/components/layout';
@@ -31,6 +31,19 @@ export function EditPostPage() {
       date: 0,
     },
   });
+  const [originDiary, setOriginDiary] = useState<Diary>({
+    diaryId: 0,
+    feel: Feeling.보통,
+    emotions: [],
+    text: '',
+    createDate: {
+      year: 0,
+      month: 0,
+      date: 0,
+    },
+  });
+
+  const isEdit = useMemo(() => originDiary !== diary, [diary]);
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -111,6 +124,7 @@ export function EditPostPage() {
         if (responseGetDiary.success && responseGetDiary.data) {
           const dailyDiary = responseGetDiary.data.diary;
           setDiary(dailyDiary);
+          setOriginDiary(dailyDiary);
         }
       } catch (e) {
         await axiosErrorAlert(e);
@@ -122,7 +136,12 @@ export function EditPostPage() {
 
   return (
     <>
-      <WritePostHeader year={diary.createDate.year} month={diary.createDate.month} date={diary.createDate.date} />
+      <WritePostHeader
+        year={diary.createDate.year}
+        month={diary.createDate.month}
+        date={diary.createDate.date}
+        isEdit={isEdit}
+      />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
@@ -176,7 +195,7 @@ const DiaryContainer = styled.div`
   font-size: 14px;
 
   label {
-    font-weight: 600;
+    font-weight: 500;
     color: ${styleToken.color.gray3};
   }
 `;

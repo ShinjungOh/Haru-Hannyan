@@ -1,17 +1,18 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router';
-import { useConfirm } from '@lib/hooks';
 import { styleToken } from '@ui/styles';
+import { useNavigate } from 'react-router';
 import { Typography } from '@ui/components/common';
+import { useConfirm } from '@lib/hooks';
 import { dayName } from '../../../pages';
 
 type WritePostHeaderProps = {
   year: number;
   month: number;
   date: number;
+  isEdit: boolean;
 };
 
-export function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
+export function WritePostHeader({ year, month, date, isEdit }: WritePostHeaderProps) {
   const navigate = useNavigate();
   const confirm = useConfirm();
 
@@ -24,16 +25,20 @@ export function WritePostHeader({ year, month, date }: WritePostHeaderProps) {
   const dayOfWeek = dayName[getDayOfTargetDate];
 
   const handlePageBack = async () => {
-    const responseConfirm = await confirm(
-      {
-        type: 'out',
-        title: '감정일기 글쓰기',
-        description: '기록한 내용이 저장되지 않아요.\n그래도 나가시겠어요?',
-      },
-      { clickOverlayClose: true },
-    );
+    if (isEdit) {
+      const responseConfirm = await confirm(
+        {
+          type: 'out',
+          title: '감정일기 글쓰기',
+          description: '기록한 내용이 저장되지 않아요.\n그래도 나가시겠어요?',
+        },
+        { clickOverlayClose: true },
+      );
 
-    if (responseConfirm) {
+      if (responseConfirm) {
+        handleNavigateBack();
+      }
+    } else {
       handleNavigateBack();
     }
   };

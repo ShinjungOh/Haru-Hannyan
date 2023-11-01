@@ -4,8 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
-import { DiaryModal } from '@ui/components/modal';
 import { EmotionContainer, EmptyInputField, FeelingContainer, InputField, WritePostHeader } from '@ui/components/diary';
+import { DiaryModal } from '@ui/components/modal';
 import { BaseButton } from '@ui/components/common';
 import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
 import { Emotion, Feeling, NewDiary } from '@lib/types';
@@ -37,6 +37,8 @@ export function WritePostPage() {
       date: parseDate,
     },
   });
+
+  const isEdit = true;
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -100,7 +102,7 @@ export function WritePostPage() {
 
   return (
     <>
-      <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} />
+      <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} isEdit={isEdit} />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
@@ -153,10 +155,9 @@ const DiaryContainer = styled.div`
   background-color: white;
   border: 1px solid ${styleToken.color.gray5};
   font-size: 14px;
-  z-index: 0;
 
   label {
-    font-weight: 600;
+    font-weight: 500;
     color: ${styleToken.color.gray3};
   }
 `;

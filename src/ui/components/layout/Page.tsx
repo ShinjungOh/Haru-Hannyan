@@ -1,13 +1,23 @@
 import styled from '@emotion/styled';
-
-import { PropsWithChildren } from 'react';
+import { styleToken } from '@ui/styles';
+import { PropsWithChildren, useEffect } from 'react';
 
 export function Page({ children }: PropsWithChildren) {
+  function setScreenSize() {
+    const vh = window.innerHeight * 0.01;
+
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    document.documentElement.style.backgroundColor = styleToken.color.gray5;
+  }
+
+  useEffect(() => {
+    setScreenSize();
+  }, []);
+
   return <Container>{children}</Container>;
 }
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
-  background-color: #e9e9e9;
+  background-color: ${styleToken.color.gray5};
 `;

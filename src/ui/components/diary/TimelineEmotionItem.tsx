@@ -14,7 +14,7 @@ export function TimelineEmotionItem({ emotions }: TimelineEmotionItemProps) {
 
   const handleResize = useCallback(() => {
     if (containerRef.current && containerRef.current.clientWidth) {
-      const newWidth = containerRef.current.clientWidth / 4.4;
+      const newWidth = containerRef.current.clientWidth / 5.55;
       setWidth(newWidth || 0);
     }
   }, [containerRef]);
@@ -47,7 +47,7 @@ export function TimelineEmotionItem({ emotions }: TimelineEmotionItemProps) {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-row-gap: 6px;
   grid-column-gap: 6px;
   flex-direction: row;

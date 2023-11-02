@@ -4,6 +4,7 @@ import {
   AuthKakaoPage,
   CalendarPage,
   EditPostPage,
+  ErrorPage,
   HomePage,
   ModifyNamePage,
   ModifyPasswordPage,
@@ -123,6 +124,10 @@ const routes = [
             <PrivacyPolicyPage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: PATH.ERROR,
+        element: <ErrorPage />,
       },
     ],
   },

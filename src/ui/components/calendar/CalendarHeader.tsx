@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@ui/components/common';
 import useDateStore from '@lib/store/useDateStore';
+import { getFormat2Digit } from '@lib/utils';
 
 type CalendarHeaderProps = {
   page?: 'calendar' | 'timeline';
@@ -48,8 +49,8 @@ export function CalendarHeader({ page }: CalendarHeaderProps) {
     if (targetDate === null) {
       return false;
     }
-    const targetMonth = `${targetDate.getFullYear()}${targetDate.getMonth()}`;
-    const currentMonth = `${currentDate.getFullYear()}${currentDate.getMonth()}`;
+    const targetMonth = `${targetDate.getFullYear()}${getFormat2Digit(targetDate.getMonth())}`;
+    const currentMonth = `${currentDate.getFullYear()}${getFormat2Digit(currentDate.getMonth())}`;
     return targetMonth < currentMonth;
   }, [currentDate, targetDate]);
 

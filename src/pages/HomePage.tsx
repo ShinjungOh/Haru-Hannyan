@@ -1,10 +1,10 @@
-import { Body } from '@ui/components/layout';
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { useNavigate } from 'react-router';
+import { Body } from '@ui/components/layout';
+import { SignButton, Typography } from '@ui/components/common';
 import { PATH } from '@lib/const/path';
 import { KAKAO_AUTH_URL } from '@lib/const/config';
-import { SignButton } from '@ui/components/common';
-import { styleToken } from '@ui/styles';
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -21,8 +21,18 @@ export function HomePage() {
     <Container>
       <TitleContainer>
         <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
-        <Title>하루한냥</Title>
-        <Description>나만의 고양이를 모아보세요</Description>
+        <Typography
+          variant="h1"
+          color={styleToken.color.gray2}
+          fontSize="42px"
+          fontWeight={600}
+          style={{ marginTop: 8 }}
+        >
+          하루한냥
+        </Typography>
+        <Typography variant="body3" color={styleToken.color.gray3} fontWeight={600} style={{ marginTop: 6 }}>
+          나만의 고양이를 모아보세요
+        </Typography>
       </TitleContainer>
       <ButtonContainer>
         <SignButton
@@ -60,20 +70,6 @@ const TitleContainer = styled.div`
     width: 100px;
     height: 100px;
   }
-`;
-
-const Title = styled.h1`
-  margin-top: 20px;
-  color: ${styleToken.color.gray2};
-  font-size: 42px;
-  font-weight: 600;
-`;
-
-const Description = styled.h5`
-  margin-top: 14px;
-  color: ${styleToken.color.gray3};
-  font-size: 14px;
-  font-weight: 600;
 `;
 
 const ButtonContainer = styled.div`

@@ -25,7 +25,7 @@ export function TimelinePage() {
     state.setTargetDate,
   ]);
 
-  const [diary, setDiary] = useState<Diary[]>();
+  const [diaryList, setDiaryList] = useState<Diary[]>();
 
   const handlePageToEditDiary = (diaryId: string) => {
     navigate(`/calendar/edit?diaryId=${diaryId}`);
@@ -57,7 +57,7 @@ export function TimelinePage() {
           const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
 
           if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
-            setDiary(responseGetMonthlyDiary.data.diary);
+            setDiaryList(responseGetMonthlyDiary.data.diary);
           }
         }
       } catch (e) {
@@ -74,21 +74,21 @@ export function TimelinePage() {
     <>
       <CalendarHeader page="timeline" />
       <Container>
-        {diary && diary?.length > 0 ? (
-          diary.map((el, index) => {
-            const date2Digit = el.createDate.date < 10 ? `0${el.createDate.date}` : el.createDate.date;
+        {diaryList && diaryList?.length > 0 ? (
+          diaryList.map((diary, index) => {
+            const date2Digit = diary.createDate.date < 10 ? `0${diary.createDate.date}` : diary.createDate.date;
             const getDayOfTargetDate = new Date(
-              el.createDate.year,
-              el.createDate.month - 1,
-              el.createDate.date,
+              diary.createDate.year,
+              diary.createDate.month - 1,
+              diary.createDate.date,
             ).getDay();
             const dayOfWeek = dayName[getDayOfTargetDate];
             return (
               <div key={index}>
-                <DiaryContainer onClick={() => handlePageToEditDiary(String(el.diaryId))}>
+                <DiaryContainer onClick={() => handlePageToEditDiary(String(diary.diaryId))}>
                   <FeelingAndDateContainer>
                     <FeelingCat>
-                      <img src={CALENDAR_TYPE_IMG[el.feel]} alt={el.feel} />
+                      <img src={CALENDAR_TYPE_IMG[diary.feel]} alt={diary.feel} />
                     </FeelingCat>
                     <DiaryDate>
                       <Typography variant="h4" color={styleToken.color.gray1}>
@@ -102,11 +102,11 @@ export function TimelinePage() {
                     </DayName>
                   </FeelingAndDateContainer>
                   <EmotionAndTextContainer>
-                    <TimelineEmotionItem emotions={el.emotions} />
-                    <TextContainer>{el.text}</TextContainer>
+                    <TimelineEmotionItem emotions={diary.emotions} />
+                    <TextContainer>{diary.text}</TextContainer>
                   </EmotionAndTextContainer>
                 </DiaryContainer>
-                <DeleteButton onClick={() => handleClickDeleteDiary(String(el.diaryId))}>삭제</DeleteButton>
+                <DeleteButton onClick={() => handleClickDeleteDiary(String(diary.diaryId))}>삭제</DeleteButton>
               </div>
             );
           })

@@ -5,9 +5,9 @@ import { PropsWithChildren } from 'react';
 type EmptyInputFieldProps = {
   id: string;
   onClick: () => void;
-};
+} & PropsWithChildren;
 
-export function EmptyInputField({ id, onClick, children }: EmptyInputFieldProps & PropsWithChildren) {
+export function EmptyInputField({ id, onClick, children }: EmptyInputFieldProps) {
   return (
     <EmptyInputContainer id={id} onClick={onClick}>
       {children}

@@ -18,14 +18,14 @@ export function EmotionContainer({ diary, onClick }: EmotionContainerProps) {
       </Typography>
       <EmotionList>
         <>
-          {EMOTION_TYPE.map((el) => {
-            const isSelected = diary.emotions.includes(el.emotion);
+          {EMOTION_TYPE.map((emotion) => {
+            const isSelected = diary.emotions.includes(emotion.emotion);
 
             return (
               <EmotionItem
-                key={el.emotion}
-                emotion={el.emotion}
-                imgSrc={el.url}
+                key={emotion.emotion}
+                emotion={emotion.emotion}
+                imgSrc={emotion.url}
                 isSelected={isSelected}
                 onClick={onClick}
               />

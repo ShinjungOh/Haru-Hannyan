@@ -34,11 +34,15 @@ export function TimelineEmotionItem({ emotions }: TimelineEmotionItemProps) {
       <Container ref={containerRef}>
         <>
           {emotions &&
-            emotions.map((emotion, index) => (
-              <EmotionItem key={index} height={width}>
-                <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
-              </EmotionItem>
-            ))}
+            emotions.map((emotion, index) => {
+              const emotionImageSrc = `/images/icon/emotion/${emotion}.svg`;
+
+              return (
+                <EmotionItem key={index} height={width}>
+                  <img src={emotionImageSrc} alt={emotion} />
+                </EmotionItem>
+              );
+            })}
         </>
       </Container>
     )

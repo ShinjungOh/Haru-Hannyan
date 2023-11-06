@@ -19,7 +19,7 @@ export function Menu() {
   const axiosErrorAlert = useAxiosErrorAlert();
 
   const [currentDate] = useDateStore((state) => [state.currentDate]);
-  const [diary, setDiary] = useState<Diary[]>();
+  const [diaryList, setDiaryList] = useState<Diary[]>();
   const [isOpen, setIsOpen] = useState(false);
 
   const localPathName = location.pathname.toUpperCase();
@@ -41,16 +41,18 @@ export function Menu() {
   const handleClickTodayFeeling = async (feeling: string) => {
     const today = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
     const isAlreadyTodayDiary = () => {
-      const dateFormat = diary && diary.map((el) => `${el.createDate.year}${el.createDate.month}${el.createDate.date}`);
+      const dateFormat =
+        diaryList &&
+        diaryList.map((diary) => `${diary.createDate.year}${diary.createDate.month}${diary.createDate.date}`);
       return dateFormat && dateFormat.includes(today);
     };
 
-    if (diary && !isAlreadyTodayDiary()) {
+    if (diaryList && !isAlreadyTodayDiary()) {
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1;
       const date = currentDate.getDate();
       navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
-    } else if (diary && !!isAlreadyTodayDiary()) {
+    } else if (diaryList && !!isAlreadyTodayDiary()) {
       const responseAlert = await alert({
         type: 'danger',
         title: '이미 일기가 존재해요.',
@@ -69,7 +71,7 @@ export function Menu() {
         const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
 
         if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
-          setDiary(responseGetMonthlyDiary.data.diary);
+          setDiaryList(responseGetMonthlyDiary.data.diary);
         }
       } catch (e) {
         await axiosErrorAlert(e);

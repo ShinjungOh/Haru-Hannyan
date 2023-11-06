@@ -55,7 +55,7 @@ export function CalendarPage() {
       const year = targetDate.getFullYear();
       const month = targetDate.getMonth() + 1;
       const findDiary = monthlyDiary.find(
-        (el) => el.createDate.year === year && el.createDate.month === month && el.createDate.date === date,
+        (diary) => diary.createDate.year === year && diary.createDate.month === month && diary.createDate.date === date,
       );
 
       const editDiaryPageURL = `/calendar/edit?diaryId=${findDiary?.diaryId}`;
@@ -113,9 +113,10 @@ export function CalendarPage() {
               <div key={day} />
             ))}
             {range(daysInMonth, 1).map((date) => {
-              const findElement = monthlyDiary.find((el) => el.createDate.date === date);
+              const findElement = monthlyDiary.find((diary) => diary.createDate.date === date);
               const isToday = isCurrentDateSameAsTarget() && date === currentDate.getDate();
               const isDisabled = isCurrentDateSameAsTarget() && date > currentDate.getDate();
+
               if (findElement) {
                 return (
                   <DateColumn

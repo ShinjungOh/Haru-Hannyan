@@ -18,14 +18,14 @@ export function FeelingContainer({ diary, onClick }: FeelingContainerProps) {
       </Typography>
       <FeelingCatList>
         <>
-          {FEELING_CAT_TYPE.map((el) => {
-            const isSelected = el.feeling === diary.feel;
+          {FEELING_CAT_TYPE.map((feelingCat) => {
+            const isSelected = feelingCat.feeling === diary.feel;
 
             return (
               <FeelingItem
-                key={el.feeling}
-                feeling={el.feeling}
-                imgSrc={el.url}
+                key={feelingCat.feeling}
+                feeling={feelingCat.feeling}
+                imgSrc={feelingCat.url}
                 isSelected={isSelected}
                 onClick={onClick}
               />

@@ -14,13 +14,15 @@ export function TodayFeeling({ onClick }: TodayFeelingProps) {
         <Typography variant="subtitle4" color={styleToken.color.gray2}>
           오늘은 어떤 고양이인가요?
         </Typography>
-        <FeelingCat>
+        <FeelingCatList>
           <>
             {FEELING_CAT_TYPE.map((el, index) => (
-              <img key={index} src={el.url} alt={el.feeling} onClick={() => onClick(el.feeling)} />
+              <FeelingItem key={el.feeling} onClick={() => onClick(el.feeling)}>
+                <img key={index} src={el.url} alt={el.feeling} />
+              </FeelingItem>
             ))}
           </>
-        </FeelingCat>
+        </FeelingCatList>
       </FeelingContainer>
       <Triangle />
     </Container>
@@ -50,9 +52,9 @@ const FeelingContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 14px 16px 14px;
-  width: 330px;
-  height: 100px;
+  padding: 16px 14px 16px 14px;
+  width: 80%;
+  height: auto;
   border-radius: 15px;
   background-color: white;
 `;
@@ -67,8 +69,18 @@ const Triangle = styled.div`
   transform: translateX(-50%) rotate(180deg);
 `;
 
-const FeelingCat = styled.div`
-  width: 40px;
+const FeelingCatList = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const FeelingItem = styled.div`
+  width: 100%;
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -79,6 +91,5 @@ const FeelingCat = styled.div`
   img {
     width: 100%;
     height: 100%;
-    margin: 8px;
   }
 `;

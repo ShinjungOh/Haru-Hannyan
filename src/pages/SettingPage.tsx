@@ -8,7 +8,7 @@ import { SettingMenuList } from '@ui/components/setting';
 import { BaseButton, Typography } from '@ui/components/common';
 import { PATH } from '@lib/const/path';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
-import { EMAIL_KEY, USER_NAME_KEY } from '@lib/const/localstorage';
+import { EMAIL_KEY, USER_NAME_KEY, USER_TYPE_KEY } from '@lib/const/localstorage';
 import { BLOG_LINK } from '@lib/const/link';
 import { apiGetRecord } from '../api/setting';
 
@@ -24,6 +24,8 @@ export function SettingPage() {
 
   const storeName = localStorage?.getItem(USER_NAME_KEY);
   const storeEmail = localStorage?.getItem(EMAIL_KEY);
+  const userType = localStorage?.getItem(USER_TYPE_KEY);
+  const isKakaoSignin = userType === '1';
 
   const [record, setRecord] = useState<Record>({
     diaries: 0,
@@ -108,11 +110,28 @@ export function SettingPage() {
             <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
           </ProfileIcon>
           <ProfileDetail>
-            <Typography variant="subtitle3" fontWeight={600}>
-              {storeName}
-            </Typography>
+            {isKakaoSignin ? (
+              <KakaoProfileContainer>
+                <img
+                  src="/images/icon/kakaotalk_btn.png"
+                  alt="Kakao User"
+                  style={{
+                    width: 20,
+                    height: 20,
+                    marginRight: 6,
+                  }}
+                />
+                <Typography variant="subtitle3" fontWeight={600}>
+                  {storeName}
+                </Typography>
+              </KakaoProfileContainer>
+            ) : (
+              <Typography variant="subtitle3" fontWeight={600}>
+                {storeName}
+              </Typography>
+            )}
             <Typography variant="body3" style={{ width: 148 }}>
-              {storeEmail}
+              {!isKakaoSignin && storeEmail}
             </Typography>
           </ProfileDetail>
         </ProfileContainer>
@@ -185,6 +204,15 @@ const ProfileDetail = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  height: auto;
+  gap: 4px;
+`;
+
+const KakaoProfileContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   height: auto;
   gap: 4px;
 `;

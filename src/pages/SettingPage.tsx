@@ -110,26 +110,28 @@ export function SettingPage() {
             <img src="/images/icon/menu/feel-cat.svg" alt="하루한냥" />
           </ProfileIcon>
           <ProfileDetail>
-            {isKakaoSignin ? (
-              <KakaoProfileContainer>
-                <img
-                  src="/images/icon/kakaotalk_btn.png"
-                  alt="Kakao User"
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginRight: 6,
-                  }}
-                />
+            <>
+              {isKakaoSignin ? (
+                <KakaoProfileContainer>
+                  <img
+                    src="/images/icon/kakaotalk_btn.png"
+                    alt="Kakao User"
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginRight: 4,
+                    }}
+                  />
+                  <Typography variant="subtitle3" fontWeight={600}>
+                    {storeName}
+                  </Typography>
+                </KakaoProfileContainer>
+              ) : (
                 <Typography variant="subtitle3" fontWeight={600}>
                   {storeName}
                 </Typography>
-              </KakaoProfileContainer>
-            ) : (
-              <Typography variant="subtitle3" fontWeight={600}>
-                {storeName}
-              </Typography>
-            )}
+              )}
+            </>
             <Typography variant="body3" style={{ width: 148 }}>
               {!isKakaoSignin && storeEmail}
             </Typography>

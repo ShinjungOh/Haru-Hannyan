@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { MenuItem } from '@ui/components/menu';
@@ -9,7 +9,6 @@ import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { FEELING_CAT_ICON, MENU_ICON } from '@lib/const/imageSrc';
 import { PATH } from '@lib/const/path';
 import useDateStore from '@lib/store/useDateStore';
-import { Diary } from '@lib/types';
 import { apiGetMonthlyDiary } from '../../../api/diary';
 
 export function Menu() {
@@ -19,7 +18,6 @@ export function Menu() {
   const axiosErrorAlert = useAxiosErrorAlert();
 
   const [currentDate] = useDateStore((state) => [state.currentDate]);
-  const [diaryList, setDiaryList] = useState<Diary[]>();
   const [isOpen, setIsOpen] = useState(false);
 
   const localPathName = location.pathname.toUpperCase();
@@ -39,47 +37,39 @@ export function Menu() {
   };
 
   const handleClickTodayFeeling = async (feeling: string) => {
-    const today = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
-    const isAlreadyTodayDiary = () => {
-      const dateFormat =
-        diaryList &&
-        diaryList.map((diary) => `${diary.createDate.year}${diary.createDate.month}${diary.createDate.date}`);
-      return dateFormat && dateFormat.includes(today);
-    };
-
-    if (diaryList && !isAlreadyTodayDiary()) {
+    try {
+      const getDateFormat = (year: number, month: number, date: number) => `${year}${month}${date}`;
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1;
       const date = currentDate.getDate();
-      navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
-    } else if (diaryList && !!isAlreadyTodayDiary()) {
-      const responseAlert = await alert({
-        type: 'danger',
-        title: '이미 일기가 존재해요.',
-      });
-      if (responseAlert) {
-        setIsOpen(false);
+      const today = getDateFormat(year, month, date);
+
+      const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
+
+      if (responseGetMonthlyDiary.data) {
+        const isAlreadyDiary = responseGetMonthlyDiary.data.diary.some((diary) => {
+          const dateFormat = getDateFormat(diary.createDate.year, diary.createDate.month, diary.createDate.date);
+          return today === dateFormat;
+        });
+
+        if (isAlreadyDiary) {
+          const responseAlert = await alert({
+            type: 'danger',
+            title: '오늘의 일기가 존재해요.',
+          });
+          if (responseAlert) {
+            setIsOpen(false);
+          }
+        } else {
+          navigate(`/calendar/write?year=${year}&month=${month}&date=${date}&feeling=${feeling}`);
+        }
+        return;
       }
+      throw new Error('일기를 불러오는데 실패했습니다.');
+    } catch (e) {
+      await axiosErrorAlert(e);
     }
   };
-
-  useEffect(() => {
-    const getMonthlyDiary = async () => {
-      try {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth() + 1;
-        const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
-
-        if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
-          setDiaryList(responseGetMonthlyDiary.data.diary);
-        }
-      } catch (e) {
-        await axiosErrorAlert(e);
-      }
-    };
-
-    getMonthlyDiary();
-  }, [currentDate]);
 
   return (
     <Container>

@@ -68,8 +68,10 @@ const EmotionHeader = styled.div<{ isSelected: boolean; height: number }>`
     width: 60%;
   }
 
-  :hover {
-    opacity: 100%;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 1;
+    }
   }
 `;
 

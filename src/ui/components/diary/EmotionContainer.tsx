@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { Emotion } from '@lib/types';
 import { styleToken } from '@ui/styles';
+import { Emotion } from '@lib/types';
+import { EmotionItem } from '@ui/components/diary/EmotionItem';
 import { Typography } from '@ui/components/common';
 import { EMOTION_TYPE } from '@lib/const/imageSrc';
-import { EmotionItem } from '@ui/components/diary/EmotionItem';
 
 type EmotionContainerProps = {
   diary: any;
@@ -18,15 +18,16 @@ export function EmotionContainer({ diary, onClick }: EmotionContainerProps) {
       </Typography>
       <EmotionList>
         <>
-          {EMOTION_TYPE.map((el) => {
-            const isSelected = diary.emotions.includes(el.emotion);
+          {EMOTION_TYPE.map((emotion) => {
+            const isSelected = diary.emotions.includes(emotion.emotion);
+
             return (
               <EmotionItem
-                key={el.emotion}
-                emotion={el.emotion}
-                imgSrc={el.url}
-                onClick={onClick}
+                key={emotion.emotion}
+                emotion={emotion.emotion}
+                imgSrc={emotion.url}
                 isSelected={isSelected}
+                onClick={onClick}
               />
             );
           })}

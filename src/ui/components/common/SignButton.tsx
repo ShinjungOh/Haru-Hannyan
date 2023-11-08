@@ -25,21 +25,21 @@ const Button = styled.button<{ backgroundColor: string; color: string }>`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 71px;
-  min-height: 65px;
+  height: 54px;
+  min-height: 54px;
   border-radius: 15px;
   border: none;
   background-color: ${(props) => props.backgroundColor};
   color: ${(props) => props.color};
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
 
   img {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     margin-top: 0;
-    margin-right: 8px;
+    margin-right: 6px;
   }
 
   &:disabled {

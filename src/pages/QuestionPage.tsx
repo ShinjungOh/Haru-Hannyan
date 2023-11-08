@@ -6,7 +6,10 @@ import { Body } from '@ui/components/layout';
 import { BaseButton, NavigationHeader, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { ANSWER_TITLE } from '@lib/const/reportQnA';
+import { range } from '@lib/utils';
 import { apiGetAnswers, apiGetQuestions, apiPostAnswer } from '../api/report';
+
+const initialAnswer = range(10).map(() => null);
 
 export function QuestionPage() {
   const navigate = useNavigate();
@@ -14,10 +17,10 @@ export function QuestionPage() {
   const axiosErrorAlert = useAxiosErrorAlert();
 
   const [questions, setQuestions] = useState<[]>([]);
-  const [answer, setAnswer] = useState<number[]>([]);
+  const [answer, setAnswer] = useState<(number | null)[]>(initialAnswer);
 
-  const validAnswer = answer.filter((el) => el);
-  const isDisabledSubmit = useMemo(() => validAnswer.length !== 10, [answer]);
+  const isInvalidAnswer = answer.includes(null);
+  const isDisabledSubmit = useMemo(() => isInvalidAnswer || answer.length < 10, [answer]);
 
   const handleChangeAnswer = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
@@ -45,14 +48,16 @@ export function QuestionPage() {
 
   const handleSubmit = async () => {
     try {
-      const responsePostAnswer = await apiPostAnswer('stress', answer);
+      const isNumber = (value: number | null): value is number => value !== null;
+      const numbersOnly: number[] = answer.filter(isNumber);
+      const responsePostAnswer = await apiPostAnswer('stress', numbersOnly);
 
       if (responsePostAnswer.success) {
         const responseGetAnswers = await apiGetAnswers();
 
         if (responseGetAnswers.success && responseGetAnswers.data) {
           const id = responseGetAnswers.data.answers[0].answer_id;
-          navigate(`/report/answer/${id}`);
+          navigate(`/report/answer/${id}`, { replace: true });
         }
       }
     } catch (e) {
@@ -125,8 +130,8 @@ export function QuestionPage() {
           ))}
         <BaseButton
           colorTheme="primary"
-          height="68px"
-          minHeight="68px"
+          height="54px"
+          minHeight="54px"
           onClick={handleSubmit}
           style={{ marginTop: 30 }}
           disabled={isDisabledSubmit}
@@ -140,7 +145,7 @@ export function QuestionPage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding: 5px 34px 15px 34px;
+  padding: 4px 20px 14px 20px;
   width: 100%;
 `;
 
@@ -150,7 +155,7 @@ const InfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 22px;
+  padding: 22px 12px;
   height: auto;
   margin-bottom: 6px;
   background-color: white;

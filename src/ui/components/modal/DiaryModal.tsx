@@ -83,8 +83,11 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 360px;
-  height: 370px;
+  width: 90%;
+  max-width: 360px;
+  height: 50%;
+  min-height: 340px;
+  max-height: 370px;
   padding: 22px;
   border-radius: 15px;
   background-color: ${styleToken.color.white};
@@ -100,7 +103,6 @@ const TextContainer = styled.textarea`
   height: 100%;
   padding: 20px;
   border: 1px solid ${styleToken.color.gray4};
-  border-radius: 8px;
   color: ${styleToken.color.gray2};
   cursor: pointer;
   font-size: 14px;

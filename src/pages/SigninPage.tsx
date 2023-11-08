@@ -93,7 +93,7 @@ export function SigninPage() {
       <NavigationHeader isBack />
       <Container>
         <TitleContainer>
-          <Typography variant="h1">로그인</Typography>
+          <Typography variant="h2">로그인</Typography>
         </TitleContainer>
         <InputContainer>
           <label htmlFor="email">이메일</label>
@@ -138,25 +138,25 @@ export function SigninPage() {
 }
 
 const Container = styled(Body)`
-  padding: 10px 35px 35px 35px;
+  padding: 10px 34px 34px 34px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 `;
 
 const TitleContainer = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 44px;
 `;
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 39px;
+  margin-bottom: 34px;
   width: 100%;
-  height: 100px;
-  min-height: 85px;
+  height: auto;
+  min-height: 80px;
 
   label {
     width: 100%;
@@ -164,17 +164,17 @@ const InputContainer = styled.div`
     padding-left: 3px;
     margin-bottom: 8px;
     color: ${styleToken.color.gray3};
-    font-size: 15px;
+    font-size: 14px;
   }
 
   & + & {
-    margin-bottom: 50px;
+    margin-bottom: 42px;
   }
 `;
 
 const Description = styled.div`
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 60px;
 
   a {
     cursor: pointer;

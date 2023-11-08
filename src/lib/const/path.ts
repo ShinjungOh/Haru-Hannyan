@@ -15,4 +15,5 @@ export const PATH = {
   SETTING_MODIFY_NAME: '/setting/modifyName',
   SETTING_MODIFY_PASSWORD: '/setting/modifyPassword',
   SETTING_PRIVACY: '/setting/privacy',
+  ERROR: '*',
 };

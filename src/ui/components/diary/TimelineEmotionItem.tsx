@@ -14,7 +14,7 @@ export function TimelineEmotionItem({ emotions }: TimelineEmotionItemProps) {
 
   const handleResize = useCallback(() => {
     if (containerRef.current && containerRef.current.clientWidth) {
-      const newWidth = containerRef.current.clientWidth / 4.4;
+      const newWidth = containerRef.current.clientWidth / 5.55;
       setWidth(newWidth || 0);
     }
   }, [containerRef]);
@@ -30,29 +30,36 @@ export function TimelineEmotionItem({ emotions }: TimelineEmotionItemProps) {
   }, [containerRef]);
 
   return (
-    <Container ref={containerRef}>
-      <>
-        {emotions &&
-          emotions.map((emotion, index) => (
-            <EmotionItem key={index} height={width}>
-              <img src={`/images/icon/emotion/${emotion}.svg`} alt={emotion} />
-            </EmotionItem>
-          ))}
-      </>
-    </Container>
+    emotions.length > 0 && (
+      <Container ref={containerRef}>
+        <>
+          {emotions &&
+            emotions.map((emotion, index) => {
+              const emotionImageSrc = `/images/icon/emotion/${emotion}.svg`;
+
+              return (
+                <EmotionItem key={index} height={width}>
+                  <img src={emotionImageSrc} alt={emotion} />
+                </EmotionItem>
+              );
+            })}
+        </>
+      </Container>
+    )
   );
 }
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-row-gap: 6px;
   grid-column-gap: 6px;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  height: 100%;
+  height: auto;
+  margin-bottom: 16px;
 `;
 
 const EmotionItem = styled.div<{ height: number }>`

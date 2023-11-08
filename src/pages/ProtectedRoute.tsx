@@ -7,7 +7,7 @@ export function ProtectedRoute({ children }: any) {
 
   const isAccessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
   if (!isAccessToken) {
-    navigate(PATH.SIGN_IN);
+    navigate(PATH.HOME, { replace: true });
   }
 
   return children;

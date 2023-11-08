@@ -16,7 +16,7 @@ export function MenuItem({ imageSrc, path }: MenuItemProps) {
 
   return (
     <Icon onClick={handleChangePage}>
-      <img src={imageSrc} alt={path} style={{ width: 32 }} />
+      <img src={imageSrc} alt={path} style={{ width: 30 }} />
     </Icon>
   );
 }

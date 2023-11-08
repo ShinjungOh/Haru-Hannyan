@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
+import { FeelingItem } from '@ui/components/diary/FeelingItem';
 import { FEELING_CAT_TYPE } from '@lib/const/imageSrc';
-import { Feeling } from '@lib/types';
+import { Diary, Feeling, NewDiary } from '@lib/types';
 
 type FeelingContainerProps = {
-  diary: any;
+  diary: NewDiary | Diary;
   onClick: (feeling: Feeling) => void;
 };
 
@@ -17,15 +18,16 @@ export function FeelingContainer({ diary, onClick }: FeelingContainerProps) {
       </Typography>
       <FeelingCatList>
         <>
-          {FEELING_CAT_TYPE.map((el, index) => {
-            const isSelected = el.feeling === diary.feel;
+          {FEELING_CAT_TYPE.map((feelingCat) => {
+            const isSelected = feelingCat.feeling === diary.feel;
+
             return (
-              <FeelingCatImage
-                key={index}
-                src={el.url}
-                alt={el.feeling}
+              <FeelingItem
+                key={feelingCat.feeling}
+                feeling={feelingCat.feeling}
+                imgSrc={feelingCat.url}
                 isSelected={isSelected}
-                onClick={() => onClick(el.feeling)}
+                onClick={onClick}
               />
             );
           })}
@@ -49,22 +51,11 @@ const Container = styled.div`
 `;
 
 const FeelingCatList = styled.div`
-  margin-top: 13px;
+  margin-top: 12px;
   width: 100%;
-  height: 40px;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-`;
-
-const FeelingCatImage = styled.img<{ isSelected: boolean }>`
-  width: 100%;
-  height: 100%;
-  opacity: ${(props) => (props.isSelected ? '100%' : '45%')};
-
-  :hover {
-    opacity: 100%;
-  }
 `;

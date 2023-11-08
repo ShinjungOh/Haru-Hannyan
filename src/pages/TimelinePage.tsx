@@ -6,7 +6,7 @@ import { CalendarHeader } from '@ui/components/calendar';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { TimelineEmotionItem } from '@ui/components/diary';
-import { Typography } from '@ui/components/common';
+import { EmptyItem, Typography } from '@ui/components/common';
 import useDateStore from '@lib/store/useDateStore';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { Diary } from '@lib/types';
@@ -25,7 +25,7 @@ export function TimelinePage() {
     state.setTargetDate,
   ]);
 
-  const [diary, setDiary] = useState<Diary[]>();
+  const [diaryList, setDiaryList] = useState<Diary[]>();
 
   const handlePageToEditDiary = (diaryId: string) => {
     navigate(`/calendar/edit?diaryId=${diaryId}`);
@@ -35,8 +35,8 @@ export function TimelinePage() {
     try {
       const responseConfirm = await confirm({
         type: 'delete',
-        title: '일기를 삭제하시겠습니까?',
-        description: '하루의 일기가 사라집니다.',
+        title: '일기를 삭제하시겠어요?',
+        description: '하루의 일기가 사라져요.',
       });
       if (responseConfirm) {
         await apiDeleteDiary(diaryId);
@@ -57,7 +57,7 @@ export function TimelinePage() {
           const responseGetMonthlyDiary = await apiGetMonthlyDiary(year, month);
 
           if (responseGetMonthlyDiary.success && responseGetMonthlyDiary.data) {
-            setDiary(responseGetMonthlyDiary.data.diary);
+            setDiaryList(responseGetMonthlyDiary.data.diary);
           }
         }
       } catch (e) {
@@ -74,21 +74,21 @@ export function TimelinePage() {
     <>
       <CalendarHeader page="timeline" />
       <Container>
-        {diary && diary?.length > 0 ? (
-          diary.map((el, index) => {
-            const date2Digit = el.createDate.date < 10 ? `0${el.createDate.date}` : el.createDate.date;
+        {diaryList && diaryList?.length > 0 ? (
+          diaryList.map((diary, index) => {
+            const date2Digit = diary.createDate.date < 10 ? `0${diary.createDate.date}` : diary.createDate.date;
             const getDayOfTargetDate = new Date(
-              el.createDate.year,
-              el.createDate.month - 1,
-              el.createDate.date,
+              diary.createDate.year,
+              diary.createDate.month - 1,
+              diary.createDate.date,
             ).getDay();
             const dayOfWeek = dayName[getDayOfTargetDate];
             return (
               <div key={index}>
-                <DiaryContainer onClick={() => handlePageToEditDiary(String(el.diaryId))}>
+                <DiaryContainer onClick={() => handlePageToEditDiary(String(diary.diaryId))}>
                   <FeelingAndDateContainer>
                     <FeelingCat>
-                      <img src={CALENDAR_TYPE_IMG[el.feel]} alt={el.feel} />
+                      <img src={CALENDAR_TYPE_IMG[diary.feel]} alt={diary.feel} />
                     </FeelingCat>
                     <DiaryDate>
                       <Typography variant="h4" color={styleToken.color.gray1}>
@@ -102,20 +102,16 @@ export function TimelinePage() {
                     </DayName>
                   </FeelingAndDateContainer>
                   <EmotionAndTextContainer>
-                    <TimelineEmotionItem emotions={el.emotions} />
-                    <TextContainer>{el.text}</TextContainer>
+                    <TimelineEmotionItem emotions={diary.emotions} />
+                    <TextContainer>{diary.text}</TextContainer>
                   </EmotionAndTextContainer>
                 </DiaryContainer>
-                <DeleteButton onClick={() => handleClickDeleteDiary(String(el.diaryId))}>삭제</DeleteButton>
+                <DeleteButton onClick={() => handleClickDeleteDiary(String(diary.diaryId))}>삭제</DeleteButton>
               </div>
             );
           })
         ) : (
-          <EmptyContainer>
-            <Typography variant="subtitle3" color={styleToken.color.gray3} fontWeight={400}>
-              작성한 일기가 없어요.
-            </Typography>
-          </EmptyContainer>
+          <EmptyItem description="작성한 일기가 없어요." />
         )}
       </Container>
       <Menu />
@@ -125,7 +121,7 @@ export function TimelinePage() {
 
 const Container = styled(Body)`
   overflow-y: auto;
-  padding: 5px 34px 15px 34px;
+  padding: 4px 20px 14px 20px;
   width: 100%;
 `;
 
@@ -204,7 +200,6 @@ const TextContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 0 5px;
-  margin-top: 14px;
   font-size: 14px;
   line-height: 1.3;
   color: ${styleToken.color.gray2};
@@ -220,19 +215,5 @@ const DeleteButton = styled.button`
   border: none;
   background-color: unset;
   color: ${styleToken.color.gray2};
-  cursor: pointer;
-`;
-
-const EmptyContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 18px;
-  height: 100px;
-  background-color: white;
-  border-radius: 15px;
-  border: 1px solid ${styleToken.color.gray5};
-  font-size: 14px;
   cursor: pointer;
 `;

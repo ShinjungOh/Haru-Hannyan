@@ -60,6 +60,6 @@ export const handleAxiosError = (error: any) => {
   console.log('Unknown Error: ', error);
   return {
     success: false,
-    msg: '알 수 없는 오류가 발생했습니다.',
+    msg: '알 수 없는 오류가 발생했어요.',
   };
 };

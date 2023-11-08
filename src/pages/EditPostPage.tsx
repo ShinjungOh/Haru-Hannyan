@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { Body } from '@ui/components/layout';
-import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
+import { EmotionContainer, EmptyInputField, FeelingContainer, InputField, WritePostHeader } from '@ui/components/diary';
 import { BaseButton } from '@ui/components/common';
 import { DiaryModal } from '@ui/components/modal';
 import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
@@ -31,6 +31,19 @@ export function EditPostPage() {
       date: 0,
     },
   });
+  const [originDiary, setOriginDiary] = useState<Diary>({
+    diaryId: 0,
+    feel: Feeling.보통,
+    emotions: [],
+    text: '',
+    createDate: {
+      year: 0,
+      month: 0,
+      date: 0,
+    },
+  });
+
+  const isEdit = useMemo(() => originDiary !== diary, [diary]);
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -67,8 +80,6 @@ export function EditPostPage() {
       });
     }
   };
-
-  console.log('>>>', diary);
 
   const handleEditDiary = async () => {
     try {
@@ -113,6 +124,7 @@ export function EditPostPage() {
         if (responseGetDiary.success && responseGetDiary.data) {
           const dailyDiary = responseGetDiary.data.diary;
           setDiary(dailyDiary);
+          setOriginDiary(dailyDiary);
         }
       } catch (e) {
         await axiosErrorAlert(e);
@@ -124,7 +136,12 @@ export function EditPostPage() {
 
   return (
     <>
-      <WritePostHeader year={diary.createDate.year} month={diary.createDate.month} date={diary.createDate.date} />
+      <WritePostHeader
+        year={diary.createDate.year}
+        month={diary.createDate.month}
+        date={diary.createDate.date}
+        isEdit={isEdit}
+      />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
@@ -146,7 +163,7 @@ export function EditPostPage() {
           <BaseButton
             colorTheme="primary"
             onClick={handleEditDiary}
-            style={{ marginTop: '20px', height: '68px', minHeight: '65px' }}
+            style={{ marginTop: '20px', height: '54px', minHeight: '54px' }}
           >
             수정완료
           </BaseButton>
@@ -157,7 +174,7 @@ export function EditPostPage() {
 }
 
 const Container = styled(Body)`
-  padding: 14px 34px 34px 34px;
+  padding: 8px 20px 30px 20px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
@@ -168,7 +185,7 @@ const DiaryContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 15px 15px 15px;
+  padding: 16px 12px 16px 12px;
   margin-top: 20px;
   width: 100%;
   height: auto;
@@ -178,45 +195,7 @@ const DiaryContainer = styled.div`
   font-size: 14px;
 
   label {
-    padding-bottom: 10px;
-    font-weight: 600;
+    font-weight: 500;
     color: ${styleToken.color.gray3};
   }
-`;
-
-const EmptyInputField = styled.div`
-  white-space: pre-wrap;
-  overflow-y: auto;
-  max-height: 200px;
-  width: 100%;
-  height: auto;
-  padding: 16px;
-  margin-top: 5px;
-  border-radius: 15px;
-  border: none;
-  color: ${styleToken.color.gray3};
-  background-color: ${styleToken.color.gray5};
-  font-size: 12px;
-  outline: 0;
-  cursor: pointer;
-
-  ::placeholder {
-    color: ${styleToken.color.gray3};
-  }
-`;
-
-const InputField = styled.div`
-  white-space: pre-wrap;
-  overflow-y: auto;
-  max-height: 200px;
-  width: 100%;
-  height: auto;
-  padding: 15px 10px;
-  margin-top: 5px;
-  border-radius: 15px;
-  border: none;
-  color: ${styleToken.color.gray3};
-  font-size: 12px;
-  outline: 0;
-  cursor: pointer;
 `;

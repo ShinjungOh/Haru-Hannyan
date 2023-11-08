@@ -39,14 +39,14 @@ export function AlertModal({ type, title, onSubmit }: AlertModalProps) {
         <img src={imgSrc} alt="alert" />
       </AlertImage>
       <AlertMessage>
-        <Typography variant="subtitle2" color={styleToken.color.gray1}>
+        <Typography variant="body1" color={styleToken.color.gray1}>
           {title}
         </Typography>
       </AlertMessage>
       <ButtonContainer>
         <BaseButton
           colorTheme={type}
-          height="50px"
+          height="44px"
           onClick={handleSubmit}
           style={{ borderRadius: '8px', fontSize: '16px' }}
         >
@@ -79,7 +79,7 @@ const AlertImage = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding: 0 10px 10px 10px;
+  padding: 0 10px 8px 10px;
 
   img {
     width: 38px;

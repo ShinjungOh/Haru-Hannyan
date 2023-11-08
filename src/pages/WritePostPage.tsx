@@ -4,8 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
+import { EmotionContainer, EmptyInputField, FeelingContainer, InputField, WritePostHeader } from '@ui/components/diary';
 import { DiaryModal } from '@ui/components/modal';
-import { EmotionContainer, FeelingContainer, WritePostHeader } from '@ui/components/diary';
 import { BaseButton } from '@ui/components/common';
 import { useAlert, useAxiosErrorAlert, useModal } from '@lib/hooks';
 import { Emotion, Feeling, NewDiary } from '@lib/types';
@@ -37,6 +37,8 @@ export function WritePostPage() {
       date: parseDate,
     },
   });
+
+  const isEdit = true;
 
   const handleClickDiaryFeeling = (feeling: Feeling) => {
     setDiary({
@@ -74,8 +76,6 @@ export function WritePostPage() {
     }
   };
 
-  console.log(diary);
-
   const isDisabled = !diary.feel;
   const buttonTheme = isDisabled ? 'disabled' : 'primary';
 
@@ -102,7 +102,7 @@ export function WritePostPage() {
 
   return (
     <>
-      <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} />
+      <WritePostHeader year={parseYear} month={parseMonth} date={parseDate} isEdit={isEdit} />
       <Body>
         <Container>
           <FeelingContainer diary={diary} onClick={handleClickDiaryFeeling} />
@@ -125,7 +125,7 @@ export function WritePostPage() {
             colorTheme={buttonTheme}
             onClick={handlePostNewDiary}
             disabled={isDisabled}
-            style={{ marginTop: '20px', height: '68px', minHeight: '65px' }}
+            style={{ marginTop: '20px', height: '54px', minHeight: '54px' }}
           >
             작성완료
           </BaseButton>
@@ -136,7 +136,7 @@ export function WritePostPage() {
 }
 
 const Container = styled(Body)`
-  padding: 14px 34px 34px 34px;
+  padding: 8px 20px 30px 20px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
@@ -147,7 +147,7 @@ const DiaryContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 15px 15px 15px;
+  padding: 16px 12px 16px 12px;
   margin-top: 20px;
   width: 100%;
   height: auto;
@@ -155,48 +155,9 @@ const DiaryContainer = styled.div`
   background-color: white;
   border: 1px solid ${styleToken.color.gray5};
   font-size: 14px;
-  z-index: 0;
 
   label {
-    padding-bottom: 10px;
-    font-weight: 600;
+    font-weight: 500;
     color: ${styleToken.color.gray3};
   }
-`;
-
-const EmptyInputField = styled.div`
-  white-space: pre-wrap;
-  overflow-y: auto;
-  max-height: 200px;
-  width: 100%;
-  height: auto;
-  padding: 16px;
-  margin-top: 5px;
-  border-radius: 15px;
-  border: none;
-  color: ${styleToken.color.gray3};
-  background-color: ${styleToken.color.gray5};
-  font-size: 12px;
-  outline: 0;
-  cursor: pointer;
-
-  ::placeholder {
-    color: ${styleToken.color.gray3};
-  }
-`;
-
-const InputField = styled.div`
-  white-space: pre-wrap;
-  overflow-y: auto;
-  max-height: 200px;
-  width: 100%;
-  height: auto;
-  padding: 15px 10px;
-  margin-top: 5px;
-  border-radius: 15px;
-  border: none;
-  color: ${styleToken.color.gray3};
-  font-size: 12px;
-  outline: 0;
-  cursor: pointer;
 `;

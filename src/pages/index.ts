@@ -1,6 +1,7 @@
 export * from './AuthKakaoPage';
 export * from './CalendarPage';
 export * from './EditPostPage';
+export * from './ErrorPage';
 export * from './HomePage';
 export * from './ModifyNamePage';
 export * from './ModifyPasswordPage';

@@ -70,7 +70,6 @@ export function SignupPage() {
   const handleClickSignUp = async () => {
     try {
       const responseSignUp = await apiPostSignup(user);
-      console.log(responseSignUp);
 
       if (responseSignUp.success && responseSignUp.data) {
         const accessToken = responseSignUp.data.token;
@@ -93,7 +92,7 @@ export function SignupPage() {
   const isError = {
     email: {
       error: user.email.length > 0 && !userValidation.email,
-      message: '이메일 형식이 올바르지 않습니다.',
+      message: '이메일 형식이 올바르지 않아요.',
     },
     password: {
       error: user.password.length > 0 && user.password.length < 9 && !userValidation.password,
@@ -101,11 +100,11 @@ export function SignupPage() {
     },
     passwordCheck: {
       error: user.passwordCheck.length > 0 && !userValidation.passwordCheck,
-      message: '비밀번호가 일치하지 않습니다.',
+      message: '비밀번호가 일치하지 않아요.',
     },
     name: {
       error: user.name.length > 0 && user.name.length < 2,
-      message: '닉네임 형식이 올바르지 않습니다.',
+      message: '닉네임 형식이 올바르지 않아요.',
     },
   };
 
@@ -192,7 +191,7 @@ export function SignupPage() {
 }
 
 const Container = styled(Body)`
-  padding: 0 35px 35px 35px;
+  padding: 0 34px 34px 34px;
   justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
@@ -213,9 +212,9 @@ const InputContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100px;
-  min-height: 85px;
-  margin-bottom: 39px;
+  height: auto;
+  min-height: 80px;
+  margin-bottom: 34px;
 
   label {
     width: 100%;
@@ -223,11 +222,7 @@ const InputContainer = styled.div`
     padding-left: 3px;
     margin-bottom: 8px;
     color: ${styleToken.color.gray3};
-    font-size: 15px;
-  }
-
-  & + & {
-    margin-bottom: 42px;
+    font-size: 14px;
   }
 `;
 
@@ -249,14 +244,14 @@ const CheckBoxContainer = styled.div`
   margin-bottom: 20px;
 
   input {
-    width: 22px;
-    height: 22px;
-    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
     accent-color: ${styleToken.color.secondary};
   }
 `;
 
 const CheckBox = styled.label`
   color: ${styleToken.color.gray3};
-  font-size: 15px;
+  font-size: 12px;
 `;

@@ -51,7 +51,7 @@ const Button = styled.button<Props>`
   color: ${(props) => colorSchemaStyle[props.colorTheme].mainColor};
   background-color: ${(props) => colorSchemaStyle[props.colorTheme].backgroundColor};
   width: ${(props) => props.width || '100%'};
-  height: ${(props) => props.height || '68px'};
+  height: ${(props) => props.height || '54px'};
   min-height: ${(props) => props.minHeight || '0'};
   display: flex;
   flex-direction: row;
@@ -60,7 +60,7 @@ const Button = styled.button<Props>`
   font-weight: 600;
   border: none;
   border-radius: 14px;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
 
   &:hover {

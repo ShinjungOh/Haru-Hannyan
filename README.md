@@ -1,14 +1,14 @@
 # 하루한냥을 소개합니다.
 
-![하루한냥_배너](https://github.com/ShinjungOh/Haru-Hannyan/assets/97431021/5c08f18d-4731-4834-99ca-fbdece1bc716)
-
-<br />
 <h3 align="center">
     하루한냥 감정일기
 </h3>
 <p align="center">
-  매일의 감정을 색다른 방식으로 표현하고, 나만의 고양이를 모아보세요.
+하루한냥은 고양이 스티커로 하루를 기록하는 감정일기입니다.<br/>   
+매일을 기록하고 나만의 고양이를 모아보세요.
 </p>
+
+<br />
 
 <div align="center">
   <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/4baf010b-2be5-4f75-8421-6349453b85cb" width="24%" />
@@ -17,13 +17,15 @@
   <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/d5c239f9-42e3-424a-a573-9b7bb79f72c6" width="24%" />
 </div>
 
-
-[🐱 하루한냥](http://haru-hannyan.com/) 은 **고양이 스티커로 하루를 기록하는 감정일기**입니다.   
-일주일마다 **스트레스 자가 테스트**를 할 수 있어요. 나만의 고양이를 모아보세요.
-
-<br/>
+<br/><br />
 
 ## 시작하기
+
+### 배포 링크 
+
+### [http://haru-hannyan.com](http://haru-hannyan.com)
+
+<br/>
 
 ### 설치 및 실행
 
@@ -38,7 +40,7 @@ npm install
 npm run dev
 ```
 
-<br/>
+<br/><br/>
 
 ## 사용한 기술
 
@@ -141,12 +143,11 @@ npm run dev
   </tbody>
 </table>
 
-
-<br/>
+<br/><br/>
 
 ## 하루한냥, 어떻게 만들었나요?  
 
-### 피그마로 스토리보드를 기획했어요.
+### 1️⃣ 피그마로 스토리보드를 기획했어요.
 
 [//]: # (<img width="25" src="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2Ffb77e93c28e044178e4694cc939bf4cf" />  )
 
@@ -158,7 +159,7 @@ npm run dev
 
 <br/>
 
-### 체계적인 개발 프로세스를 거쳤어요.
+### 2️⃣ 체계적인 개발 프로세스를 거쳤어요.
 
 ### [🔎 프로젝트 개발 과정 바로가기](https://github.com/ShinjungOh/Haru-Hannyan/wiki/01.-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95)
 
@@ -179,7 +180,20 @@ npm run dev
 
 <br/>
 
-### 블로그에 개발 과정이 담겨있어요.
+### 3️⃣ 프로젝트 컨벤션을 정해서 진행했어요.
+
+### [📃 프로젝트 컨벤션 바로가기](https://github.com/ShinjungOh/Haru-Hannyan/wiki/02.-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%BB%A8%EB%B2%A4%EC%85%98)
+
+일관된 **개발 컨벤션**을 적용해, 프로젝트의 통일성을 높였어요.
+브랜치 이름과 커밋 메시지에 동일한 규칙을 적용해서 어떤 작업이 진행되었는지 **추적**하기 편하고 **이해**하기 쉬워요.
+
+코드의 역할에 따라 **디렉토리**를 분리했어요. 꼭 필요한 부분만 분리해 깔끔한 구조를 만들었어요.
+재사용 가능한 **공통 컴포넌트**, **스타일**을 분리해 효율성이 높아졌어요.
+
+
+<br/>
+
+### 4️⃣ 블로그에 개발 과정이 담겨있어요.
 
 ### [✍️ Blog 바로가기](https://shinjungoh.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5)
 
@@ -188,44 +202,4 @@ npm run dev
 
 <img width="794" alt="blog" src="https://github.com/ShinjungOh/Haru-Hannyan/assets/97431021/49bdcc91-c161-41fb-856f-59add37ee1fd">
 
-<br/>
-
-## 프로젝트 구조
-
-* API를 호출하는 함수를 기능별 디렉토리로 분리했어요.
-* hook, type, 유틸함수 등 여러번 사용되는 파일을 따로 분리했어요. 
-* 페이지 컴포넌트를 한 곳에 모았어요.
-* 화면을 그리는 UI 컴포넌트를 항목별로 묶었어요. 
-
-```
-src
-├── api
-│   ├── diary
-│   ├── report
-│   ├── setting
-│   └── user
-├── lib
-│   ├── const
-│   ├── hooks
-│   ├── store
-│   ├── types
-│   └── utils
-├── pages
-└── ui
-    ├── components
-    │   ├── calendar
-    │   ├── common
-    │   ├── diary
-    │   ├── layout
-    │   ├── menu
-    │   ├── modal
-    │   ├── overlay
-    │   ├── report
-    │   └── setting
-    └── styles
-```
-
-<br/>
-
-## 아키텍처 구성
-
+<br/><br />

@@ -1,4 +1,8 @@
-# 하루한냥을 소개합니다.
+<br/>
+
+<div align="center">
+  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/436d3bd3-c143-4fc9-b574-bbe1a1c540f1" width="64px" />
+</div>
 
 <h3 align="center">
     하루한냥 감정일기
@@ -19,13 +23,13 @@
 
 <br/><br />
 
-## 시작하기
-
-### 배포 링크 
+## 배포 링크 
 
 ### [http://haru-hannyan.com](http://haru-hannyan.com)
 
-<br/>
+<br/><br/>
+
+## 시작하기
 
 ### 설치 및 실행
 
@@ -190,7 +194,6 @@ npm run dev
 코드의 역할에 따라 **디렉토리**를 분리했어요. 꼭 필요한 부분만 분리해 깔끔한 구조를 만들었어요.
 재사용 가능한 **공통 컴포넌트**, **스타일**을 분리해 효율성이 높아졌어요.
 
-
 <br/>
 
 ### 4️⃣ 블로그에 개발 과정이 담겨있어요.
@@ -200,6 +203,19 @@ npm run dev
 하루한냥의 **탄생**과 **발전**을 볼 수 있어요.   
 사용성을 높이기 위한 **리팩토링**과 어려움을 겪었던 **트러블 슈팅** 과정을 생생하게 담았어요.  
 
-<img width="794" alt="blog" src="https://github.com/ShinjungOh/Haru-Hannyan/assets/97431021/49bdcc91-c161-41fb-856f-59add37ee1fd">
+- [[트러블 슈팅] 11월이 되어야 관측되는 오류가 있다?](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-11%EC%9B%94%EC%9D%B4-%EB%90%98%EC%96%B4%EC%95%BC-%EA%B4%80%EC%B8%A1%EB%90%98%EB%8A%94-%EC%98%A4%EB%A5%98%EA%B0%80-%EC%9E%88%EB%8B%A4)
+- [[하루한냥] 심리 테스트 구현 : API 호출 함수 분리하기](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EC%8B%AC%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B5%AC%ED%98%84-API-%ED%98%B8%EC%B6%9C-%ED%95%A8%EC%88%98-%EB%B6%84%EB%A6%AC%ED%95%98%EA%B8%B0)
+- [[하루한냥] 심리 테스트 구현 : 라디오 버튼 구현하기](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EC%8B%AC%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B5%AC%ED%98%84-%EB%9D%BC%EB%94%94%EC%98%A4-%EB%B2%84%ED%8A%BC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+- [[리팩토링] useRef로 반응형 resize 이벤트 구현하기 (+ throttle)](https://shinjungoh.tistory.com/entry/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-useRef%EB%A1%9C-%EB%B0%98%EC%9D%91%ED%98%95-resize-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-throttle)
+- [[트러블 슈팅] 11월이 되어야 관측되는 오류가 있다?](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-11%EC%9B%94%EC%9D%B4-%EB%90%98%EC%96%B4%EC%95%BC-%EA%B4%80%EC%B8%A1%EB%90%98%EB%8A%94-%EC%98%A4%EB%A5%98%EA%B0%80-%EC%9E%88%EB%8B%A4)
+- [[리팩토링] 디렉토리별 index를 이용한 모듈화 작업하기](https://shinjungoh.tistory.com/entry/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC%EB%B3%84-index%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
+- [[트러블 슈팅] Context와 Promise에 타입스크립트를 싸서 드셔보세요](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90-Context%EC%99%80-Promise%EB%A5%BC-%EC%8B%B8%EC%84%9C-%EB%93%9C%EC%85%94%EB%B3%B4%EC%84%B8%EC%9A%94)
+- [[하루한냥] 모달 모듈화 구현 : OverlayProvider와 Context API](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EB%AA%A8%EB%8B%AC-%EB%AA%A8%EB%93%88%ED%99%94-%EA%B5%AC%ED%98%84-OverlayProvider%EC%99%80-Context-API)
+- [[하루한냥] 캘린더 구현 : Zustand를 이용한 상태관리 구현하기](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EC%BA%98%EB%A6%B0%EB%8D%94-%EA%B5%AC%ED%98%84-Zustand%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%83%81%ED%83%9C%EA%B4%80%EB%A6%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+- [[하루한냥] 캘린더 구현 : 달력의 시작 요일과 마지막날 구하기](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EC%BA%98%EB%A6%B0%EB%8D%94-%EA%B5%AC%ED%98%84-%EB%8B%AC%EB%A0%A5%EC%9D%98-%EC%8B%9C%EC%9E%91-%EC%9A%94%EC%9D%BC%EA%B3%BC-%EB%A7%88%EC%A7%80%EB%A7%89%EB%82%A0-%EA%B5%AC%ED%95%98%EA%B8%B0)
+- [[하루한냥] 로그인/회원가입 : 카카오 소셜 로그인 구현](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84)
+- [[트러블 슈팅] 모듈 시스템과 Jest 테스트](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EB%AA%A8%EB%93%88-%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B3%BC-Jest-%ED%85%8C%EC%8A%A4%ED%8A%B8)
+- [[하루한냥] 레이아웃 구현 : 반응형 웹페이지를 위한 준비](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-%EA%B5%AC%ED%98%84-%EB%B0%98%EC%9D%91%ED%98%95-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%A4%80%EB%B9%84)
+- [[하루한냥] 레이아웃 구현 : 메뉴바 구현과 리팩토링](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-%EA%B5%AC%ED%98%84-%EB%A9%94%EB%89%B4%EB%B0%94-%EA%B5%AC%ED%98%84%EA%B3%BC-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81)
 
 <br/><br />

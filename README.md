@@ -4,9 +4,9 @@
   <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/436d3bd3-c143-4fc9-b574-bbe1a1c540f1" width="64px" />
 </div>
 
-<h3 align="center">
+<h2 align="center">
     하루한냥 감정일기
-</h3>
+</h2>
 <p align="center">
 하루한냥은 고양이 스티커로 하루를 기록하는 감정일기입니다.<br/>   
 매일을 기록하고 나만의 고양이를 모아보세요.
@@ -15,10 +15,10 @@
 <br />
 
 <div align="center">
-  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/4baf010b-2be5-4f75-8421-6349453b85cb" width="24%" />
-  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/93235d8d-e745-4499-b535-b4d908e8785b" width="24%" />
-  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/ee04a78a-2c18-4703-8972-c10439a29b9a" width="24%" />
-  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/d5c239f9-42e3-424a-a573-9b7bb79f72c6" width="24%" />
+  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/4baf010b-2be5-4f75-8421-6349453b85cb" width="23%" />
+  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/93235d8d-e745-4499-b535-b4d908e8785b" width="23%" />
+  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/ee04a78a-2c18-4703-8972-c10439a29b9a" width="23%" />
+  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/d5c239f9-42e3-424a-a573-9b7bb79f72c6" width="23%" />
 </div>
 
 <br/><br />
@@ -149,7 +149,7 @@ npm run dev
 
 <br/><br/>
 
-## 하루한냥, 어떻게 만들었나요?  
+## 하루한냥, 어떻게 만들었나요?
 
 ### 1️⃣ 피그마로 스토리보드를 기획했어요.
 
@@ -168,7 +168,7 @@ npm run dev
 ### [🔎 프로젝트 개발 과정 바로가기](https://github.com/ShinjungOh/Haru-Hannyan/wiki/01.-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95)
 
 <div align="center">
-  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/2178baf2-7370-4a7d-a2b5-caf54681188f" width="96%" />
+  <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/dbecc950-3037-44b4-8eda-9da1db5d74f7" width="96%" />
 </div>
 
 각각의 기능 별 **이슈**를 생성하고, 해당 이슈로 **브랜치**를 생성해 작업을 수행했어요. 

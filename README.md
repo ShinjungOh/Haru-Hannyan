@@ -4,9 +4,9 @@
   <img src="https://github.com/ShinjungOh/Haru-Hannyan/assets/39726717/436d3bd3-c143-4fc9-b574-bbe1a1c540f1" width="64px" />
 </div>
 
-<h2 align="center">
+<h3 align="center">
     하루한냥 감정일기
-</h2>
+</h3>
 <p align="center">
 하루한냥은 고양이 스티커로 하루를 기록하는 감정일기입니다.<br/>   
 매일을 기록하고 나만의 고양이를 모아보세요.
@@ -203,11 +203,11 @@ npm run dev
 하루한냥의 **탄생**과 **발전**을 볼 수 있어요.   
 사용성을 높이기 위한 **리팩토링**과 어려움을 겪었던 **트러블 슈팅** 과정을 생생하게 담았어요.  
 
+- [[트러블 슈팅] 자바스크립트의 배열은 왜 그럴까?](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%9D%98-%EB%B0%B0%EC%97%B4%EC%9D%80-%EC%99%9C-%EA%B7%B8%EB%9F%B4%EA%B9%8C)
 - [[트러블 슈팅] 11월이 되어야 관측되는 오류가 있다?](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-11%EC%9B%94%EC%9D%B4-%EB%90%98%EC%96%B4%EC%95%BC-%EA%B4%80%EC%B8%A1%EB%90%98%EB%8A%94-%EC%98%A4%EB%A5%98%EA%B0%80-%EC%9E%88%EB%8B%A4)
 - [[하루한냥] 심리 테스트 구현 : API 호출 함수 분리하기](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EC%8B%AC%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B5%AC%ED%98%84-API-%ED%98%B8%EC%B6%9C-%ED%95%A8%EC%88%98-%EB%B6%84%EB%A6%AC%ED%95%98%EA%B8%B0)
 - [[하루한냥] 심리 테스트 구현 : 라디오 버튼 구현하기](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EC%8B%AC%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B5%AC%ED%98%84-%EB%9D%BC%EB%94%94%EC%98%A4-%EB%B2%84%ED%8A%BC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
 - [[리팩토링] useRef로 반응형 resize 이벤트 구현하기 (+ throttle)](https://shinjungoh.tistory.com/entry/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-useRef%EB%A1%9C-%EB%B0%98%EC%9D%91%ED%98%95-resize-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-throttle)
-- [[트러블 슈팅] 11월이 되어야 관측되는 오류가 있다?](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-11%EC%9B%94%EC%9D%B4-%EB%90%98%EC%96%B4%EC%95%BC-%EA%B4%80%EC%B8%A1%EB%90%98%EB%8A%94-%EC%98%A4%EB%A5%98%EA%B0%80-%EC%9E%88%EB%8B%A4)
 - [[리팩토링] 디렉토리별 index를 이용한 모듈화 작업하기](https://shinjungoh.tistory.com/entry/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC%EB%B3%84-index%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94-%EC%9E%91%EC%97%85%ED%95%98%EA%B8%B0)
 - [[트러블 슈팅] Context와 Promise에 타입스크립트를 싸서 드셔보세요](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90-Context%EC%99%80-Promise%EB%A5%BC-%EC%8B%B8%EC%84%9C-%EB%93%9C%EC%85%94%EB%B3%B4%EC%84%B8%EC%9A%94)
 - [[하루한냥] 모달 모듈화 구현 : OverlayProvider와 Context API](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EB%AA%A8%EB%8B%AC-%EB%AA%A8%EB%93%88%ED%99%94-%EA%B5%AC%ED%98%84-OverlayProvider%EC%99%80-Context-API)

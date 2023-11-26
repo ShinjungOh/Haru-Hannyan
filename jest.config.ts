@@ -9,5 +9,5 @@ export default {
     '^@ui/(.*)$': '<rootDir>/src/ui/$1',
     '^@lib/(.*)$': '<rootDir>/src/lib/$1',
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts', '<rootDir>/src/setupTests.ts'],
 };

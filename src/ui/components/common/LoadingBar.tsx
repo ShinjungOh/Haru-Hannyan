@@ -5,8 +5,8 @@ import { CALENDAR_TYPE_IMG } from '@lib/const/imageSrc';
 import { Feeling } from '@lib/types';
 
 const loadingIcon = [
-  CALENDAR_TYPE_IMG[Feeling.행복],
   CALENDAR_TYPE_IMG[Feeling.좋음],
+  CALENDAR_TYPE_IMG[Feeling.행복],
   CALENDAR_TYPE_IMG[Feeling.보통],
   CALENDAR_TYPE_IMG[Feeling.나쁨],
 ];

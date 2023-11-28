@@ -12,8 +12,8 @@ import { DateType, Diary } from '@lib/types';
 import { range } from '@lib/utils';
 import Lottie from 'react-lottie-player';
 import congratsLottie from '@ui/lottie/congratsLottie.json';
-import useDateStore from '@lib/store/useDateStore';
 import { PATH } from '@lib/const/path';
+import { useDateStore, useLoadingStore } from '@lib/store';
 import { apiGetMonthlyDiary } from '../api/diary';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
@@ -32,6 +32,11 @@ export function CalendarPage() {
     state.targetDate,
     state.setTargetDate,
     state.getFirstDayOfMonth,
+  ]);
+
+  const [setIsLoading, setIsLoadingWithTimeout] = useLoadingStore((state) => [
+    state.setIsLoading,
+    state.setIsLoadingWithTimeout,
   ]);
 
   const [monthlyDiary, setMonthlyDiary] = useState<Diary[]>([]);
@@ -88,6 +93,7 @@ export function CalendarPage() {
     }
 
     const getMonthlyDiary = async () => {
+      setIsLoading(true);
       try {
         if (targetDate !== null) {
           const year = targetDate.getFullYear();
@@ -101,6 +107,8 @@ export function CalendarPage() {
         }
       } catch (e) {
         await axiosErrorAlert(e);
+      } finally {
+        setIsLoadingWithTimeout(500);
       }
     };
 

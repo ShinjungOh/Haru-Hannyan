@@ -4,8 +4,8 @@ import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@ui/components/common';
-import useDateStore from '@lib/store/useDateStore';
 import { getFormat2Digit } from '@lib/utils';
+import { useDateStore } from '@lib/store';
 
 type CalendarHeaderProps = {
   page?: 'calendar' | 'timeline';

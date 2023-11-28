@@ -8,7 +8,7 @@ import { TodayFeeling } from '@ui/components/calendar';
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { FEELING_CAT_ICON, MENU_ICON } from '@lib/const/imageSrc';
 import { PATH } from '@lib/const/path';
-import useDateStore from '@lib/store/useDateStore';
+import { useDateStore } from '@lib/store';
 import { apiGetMonthlyDiary } from '../../../api/diary';
 
 export function Menu() {

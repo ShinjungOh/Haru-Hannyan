@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { CalendarHeader, DateColumn } from '@ui/components/calendar';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
@@ -9,7 +10,10 @@ import { Typography } from '@ui/components/common';
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { DateType, Diary } from '@lib/types';
 import { range } from '@lib/utils';
-import useDateStore from '@lib/store/useDateStore';
+import Lottie from 'react-lottie-player';
+import congratsLottie from '@ui/lottie/congratsLottie.json';
+import { PATH } from '@lib/const/path';
+import { useDateStore, useLoadingStore } from '@lib/store';
 import { apiGetMonthlyDiary } from '../api/diary';
 
 export const dayName = ['일', '월', '화', '수', '목', '금', '토'];
@@ -19,11 +23,20 @@ export function CalendarPage() {
   const alert = useAlert();
   const axiosErrorAlert = useAxiosErrorAlert();
 
+  const [params] = useSearchParams();
+
+  const isFirstSign = params.get('isFirst');
+
   const [currentDate, targetDate, setTargetDate, getFirstDayOfMonth] = useDateStore((state) => [
     state.currentDate,
     state.targetDate,
     state.setTargetDate,
     state.getFirstDayOfMonth,
+  ]);
+
+  const [setIsLoading, setIsLoadingWithTimeout] = useLoadingStore((state) => [
+    state.setIsLoading,
+    state.setIsLoadingWithTimeout,
   ]);
 
   const [monthlyDiary, setMonthlyDiary] = useState<Diary[]>([]);
@@ -72,7 +85,17 @@ export function CalendarPage() {
   };
 
   useEffect(() => {
+    if (isFirstSign) {
+      alert({
+        type: 'success',
+        title: '하루한냥 가입을 환영합니다!',
+      }).then(() => navigate(PATH.CALENDAR, { replace: true }));
+    }
+  }, []);
+
+  useEffect(() => {
     const getMonthlyDiary = async () => {
+      setIsLoading(true);
       try {
         if (targetDate !== null) {
           const year = targetDate.getFullYear();
@@ -86,6 +109,8 @@ export function CalendarPage() {
         }
       } catch (e) {
         await axiosErrorAlert(e);
+      } finally {
+        setIsLoadingWithTimeout(500);
       }
     };
 
@@ -96,6 +121,9 @@ export function CalendarPage() {
 
   return (
     <>
+      {isFirstSign && (
+        <Lottie loop animationData={congratsLottie} play style={{ position: 'absolute', top: '10%', left: '5%' }} />
+      )}
       <CalendarHeader page="calendar" />
       <Container>
         <WeekRow>

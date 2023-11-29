@@ -82,7 +82,7 @@ export function SignupPage() {
         localStorage.setItem(USER_NAME_KEY, userProfile.name);
         localStorage.setItem(EMAIL_KEY, userProfile.email);
         localStorage.setItem(USER_TYPE_KEY, JSON.stringify(userProfile.type));
-        navigate(PATH.CALENDAR);
+        navigate(`${PATH.CALENDAR}?isFirst=true`);
       }
     } catch (e) {
       await axiosErrorAlert(e);

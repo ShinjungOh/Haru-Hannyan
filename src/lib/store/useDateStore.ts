@@ -14,7 +14,7 @@ type DateStore = State & Action;
 
 const INITIAL_DATE = new Date();
 
-const useDateStore = create<DateStore>((set) => ({
+export const useDateStore = create<DateStore>((set) => ({
   currentDate: INITIAL_DATE,
   targetDate: null,
   getFirstDayOfMonth: (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1),
@@ -23,5 +23,3 @@ const useDateStore = create<DateStore>((set) => ({
       targetDate: new Date(year, month - 1),
     }),
 }));
-
-export default useDateStore;

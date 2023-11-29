@@ -7,10 +7,10 @@ import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
 import { TimelineEmotionItem } from '@ui/components/diary';
 import { EmptyItem, Typography } from '@ui/components/common';
-import useDateStore from '@lib/store/useDateStore';
 import { useAxiosErrorAlert, useConfirm } from '@lib/hooks';
 import { Diary } from '@lib/types';
 import { CALENDAR_TYPE_IMG } from '@lib/const/imageSrc';
+import { useDateStore, useLoadingStore } from '@lib/store';
 import { apiDeleteDiary, apiGetMonthlyDiary } from '../api/diary';
 import { dayName } from './CalendarPage';
 
@@ -23,6 +23,11 @@ export function TimelinePage() {
     state.currentDate,
     state.targetDate,
     state.setTargetDate,
+  ]);
+
+  const [setIsLoading, setIsLoadingWithTimeout] = useLoadingStore((state) => [
+    state.setIsLoading,
+    state.setIsLoadingWithTimeout,
   ]);
 
   const [diaryList, setDiaryList] = useState<Diary[]>();
@@ -48,6 +53,7 @@ export function TimelinePage() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const getMonthlyDiary = async () => {
       try {
         if (targetDate !== null) {
@@ -62,6 +68,8 @@ export function TimelinePage() {
         }
       } catch (e) {
         await axiosErrorAlert(e);
+      } finally {
+        setIsLoadingWithTimeout(500);
       }
     };
 

@@ -18,7 +18,6 @@ export function AuthKakaoPage() {
       const responseSignIn = await apiPostOAuthKakao(code);
 
       if (responseSignIn.success && responseSignIn.data) {
-        console.log(responseSignIn);
         const accessToken = responseSignIn.data.token;
         const userProfile = {
           name: responseSignIn.data.user.name,
@@ -27,7 +26,10 @@ export function AuthKakaoPage() {
         localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
         localStorage.setItem(USER_NAME_KEY, userProfile.name);
         localStorage.setItem(USER_TYPE_KEY, JSON.stringify(userProfile.type));
-        navigate(PATH.CALENDAR);
+
+        const isFirst = responseSignIn.data.isFirstLogin;
+        const redirectUrl = isFirst ? `${PATH.CALENDAR}?isFirst=true` : PATH.CALENDAR;
+        navigate(redirectUrl);
       }
     } catch (e) {
       await axiosErrorAlert(e);

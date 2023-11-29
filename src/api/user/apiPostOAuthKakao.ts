@@ -1,6 +1,7 @@
 import { http } from '../http';
 
 type ResponseOAuthKakao = {
+  isFirstLogin: boolean;
   token: string;
   user: {
     type: number;

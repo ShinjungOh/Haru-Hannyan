@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
-import { CALENDAR_TYPE_IMG } from '@lib/const/imageSrc';
 import { Feeling } from '@lib/types';
+import { CALENDAR_TYPE_IMG } from '@lib/const/imageSrc';
+import { LOADING_BAR_INTERVAL_DELAY } from '@lib/const/config';
 
-const loadingIcon = [
+const LOADING_ICON = [
   CALENDAR_TYPE_IMG[Feeling.좋음],
   CALENDAR_TYPE_IMG[Feeling.행복],
   CALENDAR_TYPE_IMG[Feeling.보통],
@@ -14,18 +15,20 @@ const loadingIcon = [
 export function LoadingBar() {
   const [loadingIndex, setLoadingIndex] = useState(0);
 
+  const loadingImg = LOADING_ICON[loadingIndex];
+
   useEffect(() => {
     const handleLoadingIcon = setInterval(() => {
-      setLoadingIndex((prevIndex) => (prevIndex + 1) % loadingIcon.length);
-    }, 300);
+      setLoadingIndex((prevIndex) => (prevIndex + 1) % LOADING_ICON.length);
+    }, LOADING_BAR_INTERVAL_DELAY);
 
     return () => clearInterval(handleLoadingIcon);
-  }, [loadingIcon.length]);
+  }, [LOADING_ICON.length]);
 
   return (
     <BackDrop>
       <Container>
-        <img src={loadingIcon[loadingIndex]} alt="loading" />
+        <img src={loadingImg} alt="loading" />
       </Container>
     </BackDrop>
   );

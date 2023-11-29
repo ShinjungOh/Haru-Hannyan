@@ -91,7 +91,9 @@ export function CalendarPage() {
         title: '하루한냥 가입을 환영합니다!',
       }).then(() => navigate(PATH.CALENDAR, { replace: true }));
     }
+  }, []);
 
+  useEffect(() => {
     const getMonthlyDiary = async () => {
       setIsLoading(true);
       try {

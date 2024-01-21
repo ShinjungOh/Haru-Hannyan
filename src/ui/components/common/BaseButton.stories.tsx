@@ -27,3 +27,7 @@ export const Danger: Story = {
   },
   render: (args) => <BaseButton {...args}>Button</BaseButton>,
 };
+
+export const Info: Story = {
+  render: () => <BaseButton colorTheme="info">Button</BaseButton>,
+};

@@ -7,7 +7,6 @@ export function Page({ children }: PropsWithChildren) {
     const vh = window.innerHeight * 0.01;
 
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    document.documentElement.style.backgroundColor = styleToken.color.gray5;
   }
 
   useEffect(() => {
@@ -19,5 +18,6 @@ export function Page({ children }: PropsWithChildren) {
 
 const Container = styled.div`
   width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
   background-color: ${styleToken.color.gray5};
 `;

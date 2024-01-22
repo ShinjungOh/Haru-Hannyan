@@ -20,7 +20,7 @@ jobs:
           node-version: v18.14.2
 
       - name: Install dependencies
-        run: npm run install
+        run: npm install
 
       - name: Build and Deploy to Chromatic for Haru-Hannyan
         run: npm run chromatic

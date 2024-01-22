@@ -25,7 +25,7 @@ const colorSchemaStyle = {
   },
   disabled: {
     mainColor: styleToken.color.white,
-    backgroundColor: styleToken.color.gray4,
+    backgroundColor: styleToken.color.gray5,
   },
 };
 

@@ -35,3 +35,7 @@ export const Info: Story = {
 export const Light: Story = {
   render: () => <BaseButton colorTheme="light">Button</BaseButton>,
 };
+
+export const Disabled: Story = {
+  render: () => <BaseButton colorTheme="disabled">Button</BaseButton>,
+};

@@ -23,4 +23,4 @@ jobs:
         run: npm install
 
       - name: Build and Deploy to Chromatic for Haru-Hannyan
-        run: npm run chromatic
+        run: npx chromatic --project-token=${{secrets.CHROMATIC_TOKEN}} --exit-zero-on-changes

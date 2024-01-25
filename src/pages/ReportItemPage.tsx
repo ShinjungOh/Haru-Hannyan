@@ -121,12 +121,7 @@ export function ReportItemPage() {
             </Typography>
           </InfoContainer>
         )}
-        <InfoContainer style={{ marginTop: 14 }}>
-          <Typography variant="subtitle3" fontWeight={600}>
-            스트레스 점수표
-          </Typography>
-          <Score />
-        </InfoContainer>
+        <Score />
         <ButtonContainer>
           <BaseButton colorTheme="info" minHeight="54px" onClick={handleClickDeleteReport}>
             검사 기록 삭제하기

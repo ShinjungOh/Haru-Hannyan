@@ -17,6 +17,7 @@ type ConfirmModalProps = {
 export function ConfirmModal({ type, title, description, onClose, onSubmit }: ConfirmModalProps) {
   const imgSrc = CONFIRM_MODAL_TYPE[type].imageSrc;
   const btnText = CONFIRM_MODAL_TYPE[type].buttonText;
+  const btnTheme = type === 'success' ? 'success' : 'danger';
 
   const handleClose = () => {
     onClose?.();
@@ -70,7 +71,7 @@ export function ConfirmModal({ type, title, description, onClose, onSubmit }: Co
           취소
         </BaseButton>
         <BaseButton
-          colorTheme="danger"
+          colorTheme={btnTheme}
           height="44px"
           onClick={handleSubmit}
           style={{ borderRadius: '8px', fontSize: '16px' }}

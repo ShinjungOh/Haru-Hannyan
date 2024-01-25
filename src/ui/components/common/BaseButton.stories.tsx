@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { BaseButton } from '@ui/components/common/BaseButton';
+import styled from '@emotion/styled';
 
 const meta: Meta<typeof BaseButton> = {
   title: 'Component/BaseButton',
@@ -11,31 +12,54 @@ export default meta;
 type Story = StoryObj<typeof BaseButton>;
 
 export const Primary: Story = {
-  args: {
-    colorTheme: 'primary',
-    children: 'Button',
-  },
+  render: () => (
+    <Container>
+      <BaseButton colorTheme="primary">Button</BaseButton>
+    </Container>
+  ),
 };
 
 export const Success: Story = {
-  render: () => <BaseButton colorTheme="success">Button</BaseButton>,
+  render: () => (
+    <Container>
+      <BaseButton colorTheme="success">Button</BaseButton>
+    </Container>
+  ),
 };
 
 export const Danger: Story = {
-  args: {
-    colorTheme: 'danger',
-  },
-  render: (args) => <BaseButton {...args}>Button</BaseButton>,
+  render: () => (
+    <Container>
+      <BaseButton colorTheme="danger">Button</BaseButton>
+    </Container>
+  ),
 };
 
 export const Info: Story = {
-  render: () => <BaseButton colorTheme="info">Button</BaseButton>,
+  render: () => (
+    <Container>
+      <BaseButton colorTheme="info">Button</BaseButton>
+    </Container>
+  ),
 };
 
 export const Light: Story = {
-  render: () => <BaseButton colorTheme="light">Button</BaseButton>,
+  render: () => (
+    <Container>
+      <BaseButton colorTheme="light">Button</BaseButton>
+    </Container>
+  ),
 };
 
 export const Disabled: Story = {
-  render: () => <BaseButton colorTheme="disabled">Button</BaseButton>,
+  render: () => (
+    <Container>
+      <BaseButton colorTheme="disabled">Button</BaseButton>
+    </Container>
+  ),
 };
+
+const Container = styled.div`
+  width: 380px;
+  height: auto;
+`;

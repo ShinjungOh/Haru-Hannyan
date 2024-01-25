@@ -11,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof Typography>;
 
-export const typography: Story = {
+export const Default: Story = {
   render: () => (
     <Container>
       <Typography variant="h1">h1 600 32px</Typography>

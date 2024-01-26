@@ -23,7 +23,7 @@
 
 <br/><br />
 
-## 배포 링크 
+## 배포 링크
 
 ### [http://haru-hannyan.com](http://haru-hannyan.com)
 
@@ -36,6 +36,7 @@
 ```bash
 git clone https://github.com/ShinjungOh/Haru-Hannyan
 ```
+
 ```bash
 npm install
 ```
@@ -90,14 +91,12 @@ npm run dev
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
-          <img width="70" src="https://camo.githubusercontent.com/6f1bf9ab38c7c54c1ab470cce4fc9641e5ecc246e8016751b256bfdba615edaa/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d68747470732533412532462532466b2e6b616b616f63646e2e6e6574253246646e2532467a7443707a253246627472526d547048507837253246374a564b654456337651534e356e666b324c76445530253246696d672e706e67" />
+          <img width="70" src="https://docs.pmnd.rs/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzustand-icon.8507f6a0.png&w=2048&q=75" />
           <p align="center">
             Zustand
           </p>
         </div>
       </td>
-    </tr>
-    <tr>
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
@@ -107,6 +106,8 @@ npm run dev
           </p>
         </div>
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
@@ -128,7 +129,7 @@ npm run dev
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
-          <img width="50" src="https://camo.githubusercontent.com/e7eb6839f0d42fffcd7435133609f4fe6a2cad787439321d809c273d66ac4c77/68747470733a2f2f74656368737461636b2d67656e657261746f722e76657263656c2e6170702f65736c696e742d69636f6e2e737667" />
+          <img width="50" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ESLint_logo.svg/256px-ESLint_logo.svg.png" />
           <p align="center">
             Eslint
           </p>
@@ -137,9 +138,27 @@ npm run dev
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
-          <img width="50" src="https://camo.githubusercontent.com/82935f72bd8f7a84991ceeb91cba325f0ae3b00f7fb2af42da60a81d3ff631b4/68747470733a2f2f74656368737461636b2d67656e657261746f722e76657263656c2e6170702f70726574746965722d69636f6e2e737667" />
+          <img width="50" src="https://prettier.io/icon.png" />
           <p align="center">
             Prettier
+          </p>
+        </div>
+      </td>
+      <td align="center" valign="middle">
+        <div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
+          <img width="50" src="https://app.lottiefiles.com/images/lottie-logo.svg" />
+          <p align="center">
+            LottieFiles
+          </p>
+        </div>
+      </td>
+      <td align="center" valign="middle">
+        <div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
+          <img width="50" src="https://avatars.githubusercontent.com/u/22632046?s=200&v=4" />
+          <p align="center">
+            Storybook
           </p>
         </div>
       </td>
@@ -203,6 +222,7 @@ npm run dev
 하루한냥의 **탄생**과 **발전**을 볼 수 있어요.   
 사용성을 높이기 위한 **리팩토링**과 어려움을 겪었던 **트러블 슈팅** 과정을 생생하게 담았어요.  
 
+- [[리팩토링] 처음 만난 모바일, 효도폰 어플을 만든 사연](https://shinjungoh.tistory.com/entry/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-%EC%B2%98%EC%9D%8C-%EB%A7%8C%EB%82%9C-%EB%AA%A8%EB%B0%94%EC%9D%BC-%ED%9A%A8%EB%8F%84%ED%8F%B0-%EC%96%B4%ED%94%8C%EC%9D%84-%EB%A7%8C%EB%93%A0-%EC%82%AC%EC%97%B0)
 - [[트러블 슈팅] 자바스크립트의 배열은 왜 그럴까?](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%9D%98-%EB%B0%B0%EC%97%B4%EC%9D%80-%EC%99%9C-%EA%B7%B8%EB%9F%B4%EA%B9%8C)
 - [[트러블 슈팅] 11월이 되어야 관측되는 오류가 있다?](https://shinjungoh.tistory.com/entry/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-11%EC%9B%94%EC%9D%B4-%EB%90%98%EC%96%B4%EC%95%BC-%EA%B4%80%EC%B8%A1%EB%90%98%EB%8A%94-%EC%98%A4%EB%A5%98%EA%B0%80-%EC%9E%88%EB%8B%A4)
 - [[하루한냥] 심리 테스트 구현 : API 호출 함수 분리하기](https://shinjungoh.tistory.com/entry/%ED%95%98%EB%A3%A8%ED%95%9C%EB%83%A5-%EC%8B%AC%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B5%AC%ED%98%84-API-%ED%98%B8%EC%B6%9C-%ED%95%A8%EC%88%98-%EB%B6%84%EB%A6%AC%ED%95%98%EA%B8%B0)

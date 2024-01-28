@@ -1,15 +1,12 @@
-import styled from '@emotion/styled';
-import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { CalendarHeader, DateColumn } from '@ui/components/calendar';
+import { CalendarHeader } from '@ui/components/calendar';
 import { Body } from '@ui/components/layout';
+import { Calendar } from '@ui/components/calendar/Calendar';
 import { Menu } from '@ui/components/menu';
-import { Typography } from '@ui/components/common';
 import { useAlert, useAxiosErrorAlert } from '@lib/hooks';
 import { DateType, Diary } from '@lib/types';
-import { range } from '@lib/utils';
 import Lottie from 'react-lottie-player';
 import congratsLottie from '@ui/lottie/congratsLottie.json';
 import { PATH } from '@lib/const/path';
@@ -53,15 +50,6 @@ export function CalendarPage() {
   const firstDayOfMonth = targetDate !== null ? getFirstDayOfMonth(targetDate).getDay() : 0;
 
   const daysInMonth = getTargetMonthLastDay();
-
-  const isCurrentDateSameAsTarget = () => {
-    if (targetDate !== null) {
-      const year = targetDate.getFullYear() === currentDate.getFullYear();
-      const month = targetDate.getMonth() === currentDate.getMonth();
-      return year && month;
-    }
-    return false;
-  };
 
   const handleClickDiaryPage = async (type: DateType, date: number) => {
     if (type !== 'disabled' && targetDate !== null) {
@@ -125,81 +113,17 @@ export function CalendarPage() {
         <Lottie loop animationData={congratsLottie} play style={{ position: 'absolute', top: '10%', left: '5%' }} />
       )}
       <CalendarHeader page="calendar" />
-      <Container>
-        <WeekRow>
-          <>
-            {dayName.map((day) => (
-              <Typography variant="body3" key={day}>
-                {day}
-              </Typography>
-            ))}
-          </>
-        </WeekRow>
-        <WeekRow>
-          <>
-            {range(firstDayOfMonth).map((day) => (
-              <div key={day} />
-            ))}
-            {range(daysInMonth, 1).map((date) => {
-              const findElement = monthlyDiary.find((diary) => diary.createDate.date === date);
-              const isToday = isCurrentDateSameAsTarget() && date === currentDate.getDate();
-              const isDisabled = isCurrentDateSameAsTarget() && date > currentDate.getDate();
-
-              if (findElement) {
-                return (
-                  <DateColumn
-                    key={date}
-                    date={date}
-                    type={findElement.feel}
-                    onClick={() => handleClickDiaryPage(findElement.feel, date)}
-                  />
-                );
-              }
-              if (isToday) {
-                return (
-                  <DateColumn key={date} date={date} type="today" onClick={() => handleClickDiaryPage('today', date)} />
-                );
-              }
-              if (isDisabled) {
-                return (
-                  <DateColumn
-                    key={date}
-                    date={date}
-                    type="disabled"
-                    onClick={() => handleClickDiaryPage('disabled', date)}
-                  />
-                );
-              }
-              return (
-                <DateColumn
-                  key={date}
-                  date={date}
-                  type="available"
-                  onClick={() => handleClickDiaryPage('available', date)}
-                />
-              );
-            })}
-          </>
-        </WeekRow>
-      </Container>
+      <Body>
+        <Calendar
+          firstDayOfMonth={firstDayOfMonth}
+          daysInMonth={daysInMonth}
+          monthlyDiary={monthlyDiary}
+          currentDate={currentDate}
+          selectedYearAndMonthDate={targetDate}
+          onDiaryPage={handleClickDiaryPage}
+        />
+      </Body>
       <Menu />
     </>
   );
 }
-
-const Container = styled(Body)`
-  padding: 14px 8px;
-  overflow-y: auto;
-`;
-
-const WeekRow = styled.div`
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-gap: 20px 0;
-  justify-items: center;
-  align-items: center;
-  color: ${styleToken.color.gray3};
-  font-weight: 600;
-  font-size: 13px;
-  margin-bottom: 35px;
-`;

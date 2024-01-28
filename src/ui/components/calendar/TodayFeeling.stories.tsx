@@ -20,6 +20,7 @@ export const Default: Story = {
 };
 
 const Container = styled.div`
+  position: relative;
   width: 440px;
-  height: auto;
+  height: 600px;
 `;

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { Meta, StoryObj } from '@storybook/react';
 import { ConfirmModal } from '@ui/components/modal/ConfirmModal';
 
@@ -36,6 +37,8 @@ export const Delete: Story = {
 };
 
 const Container = styled.div`
+  position: relative;
   width: 440px;
-  height: auto;
+  height: 600px;
+  background-color: ${styleToken.color.gray3}80;
 `;

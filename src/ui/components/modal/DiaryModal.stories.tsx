@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { Meta, StoryObj } from '@storybook/react';
 import { DiaryModal } from '@ui/components/modal/DiaryModal';
 
@@ -28,6 +29,8 @@ export const Input: Story = {
 };
 
 const Container = styled.div`
-  width: 360px;
-  height: 100%;
+  position: relative;
+  width: 440px;
+  height: 600px;
+  background-color: ${styleToken.color.gray3}80;
 `;

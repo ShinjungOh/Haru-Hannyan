@@ -3,7 +3,7 @@ import { styleToken } from '@ui/styles';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
-import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
+import { TextField, NavigationHeader, SignButton, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert } from '@lib/hooks';
 import { UserType, UserValidation } from '@lib/types';
 import { getValidationUser } from '@lib/utils';
@@ -124,10 +124,11 @@ export function SignupPage() {
         </TitleContainer>
         <InputContainer>
           <label htmlFor="email">이메일</label>
-          <InputBox
+          <TextField
             type="email"
             id="email"
             name="email"
+            value={user.email}
             placeholder="이메일을 입력해 주세요."
             autoFocus
             onChange={handleChangeUser}
@@ -136,10 +137,11 @@ export function SignupPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
-          <InputBox
+          <TextField
             type="password"
             id="password"
             name="password"
+            value={user.password}
             placeholder="비밀번호를 입력해 주세요."
             onChange={handleChangeUser}
           />
@@ -147,10 +149,11 @@ export function SignupPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="passwordCheck">비밀번호 확인</label>
-          <InputBox
+          <TextField
             type="password"
             id="passwordCheck"
             name="passwordCheck"
+            value={user.passwordCheck}
             placeholder="비밀번호를 다시 입력해 주세요."
             onChange={handleChangeUser}
           />
@@ -158,10 +161,11 @@ export function SignupPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="name">닉네임</label>
-          <InputBox
+          <TextField
             type="text"
             id="name"
             name="name"
+            value={user.name}
             placeholder="닉네임을 입력해 주세요."
             onChange={handleChangeUser}
           />

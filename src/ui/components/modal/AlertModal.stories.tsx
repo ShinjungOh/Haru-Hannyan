@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { Meta, StoryObj } from '@storybook/react';
 import { AlertModal } from '@ui/components/modal/AlertModal';
 
@@ -36,6 +37,8 @@ export const Info: Story = {
 };
 
 const Container = styled.div`
-  width: 360px;
-  height: auto;
+  position: relative;
+  width: 440px;
+  height: 600px;
+  background-color: ${styleToken.color.gray3}80;
 `;

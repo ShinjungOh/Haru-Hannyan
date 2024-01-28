@@ -32,6 +32,7 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@storybook/preview-api": "^7.6.10",
     "@storybook/addon-essentials": "^7.6.10",
     "@storybook/addon-interactions": "^7.6.10",
     "@storybook/addon-links": "^7.6.10",

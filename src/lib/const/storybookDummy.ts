@@ -1,4 +1,4 @@
-import { Emotion, Feeling } from '@lib/types';
+import { Emotion, Feeling, ReportAnswers } from '@lib/types';
 
 export const dummyDiary = [
   {
@@ -66,7 +66,7 @@ export const dummyDiary = [
   },
 ];
 
-export const dummyAnswer = [
+export const dummyAnswer: ReportAnswers[] = [
   {
     answer_id: 1,
     type: 'stress',

@@ -5,6 +5,11 @@ import { TodayFeeling } from '@ui/components/calendar/TodayFeeling';
 const meta: Meta<typeof TodayFeeling> = {
   title: 'Component/TodayFeeling',
   component: TodayFeeling,
+  args: {
+    onClick: (feeling: string) => {
+      alert(`${feeling}`);
+    },
+  },
 };
 
 export default meta;
@@ -12,9 +17,9 @@ export default meta;
 type Story = StoryObj<typeof TodayFeeling>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <Container>
-      <TodayFeeling />
+      <TodayFeeling onClick={args.onClick} />
     </Container>
   ),
 };

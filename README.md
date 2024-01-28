@@ -147,18 +147,18 @@ npm run dev
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
-          <img width="50" src="https://app.lottiefiles.com/images/lottie-logo.svg" />
+          <img width="50" src="https://avatars.githubusercontent.com/u/22632046?s=200&v=4" />
           <p align="center">
-            LottieFiles
+            Storybook
           </p>
         </div>
       </td>
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
-          <img width="50" src="https://avatars.githubusercontent.com/u/22632046?s=200&v=4" />
+          <img width="50" src="https://app.lottiefiles.com/images/lottie-logo.svg" />
           <p align="center">
-            Storybook
+            LottieFiles
           </p>
         </div>
       </td>
@@ -179,6 +179,12 @@ npm run dev
 하루한냥의 **디자인 시안**과 **디자인 가이드**를 확인할 수 있어요.  
 피그마에 아이디어를 시각적으로 표현하고, 일관된 디자인 가이드를 적용했어요.      
 사용자에게 직관적인 인터페이스를 제공하며, 프로젝트의 전반적인 품질을 향상시켰어요.
+
+### [📚 Storybook 바로가기](https://65ad0ebb79ef0ac5d280a2f7-lotaaylsbc.chromatic.com/)
+
+**스토리북**에 피그마의 디자인 가이드를 옮겨두었어요.  
+스토리북으로 **UI 개발, 테스트 및 문서화**를 할 수 있고, 링크를 통해 쉽게 공유도 가능해요.      
+실제로 배포하지 않아도 UI를 확인할 수 있어서 팀원과 소통이 원활해져요.
 
 <br/>
 

@@ -3,7 +3,7 @@ import { styleToken } from '@ui/styles';
 import { KeyboardEvent, MouseEvent, ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
-import { InputBox, NavigationHeader, SignButton, Typography } from '@ui/components/common';
+import { TextField, NavigationHeader, SignButton, Typography } from '@ui/components/common';
 import { useAxiosErrorAlert } from '@lib/hooks';
 import { PATH } from '@lib/const/path';
 import { UserType, UserValidation } from '@lib/types';
@@ -97,10 +97,11 @@ export function SigninPage() {
         </TitleContainer>
         <InputContainer>
           <label htmlFor="email">이메일</label>
-          <InputBox
+          <TextField
             type="email"
             id="email"
             name="email"
+            value={user.email}
             placeholder="이메일을 입력해 주세요."
             autoFocus
             onChange={handleChangeUser}
@@ -108,10 +109,11 @@ export function SigninPage() {
         </InputContainer>
         <InputContainer>
           <label htmlFor="password">비밀번호</label>
-          <InputBox
+          <TextField
             type="password"
             id="password"
             name="password"
+            value={user.password}
             placeholder="비밀번호를 입력해 주세요."
             onChange={handleChangeUser}
             onKeyPress={handleOnKeyPress}

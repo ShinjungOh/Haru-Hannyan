@@ -1,27 +1,35 @@
 import styled from '@emotion/styled';
-import { ChangeEvent, KeyboardEvent } from 'react';
 import { styleToken } from '@ui/styles';
+import { ChangeEvent, KeyboardEvent } from 'react';
 
-type InputBoxProps = {
+type TextFieldProps = {
   type: string;
   id: string;
   name: string;
+  value: string;
   placeholder: string;
   autoFocus?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyPress?: (e: KeyboardEvent<HTMLInputElement>) => void;
 };
 
-export function InputBox({ type, id, name, placeholder, autoFocus, onChange, onKeyPress }: InputBoxProps) {
+export function TextField({ type, id, name, value, placeholder, autoFocus, onChange, onKeyPress }: TextFieldProps) {
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (onKeyPress) {
+      onKeyPress(e);
+    }
+  };
+
   return (
     <Input
       type={type}
       id={id}
       name={name}
+      value={value}
       placeholder={placeholder}
-      autoFocus={autoFocus}
+      autoFocus={Boolean(autoFocus)}
       onChange={onChange}
-      onKeyPress={onKeyPress}
+      onKeyPress={handleOnKeyPress}
     />
   );
 }

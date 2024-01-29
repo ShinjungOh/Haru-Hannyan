@@ -1,0 +1,26 @@
+name: Chromatic Deployment
+
+on:
+  push:
+    paths:
+      - 'src/ui/components/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: v18.14.2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build and Deploy to Chromatic for Haru-Hannyan
+        run: npx chromatic --project-token=${{secrets.CHROMATIC_TOKEN}} --exit-zero-on-changes

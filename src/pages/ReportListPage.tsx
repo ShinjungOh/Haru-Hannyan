@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
-import { styleToken } from '@ui/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Body } from '@ui/components/layout';
 import { Menu } from '@ui/components/menu';
-import { EmptyItem, NavigationHeader, Typography } from '@ui/components/common';
+import { EmptyItem, NavigationHeader } from '@ui/components/common';
 import { ReportAnswers } from '@lib/types';
 import { mappedResultType, parseDate } from '@lib/utils';
 import { useAxiosErrorAlert } from '@lib/hooks';
+import { Report } from '@ui/components/report';
 import { apiGetAnswers } from '../api/report';
 
 export function ReportListPage() {
@@ -48,21 +48,14 @@ export function ReportListPage() {
             const answerTitle = mappedResultType(answer.sumScore);
 
             return (
-              <InfoContainer key={answer.answer_id} onClick={() => handlePageReportItem(answer.answer_id)}>
-                <DetailContainer>
-                  <Typography variant="h4" color={styleToken.color.gray1}>
-                    {date2DigitMonth}/{date2DigitDate}
-                  </Typography>
-                  <DayName color={answerTitle.color}>
-                    <Typography variant="body4" fontWeight={400} color={styleToken.color.white}>
-                      {answerTitle.title}
-                    </Typography>
-                  </DayName>
-                </DetailContainer>
-                <Typography variant="h2" color={answerTitle.color} fontWeight={600}>
-                  {answer.sumScore}점
-                </Typography>
-              </InfoContainer>
+              <Report
+                key={answer.answer_id}
+                answer={answer}
+                date2DigitMonth={date2DigitMonth}
+                date2DigitDate={date2DigitDate}
+                answerTitle={answerTitle}
+                onClick={handlePageReportItem}
+              />
             );
           })
         ) : (
@@ -78,39 +71,4 @@ const Container = styled(Body)`
   overflow-y: auto;
   padding: 4px 20px 14px 20px;
   width: 100%;
-`;
-
-const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  padding: 32px 38px 32px 32px;
-  height: auto;
-  margin-bottom: 18px;
-  background-color: white;
-  border-radius: 15px;
-  border: 1px solid ${styleToken.color.gray5};
-  cursor: pointer;
-`;
-
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-`;
-
-const DayName = styled.div<{ color: string }>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-  height: 24px;
-  border-radius: 6px;
-  border: none;
-  background-color: ${(props) => props.color};
 `;

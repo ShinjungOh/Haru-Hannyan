@@ -1,7 +1,10 @@
 export type ReportAnswers = {
   answer_id: number;
   type: string;
-  answer: [];
+  answer: Array<{
+    seq: number;
+    score: number;
+  }>;
   sumScore: number;
   create_date: string;
 };

@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 const colorSchemaStyle = {
   primary: {
@@ -25,7 +25,7 @@ const colorSchemaStyle = {
   },
   disabled: {
     mainColor: styleToken.color.white,
-    backgroundColor: styleToken.color.gray4,
+    backgroundColor: styleToken.color.gray5,
   },
 };
 

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import { styleToken } from '@ui/styles';
 import { Typography } from '@ui/components/common';
 import { RESULT_DETAIL } from '@lib/const/reportQnA';
-import { styleToken } from '@ui/styles';
 
 export function Score() {
   return (
-    <InfoContainer style={{ marginTop: 14 }}>
+    <InfoContainer>
       <Typography variant="subtitle3" fontWeight={600}>
         스트레스 점수표
       </Typography>
@@ -47,6 +47,7 @@ const InfoContainer = styled.div`
   text-align: center;
   padding: 22px;
   height: auto;
+  margin-top: 14px;
   margin-bottom: 6px;
   background-color: white;
   border-radius: 15px;

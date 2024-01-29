@@ -54,7 +54,7 @@ export function ReportListPage() {
                 date2DigitMonth={date2DigitMonth}
                 date2DigitDate={date2DigitDate}
                 answerTitle={answerTitle}
-                onReportItem={handlePageReportItem}
+                onClickReportItem={handlePageReportItem}
               />
             );
           })

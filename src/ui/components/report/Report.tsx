@@ -12,12 +12,12 @@ type ReportProps = {
     description: string;
     title: string;
   };
-  onReportItem: (id: number) => void;
+  onClickReportItem: (id: number) => void;
 };
 
-export function Report({ answer, date2DigitMonth, date2DigitDate, answerTitle, onReportItem }: ReportProps) {
+export function Report({ answer, date2DigitMonth, date2DigitDate, answerTitle, onClickReportItem }: ReportProps) {
   return (
-    <InfoContainer key={answer.answer_id} onClick={() => onReportItem(answer.answer_id)}>
+    <InfoContainer key={answer.answer_id} onClick={() => onClickReportItem(answer.answer_id)}>
       <DetailContainer>
         <Typography variant="h4" color={styleToken.color.gray1}>
           {date2DigitMonth}/{date2DigitDate}

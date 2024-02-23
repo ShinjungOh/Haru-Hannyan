@@ -9,6 +9,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:codeceptjs/recommended",
     "airbnb",
     "prettier"
   ],

@@ -83,13 +83,13 @@ export function CalendarHeader({ page }: CalendarHeaderProps) {
 
   return (
     <Container>
-      <Arrow onClick={handleChangeDateToPrev}>
+      <Arrow name="left" onClick={handleChangeDateToPrev}>
         <img src="images/icon/arrow-left-active.svg" alt="arrow-left-active" />
       </Arrow>
       <SelectDate>
         <Typography variant="h4">{calendarTargetDateString}</Typography>
       </SelectDate>
-      <Arrow onClick={handleChangeDateToNext}>
+      <Arrow name="right" onClick={handleChangeDateToNext}>
         <>
           {isActiveNext ? (
             <img src="images/icon/arrow-right-active.svg" alt="arrow-right-active" />

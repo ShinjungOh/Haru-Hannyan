@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { styleToken } from '@ui/styles';
 
 type SignButtonProps = {
+  name?: string;
   text: string;
   imgSrc?: string;
   onClick?: () => void;

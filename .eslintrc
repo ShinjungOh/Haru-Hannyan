@@ -23,7 +23,7 @@
     "react-refresh",
     "react-hooks",
     "@typescript-eslint",
-    "unused-imports"
+    "unused-imports",
   ],
   "rules": {
     "import/extensions": [ // 파일 확장자 생략 가능

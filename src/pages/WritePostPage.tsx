@@ -111,17 +111,18 @@ export function WritePostPage() {
             <label htmlFor="diary">한줄일기</label>
             <>
               {diary.text.length > 0 ? (
-                <InputField id="diary" onClick={handleDiaryModalOpen}>
+                <InputField id="write_diary" onClick={handleDiaryModalOpen}>
                   {diary.text}
                 </InputField>
               ) : (
-                <EmptyInputField id="diary" onClick={handleDiaryModalOpen}>
+                <EmptyInputField id="empty_diary" onClick={handleDiaryModalOpen}>
                   내용을 입력해 주세요
                 </EmptyInputField>
               )}
             </>
           </DiaryContainer>
           <BaseButton
+            name="submit_diary"
             colorTheme={buttonTheme}
             onClick={handlePostNewDiary}
             disabled={isDisabled}

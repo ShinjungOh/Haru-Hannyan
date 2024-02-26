@@ -18,7 +18,7 @@ export function TodayFeeling({ onClick }: TodayFeelingProps) {
           <>
             {FEELING_CAT_TYPE.map((feelingCat, index) => (
               <FeelingItem key={feelingCat.feeling} onClick={() => onClick(feelingCat.feeling)}>
-                <img key={index} src={feelingCat.url} alt={feelingCat.feeling} />
+                <img key={index} src={feelingCat.url} alt={feelingCat.feeling} id={feelingCat.feeling} />
               </FeelingItem>
             ))}
           </>

@@ -78,7 +78,7 @@ export function Menu() {
       <MenuItem imageSrc={getMenuIcon('REPORT')} path={PATH.REPORT} />
       <MenuItem imageSrc={getMenuIcon('SETTING')} path={PATH.SETTING} />
       <>{isOpen && <TodayFeeling onClick={handleClickTodayFeeling} />}</>
-      <FeelCatIcon onClick={handleCreateTodayDiary}>
+      <FeelCatIcon id="todayCat" onClick={handleCreateTodayDiary}>
         <img src={FEELING_CAT_ICON} alt="cat-icon" />
       </FeelCatIcon>
     </Container>

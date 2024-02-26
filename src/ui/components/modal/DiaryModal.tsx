@@ -51,6 +51,7 @@ export function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
   return (
     <Container>
       <TextContainer
+        name="diaryText"
         placeholder="내용을 입력해 주세요"
         value={modalInput}
         onChange={handleChangeModalInput}
@@ -58,6 +59,7 @@ export function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
       />
       <ButtonContainer>
         <BaseButton
+          name="cancel"
           colorTheme="light"
           height="50px"
           onClick={handleClose}
@@ -66,6 +68,7 @@ export function DiaryModal({ diaryText, onClose, onSubmit }: ModalProps) {
           취소
         </BaseButton>
         <BaseButton
+          name="submit"
           colorTheme="primary"
           height="50px"
           onClick={handleSubmit}

@@ -1,10 +1,7 @@
 Feature('Timeline');
 
-Scenario('render timeline and delete diary', ({ I }) => {
-  I.amOnPage('/signin');
-  I.fillField('email', 'aaa@dddd');
-  I.fillField('password', '11111111');
-  I.click('로그인');
+Scenario('render timeline and delete diary', async ({ I }) => {
+  await I.signIn();
 
   I.amOnPage('/timeline');
 

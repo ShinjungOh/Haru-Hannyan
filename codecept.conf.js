@@ -6,8 +6,11 @@ exports.config = {
     Playwright: {
       browser: 'chromium',
       url: 'http://localhost:5173',
-      show: true
-    }
+      show: true,
+    },
+    CustomHelper: {
+      require: "./helpers/CustomHelper.js"
+    },
   },
   include: {
     I: './steps_file.js',

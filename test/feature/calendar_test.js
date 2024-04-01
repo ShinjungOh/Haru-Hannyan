@@ -1,10 +1,7 @@
 Feature('Calendar');
 
-Scenario('render calendar and write diary', ({ I }) => {
-  I.amOnPage('/signin');
-  I.fillField('email', 'aaa@dddd');
-  I.fillField('password', '11111111');
-  I.click('로그인');
+Scenario('render calendar and write diary', async ({ I }) => {
+  await I.signIn();
 
   I.amOnPage('/calendar');
   I.see('월');
@@ -34,11 +31,8 @@ Scenario('render calendar and write diary', ({ I }) => {
   I.click({ name: 'submit_diary' });
 });
 
-Scenario('diary overlap error', ({ I }) => {
-  I.amOnPage('/signin');
-  I.fillField('email', 'aaa@dddd');
-  I.fillField('password', '11111111');
-  I.click('로그인');
+Scenario('diary overlap error', async ({ I }) => {
+  await I.signIn();
 
   I.amOnPage('/calendar');
   I.click('#todayCat');

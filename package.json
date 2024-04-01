@@ -21,6 +21,7 @@
     "codeceptjs:ui": "codecept-ui --app"
   },
   "dependencies": {
+    "@codeceptjs/helper": "^2.0.4",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@types/qs": "^6.9.7",

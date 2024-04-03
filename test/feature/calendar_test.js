@@ -42,3 +42,12 @@ Scenario('diary overlap error', async ({ I }) => {
   I.see('오늘의 일기가 존재해요.');
   I.click('확인');
 });
+
+Scenario('diary delete', async ({ I }) => {
+  await I.signIn();
+
+  I.amOnPage('/timeline');
+  I.click({ name: 'delete_diary' });
+  I.see('일기를 삭제하시겠어요?');
+  I.click('확인');
+});

@@ -18,6 +18,35 @@ class CustomHelper extends Helper {
     await Playwright.fillField('password','11111111');
     await Playwright.click('로그인');
   }
+
+  async testing() {
+    const { Playwright } = this.helpers;
+
+    await Playwright.amOnPage('/report');
+
+    await Playwright.see('스트레스 측정하기');
+    await Playwright.see('새로 검사하기');
+    await Playwright.see('이전 검사결과 보기');
+
+    await Playwright.click({ name: 'new_test' });
+
+    await Playwright.wait(2);
+
+    await Playwright.click(`label[for="question-0_answer-4"]`);
+    await Playwright.click(`label[for="question-1_answer-1"]`);
+    await Playwright.click(`label[for="question-2_answer-0"]`);
+    await Playwright.click(`label[for="question-3_answer-2"]`);
+    await Playwright.click(`label[for="question-4_answer-3"]`);
+    await Playwright.click(`label[for="question-5_answer-1"]`);
+    await Playwright.click(`label[for="question-6_answer-0"]`);
+    await Playwright.click(`label[for="question-7_answer-4"]`);
+    await Playwright.click(`label[for="question-8_answer-2"]`);
+    await Playwright.click(`label[for="question-9_answer-3"]`);
+
+    await Playwright.wait(1);
+
+    await Playwright.click('결과보기');
+  }
 }
 
 module.exports = CustomHelper;

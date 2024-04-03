@@ -111,10 +111,11 @@ export function QuestionPage() {
               <AnswerContainer>
                 <>
                   {ANSWER_TITLE.map((answer) => (
-                    <Radio key={answer.text}>
+                    <Radio key={answer.text} htmlFor={`question-${questionIndex}_answer-${answer.score}`}>
                       <input
                         type="radio"
-                        name={`question-${questionIndex}`}
+                        id={`question-${questionIndex}_answer-${answer.score}`}
+                        name={`question-${questionIndex}_answer-${answer.score}`}
                         value={answer.score}
                         onChange={(e) => handleChangeAnswer(e, questionIndex)}
                       />

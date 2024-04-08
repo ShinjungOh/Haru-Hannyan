@@ -115,7 +115,6 @@ export function QuestionPage() {
                       <input
                         type="radio"
                         id={`question-${questionIndex}_answer-${answer.score}`}
-                        name={`question-${questionIndex}_answer-${answer.score}`}
                         value={answer.score}
                         onChange={(e) => handleChangeAnswer(e, questionIndex)}
                       />

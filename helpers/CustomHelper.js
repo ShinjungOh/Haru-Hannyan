@@ -30,18 +30,15 @@ class CustomHelper extends Helper {
 
     await Playwright.click({ name: 'new_test' });
 
-    await Playwright.wait(2);
+    await Playwright.waitForElement('.question-container section label', 5000);
 
-    await Playwright.click(`label[for="question-0_answer-4"]`);
-    await Playwright.click(`label[for="question-1_answer-1"]`);
-    await Playwright.click(`label[for="question-2_answer-0"]`);
-    await Playwright.click(`label[for="question-3_answer-2"]`);
-    await Playwright.click(`label[for="question-4_answer-3"]`);
-    await Playwright.click(`label[for="question-5_answer-1"]`);
-    await Playwright.click(`label[for="question-6_answer-0"]`);
-    await Playwright.click(`label[for="question-7_answer-4"]`);
-    await Playwright.click(`label[for="question-8_answer-2"]`);
-    await Playwright.click(`label[for="question-9_answer-3"]`);
+    const questionIndexes = Array.from({ length: 10 }, (_, index) => index + 2);
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const questionIndex of questionIndexes) {
+      await Playwright.click(`.question-container:nth-of-type(${questionIndex}) section label:nth-child(2)`);
+      await Playwright.wait(0.3);
+    }
 
     await Playwright.wait(1);
 

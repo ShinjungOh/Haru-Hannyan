@@ -12,9 +12,13 @@ Scenario('render calendar and write diary', async ({ I }) => {
   I.click({ name: 'left' });
   I.click({ name: 'right' });
 
+  I.wait(1);
+
   I.click('#todayCat');
   I.see('오늘은 어떤 고양이인가요?');
   I.click('#행복');
+
+  I.wait(1);
 
   I.click('#편안한');
   I.click('#설레는');
@@ -38,6 +42,8 @@ Scenario('diary overlap error', async ({ I }) => {
   I.click('#todayCat');
   I.see('오늘은 어떤 고양이인가요?');
   I.click('#행복');
+
+  I.wait(1);
 
   I.see('오늘의 일기가 존재해요.');
   I.click('확인');

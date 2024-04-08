@@ -5,6 +5,8 @@ Scenario('render timeline and delete diary', async ({ I }) => {
 
   I.amOnPage('/timeline');
 
+  I.wait(1);
+
   I.click('#todayCat');
   I.see('오늘은 어떤 고양이인가요?');
   I.click('#행복');

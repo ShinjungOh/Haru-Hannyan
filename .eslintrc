@@ -86,6 +86,7 @@
     "no-underscore-dangle": "off", // 식별자에 밑줄을 허용하지 않음
     "no-use-before-define": "off", // 변수가 정의되기 전에 사용 금지
     "no-useless-escape": "off", // 불필요 escape 문자 금지
+    "no-await-in-loop": "off", // 루프 내부에서 await 사용 금지
     "react/no-array-index-key": "off", // 키에서 배열 인덱스 사용 방지
     "react/no-unused-prop-types": "off", // 사용하지 않는 props 타입 정의 방지
     "react/require-default-props": "off", // 필수가 아닌 모든 props에 defaultProps 정의를 적용

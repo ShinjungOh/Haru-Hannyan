@@ -99,7 +99,7 @@ export function QuestionPage() {
         </InfoContainer>
         {questions &&
           questions.map((question: any, questionIndex: number) => (
-            <QuestionContainer key={question.text}>
+            <QuestionContainer key={question.text} className="question-container">
               <QuestionTitle>
                 <Typography variant="body4" fontWeight={600}>
                   {question.seq}.
@@ -185,7 +185,7 @@ const QuestionTitle = styled.div`
   gap: 6px;
 `;
 
-const AnswerContainer = styled.div`
+const AnswerContainer = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;

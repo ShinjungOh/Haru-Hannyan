@@ -10,4 +10,5 @@ export default {
     '^@lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts', '<rootDir>/src/setupTests.ts'],
+  testPathIgnorePatterns: ['<rootDir>/test/'],
 };

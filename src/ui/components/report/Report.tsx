@@ -17,7 +17,7 @@ type ReportProps = {
 
 export function Report({ answer, date2DigitMonth, date2DigitDate, answerTitle, onClick }: ReportProps) {
   return (
-    <InfoContainer key={answer.answer_id} onClick={() => onClick(answer.answer_id)}>
+    <InfoContainer className="report-item" key={answer.answer_id} onClick={() => onClick(answer.answer_id)}>
       <DetailContainer>
         <Typography variant="h4" color={styleToken.color.gray1}>
           {date2DigitMonth}/{date2DigitDate}

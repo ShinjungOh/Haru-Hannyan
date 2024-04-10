@@ -3,7 +3,7 @@
     "target": "ES2020", // 컴파일 결과물의 문법 -> ES2020
     "useDefineForClassFields": true, // 클래스 필드 정의 사용
     "lib": ["ES2020", "DOM", "DOM.Iterable"], // 사용 가능한 문법
-    "module": "ESNext", // 컴파일 결과물의 module 방식
+    "module": "CommonJS", // 컴파일 결과물의 module 방식
     "skipLibCheck": true, // d.ts 파일의 타입 검사 생략
     "useUnknownInCatchVariables": true, // try catch절에서 unknown 변수 유형 사용 가능
     "allowJs": true, // .js, .jsx 확장자 허용

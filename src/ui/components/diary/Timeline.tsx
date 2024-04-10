@@ -37,7 +37,9 @@ export function Timeline({ diary, dayOfWeek, date2Digit, onEditDiary, onDeleteDi
           <TextContainer>{diary.text}</TextContainer>
         </EmotionAndTextContainer>
       </DiaryContainer>
-      <DeleteButton onClick={() => onDeleteDiary(String(diary.diaryId))}>삭제</DeleteButton>
+      <DeleteButton name="delete_diary" onClick={() => onDeleteDiary(String(diary.diaryId))}>
+        삭제
+      </DeleteButton>
     </>
   );
 }

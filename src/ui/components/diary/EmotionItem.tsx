@@ -35,7 +35,7 @@ export function EmotionItem({ emotion, imgSrc, isSelected, onClick }: EmotionIte
   return (
     <Container onClick={() => onClick(emotion)} ref={containerRef}>
       <EmotionHeader isSelected={isSelected} height={width}>
-        <img src={imgSrc} alt={emotion} />
+        <img src={imgSrc} alt={emotion} id={emotion} />
       </EmotionHeader>
       <EmotionBody>{emotion}</EmotionBody>
     </Container>

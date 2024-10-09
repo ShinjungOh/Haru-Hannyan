@@ -25,7 +25,7 @@
 
 ## 배포 링크
 
-### [http://haru-hannyan.com](http://haru-hannyan.com)
+### [http://daily-nyan.com](http://daily-nyan.com)
 
 <br/><br/>
 
@@ -91,7 +91,7 @@ npm run dev
       <td align="center" valign="middle">
         <div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" width="500" height="1" />
-          <img width="70" src="https://docs.pmnd.rs/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzustand-icon.8507f6a0.png&w=2048&q=75" />
+          <img width="70" src="https://github.com/user-attachments/assets/bd492ad7-c84f-4faa-a584-851f8d64cfc3" />
           <p align="center">
             Zustand
           </p>

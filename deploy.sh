@@ -37,7 +37,7 @@ echo -e "✅ $ZIP_NAME 으로 압축 완료."
 
 # 원격 서버로 복사
 echo -e "🚚 원격 서버로 $ZIP_NAME 파일 복사 중..."
-scp -P 22 -i ~/.ssh/shinjungoh_haru.pem $ZIP_NAME ubuntu@133.186.251.22:$REMOTE_PATH
+scp -P 22 -i ~/.ssh/shinjungoh_haru.pem $ZIP_NAME ubuntu@133.186.228.178:$REMOTE_PATH
 if [ $? -ne 0 ]; then
   echo -e "❌ 에러: 원격 서버로의 $ZIP_NAME 파일 복사에 실패했습니다."
   exit 1
@@ -46,7 +46,7 @@ echo -e "✅ 원격 서버로 $ZIP_NAME 파일 복사 완료."
 
 # 원격 서버에서 배포 스크립트 실행
 echo -e "📡 원격 배포 스크립트 실행 중..."
-ssh -i ~/.ssh/shinjungoh_haru.pem ubuntu@133.186.251.22 "sh ~/sh/deploy.sh $1"
+ssh -i ~/.ssh/shinjungoh_haru.pem ubuntu@133.186.228.178 "sudo sh ~/sh/deploy.sh"
 if [ $? -ne 0 ]; then
   echo -e "❌ 에러: 원격 배포 스크립트 실행에 실패했습니다."
   exit 1
